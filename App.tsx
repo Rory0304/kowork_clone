@@ -2,7 +2,8 @@ import React from "react";
 import { enableScreens } from "react-native-screens";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AppProvider from "./app/contexts/AppProvider";
-
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 const supportedLanguages: string[] = [
   "en",
   "fr",
@@ -26,7 +27,11 @@ const App: React.FC = () => {
 
   return (
     <AppProvider>
-      <AppNavigator />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <AppNavigator />
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
     </AppProvider>
   );
 };
