@@ -2,57 +2,45 @@ import React from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigate";
+import { useQuery } from "@tanstack/react-query";
+import { getHighlightedJobPost } from "app/api/jobPostList";
+import type { JobPostType } from "app/types/JobPost";
 
-interface JobPostListProps {
-  id: number;
-  title: string;
-  company: string;
-  endDate: string;
-}
+interface JobPostListItemProps
+  extends Pick<JobPostType, "id" | "title" | "companyId" | "endDate"> {}
 
-const JOB_POST_LIST: JobPostListProps[] = [
-  {
-    id: 1,
-    title: "backend developer recruit",
-    company: "닉스 주식회사",
-
-    endDate: "11월 25일",
-  },
-  {
-    id: 2,
-    title: "backend developer recruit",
-    company: "닉스 주식회사",
-    endDate: "11월 25일",
-  },
-  {
-    id: 3,
-    title: "backend developer recruit",
-    company: "닉스 주식회사",
-    endDate: "11월 25일",
-  },
-  {
-    id: 4,
-    title: "backend developer recruit",
-    company: "닉스 주식회사",
-    endDate: "11월 25일",
-  },
-];
-
-const JobPostListSection: React.FC = () => {
-  const navigation = useNavigation();
-  const navigator = navigate(navigation);
-
-  const Item = ({ title, id, company, endDate }: JobPostListProps) => (
+const JobPostListItem: React.FC<JobPostListItemProps> = ({
+  title,
+  companyId,
+  id,
+  endDate,
+}) => {
+  return (
     <View className="px-3 py-4 mb-3 bg-white rounded-lg shadow-lg">
       <TouchableOpacity>
         <Text className="mb-1 text-base font-bold">{title}</Text>
         <View className="flex flex-row items-center justify-between ">
-          <Text className="font-semibold text-neutral-500">{company}</Text>
+          <Text className="font-semibold text-neutral-500">{companyId}</Text>
           <Text className="text-neutral-500">~{endDate}</Text>
         </View>
       </TouchableOpacity>
     </View>
   );
+};
+
+const JobPostListSection: React.FC = () => {
+  const navigation = useNavigation();
+  const navigator = navigate(navigation);
+
+  const { data, isError, error } = useQuery({
+    queryKey: ["getHighlightedJobPost"],
+    queryFn: async () =>
+      await getHighlightedJobPost({
+        first: 8,
+      }),
+  });
+
+  const jobPostList = data?.jobPostList;
 
   const handleShowMore = () => navigator.openJobSearchScreen();
 
@@ -61,9 +49,16 @@ const JobPostListSection: React.FC = () => {
       <FlatList
         scrollEnabled={false}
         className="p-4"
-        data={JOB_POST_LIST}
-        renderItem={({ item }) => <Item {...item} />}
-        keyExtractor={(item) => `${item.id}`}
+        data={jobPostList}
+        renderItem={({ item }) => (
+          <JobPostListItem
+            title={item.node.title}
+            id={item.node.id}
+            companyId={item.node.companyId}
+            endDate={item.node.endDate}
+          />
+        )}
+        keyExtractor={(item) => `${item.node.id}`}
       />
       <View className="px-4">
         <TouchableOpacity
