@@ -5,7 +5,6 @@ import {
   SearchJobPostListSection,
   SearchJobFilterSection,
 } from "app/components/pages/searchJob";
-import VStack from "app/components/blocks/Stack/VStack";
 
 const SearchJobScreen: React.FC = () => {
   return (
@@ -14,9 +13,7 @@ const SearchJobScreen: React.FC = () => {
         <SearchJobMainBanner />
       </View>
       <SearchJobPostListSection />
-      <VStack space={4}>
-        <SearchJobFilterSection />
-      </VStack>
+      <SearchJobFilterSection />
     </ScrollView>
   );
 };
