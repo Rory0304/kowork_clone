@@ -3,27 +3,30 @@ module.exports = function (api) {
   return {
     presets: ["babel-preset-expo"],
     plugins: [
+      "nativewind/babel",
+      "expo-router/babel",
       [
         "module-resolver",
         {
           extensions: [".ts", ".tsx", ".jsx", ".js", ".json"],
-          root: ["."],
+          root: ["./"],
           alias: {
-            assets: "./src/assets",
-            components: "./src/components",
-            contexts: "./src/contexts",
-            data: "./src/data",
-            hooks: "./src/hooks",
-            navigation: "./src/navigation",
-            screens: "./src/screens",
-            providers: "./src/providers",
-            supabase: "./src/supabase",
-            services: "./src/services",
-            config: "./src/config",
+            app: "./app/",
           },
         },
       ],
-      ["nativewind/babel"],
+      [
+        "module:react-native-dotenv",
+        {
+          moduleName: "env",
+          path: ".env",
+          blacklist: null,
+          whitelist: null,
+          safe: true,
+          allowUndefined: true,
+        },
+      ],
+      "react-native-reanimated/plugin",
     ],
   };
 };
