@@ -1,14 +1,13 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
-import { D101Test } from "app/constants/VisaTestSheet";
+import { F27Test } from "app/constants/VisaTestSheet";
 import TestSheet from "app/components/pages/VisaTest/TestSheet/TestSheet";
 import QuestionItem from "app/components/pages/VisaTest/TestSheet/QuestionItem";
-import WorkExperienceQuestionItem from "app/components/pages/VisaTest/TestSheet/WorkExperienceQuestionItem";
 import VisaTestScoreFooter from "app/components/pages/VisaTest/VisaTestScoreFooter";
 import VisaTestNoticeAccordion from "app/components/pages/VisaTest/VisaTestNoticeAccordion";
 import ProgressBar from "app/components/blocks/ProgressBar/ProgressBar";
 
-const VisaTestD101Screen: React.FC = () => {
+const VisaTestF27: React.FC = () => {
   const [totalScoreInfo, setTotalScoreInfo] = React.useState<{
     [key: string]: number;
   }>({});
@@ -17,20 +16,19 @@ const VisaTestD101Screen: React.FC = () => {
     React.useState(0);
   const [progress, setProgress] = React.useState(0);
 
-  const standardScore = D101Test.standardScore;
-  const requiredTest = React.useMemo(() => D101Test.required, []);
-  const optionalTest = React.useMemo(() => D101Test.optional, []);
+  const requiredTest = F27Test.required;
+  const standardScore = F27Test.standardScore;
+
+  const totalScore = Object.values(totalScoreInfo).reduce(
+    (acc, cur) => acc + cur,
+    0
+  );
 
   const handleTotoalScoreSet = React.useCallback(
     (name: string, score: number) => {
       setTotalScoreInfo((prev) => ({ ...prev, [name]: score }));
     },
     []
-  );
-
-  const totalScore = Object.values(totalScoreInfo).reduce(
-    (acc, cur) => acc + cur,
-    0
   );
 
   const handleOnScroll = (value: {
@@ -48,7 +46,7 @@ const VisaTestD101Screen: React.FC = () => {
     <View className="flex-1">
       <ProgressBar progress={progress} />
       <ScrollView
-        className="py-8 pb-12 mx-4"
+        className="px-4 py-8 pb-12"
         onScroll={handleOnScroll}
         onContentSizeChange={(_, height) => {
           setSccrollViewContentHeight(height);
@@ -69,26 +67,6 @@ const VisaTestD101Screen: React.FC = () => {
             />
           ))}
         </TestSheet>
-        {optionalTest ? (
-          <TestSheet {...optionalTest}>
-            {optionalTest.items.map((item, index) => {
-              return item.name === "workExperience" ? (
-                <WorkExperienceQuestionItem
-                  key={item.name}
-                  index={index + 1}
-                  {...item}
-                />
-              ) : (
-                <QuestionItem
-                  key={item.name}
-                  index={index + 1}
-                  onOptionClickCallback={handleTotoalScoreSet}
-                  {...item}
-                />
-              );
-            })}
-          </TestSheet>
-        ) : null}
       </ScrollView>
       <VisaTestScoreFooter
         totalScore={totalScore}
@@ -98,4 +76,4 @@ const VisaTestD101Screen: React.FC = () => {
   );
 };
 
-export default VisaTestD101Screen;
+export default VisaTestF27;

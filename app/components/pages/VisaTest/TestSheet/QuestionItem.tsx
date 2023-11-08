@@ -2,28 +2,39 @@ import React from "react";
 import { View, Text } from "react-native";
 import Stack from "app/components/blocks/Stack/Stack";
 
-import type { Item, ItemLayout } from "app/types/VisaTestSheet";
+import type { Item } from "app/types/VisaTestSheet";
 import _sum from "lodash/sum";
-import TestSheetOption from "app/components/blocks/TestSheet/TestSheetOption";
+import TestSheetOption from "app/components/pages/VisaTest/TestSheet/TestSheetOption";
 
 interface QuestionItemProps extends Item {
   index: number;
+  onOptionClickCallback?: (name: string, total: number) => void;
 }
 
 const QuestionItem: React.FC<QuestionItemProps> = ({
   index,
+  name,
   title,
   description,
   options,
   subItems,
   isMulti,
+  limit,
   layout = "vertical",
   optionVariant = "default",
+  onOptionClickCallback,
 }) => {
   const [activeOption, setOption] = React.useState(
     Array.from({ length: subItems?.length || 1 }, () => [0])
   );
+
   const [total, setTotal] = React.useState(0);
+
+  React.useEffect(() => {
+    if (typeof onOptionClickCallback === "function") {
+      onOptionClickCallback(name, total);
+    }
+  }, [total]);
 
   const handleOptionClick = (
     itemIndex: number,
@@ -60,7 +71,9 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
 
       newActiveOption[itemIndex].push(selectedOption);
       setOption(newActiveOption);
-      setTotal((current) => current + score);
+      setTotal((current) =>
+        limit ? Math.min(current + score, limit) : current + score
+      );
       return;
     }
 
@@ -83,8 +96,15 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
   return (
     <View className="w-full mb-8">
       <View className="mb-2">
-        <Stack direction="row" styles="justify-between items-center">
-          <Text className="mb-2 text-xl font-semibold">{`${index}. ${title}`}</Text>
+        <Stack styles="justify-between items-center mb-2">
+          <Stack styles="items-center">
+            <Text className="text-lg font-semibold ">{`${index}. ${title}`}</Text>
+            {isMulti ? (
+              <View className="px-3 py-1 ml-2 bg-blue-600 rounded-3xl">
+                <Text className="text-[10px] text-white">복수선택 가능</Text>
+              </View>
+            ) : null}
+          </Stack>
           <Text className="text-xl font-semibold text-primary">{total}</Text>
         </Stack>
         {!!description ? (
@@ -137,4 +157,4 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
   );
 };
 
-export default QuestionItem;
+export default React.memo(QuestionItem);

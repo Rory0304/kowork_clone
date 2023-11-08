@@ -42,6 +42,16 @@ const openVisaTestD101Screen =
     });
   };
 
+  const openVisaTestF27Screen =
+    (navigation: NavigationProp<any, any>) =>
+    (props = {}) => {
+      navigation.navigate("ModalNavigator", {
+        screen: NAV_SCREENS.VisaTestF27,
+        params: props,
+      });
+    };
+
+
 const navigate = (
   navigation: NavigationProp<ReactNavigation.RootParamList>
 ) => ({
@@ -49,6 +59,7 @@ const navigate = (
   openNoticeItemModal: openNoticeItemModal(navigation),
   openJobPostDetailScreen: openJobPostDetailScreen(navigation),
   openVisaTestD101Screen: openVisaTestD101Screen(navigation),
+  openVisaTestF27Screen: openVisaTestF27Screen(navigation),
 });
 
 export default navigate;

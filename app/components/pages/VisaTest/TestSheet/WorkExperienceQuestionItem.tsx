@@ -4,25 +4,34 @@ import Stack from "app/components/blocks/Stack/Stack";
 
 import type { Item } from "app/types/VisaTestSheet";
 import _sum from "lodash/sum";
-import TestSheetOption from "app/components/blocks/TestSheet/TestSheetOption";
+import TestSheetOption from "app/components/pages/VisaTest/TestSheet/TestSheetOption";
 
 interface WorkExperienceQuestionitemProps extends Item {
   index: number;
+  onOptionClickCallback?: (name: string, total: number) => void;
 }
 
 const WorkExperienceQuestionitem: React.FC<WorkExperienceQuestionitemProps> = ({
   index,
+  name,
   title,
   description,
   options,
   layout = "vertical",
   optionVariant = "default",
+  onOptionClickCallback,
 }) => {
   const domesticOptionIdx = [1, 2, 3];
   const abroadOptionIdx = [4, 5, 6];
 
   const [activeOption, setOption] = React.useState<number[]>([]);
   const [total, setTotal] = React.useState(0);
+
+  React.useEffect(() => {
+    if (typeof onOptionClickCallback === "function") {
+      onOptionClickCallback(name, total);
+    }
+  }, [total]);
 
   // [TODO] make to reducer
   const handleOptionClick = (selectedOptionIdx: number, score: number) => {

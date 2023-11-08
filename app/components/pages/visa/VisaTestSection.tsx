@@ -50,6 +50,10 @@ const Item = ({ name, type, imgSrc, height, bottom }: VisaTestProps) => {
     if (type === "D-10-1") {
       return navigator.openVisaTestD101Screen();
     }
+
+    if(type === 'F-2-7'){
+      return navigator.openVisaTestF27Screen();
+    }
   };
 
   return (

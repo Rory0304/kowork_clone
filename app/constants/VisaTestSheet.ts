@@ -1,6 +1,7 @@
 import { TestSheetType } from "app/types/VisaTestSheet";
 
 export const D101Test: TestSheetType = {
+  standardScore: 60,
   required: {
     title: "기본항목",
     description: "기본항목 점수는 최소 20점 이상이여야 합니다.",
@@ -366,6 +367,312 @@ export const D101Test: TestSheetType = {
           {
             title: "3번 이상",
             score: -30,
+          },
+        ],
+      },
+    ],
+  },
+};
+
+export const F27Test: TestSheetType = {
+  standardScore: 80,
+  required: {
+    items: [
+      {
+        name: "age",
+        title: "나이",
+        description: "생일을 기준으로 나이를 체크해주세요.",
+        total: 0,
+        layout: "grid",
+        options: [
+          {
+            title: "해당없음",
+            score: 0,
+          },
+          {
+            title: "18-24세",
+            score: 23,
+          },
+          {
+            title: "25-29세",
+            score: 25,
+          },
+          {
+            title: "30-34세",
+            score: 23,
+          },
+          {
+            title: "35-39세",
+            score: 20,
+          },
+          {
+            title: "40-44세",
+            score: 12,
+          },
+          {
+            title: "45-50세",
+            score: 8,
+          },
+          {
+            title: "51세 이상",
+            score: 3,
+          },
+        ],
+      },
+      {
+        name: "education",
+        title: "최종학력",
+        description: "- 학위증만 인정\n- 학위 2개 이상: 계열 불문",
+        total: 0,
+        options: [
+          {
+            title: "전문학사",
+            label: "이공계 외",
+            score: 10,
+          },
+          {
+            title: "전문학사",
+            label: "이공계",
+            score: 15,
+          },
+          {
+            title: "학사",
+            label: "이공계 외",
+            score: 15,
+          },
+          {
+            title: "학사",
+            label: "이공계 or\n2개 이상의 학위",
+            score: 17,
+          },
+          {
+            title: "석사",
+            label: "이공계 외",
+            score: 17,
+          },
+          {
+            title: "석사",
+            label: "이공계 or\n2개 이상의 학위",
+            score: 20,
+          },
+          {
+            title: "박사",
+            label: "이공계 외",
+            score: 20,
+          },
+          {
+            title: "박사",
+            label: "이공계 or\n2개 이상의 학위",
+            score: 25,
+          },
+        ],
+      },
+      {
+        name: "topik-kiip",
+        title: "토픽(TOPIK) 사회통합프로그램(KIIP)",
+        description:
+          "토픽은 공식점수표 유효기간 내의 것만 인정합니다.\n단, 국내 유학 졸업자는 기간이 지나도 인정돼요.",
+        total: 0,
+        options: [
+          {
+            title: "해당 없음",
+            score: 0,
+          },
+          {
+            title: "LV. 2. 이상",
+            score: 5,
+          },
+          {
+            title: "LV. 3. 이상",
+            score: 10,
+          },
+          {
+            title: "LV. 4. 이상",
+            score: 15,
+          },
+          {
+            title: "LV. 5. 이상",
+            score: 20,
+          },
+        ],
+      },
+      {
+        name: "annual-income",
+        title: "연간 소득",
+        description: "최신 소득금액증명(세무서 발급)에 기재된 소득 금액",
+        total: 0,
+        options: [
+          {
+            title: "최저임금 미만",
+            score: 0,
+          },
+          {
+            title: "최저임금-3천 만원 미만",
+            score: 10,
+          },
+          {
+            title: "3천-4천 만원 미만",
+            score: 30,
+          },
+          {
+            title: "4천-5천 만원 미만",
+            score: 40,
+          },
+          {
+            title: "5천-6천 만원 미만",
+            score: 45,
+          },
+          {
+            title: "6천-7천 만원 미만",
+            score: 50,
+          },
+          {
+            title: "7천-8천 만원 미만",
+            score: 53,
+          },
+          {
+            title: "8천-9천 만원 미만",
+            score: 56,
+          },
+          {
+            title: "9천만원-1억원 미만",
+            score: 58,
+          },
+          {
+            title: "1억원 이상",
+            score: 60,
+          },
+        ],
+      },
+      {
+        name: "etcAddScore",
+        title: "기타 추가 점수",
+        isMulti: true,
+        description: "해당 항목의 최대 점수는 40점을 넘을 수 없어요",
+        limit: 40,
+        total: 0,
+        options: [
+          {
+            title: "해당없음",
+            score: 0,
+          },
+          {
+            title: "KIIP 5단계 이수자",
+            score: 10,
+          },
+          {
+            title: "한국전 참전국 우수 인재",
+            score: 20,
+          },
+          {
+            title: "중앙행정기관 추천",
+            score: 20,
+          },
+        ],
+      },
+      {
+        name: "univ-add-score",
+        title: "우수 및 국내 대학 추가 점수",
+        description:
+          "*우수대학: 타임지 선정 200대 대학, QS에서 선정한 상위 500위 대학 및 법무부장관이 인정하는 특정 해외 대학\n 중복 시, 가장 높은 항목만 점수 획득 가능",
+        total: 0,
+        options: [
+          {
+            title: "해당없음",
+            score: 0,
+          },
+          {
+            title: "*우수대학 학사 졸업생",
+            score: 15,
+          },
+          {
+            title: "*우수대학 석사 졸업생",
+            score: 20,
+          },
+          {
+            title: "*우수대학 박사 졸업생",
+            score: 30,
+          },
+          {
+            title: "국내 대학 학사 졸업생",
+            score: 5,
+          },
+          {
+            title: "국내 대학 석사 졸업생",
+            score: 7,
+          },
+          {
+            title: "국내 대학 박사 졸업생",
+            score: 10,
+          },
+        ],
+      },
+      {
+        name: "volunteer",
+        title: "국내 사회봉사활동 (3년 이내)",
+        total: 0,
+        options: [
+          {
+            title: "해당없음",
+            score: 0,
+          },
+          {
+            title: "1년 이상-2년 미만",
+            score: 1,
+          },
+          {
+            title: "2년 이상-3년 미만",
+            score: 5,
+          },
+          {
+            title: "3년 이상",
+            score: 7,
+          },
+        ],
+      },
+      {
+        name: "violationImmigaration",
+        title: "출입국관리법 위반",
+        total: 0,
+        options: [
+          {
+            title: "해당없음",
+            score: 0,
+          },
+          {
+            title: "5십만원 - 1백 만원 미만",
+            score: -10,
+          },
+          {
+            title: "1백 만원 - 3백 만원 미만",
+            score: -20,
+          },
+          {
+            title: "3백 만원 혹은 출국명령 강제 퇴거",
+            score: -30,
+          },
+        ],
+      },
+      {
+        name: "criminal",
+        title: "형사처벌 전력",
+        total: 0,
+        options: [
+          {
+            title: "해당없음",
+            score: 0,
+          },
+          {
+            title: "2백 만원 미만 벌금형",
+            score: -20,
+          },
+          {
+            title: "2백-3백 만원 미만 벌금형",
+            score: -30,
+          },
+          {
+            title: "3백 만원 이상 벌금형",
+            score: -40,
           },
         ],
       },
