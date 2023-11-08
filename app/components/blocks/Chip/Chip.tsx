@@ -1,5 +1,6 @@
 import React from "react";
 import { Pressable, Text, View } from "react-native";
+import clsx from "clsx";
 
 type ChipVariant = "filled" | "outlined";
 type ChipSize = "default" | "small";
@@ -19,29 +20,28 @@ const Chip: React.FC<ChipProps> = ({
   active = false,
   onPress,
 }) => {
-  const getChipStyles = (variant: ChipVariant, active: boolean) => {
-    switch (variant) {
-      case "filled":
-        return active
-          ? "bg-neutral-100 opacity-20 border-neutral-100"
-          : "bg-primary opacity-20 border-primary";
+  const chipWrapperStyles = clsx(
+    "rounded-3xl px-5 py-1",
+    variant === "filled" && !active && "bg-neutral-100 border-primary",
+    variant === "filled" && active && "bg-blue-600/90",
+    variant === "outlined" && active && "border bg-blue-600/10 border-primary",
+    variant === "outlined" &&
+      !active &&
+      "bt-white opacity-20 border border-neutral-700"
+  );
 
-      case "outlined":
-        return active
-          ? "bg-primary opacity-20 border-primary"
-          : "bg-white opacity-20 border border-neutral-100";
-
-      default:
-        return "";
-    }
-  };
+  const chipTextStyles = clsx(
+    "text-base font-semibold",
+    variant === "filled" && !active && "text-neutral-300",
+    variant === "filled" && active && "text-white",
+    variant === "outlined" && active && "text-primary",
+    variant === "outlined" && !active && "text-neutral-700"
+  );
 
   return (
     <Pressable onPress={onPress}>
-      <View
-        className={`rounded-xl px-2 py-1 ${getChipStyles(variant, active)}`}
-      >
-        <Text>{label}</Text>
+      <View className={chipWrapperStyles}>
+        <Text className={chipTextStyles}>{label}</Text>
       </View>
     </Pressable>
   );

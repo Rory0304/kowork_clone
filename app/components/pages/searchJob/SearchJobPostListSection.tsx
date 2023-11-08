@@ -6,104 +6,31 @@ import SearchJobPostListItem from "./SearchJobPostListItem";
 import Swiper from "react-native-swiper";
 import _chunk from "lodash/chunk";
 import { gray } from "tailwindcss/colors";
+import { useQuery } from "@tanstack/react-query";
+import { getHighlightedJobPost } from "app/api/jobPostList";
 
 const COUNT_PER_SLIDE = 4;
 
-interface JobPostListItemProps {
-  id: number;
-  title: string;
-  company: string;
-  jobType: string;
-  area: string;
-  endDate: string;
-  isBookMarked: boolean;
-}
-
-const JOB_POST_LIST: JobPostListItemProps[] = [
-  {
-    id: 1,
-    title: "backend developer recruit",
-    company: "닉스 주식회사",
-    jobType: "정규직",
-    area: "서초구",
-    endDate: "11월 25일",
-    isBookMarked: false,
-  },
-  {
-    id: 2,
-    title: "backend developer recruit",
-    jobType: "정규직",
-    company: "닉스 주식회사",
-    area: "서초구",
-    endDate: "11월 25일",
-    isBookMarked: false,
-  },
-  {
-    id: 3,
-    title: "backend developer recruit",
-    jobType: "정규직",
-    company: "닉스 주식회사",
-    area: "서초구",
-    endDate: "11월 25일",
-    isBookMarked: false,
-  },
-  {
-    id: 4,
-    title: "backend developer recruit",
-    jobType: "정규직",
-    company: "닉스 주식회사",
-    area: "서초구",
-    endDate: "11월 25일",
-    isBookMarked: false,
-  },
-  {
-    id: 5,
-    title: "backend developer recruit",
-    jobType: "정규직",
-    company: "닉스 주식회사",
-    area: "서초구",
-    endDate: "11월 25일",
-    isBookMarked: false,
-  },
-  {
-    id: 6,
-    title: "backend developer recruit",
-    jobType: "정규직",
-    company: "닉스 주식회사",
-    area: "서초구",
-    endDate: "11월 25일",
-    isBookMarked: false,
-  },
-  {
-    id: 7,
-    title: "backend developer recruit",
-    jobType: "정규직",
-    company: "닉스 주식회사",
-    area: "서초구",
-    endDate: "11월 25일",
-    isBookMarked: false,
-  },
-  {
-    id: 8,
-    title: "backend developer recruit",
-    jobType: "정규직",
-    company: "닉스 주식회사",
-    area: "서초구",
-    endDate: "11월 25일",
-    isBookMarked: false,
-  },
-];
-
 const JobPostListSection: React.FC = () => {
-  const chunkedJobPostList = _chunk(JOB_POST_LIST, COUNT_PER_SLIDE);
   const [height, setHeight] = React.useState(500);
 
   const handleSetHeight = (value: number) => {
     setHeight(value);
   };
 
+  const { data, isError, error } = useQuery({
+    queryKey: ["getHighlightedJobPost"],
+    queryFn: async () =>
+      await getHighlightedJobPost({
+        first: 8,
+      }),
+  });
+
+  const jobPostList = data?.jobPostList;
+  const chunkedJobPostList = _chunk(jobPostList, COUNT_PER_SLIDE);
+
   return (
-    <View className="bg-white fit-height">
+    <View className="mb-4 bg-white">
       <Swiper
         loop={false}
         showsButtons={false}
@@ -136,15 +63,16 @@ const JobPostListSection: React.FC = () => {
         {chunkedJobPostList.map((list) => (
           <View
             onLayout={(event) => {
-              console.log("event", event.nativeEvent.layout.height);
               handleSetHeight(event.nativeEvent.layout.height);
             }}
           >
             <FlatList
               scrollEnabled={false}
               data={list}
-              renderItem={({ item }) => <SearchJobPostListItem {...item} />}
-              keyExtractor={(item) => `${item.id}`}
+              renderItem={({ item }) => (
+                <SearchJobPostListItem {...item.node} isBookMarked={false} />
+              )}
+              keyExtractor={(item) => `${item.node.id}`}
             />
           </View>
         ))}
