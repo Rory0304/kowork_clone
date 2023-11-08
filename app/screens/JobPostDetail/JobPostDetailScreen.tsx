@@ -21,8 +21,6 @@ const JobPostDetailScreen: React.FC = () => {
       }),
   });
 
-  console.log("data", data);
-
   const test = {
     id: "1",
     companyId: "1",
