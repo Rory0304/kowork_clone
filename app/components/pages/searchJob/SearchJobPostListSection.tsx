@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigate";
+import navigate from "app/utils/navigationHelper";
 import SearchJobPostListItem from "./SearchJobPostListItem";
 import Swiper from "react-native-swiper";
 import _chunk from "lodash/chunk";

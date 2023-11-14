@@ -12,7 +12,7 @@ import { contentLayoutStyle } from "app/constants/Global";
 
 const VisaScreen: React.FC = () => {
   return (
-    <ScrollView className={`py-4 ${contentLayoutStyle}`}>
+    <ScrollView className={contentLayoutStyle}>
       <VisaAdBanner />
       <VisaDetailBanner />
       <VStack space={8}>

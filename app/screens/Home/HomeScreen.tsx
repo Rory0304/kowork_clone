@@ -18,7 +18,7 @@ const HomeScreen: React.FC = () => {
       <ImportantNoticeSection />
       <SearchJobMainBanner />
       <JobPostListSection />
-      <View className={`${contentLayoutStyle}`}>
+      <View className="px-4">
         <VStack space={8}>
           <VisaRecommendSection />
         </VStack>

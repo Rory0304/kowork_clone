@@ -12,7 +12,7 @@ interface HomeNoticeBannerItemProps {
     src: ImageSourcePropType;
     width: number;
     height: number;
-  },
+  };
   bgColor: string;
 }
 
@@ -25,7 +25,7 @@ const HOME_NOTICE_BANNER_LIST: HomeNoticeBannerItemProps[] = [
     img: {
       src: require("../../../../assets/images/document.png"),
       width: 130,
-      height: 130
+      height: 130,
     },
     bgColor: "bg-[#edc431]",
   },
@@ -37,9 +37,9 @@ const HOME_NOTICE_BANNER_LIST: HomeNoticeBannerItemProps[] = [
     img: {
       src: require("../../../../assets/images/message-bubble.png"),
       width: 100,
-      height: 100
+      height: 100,
     },
-    bgColor: "bg-[#65e139]"
+    bgColor: "bg-[#65e139]",
   },
 ];
 
@@ -55,6 +55,7 @@ const HomeNoticeBanner: React.FC = () => {
       >
         {HOME_NOTICE_BANNER_LIST.map((item, index) => (
           <Stack
+            key={item.id}
             direction="row"
             styles={`${item.bgColor} h-full px-4 items-center justify-between`}
           >

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigate";
+import navigate from "app/utils/navigationHelper";
 import { useQuery } from "@tanstack/react-query";
 import { getHighlightedJobPost } from "app/api/jobPostList";
 import type { JobPostType } from "app/types/JobPost";

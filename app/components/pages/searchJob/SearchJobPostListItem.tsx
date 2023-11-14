@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Pressable } from "react-native";
 import FilledStarIcon from "react-native-heroicons/solid/StarIcon";
 import EmptyStarIcon from "react-native-heroicons/outline/StarIcon";
-import navigate from "app/utils/navigate";
+import navigate from "app/utils/navigationHelper";
 import { useNavigation } from "@react-navigation/native";
 
 import type { JobPostType } from "app/types/JobPost";

@@ -1,9 +1,8 @@
 import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import navigate from "../../../utils/navigate";
+import navigate from "../../../utils/navigationHelper";
 import MegaphoneIcon from "react-native-heroicons/solid/MegaphoneIcon";
-import { contentLayoutStyle } from "app/constants/Global";
 
 const ImportantNoticeSection: React.FC = () => {
   const navigation = useNavigation();
@@ -15,7 +14,7 @@ const ImportantNoticeSection: React.FC = () => {
   };
 
   return (
-    <View className={`${contentLayoutStyle} py-6`}>
+    <View className={`px-4 py-6`}>
       <TouchableOpacity
         onPress={() =>
           navigator.openNoticeItemModal({ noticeId: importantNotice.id })

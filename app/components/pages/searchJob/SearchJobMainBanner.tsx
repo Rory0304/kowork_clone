@@ -1,12 +1,9 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import { contentLayoutStyle } from "app/constants/Global";
 
 const JobPostListSection: React.FC = () => {
   return (
-    <View
-      className={`${contentLayoutStyle} flex flex-row items-center bg-white`}
-    >
+    <View className={`px-4 flex flex-row items-center bg-white`}>
       <View className="p-2 mr-2 border border-gray-200 rounded bg-gray-50">
         <Image
           alt=""

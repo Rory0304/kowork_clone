@@ -13,7 +13,7 @@ import Stack from "app/components/blocks/Stack/Stack";
 import TitleAndDescriptionSection from "app/components/pages/global/Section/TitleAndDescriptionSection";
 import ArrowRightCircleIcon from "react-native-heroicons/solid/ArrowRightCircleIcon";
 import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigate";
+import navigate from "app/utils/navigationHelper";
 
 type VisaType = "D-10-1" | "F-2-7";
 
@@ -51,7 +51,7 @@ const Item = ({ name, type, imgSrc, height, bottom }: VisaTestProps) => {
       return navigator.openVisaTestD101Screen();
     }
 
-    if(type === 'F-2-7'){
+    if (type === "F-2-7") {
       return navigator.openVisaTestF27Screen();
     }
   };
