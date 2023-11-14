@@ -3,6 +3,7 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import BottomTabNavigator from "./BottomTabNavigator";
 import ModalNavigator from "./ModalNavigator";
+import ResumeEditNavigator from "./ResumeEditNavigator";
 
 const CustomTheme = {
   ...DefaultTheme,
@@ -24,6 +25,10 @@ const AppNavigator: React.FC = () => {
           component={BottomTabNavigator}
         />
         <AppStack.Screen name="ModalNavigator" component={ModalNavigator} />
+        <AppStack.Screen
+          name="ResumeEditNavigator"
+          component={ResumeEditNavigator}
+        />
       </AppStack.Navigator>
     </NavigationContainer>
   );
