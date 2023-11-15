@@ -9,13 +9,6 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static"
-    },
-    "packagerOpts": {
-      "sourceExts": ["js", "json", "ts", "tsx", "jsx"]
     }
   }
 }

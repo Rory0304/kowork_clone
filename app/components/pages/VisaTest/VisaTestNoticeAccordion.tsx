@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import Animated, {
   useSharedValue,
   withTiming,
@@ -47,7 +47,7 @@ const VisaTesetNoticeAccordion: React.FC = () => {
   return (
     <View className="px-3 py-2 mb-2 transition-all bg-gray-100 border rounded border-neutral-500">
       <View className={`${isOpen ? "border-b pb-2" : ""} border-neutral-300`}>
-        <TouchableOpacity onPress={toggleOpen}>
+        <Pressable onPress={toggleOpen}>
           <Stack styles="justify-between items-center">
             <Text className="text-sm">
               새로운 기준/요건이 업데이트될 수 있어요.
@@ -58,7 +58,7 @@ const VisaTesetNoticeAccordion: React.FC = () => {
               <ChevronDownIcon width={20} height={20} />
             )}
           </Stack>
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <Animated.View style={[{ overflow: "hidden" }, animatedHeight]}>
         <View

@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
+import { ScrollView, View, Text, Pressable } from "react-native";
 
 import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
 import ChevronRightIcon from "react-native-heroicons/solid/ChevronRightIcon";
@@ -21,9 +21,7 @@ const MyPageScreen: React.FC = () => {
 
   const ResumeSection = (
     <View className="px-4 py-2 border rounded-md bg-gray-50 border-primary">
-      <TouchableOpacity
-        onPress={() => navigator.openResumeEditBasicInfoScreen()}
-      >
+      <Pressable onPress={() => navigator.openResumeEditBasicInfoScreen()}>
         <Stack styles="justify-between items-center">
           <View>
             <Stack styles="items-center">
@@ -36,7 +34,7 @@ const MyPageScreen: React.FC = () => {
           </View>
           <ChevronRightIcon />
         </Stack>
-      </TouchableOpacity>
+      </Pressable>
       <Stack styles="items-center my-4 flex-row w-full">
         <View className="h-3 mr-1 bg-blue-300 border-l border-blue-300 rounded-l-lg shrink basis-1/4" />
         <View className="h-3 mr-1 bg-blue-500 shrink basis-1/4" />
@@ -50,7 +48,7 @@ const MyPageScreen: React.FC = () => {
   );
 
   const ApplySection = (
-    <TouchableOpacity onPress={() => navigator.openMyApplyListScreen()}>
+    <Pressable onPress={() => navigator.openMyApplyListScreen()}>
       <Stack styles="justify-between rounded-md px-4 py-2 bg-gray-50 ">
         <Text className="text-lg font-bold">지원내역</Text>
         <Stack styles="items-center">
@@ -60,7 +58,7 @@ const MyPageScreen: React.FC = () => {
           <ChevronRightIcon />
         </Stack>
       </Stack>
-    </TouchableOpacity>
+    </Pressable>
   );
 
   const VisaSection = (
@@ -69,23 +67,23 @@ const MyPageScreen: React.FC = () => {
         {name}님의 현재 비자
       </Text>
       <Text className="text-lg font-bold">{currentVisa}</Text>
-      <TouchableOpacity onPress={() => navigator.openMyVisaEnrollScreen()}>
+      <Pressable onPress={() => navigator.openMyVisaEnrollScreen()}>
         <Text className="py-4 text-lg font-semibold text-center underline text-neutral-400">
           비자 등록하기
         </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigator.openMyVisaHistoryScreen()}>
+      </Pressable>
+      <Pressable onPress={() => navigator.openMyVisaHistoryScreen()}>
         <View className="px-4 py-2 border rounded-md">
           <Text className="font-bold text-center text-neutral-500">
             비자 히스토리
           </Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity>
+      </Pressable>
+      <Pressable>
         <View className="flex flex-row justify-center w-full p-3">
           <ChevronDownIcon width={24} height={24} />
         </View>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 

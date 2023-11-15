@@ -5,6 +5,12 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import AppProvider from "./app/contexts/AppProvider";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { NativeWindStyleSheet } from "nativewind";
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
+
 const supportedLanguages: string[] = [
   "en",
   "fr",
@@ -30,9 +36,7 @@ const App: React.FC = () => {
     <AppProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
-          <StatusBar
-            barStyle="dark-content"
-          />
+          <StatusBar barStyle="dark-content" />
           <KeyboardAvoidingView
             behavior={Platform.select({ ios: "padding", android: undefined })}
             keyboardVerticalOffset={16}

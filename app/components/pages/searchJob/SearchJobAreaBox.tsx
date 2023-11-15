@@ -1,7 +1,7 @@
 import React from "react";
 import Chip from "app/components/blocks/Chip/Chip";
 import { AREA_LIST } from "app/constants/JobCategory";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import Stack from "app/components/blocks/Stack/Stack";
 import XMarkIcon from "react-native-heroicons/solid/XMarkIcon";
 import ArrowPathIcon from "react-native-heroicons/solid/ArrowPathIcon";
@@ -26,9 +26,9 @@ const SearchJobAreaBox: React.FC<SearchJobAreaBoxProps> = ({
       >
         <XMarkIcon />
         <Text className="text-lg font-bold">지역 필터</Text>
-        <TouchableOpacity onPress={() => setSelectedArea([])}>
+        <Pressable onPress={() => setSelectedArea([])}>
           <ArrowPathIcon />
-        </TouchableOpacity>
+        </Pressable>
       </Stack>
       <Stack
         styles={"flex-wrap justify-center px-8 py-4"}
@@ -59,14 +59,14 @@ const SearchJobAreaBox: React.FC<SearchJobAreaBoxProps> = ({
           );
         })}
       </Stack>
-      <TouchableOpacity
+      <Pressable
         onPress={() => onSaveBtnClick(selectedArea)}
         className="p-3 m-4 rounded-lg bg-primary"
       >
         <Text className="text-lg font-bold text-center text-white">
           필터 적용
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

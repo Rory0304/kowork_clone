@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  ScrollView,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { ScrollView, Text, View, FlatList, Pressable } from "react-native";
 import { countries } from "app/constants/Country.json";
 import TextInput from "./TextInput";
 
@@ -43,11 +37,11 @@ const CountrySelectBox: React.FC<CountrySelectBoxProps> = ({ onPress }) => {
         </View>
       }
       renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => onPress(`${item.name}(${item.ko})`)}>
+        <Pressable onPress={() => onPress(`${item.name}(${item.ko})`)}>
           <Text className="py-4 font-medium">
             {item.name}({item.ko})
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       )}
       stickyHeaderIndices={[0]}
       className="px-4"

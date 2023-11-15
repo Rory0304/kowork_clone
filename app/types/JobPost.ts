@@ -1,9 +1,9 @@
 import {
-  JobCategory as JobCategoryType,
-  JobPost as JobPostType,
+  JobCategory,
+  JobPost,
 } from "../graphql/generated";
 
-export { JobCategoryType, JobPostType };
+export { JobCategory as JobCategoryType, JobPost as  JobPostType};
 
 export enum JobType {
   Temporary = "Temporary",

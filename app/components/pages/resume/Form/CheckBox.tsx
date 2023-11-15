@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import { Pressable, View, Text } from "react-native";
 
 interface CheckBoxProps {
   label: string;
@@ -15,7 +15,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   onPress,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress} className={className}>
+    <Pressable onPress={onPress} className={className}>
       <View
         className={`border rounded-lg py-2 px-1 ${
           active ? "border-primary" : "border-neutral-400"
@@ -29,7 +29,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
           {label}
         </Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

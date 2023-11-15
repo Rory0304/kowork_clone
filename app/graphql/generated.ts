@@ -58,6 +58,7 @@ export type BooleanFilter = {
 export type Company = Node & {
   __typename?: 'Company';
   email?: Maybe<Scalars['String']['output']>;
+  favoritesCollection?: Maybe<FavoritesConnection>;
   id: Scalars['BigInt']['output'];
   industry?: Maybe<Scalars['String']['output']>;
   jobPostCollection?: Maybe<JobPostConnection>;
@@ -67,6 +68,16 @@ export type Company = Node & {
   nodeId: Scalars['ID']['output'];
   uuid: Scalars['UUID']['output'];
   website?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type CompanyFavoritesCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<FavoritesFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<FavoritesOrderBy>>;
 };
 
 
@@ -197,6 +208,86 @@ export type EmploymentArrangementFilter = {
   neq?: InputMaybe<EmploymentArrangement>;
 };
 
+export type Favorites = Node & {
+  __typename?: 'Favorites';
+  company: Company;
+  companyId: Scalars['BigInt']['output'];
+  created_at: Scalars['Datetime']['output'];
+  id: Scalars['BigInt']['output'];
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID']['output'];
+  userId: Scalars['UUID']['output'];
+};
+
+export type FavoritesConnection = {
+  __typename?: 'FavoritesConnection';
+  edges: Array<FavoritesEdge>;
+  pageInfo: PageInfo;
+};
+
+export type FavoritesDeleteResponse = {
+  __typename?: 'FavoritesDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Favorites>;
+};
+
+export type FavoritesEdge = {
+  __typename?: 'FavoritesEdge';
+  cursor: Scalars['String']['output'];
+  node: Favorites;
+};
+
+export type FavoritesFilter = {
+  /** Returns true only if all its inner filters are true, otherwise returns false */
+  and?: InputMaybe<Array<FavoritesFilter>>;
+  companyId?: InputMaybe<BigIntFilter>;
+  created_at?: InputMaybe<DatetimeFilter>;
+  id?: InputMaybe<BigIntFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  /** Negates a filter */
+  not?: InputMaybe<FavoritesFilter>;
+  /** Returns true if at least one of its inner filters is true, otherwise returns false */
+  or?: InputMaybe<Array<FavoritesFilter>>;
+  userId?: InputMaybe<UuidFilter>;
+};
+
+export type FavoritesInsertInput = {
+  companyId?: InputMaybe<Scalars['BigInt']['input']>;
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+};
+
+export type FavoritesInsertResponse = {
+  __typename?: 'FavoritesInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Favorites>;
+};
+
+export type FavoritesOrderBy = {
+  companyId?: InputMaybe<OrderByDirection>;
+  created_at?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  userId?: InputMaybe<OrderByDirection>;
+};
+
+export type FavoritesUpdateInput = {
+  companyId?: InputMaybe<Scalars['BigInt']['input']>;
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+};
+
+export type FavoritesUpdateResponse = {
+  __typename?: 'FavoritesUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Favorites>;
+};
+
 export enum FilterIs {
   NotNull = 'NOT_NULL',
   Null = 'NULL'
@@ -231,6 +322,22 @@ export type IntFilter = {
   neq?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export enum JobCategory {
+  Etc = 'Etc',
+  Language = 'Language',
+  Manufacture = 'Manufacture',
+  Office = 'Office',
+  PartTime = 'PartTime'
+}
+
+/** Boolean expression comparing fields on type "JobCategory" */
+export type JobCategoryFilter = {
+  eq?: InputMaybe<JobCategory>;
+  in?: InputMaybe<Array<JobCategory>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<JobCategory>;
+};
+
 export type JobPost = Node & {
   __typename?: 'JobPost';
   area: Scalars['String']['output'];
@@ -242,12 +349,15 @@ export type JobPost = Node & {
   endDate?: Maybe<Scalars['Date']['output']>;
   id: Scalars['BigInt']['output'];
   images?: Maybe<Scalars['JSON']['output']>;
+  jobCategory: JobCategory;
   jobDescription: Scalars['JSON']['output'];
   jobType: JobType;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
   preferredVisaList: Scalars['JSON']['output'];
   salary?: Maybe<Scalars['BigFloat']['output']>;
+  siDo: Scalars['String']['output'];
+  siGunGu: Scalars['String']['output'];
   title: Scalars['String']['output'];
   uuid: Scalars['UUID']['output'];
   workLocation: Scalars['String']['output'];
@@ -286,6 +396,7 @@ export type JobPostFilter = {
   employmentArrangement?: InputMaybe<EmploymentArrangementFilter>;
   endDate?: InputMaybe<DateFilter>;
   id?: InputMaybe<BigIntFilter>;
+  jobCategory?: InputMaybe<JobCategoryFilter>;
   jobType?: InputMaybe<JobTypeFilter>;
   nodeId?: InputMaybe<IdFilter>;
   /** Negates a filter */
@@ -293,6 +404,8 @@ export type JobPostFilter = {
   /** Returns true if at least one of its inner filters is true, otherwise returns false */
   or?: InputMaybe<Array<JobPostFilter>>;
   salary?: InputMaybe<BigFloatFilter>;
+  siDo?: InputMaybe<StringFilter>;
+  siGunGu?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   uuid?: InputMaybe<UuidFilter>;
   workLocation?: InputMaybe<StringFilter>;
@@ -308,10 +421,13 @@ export type JobPostInsertInput = {
   employmentArrangement?: InputMaybe<EmploymentArrangement>;
   endDate?: InputMaybe<Scalars['Date']['input']>;
   images?: InputMaybe<Scalars['JSON']['input']>;
+  jobCategory?: InputMaybe<JobCategory>;
   jobDescription?: InputMaybe<Scalars['JSON']['input']>;
   jobType?: InputMaybe<JobType>;
   preferredVisaList?: InputMaybe<Scalars['JSON']['input']>;
   salary?: InputMaybe<Scalars['BigFloat']['input']>;
+  siDo?: InputMaybe<Scalars['String']['input']>;
+  siGunGu?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   uuid?: InputMaybe<Scalars['UUID']['input']>;
   workLocation?: InputMaybe<Scalars['String']['input']>;
@@ -336,8 +452,11 @@ export type JobPostOrderBy = {
   employmentArrangement?: InputMaybe<OrderByDirection>;
   endDate?: InputMaybe<OrderByDirection>;
   id?: InputMaybe<OrderByDirection>;
+  jobCategory?: InputMaybe<OrderByDirection>;
   jobType?: InputMaybe<OrderByDirection>;
   salary?: InputMaybe<OrderByDirection>;
+  siDo?: InputMaybe<OrderByDirection>;
+  siGunGu?: InputMaybe<OrderByDirection>;
   title?: InputMaybe<OrderByDirection>;
   uuid?: InputMaybe<OrderByDirection>;
   workLocation?: InputMaybe<OrderByDirection>;
@@ -353,10 +472,13 @@ export type JobPostUpdateInput = {
   employmentArrangement?: InputMaybe<EmploymentArrangement>;
   endDate?: InputMaybe<Scalars['Date']['input']>;
   images?: InputMaybe<Scalars['JSON']['input']>;
+  jobCategory?: InputMaybe<JobCategory>;
   jobDescription?: InputMaybe<Scalars['JSON']['input']>;
   jobType?: InputMaybe<JobType>;
   preferredVisaList?: InputMaybe<Scalars['JSON']['input']>;
   salary?: InputMaybe<Scalars['BigFloat']['input']>;
+  siDo?: InputMaybe<Scalars['String']['input']>;
+  siGunGu?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   uuid?: InputMaybe<Scalars['UUID']['input']>;
   workLocation?: InputMaybe<Scalars['String']['input']>;
@@ -391,18 +513,24 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Deletes zero or more records from the `Company` collection */
   deleteFromCompanyCollection: CompanyDeleteResponse;
+  /** Deletes zero or more records from the `Favorites` collection */
+  deleteFromFavoritesCollection: FavoritesDeleteResponse;
   /** Deletes zero or more records from the `JobPost` collection */
   deleteFromJobPostCollection: JobPostDeleteResponse;
   /** Deletes zero or more records from the `Notice` collection */
   deleteFromNoticeCollection: NoticeDeleteResponse;
   /** Adds one or more `Company` records to the collection */
   insertIntoCompanyCollection?: Maybe<CompanyInsertResponse>;
+  /** Adds one or more `Favorites` records to the collection */
+  insertIntoFavoritesCollection?: Maybe<FavoritesInsertResponse>;
   /** Adds one or more `JobPost` records to the collection */
   insertIntoJobPostCollection?: Maybe<JobPostInsertResponse>;
   /** Adds one or more `Notice` records to the collection */
   insertIntoNoticeCollection?: Maybe<NoticeInsertResponse>;
   /** Updates zero or more records in the `Company` collection */
   updateCompanyCollection: CompanyUpdateResponse;
+  /** Updates zero or more records in the `Favorites` collection */
+  updateFavoritesCollection: FavoritesUpdateResponse;
   /** Updates zero or more records in the `JobPost` collection */
   updateJobPostCollection: JobPostUpdateResponse;
   /** Updates zero or more records in the `Notice` collection */
@@ -414,6 +542,13 @@ export type Mutation = {
 export type MutationDeleteFromCompanyCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<CompanyFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromFavoritesCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<FavoritesFilter>;
 };
 
 
@@ -438,6 +573,12 @@ export type MutationInsertIntoCompanyCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationInsertIntoFavoritesCollectionArgs = {
+  objects: Array<FavoritesInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationInsertIntoJobPostCollectionArgs = {
   objects: Array<JobPostInsertInput>;
 };
@@ -454,6 +595,14 @@ export type MutationUpdateCompanyCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<CompanyFilter>;
   set: CompanyUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateFavoritesCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<FavoritesFilter>;
+  set: FavoritesUpdateInput;
 };
 
 
@@ -582,6 +731,8 @@ export type Query = {
   __typename?: 'Query';
   /** A pagable collection of type `Company` */
   companyCollection?: Maybe<CompanyConnection>;
+  /** A pagable collection of type `Favorites` */
+  favoritesCollection?: Maybe<FavoritesConnection>;
   /** A pagable collection of type `JobPost` */
   jobPostCollection?: Maybe<JobPostConnection>;
   /** Retrieve a record by its `ID` */
@@ -599,6 +750,17 @@ export type QueryCompanyCollectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<CompanyOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryFavoritesCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<FavoritesFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<FavoritesOrderBy>>;
 };
 
 
@@ -666,9 +828,10 @@ export type UuidFilter = {
   neq?: InputMaybe<Scalars['UUID']['input']>;
 };
 
-export type CompanyKeySpecifier = ('email' | 'id' | 'industry' | 'jobPostCollection' | 'location' | 'name' | 'nodeId' | 'uuid' | 'website' | CompanyKeySpecifier)[];
+export type CompanyKeySpecifier = ('email' | 'favoritesCollection' | 'id' | 'industry' | 'jobPostCollection' | 'location' | 'name' | 'nodeId' | 'uuid' | 'website' | CompanyKeySpecifier)[];
 export type CompanyFieldPolicy = {
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
+	favoritesCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	industry?: FieldPolicy<any> | FieldReadFunction<any>,
 	jobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -703,7 +866,41 @@ export type CompanyUpdateResponseFieldPolicy = {
 	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
 	records?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type JobPostKeySpecifier = ('area' | 'benefits' | 'company' | 'companyId' | 'created_at' | 'employmentArrangement' | 'endDate' | 'id' | 'images' | 'jobDescription' | 'jobType' | 'nodeId' | 'preferredVisaList' | 'salary' | 'title' | 'uuid' | 'workLocation' | 'workingDays' | 'workingHoursEnd' | 'workingHoursStart' | JobPostKeySpecifier)[];
+export type FavoritesKeySpecifier = ('company' | 'companyId' | 'created_at' | 'id' | 'nodeId' | 'userId' | FavoritesKeySpecifier)[];
+export type FavoritesFieldPolicy = {
+	company?: FieldPolicy<any> | FieldReadFunction<any>,
+	companyId?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
+	userId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FavoritesConnectionKeySpecifier = ('edges' | 'pageInfo' | FavoritesConnectionKeySpecifier)[];
+export type FavoritesConnectionFieldPolicy = {
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FavoritesDeleteResponseKeySpecifier = ('affectedCount' | 'records' | FavoritesDeleteResponseKeySpecifier)[];
+export type FavoritesDeleteResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FavoritesEdgeKeySpecifier = ('cursor' | 'node' | FavoritesEdgeKeySpecifier)[];
+export type FavoritesEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FavoritesInsertResponseKeySpecifier = ('affectedCount' | 'records' | FavoritesInsertResponseKeySpecifier)[];
+export type FavoritesInsertResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FavoritesUpdateResponseKeySpecifier = ('affectedCount' | 'records' | FavoritesUpdateResponseKeySpecifier)[];
+export type FavoritesUpdateResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type JobPostKeySpecifier = ('area' | 'benefits' | 'company' | 'companyId' | 'created_at' | 'employmentArrangement' | 'endDate' | 'id' | 'images' | 'jobCategory' | 'jobDescription' | 'jobType' | 'nodeId' | 'preferredVisaList' | 'salary' | 'siDo' | 'siGunGu' | 'title' | 'uuid' | 'workLocation' | 'workingDays' | 'workingHoursEnd' | 'workingHoursStart' | JobPostKeySpecifier)[];
 export type JobPostFieldPolicy = {
 	area?: FieldPolicy<any> | FieldReadFunction<any>,
 	benefits?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -714,11 +911,14 @@ export type JobPostFieldPolicy = {
 	endDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	images?: FieldPolicy<any> | FieldReadFunction<any>,
+	jobCategory?: FieldPolicy<any> | FieldReadFunction<any>,
 	jobDescription?: FieldPolicy<any> | FieldReadFunction<any>,
 	jobType?: FieldPolicy<any> | FieldReadFunction<any>,
 	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	preferredVisaList?: FieldPolicy<any> | FieldReadFunction<any>,
 	salary?: FieldPolicy<any> | FieldReadFunction<any>,
+	siDo?: FieldPolicy<any> | FieldReadFunction<any>,
+	siGunGu?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	uuid?: FieldPolicy<any> | FieldReadFunction<any>,
 	workLocation?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -751,15 +951,18 @@ export type JobPostUpdateResponseFieldPolicy = {
 	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
 	records?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('deleteFromCompanyCollection' | 'deleteFromJobPostCollection' | 'deleteFromNoticeCollection' | 'insertIntoCompanyCollection' | 'insertIntoJobPostCollection' | 'insertIntoNoticeCollection' | 'updateCompanyCollection' | 'updateJobPostCollection' | 'updateNoticeCollection' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('deleteFromCompanyCollection' | 'deleteFromFavoritesCollection' | 'deleteFromJobPostCollection' | 'deleteFromNoticeCollection' | 'insertIntoCompanyCollection' | 'insertIntoFavoritesCollection' | 'insertIntoJobPostCollection' | 'insertIntoNoticeCollection' | 'updateCompanyCollection' | 'updateFavoritesCollection' | 'updateJobPostCollection' | 'updateNoticeCollection' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	deleteFromCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteFromFavoritesCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteFromJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteFromNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	insertIntoCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	insertIntoFavoritesCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	insertIntoJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	insertIntoNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateFavoritesCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -806,9 +1009,10 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('companyCollection' | 'jobPostCollection' | 'node' | 'noticeCollection' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('companyCollection' | 'favoritesCollection' | 'jobPostCollection' | 'node' | 'noticeCollection' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	companyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	favoritesCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	jobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>,
 	noticeCollection?: FieldPolicy<any> | FieldReadFunction<any>
@@ -837,6 +1041,30 @@ export type StrictTypedTypePolicies = {
 	CompanyUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CompanyUpdateResponseKeySpecifier | (() => undefined | CompanyUpdateResponseKeySpecifier),
 		fields?: CompanyUpdateResponseFieldPolicy,
+	},
+	Favorites?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FavoritesKeySpecifier | (() => undefined | FavoritesKeySpecifier),
+		fields?: FavoritesFieldPolicy,
+	},
+	FavoritesConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FavoritesConnectionKeySpecifier | (() => undefined | FavoritesConnectionKeySpecifier),
+		fields?: FavoritesConnectionFieldPolicy,
+	},
+	FavoritesDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FavoritesDeleteResponseKeySpecifier | (() => undefined | FavoritesDeleteResponseKeySpecifier),
+		fields?: FavoritesDeleteResponseFieldPolicy,
+	},
+	FavoritesEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FavoritesEdgeKeySpecifier | (() => undefined | FavoritesEdgeKeySpecifier),
+		fields?: FavoritesEdgeFieldPolicy,
+	},
+	FavoritesInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FavoritesInsertResponseKeySpecifier | (() => undefined | FavoritesInsertResponseKeySpecifier),
+		fields?: FavoritesInsertResponseFieldPolicy,
+	},
+	FavoritesUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FavoritesUpdateResponseKeySpecifier | (() => undefined | FavoritesUpdateResponseKeySpecifier),
+		fields?: FavoritesUpdateResponseFieldPolicy,
 	},
 	JobPost?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | JobPostKeySpecifier | (() => undefined | JobPostKeySpecifier),
@@ -904,7 +1132,18 @@ export type StrictTypedTypePolicies = {
 	}
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;
-
+export const JobPostListItemFieldsFragmentDoc = gql`
+    fragment JobPostListItemFields on JobPost {
+  id
+  title
+  companyId
+  jobCategory
+  jobType
+  endDate
+  siDo
+  siGunGu
+}
+    `;
 export const GetCompanyDocument = gql`
     query GetCompany($uuid: UUID) {
   companyCollection(filter: {uuid: {eq: $uuid}}) {
@@ -948,6 +1187,45 @@ export const GetJobPostDocument = gql`
   }
 }
     `;
+export const GetJobPostByFilterDocument = gql`
+    query GetJobPostByFilter($jobCategory: [JobCategory!], $siDo: [String!], $first: Int, $after: Cursor) {
+  jobPostCollection(
+    first: $first
+    after: $after
+    filter: {and: [{jobCategory: {in: $jobCategory}}, {siDo: {in: $siDo}}]}
+    orderBy: [{created_at: DescNullsLast}]
+  ) {
+    edges {
+      node {
+        ...JobPostListItemFields
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${JobPostListItemFieldsFragmentDoc}`;
+export const GetHighlightedJobPostDocument = gql`
+    query GetHighlightedJobPost($first: Int, $after: Cursor) {
+  jobPostCollection(
+    first: $first
+    after: $after
+    orderBy: [{endDate: DescNullsLast}]
+  ) {
+    edges {
+      node {
+        ...JobPostListItemFields
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${JobPostListItemFieldsFragmentDoc}`;
 export const GetNoticesDocument = gql`
     query GetNotices($first: Int, $after: Cursor) {
   noticeCollection(first: $first, after: $after) {
@@ -965,6 +1243,8 @@ export const GetNoticesDocument = gql`
   }
 }
     `;
+export type JobPostListItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyId: any, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string };
+
 export type GetCompanyQueryVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
 }>;
@@ -978,6 +1258,24 @@ export type GetJobPostQueryVariables = Exact<{
 
 
 export type GetJobPostQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null } }> } | null };
+
+export type GetJobPostByFilterQueryVariables = Exact<{
+  jobCategory?: InputMaybe<Array<JobCategory> | JobCategory>;
+  siDo?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+}>;
+
+
+export type GetJobPostByFilterQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyId: any, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+
+export type GetHighlightedJobPostQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']['input']>;
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+}>;
+
+
+export type GetHighlightedJobPostQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyId: any, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
 
 export type GetNoticesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;

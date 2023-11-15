@@ -1,10 +1,4 @@
-import {
-  ScrollView,
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { ScrollView, View, Text, FlatList, Pressable } from "react-native";
 import React from "react";
 import Stack from "app/components/blocks/Stack/Stack";
 import TrashIcon from "react-native-heroicons/solid/TrashIcon";
@@ -43,7 +37,7 @@ const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
 
   return (
     <View className="px-4 mb-4">
-      <TouchableOpacity onPress={() => setOpen((current) => !current)}>
+      <Pressable onPress={() => setOpen((current) => !current)}>
         <Stack styles="p-4 bg-gray-50 rounded-xl justify-between items-center">
           <Text className="text-sm font-medium text-neutral-400">
             ~{finalEntryDate}
@@ -51,7 +45,7 @@ const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
           <Text className="text-base font-bold">{VisaStatus[status]}</Text>
           <ChevronDownIcon />
         </Stack>
-      </TouchableOpacity>
+      </Pressable>
       <View className={`${open ? "block" : "hidden"} px-2`}>
         {configuredInfo.map((item, index) => (
           <Stack
@@ -101,11 +95,11 @@ const MyVisaHistory: React.FC = () => {
           <Text className="text-sm font-medium text-neutral-400">
             총 {myVisaHistoryList.length}건
           </Text>
-          <TouchableOpacity onPress={() => setIsEditShown(!isEditShown)}>
+          <Pressable onPress={() => setIsEditShown(!isEditShown)}>
             <Text className="text-sm font-medium text-neutral-400">
               {isEditShown ? "취소" : "편집"}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </Stack>
         <Stack
           direction="row"
@@ -113,14 +107,14 @@ const MyVisaHistory: React.FC = () => {
             isEditShown ? "block" : "hidden"
           } px-4 py-3 items-center justify-between`}
         >
-          <TouchableOpacity>
+          <Pressable>
             <Text className="text-sm font-medium text-neutral-400">
               전체선택
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
+          </Pressable>
+          <Pressable>
             <TrashIcon />
-          </TouchableOpacity>
+          </Pressable>
         </Stack>
       </View>
 

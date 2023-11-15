@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Pressable, ScrollView } from "react-native";
 import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
 import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
 import { gray } from "tailwindcss/colors";
@@ -23,9 +23,9 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
           <Text className="text-base font-bold">{headerTitle}</Text>
         ) : null}
         {closeBtn && typeof onClose === "function" ? (
-          <TouchableOpacity onPress={() => onClose()}>
+          <Pressable onPress={() => onClose()}>
             <XMarkIcon width={24} height={24} color="gray" />
-          </TouchableOpacity>
+          </Pressable>
         ) : null}
       </View>
     );

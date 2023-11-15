@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import Stack from "app/components/blocks/Stack/Stack";
 import clsx from "clsx";
 
@@ -38,12 +38,12 @@ const Button: React.FC<ButtonProps> = ({
   );
 
   return (
-    <TouchableOpacity onPress={onPress} disabled={disabeld}>
+    <Pressable onPress={onPress} disabled={disabeld}>
       <Stack styles={ButtonWrapperStyles}>
         {Icon ? <View className="mr-2">{Icon}</View> : null}
         <Text className={ButtonLabelStyles}>{label}</Text>
       </Stack>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

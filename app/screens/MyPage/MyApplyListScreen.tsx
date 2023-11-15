@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 import Stack from "app/components/blocks/Stack/Stack";
@@ -24,11 +24,11 @@ const MyApplyListScreen: React.FC = () => {
         <Text className="text-sm font-medium text-neutral-400">
           총 {myApplyList.length}건
         </Text>
-        <TouchableOpacity onPress={() => setIsEditShown(!isEditShown)}>
+        <Pressable onPress={() => setIsEditShown(!isEditShown)}>
           <Text className="text-sm font-medium text-neutral-400">
             {isEditShown ? "취소" : "편집"}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </Stack>
       <Stack
         direction="row"
@@ -36,12 +36,12 @@ const MyApplyListScreen: React.FC = () => {
           isEditShown ? "block" : "hidden"
         } px-4 py-3 items-center justify-between`}
       >
-        <TouchableOpacity>
+        <Pressable>
           <Text className="text-sm font-medium text-neutral-400">전체선택</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
+        </Pressable>
+        <Pressable>
           <TrashIcon />
-        </TouchableOpacity>
+        </Pressable>
       </Stack>
 
       <View>
@@ -52,13 +52,13 @@ const MyApplyListScreen: React.FC = () => {
           <Text className="mb-4 text-base font-semibold text-neutral-400">
             지원내역이 아직 없어요.
           </Text>
-          <TouchableOpacity onPress={() => navigator.openJobSearchScreen()}>
+          <Pressable onPress={() => navigator.openJobSearchScreen()}>
             <View className="flex px-8 py-3 bg-gray-100 rounded-md opacity-80">
               <Text className="text-lg font-bold text-blue-600">
                 지금 지원하러 가기
               </Text>
             </View>
-          </TouchableOpacity>
+          </Pressable>
         </Stack>
       </View>
     </View>

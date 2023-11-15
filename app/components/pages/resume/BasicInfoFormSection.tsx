@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import { Control, Controller, useFormContext } from "react-hook-form";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import {
@@ -75,9 +75,7 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
               name="country"
               control={control}
               render={({ field: { value } }) => (
-                <TouchableOpacity
-                  onPress={() => bottomSheetRef?.current?.present()}
-                >
+                <Pressable onPress={() => bottomSheetRef?.current?.present()}>
                   <Stack styles="items-center justify-between p-3 bg-gray-200 border border-gray-300 rounded-lg">
                     <Text className="text-sm font-medium shrink">{value}</Text>
                     <ChevronDownIcon
@@ -87,7 +85,7 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
                       className="flex-1"
                     />
                   </Stack>
-                </TouchableOpacity>
+                </Pressable>
               )}
             />
           }

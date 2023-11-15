@@ -1,5 +1,5 @@
 import React from "react";
-import Swiper from "react-native-swiper";
+// import Swiper from "react-native-swiper";
 import { View, Text, Image, ImageSourcePropType } from "react-native";
 import Stack from "app/components/blocks/Stack/Stack";
 
@@ -46,7 +46,7 @@ const HOME_NOTICE_BANNER_LIST: HomeNoticeBannerItemProps[] = [
 const HomeNoticeBanner: React.FC = () => {
   return (
     <View className="w-full">
-      <Swiper
+      {/* <Swiper
         autoplay
         height={160}
         loop={false}
@@ -85,7 +85,7 @@ const HomeNoticeBanner: React.FC = () => {
             </View>
           </Stack>
         ))}
-      </Swiper>
+      </Swiper> */}
     </View>
   );
 };

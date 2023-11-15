@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Alert, ScrollView, View, TouchableOpacity } from "react-native";
+import { Text, Alert, ScrollView, View, Pressable } from "react-native";
 import {
   useFormContext,
   Controller,
@@ -138,11 +138,9 @@ const LanguageFormSection: React.FC = () => {
           <View key={field.id} className="p-4">
             <Stack styles="justify-between mb-4">
               <Text className="text-base font-bold ">기타 언어</Text>
-              <TouchableOpacity
-                onPress={() => createRemoveEduFormInputAlert(index)}
-              >
+              <Pressable onPress={() => createRemoveEduFormInputAlert(index)}>
                 <MinusIcon />
-              </TouchableOpacity>
+              </Pressable>
             </Stack>
             <EtcLanguageFormInput {...{ control, index }} />
           </View>

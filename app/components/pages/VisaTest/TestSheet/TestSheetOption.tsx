@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, Pressable, Text } from "react-native";
 import CheckIcon from "app/components/blocks/Icon/CheckIcon";
 import Stack from "app/components/blocks/Stack/Stack";
 import type { ItemLayout, OptionVariant } from "app/types/VisaTestSheet";
@@ -102,7 +102,7 @@ const TestSheetOption: React.FC<TestSheetOptionProps> = ({
   };
 
   return (
-    <TouchableOpacity className={getLayoutStyles(itemLayout)} onPress={onPress}>
+    <Pressable className={getLayoutStyles(itemLayout)} onPress={onPress}>
       <View
         className={`p-3 flex flex-row flex-wrap rounded-lg  ${
           active ? "border-primary border-2" : "border-neutral-300 border"
@@ -110,7 +110,7 @@ const TestSheetOption: React.FC<TestSheetOptionProps> = ({
       >
         {renderTestSheetOptionContent({ variant, title, score, active })}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

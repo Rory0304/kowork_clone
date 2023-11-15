@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Alert, ScrollView, View, TouchableOpacity } from "react-native";
+import { Text, Alert, ScrollView, View, Pressable } from "react-native";
 import {
   useFormContext,
   Controller,
@@ -144,10 +144,10 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
         control={control}
         name={`career.${index}.isResigned`}
         render={({ field: { value, onChange } }) => (
-          <TouchableOpacity onPress={() => onChange(!value)}>
+          <Pressable onPress={() => onChange(!value)}>
             <CheckIcon checked={Boolean(value)} variant="circle" />
             <Text>재직중</Text>
-          </TouchableOpacity>
+          </Pressable>
         )}
       />
     </View>
@@ -184,11 +184,9 @@ const CareerFormSection: React.FC = () => {
         <View key={field.id}>
           <Stack styles="justify-between border-b  border-gray-300 p-4 bg-white">
             <Text className="text-base font-bold text-primary">경력</Text>
-            <TouchableOpacity
-              onPress={() => createRemoveCareerFormInputAlert(index)}
-            >
+            <Pressable onPress={() => createRemoveCareerFormInputAlert(index)}>
               <MinusIcon />
-            </TouchableOpacity>
+            </Pressable>
           </Stack>
           <CareerFormInput {...{ control, index }} />
         </View>
@@ -199,14 +197,14 @@ const CareerFormSection: React.FC = () => {
           <Text className="text-base font-bold text-primary">경력</Text>
         </Stack>
         <View className="px-4 py-6">
-          <TouchableOpacity onPress={handleAddCareerFormInput}>
+          <Pressable onPress={handleAddCareerFormInput}>
             <Stack styles="justify-center items-center px-4 py-3 border rounded-xl border-primary border-dashed">
               <PlusIcon />
               <Text className="ml-2 text-base font-bold text-primary">
                 경력 정보 추가하기
               </Text>
             </Stack>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </ScrollView>

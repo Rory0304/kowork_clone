@@ -5,7 +5,7 @@ import {
   FlatList,
   Image,
   ImageBackground,
-  TouchableOpacity,
+  Pressable,
   ImageSourcePropType,
 } from "react-native";
 
@@ -57,7 +57,7 @@ const Item = ({ name, type, imgSrc, height, bottom }: VisaTestProps) => {
   };
 
   return (
-    <TouchableOpacity
+    <Pressable
       className="flex-1 border border-gray-200 rounded-md cp-2 bg-gray-50"
       onPress={() => handleVisaTestPageOpen(type)}
     >
@@ -86,7 +86,7 @@ const Item = ({ name, type, imgSrc, height, bottom }: VisaTestProps) => {
           />
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

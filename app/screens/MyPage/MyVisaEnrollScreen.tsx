@@ -5,7 +5,7 @@ import {
   ScrollView,
   Text,
   FlatList,
-  TouchableOpacity,
+  Pressable,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -99,7 +99,7 @@ const MyVisaEnrollScreen: React.FC = () => {
           <Text className="mb-2 text-base font-bold text-neutral-700">
             체류자격 / Status
           </Text>
-          <TouchableOpacity onPress={() => bottomSheetRef?.current?.present()}>
+          <Pressable onPress={() => bottomSheetRef?.current?.present()}>
             <View className="p-4 bg-gray-200 border border-gray-300 rounded-xl">
               <Text
                 className={`text-base font-medium ${
@@ -111,7 +111,7 @@ const MyVisaEnrollScreen: React.FC = () => {
                   : "체류자격 입력하기"}
               </Text>
             </View>
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View className="py-6">
           <Text className="mb-2 text-base font-bold text-neutral-700">
@@ -215,7 +215,7 @@ const MyVisaEnrollScreen: React.FC = () => {
                 >
               }
               renderItem={({ item }) => (
-                <TouchableOpacity
+                <Pressable
                   className="my-3"
                   onPress={() => {
                     setValue("visaStatus", item, { shouldDirty: true });
@@ -225,7 +225,7 @@ const MyVisaEnrollScreen: React.FC = () => {
                   <Text className="text-base font-semibold text-neutral-600">
                     {VisaStatus[item]}
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               )}
             />
           </BottomSheetScrollView>

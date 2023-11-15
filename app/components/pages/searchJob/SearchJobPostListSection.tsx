@@ -3,7 +3,7 @@ import { View, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 import SearchJobPostListItem from "./SearchJobPostListItem";
-import Swiper from "react-native-swiper";
+// import Swiper from "react-native-swiper";
 import _chunk from "lodash/chunk";
 import { gray } from "tailwindcss/colors";
 import { useQuery } from "@tanstack/react-query";
@@ -31,7 +31,7 @@ const JobPostListSection: React.FC = () => {
 
   return (
     <View className="mb-4 bg-white">
-      <Swiper
+      {/* <Swiper
         loop={false}
         showsButtons={false}
         dot={
@@ -76,7 +76,7 @@ const JobPostListSection: React.FC = () => {
             />
           </View>
         ))}
-      </Swiper>
+      </Swiper> */}
     </View>
   );
 };

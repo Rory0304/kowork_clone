@@ -4,7 +4,6 @@ import {
   View,
   FlatList,
   Pressable,
-  TouchableOpacity,
   Text,
 } from "react-native";
 import SearchJobPostListItem from "./SearchJobPostListItem";
@@ -99,7 +98,7 @@ const SearchJobFilterSection: React.FC = () => {
   );
 
   const AreaFilter = (
-    <TouchableOpacity onPress={handleAreaFilterOpen}>
+    <Pressable onPress={handleAreaFilterOpen}>
       <Stack styles="items-center border-b px-1 pb-0.5 justify-between">
         <Text className="mr-1">
           {selectedArea.length === 0
@@ -110,7 +109,7 @@ const SearchJobFilterSection: React.FC = () => {
         </Text>
         <MapPinIcon width={20} height={20} />
       </Stack>
-    </TouchableOpacity>
+    </Pressable>
   );
 
   const JobTypeFilter = (

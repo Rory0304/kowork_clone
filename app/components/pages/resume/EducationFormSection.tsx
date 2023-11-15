@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Alert, ScrollView, View, TouchableOpacity } from "react-native";
+import { Text, Alert, ScrollView, View, Pressable } from "react-native";
 import {
   useFormContext,
   Controller,
@@ -74,10 +74,10 @@ const EducationFormInput: React.FC<EducationFormInputProps> = ({
         control={control}
         name={`education.${index}.isGraduate`}
         render={({ field: { value, onChange } }) => (
-          <TouchableOpacity onPress={() => onChange(!value)}>
+          <Pressable onPress={() => onChange(!value)}>
             <CheckIcon checked={Boolean(value)} variant="circle" />
             <Text>재학중</Text>
-          </TouchableOpacity>
+          </Pressable>
         )}
       />
       {/* 학교명 */}
@@ -218,11 +218,9 @@ const EducationFormSection: React.FC = () => {
         <View key={field.id}>
           <Stack styles="justify-between border-b border-gray-300 p-4 bg-white">
             <Text className="text-base font-bold text-primary">학력</Text>
-            <TouchableOpacity
-              onPress={() => createRemoveEduFormInputAlert(index)}
-            >
+            <Pressable onPress={() => createRemoveEduFormInputAlert(index)}>
               <MinusIcon />
-            </TouchableOpacity>
+            </Pressable>
           </Stack>
           <EducationFormInput {...{ control, index }} />
         </View>
@@ -233,14 +231,14 @@ const EducationFormSection: React.FC = () => {
           <Text className="text-base font-bold text-primary">학력</Text>
         </Stack>
         <View className="px-4 py-6">
-          <TouchableOpacity onPress={handleAddEduFormInput}>
+          <Pressable onPress={handleAddEduFormInput}>
             <Stack styles="justify-center items-center px-4 py-3 border rounded-xl border-primary border-dashed">
               <PlusIcon />
               <Text className="ml-2 text-base font-bold text-primary">
                 학력 정보 추가하기
               </Text>
             </Stack>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </ScrollView>
