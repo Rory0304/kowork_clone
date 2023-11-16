@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { grayBoxStyle } from "app/constants/Global";
+import { grayBoxStyle } from "app/constants/styles/Global";
 import ArrowRightCircleIcon from "react-native-heroicons/solid/ArrowRightCircleIcon";
 
 const VisaDetailBanner: React.FC = () => {
