@@ -9,7 +9,7 @@ import {
   SearchJobMainBanner,
 } from "../../components/pages";
 import VStack from "app/components/blocks/Stack/VStack";
-import { contentLayoutStyle } from "app/constants/Global";
+import { contentLayoutStyle } from "app/constants/styles/Global";
 
 const HomeScreen: React.FC = () => {
   return (

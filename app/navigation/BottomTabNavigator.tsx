@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeNavigator from "./HomeNavigator";
@@ -8,39 +9,32 @@ import VisaNavigator from "./VisaNavigator";
 import TabBarIcon from "./TabBarIcon";
 
 import type { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import IdentificationIcon from "react-native-heroicons/solid/IdentificationIcon";
-import UserIcon from "react-native-heroicons/solid/UserIcon";
-import MagnifyingGlassIcon from "react-native-heroicons/solid/MagnifyingGlassIcon";
-import HomeIcon from "react-native-heroicons/solid/HomeIcon";
 
 const HomeTab: BottomTabNavigationOptions = {
   tabBarLabel: "홈",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon Icon={<HomeIcon />} focused={focused} />
+    <TabBarIcon iconName="HomeIcon" focused={focused} />
   ),
 };
 
 const SearchJobTab: BottomTabNavigationOptions = {
   tabBarLabel: "일자리",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon Icon={<MagnifyingGlassIcon />} focused={focused} />
+    <TabBarIcon iconName="MagnifyingGlassIcon" focused={focused} />
   ),
 };
 
 const VisaTab: BottomTabNavigationOptions = {
   tabBarLabel: "비자",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      Icon={<IdentificationIcon className="text-secondary" />}
-      focused={focused}
-    />
+    <TabBarIcon iconName="IdentificationIcon" focused={focused} />
   ),
 };
 
 const MyPageTab: BottomTabNavigationOptions = {
   tabBarLabel: "마이페이지",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon Icon={<UserIcon />} focused={focused} />
+    <TabBarIcon iconName="UserIcon" focused={focused} />
   ),
 };
 
