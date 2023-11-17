@@ -4,6 +4,7 @@ import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
 import ChevronRightIcon from "react-native-heroicons/solid/ChevronRightIcon";
 import PencilIcon from "react-native-heroicons/solid/PencilIcon";
+import { supabaseClient } from "app/utils/supabase";
 
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
@@ -18,6 +19,19 @@ const MyPageScreen: React.FC = () => {
 
   const navigation = useNavigation();
   const navigator = navigate(navigation);
+
+  const handleSignOut = async () => {
+    try {
+      await supabaseClient.auth.signOut().then((res) => {
+        if (res.error) {
+          throw new Error("fail to sign out");
+        }
+        navigator.openHomeScreen();
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const ResumeSection = (
     <View className="px-4 py-2 border rounded-md bg-gray-50 border-primary">
@@ -101,6 +115,9 @@ const MyPageScreen: React.FC = () => {
         {ResumeSection}
         {ApplySection}
         {VisaSection}
+        <TouchableOpacity onPress={handleSignOut}>
+          <Text>로그아웃</Text>
+        </TouchableOpacity>
       </Stack>
     </ScrollView>
   );
