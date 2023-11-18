@@ -12,6 +12,10 @@ export interface JobPostDescriptionContentType {
   etc: string;
 }
 
+export interface WorkingDaysType {
+  days: string[]
+}
+
 export interface preferredVisaListType {
   visa: string[];
 }
