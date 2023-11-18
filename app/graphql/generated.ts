@@ -231,23 +231,43 @@ export type IntFilter = {
   neq?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export enum JobCategory {
+  Etc = 'Etc',
+  Language = 'Language',
+  Manufacture = 'Manufacture',
+  Office = 'Office',
+  PartTime = 'PartTime'
+}
+
+/** Boolean expression comparing fields on type "JobCategory" */
+export type JobCategoryFilter = {
+  eq?: InputMaybe<JobCategory>;
+  in?: InputMaybe<Array<JobCategory>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<JobCategory>;
+};
+
 export type JobPost = Node & {
   __typename?: 'JobPost';
   area: Scalars['String']['output'];
   benefits: Scalars['String']['output'];
   company: Company;
   companyId: Scalars['UUID']['output'];
+  companyName: Scalars['String']['output'];
   created_at: Scalars['Datetime']['output'];
   employmentArrangement: EmploymentArrangement;
   endDate?: Maybe<Scalars['Date']['output']>;
   id: Scalars['BigInt']['output'];
   images?: Maybe<Scalars['JSON']['output']>;
+  jobCategory: JobCategory;
   jobDescription: Scalars['JSON']['output'];
   jobType: JobType;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
   preferredVisaList: Scalars['JSON']['output'];
   salary?: Maybe<Scalars['BigFloat']['output']>;
+  siDo: Scalars['String']['output'];
+  siGunGu: Scalars['String']['output'];
   title: Scalars['String']['output'];
   uuid: Scalars['UUID']['output'];
   workLocation: Scalars['String']['output'];
@@ -282,10 +302,12 @@ export type JobPostFilter = {
   area?: InputMaybe<StringFilter>;
   benefits?: InputMaybe<StringFilter>;
   companyId?: InputMaybe<UuidFilter>;
+  companyName?: InputMaybe<StringFilter>;
   created_at?: InputMaybe<DatetimeFilter>;
   employmentArrangement?: InputMaybe<EmploymentArrangementFilter>;
   endDate?: InputMaybe<DateFilter>;
   id?: InputMaybe<BigIntFilter>;
+  jobCategory?: InputMaybe<JobCategoryFilter>;
   jobType?: InputMaybe<JobTypeFilter>;
   nodeId?: InputMaybe<IdFilter>;
   /** Negates a filter */
@@ -293,6 +315,8 @@ export type JobPostFilter = {
   /** Returns true if at least one of its inner filters is true, otherwise returns false */
   or?: InputMaybe<Array<JobPostFilter>>;
   salary?: InputMaybe<BigFloatFilter>;
+  siDo?: InputMaybe<StringFilter>;
+  siGunGu?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   uuid?: InputMaybe<UuidFilter>;
   workLocation?: InputMaybe<StringFilter>;
@@ -304,14 +328,18 @@ export type JobPostInsertInput = {
   area?: InputMaybe<Scalars['String']['input']>;
   benefits?: InputMaybe<Scalars['String']['input']>;
   companyId?: InputMaybe<Scalars['UUID']['input']>;
+  companyName?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   employmentArrangement?: InputMaybe<EmploymentArrangement>;
   endDate?: InputMaybe<Scalars['Date']['input']>;
   images?: InputMaybe<Scalars['JSON']['input']>;
+  jobCategory?: InputMaybe<JobCategory>;
   jobDescription?: InputMaybe<Scalars['JSON']['input']>;
   jobType?: InputMaybe<JobType>;
   preferredVisaList?: InputMaybe<Scalars['JSON']['input']>;
   salary?: InputMaybe<Scalars['BigFloat']['input']>;
+  siDo?: InputMaybe<Scalars['String']['input']>;
+  siGunGu?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   uuid?: InputMaybe<Scalars['UUID']['input']>;
   workLocation?: InputMaybe<Scalars['String']['input']>;
@@ -332,12 +360,16 @@ export type JobPostOrderBy = {
   area?: InputMaybe<OrderByDirection>;
   benefits?: InputMaybe<OrderByDirection>;
   companyId?: InputMaybe<OrderByDirection>;
+  companyName?: InputMaybe<OrderByDirection>;
   created_at?: InputMaybe<OrderByDirection>;
   employmentArrangement?: InputMaybe<OrderByDirection>;
   endDate?: InputMaybe<OrderByDirection>;
   id?: InputMaybe<OrderByDirection>;
+  jobCategory?: InputMaybe<OrderByDirection>;
   jobType?: InputMaybe<OrderByDirection>;
   salary?: InputMaybe<OrderByDirection>;
+  siDo?: InputMaybe<OrderByDirection>;
+  siGunGu?: InputMaybe<OrderByDirection>;
   title?: InputMaybe<OrderByDirection>;
   uuid?: InputMaybe<OrderByDirection>;
   workLocation?: InputMaybe<OrderByDirection>;
@@ -349,14 +381,18 @@ export type JobPostUpdateInput = {
   area?: InputMaybe<Scalars['String']['input']>;
   benefits?: InputMaybe<Scalars['String']['input']>;
   companyId?: InputMaybe<Scalars['UUID']['input']>;
+  companyName?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   employmentArrangement?: InputMaybe<EmploymentArrangement>;
   endDate?: InputMaybe<Scalars['Date']['input']>;
   images?: InputMaybe<Scalars['JSON']['input']>;
+  jobCategory?: InputMaybe<JobCategory>;
   jobDescription?: InputMaybe<Scalars['JSON']['input']>;
   jobType?: InputMaybe<JobType>;
   preferredVisaList?: InputMaybe<Scalars['JSON']['input']>;
   salary?: InputMaybe<Scalars['BigFloat']['input']>;
+  siDo?: InputMaybe<Scalars['String']['input']>;
+  siGunGu?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   uuid?: InputMaybe<Scalars['UUID']['input']>;
   workLocation?: InputMaybe<Scalars['String']['input']>;
@@ -703,22 +739,26 @@ export type CompanyUpdateResponseFieldPolicy = {
 	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
 	records?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type JobPostKeySpecifier = ('area' | 'benefits' | 'company' | 'companyId' | 'created_at' | 'employmentArrangement' | 'endDate' | 'id' | 'images' | 'jobDescription' | 'jobType' | 'nodeId' | 'preferredVisaList' | 'salary' | 'title' | 'uuid' | 'workLocation' | 'workingDays' | 'workingHoursEnd' | 'workingHoursStart' | JobPostKeySpecifier)[];
+export type JobPostKeySpecifier = ('area' | 'benefits' | 'company' | 'companyId' | 'companyName' | 'created_at' | 'employmentArrangement' | 'endDate' | 'id' | 'images' | 'jobCategory' | 'jobDescription' | 'jobType' | 'nodeId' | 'preferredVisaList' | 'salary' | 'siDo' | 'siGunGu' | 'title' | 'uuid' | 'workLocation' | 'workingDays' | 'workingHoursEnd' | 'workingHoursStart' | JobPostKeySpecifier)[];
 export type JobPostFieldPolicy = {
 	area?: FieldPolicy<any> | FieldReadFunction<any>,
 	benefits?: FieldPolicy<any> | FieldReadFunction<any>,
 	company?: FieldPolicy<any> | FieldReadFunction<any>,
 	companyId?: FieldPolicy<any> | FieldReadFunction<any>,
+	companyName?: FieldPolicy<any> | FieldReadFunction<any>,
 	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	employmentArrangement?: FieldPolicy<any> | FieldReadFunction<any>,
 	endDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	images?: FieldPolicy<any> | FieldReadFunction<any>,
+	jobCategory?: FieldPolicy<any> | FieldReadFunction<any>,
 	jobDescription?: FieldPolicy<any> | FieldReadFunction<any>,
 	jobType?: FieldPolicy<any> | FieldReadFunction<any>,
 	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	preferredVisaList?: FieldPolicy<any> | FieldReadFunction<any>,
 	salary?: FieldPolicy<any> | FieldReadFunction<any>,
+	siDo?: FieldPolicy<any> | FieldReadFunction<any>,
+	siGunGu?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	uuid?: FieldPolicy<any> | FieldReadFunction<any>,
 	workLocation?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -904,50 +944,112 @@ export type StrictTypedTypePolicies = {
 	}
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;
-
+export const ComapnyFieldsFragmentDoc = gql`
+    fragment ComapnyFields on Company {
+  uuid
+  name
+  email
+  website
+  industry
+  location
+}
+    `;
+export const JobPostListItemFieldsFragmentDoc = gql`
+    fragment JobPostListItemFields on JobPost {
+  id
+  title
+  companyName
+  jobCategory
+  jobType
+  endDate
+  siDo
+  siGunGu
+}
+    `;
+export const JobPostItemFieldsFragmentDoc = gql`
+    fragment JobPostItemFields on JobPost {
+  id
+  title
+  companyName
+  companyId
+  area
+  images
+  salary
+  benefits
+  jobDescription
+  workingDays
+  workLocation
+  workingHoursEnd
+  workingHoursStart
+  jobType
+  employmentArrangement
+  preferredVisaList
+  endDate
+  siDo
+  siGunGu
+}
+    `;
 export const GetCompanyDocument = gql`
     query GetCompany($uuid: UUID) {
   companyCollection(filter: {uuid: {eq: $uuid}}) {
     edges {
       node {
-        id
-        uuid
-        name
-        email
-        website
-        industry
-        location
+        ...ComapnyFields
       }
     }
   }
 }
-    `;
+    ${ComapnyFieldsFragmentDoc}`;
 export const GetJobPostDocument = gql`
     query GetJobPost($uuid: UUID) {
   jobPostCollection(filter: {uuid: {eq: $uuid}}) {
     edges {
       node {
-        id
-        title
-        companyId
-        area
-        images
-        salary
-        benefits
-        jobDescription
-        workingDays
-        workLocation
-        workingHoursEnd
-        workingHoursStart
-        jobType
-        employmentArrangement
-        preferredVisaList
-        endDate
+        ...JobPostItemFields
       }
     }
   }
 }
-    `;
+    ${JobPostItemFieldsFragmentDoc}`;
+export const GetJobPostByFilterDocument = gql`
+    query GetJobPostByFilter($jobCategory: [JobCategory!], $siDo: [String!], $first: Int, $after: Cursor) {
+  jobPostCollection(
+    first: $first
+    after: $after
+    filter: {and: [{jobCategory: {in: $jobCategory}}, {siDo: {in: $siDo}}]}
+    orderBy: [{created_at: DescNullsLast}]
+  ) {
+    edges {
+      node {
+        ...JobPostListItemFields
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${JobPostListItemFieldsFragmentDoc}`;
+export const GetHighlightedJobPostDocument = gql`
+    query GetHighlightedJobPost($first: Int, $after: Cursor) {
+  jobPostCollection(
+    first: $first
+    after: $after
+    orderBy: [{endDate: DescNullsLast}]
+  ) {
+    edges {
+      node {
+        ...JobPostListItemFields
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${JobPostListItemFieldsFragmentDoc}`;
 export const GetNoticesDocument = gql`
     query GetNotices($first: Int, $after: Cursor) {
   noticeCollection(first: $first, after: $after) {
@@ -965,19 +1067,43 @@ export const GetNoticesDocument = gql`
   }
 }
     `;
+export type ComapnyFieldsFragment = { __typename?: 'Company', uuid: any, name: string, email?: string | null, website?: string | null, industry?: string | null, location?: string | null };
+
+export type JobPostListItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string };
+
+export type JobPostItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyName: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null, siDo: string, siGunGu: string };
+
 export type GetCompanyQueryVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
 
-export type GetCompanyQuery = { __typename?: 'Query', companyCollection?: { __typename?: 'CompanyConnection', edges: Array<{ __typename?: 'CompanyEdge', node: { __typename?: 'Company', id: any, uuid: any, name: string, email?: string | null, website?: string | null, industry?: string | null, location?: string | null } }> } | null };
+export type GetCompanyQuery = { __typename?: 'Query', companyCollection?: { __typename?: 'CompanyConnection', edges: Array<{ __typename?: 'CompanyEdge', node: { __typename?: 'Company', uuid: any, name: string, email?: string | null, website?: string | null, industry?: string | null, location?: string | null } }> } | null };
 
 export type GetJobPostQueryVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
 
-export type GetJobPostQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null } }> } | null };
+export type GetJobPostQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyName: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null, siDo: string, siGunGu: string } }> } | null };
+
+export type GetJobPostByFilterQueryVariables = Exact<{
+  jobCategory?: InputMaybe<Array<JobCategory> | JobCategory>;
+  siDo?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+}>;
+
+
+export type GetJobPostByFilterQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+
+export type GetHighlightedJobPostQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']['input']>;
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+}>;
+
+
+export type GetHighlightedJobPostQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
 
 export type GetNoticesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
