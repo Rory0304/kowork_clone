@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import Table from "app/components/blocks/Table/Table";
 import type {
   JobPostDescriptionInfoType,
@@ -18,40 +18,55 @@ const JobPostDetailInfoDescription: React.FC<{
   jobDescription: JobPostDescriptionInfoType;
 }> = ({ jobDescription }) => {
   const { ko, en } = jobDescription;
+  const [selectedLang, setSelectedLang] = React.useState<"ko" | "en">("ko");
+
+  const selectedJobDescription = selectedLang === "ko" ? ko : en;
+
   const configuredData = [
     {
       title: "주요업무",
-      content: ko.description,
+      content: selectedJobDescription.description,
     },
     {
       title: "자격요건",
-      content: ko.qualification,
+      content: selectedJobDescription.qualification,
     },
     {
       title: "우대사항",
-      content: ko.preferred,
+      content: selectedJobDescription.preferred,
     },
     {
       title: "기타",
-      content: ko.etc,
+      content: selectedJobDescription.etc,
     },
   ];
 
   return (
-    <FlatList
-      scrollEnabled={false}
-      data={configuredData}
-      renderItem={({ item }) => (
-        <View>
-          <Text className="mb-2 text-base font-bold">{item.title}</Text>
-          <Text>{item.content}</Text>
-        </View>
-      )}
-      keyExtractor={(item) => item.title}
-      style={{
-        flexGrow: 0,
-      }}
-    />
+    <>
+      <FlatList
+        scrollEnabled={false}
+        data={configuredData}
+        renderItem={({ item }) => (
+          <View className="mb-3">
+            <Text className="mb-2 text-base font-bold">{item.title}</Text>
+            <Text>{item.content}</Text>
+          </View>
+        )}
+        keyExtractor={(item) => item.title}
+        style={{
+          flexGrow: 0,
+        }}
+      />
+      <TouchableOpacity
+        onPress={() =>
+          setSelectedLang((current) => (current === "en" ? "ko" : "en"))
+        }
+      >
+        <Text className="py-4 text-xs text-right text-primary">
+          {selectedLang === "ko" ? "View in Original Text" : "View in English"}
+        </Text>
+      </TouchableOpacity>
+    </>
   );
 };
 
