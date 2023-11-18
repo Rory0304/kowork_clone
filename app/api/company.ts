@@ -2,31 +2,29 @@ import client from "../graphql/client";
 import { getFetchPolicy } from "../utils/getFetchPolicy";
 
 import {
-  GetNoticesDocument,
-  GetNoticesQuery,
-  GetNoticesQueryVariables,
+  GetCompanyDocument,
+  GetCompanyQuery,
+  GetCompanyQueryVariables,
 } from "../graphql/generated";
 
 interface getNoticesParams {
-  cursor: string;
-  limit: number;
+  uuid: string;
 }
 
-export const getCompanyById = async ({ cursor, limit }: getNoticesParams) => {
+export const getCompanyById = async ({ uuid }: getNoticesParams) => {
   const { data } = await client.query<
-    GetNoticesQuery,
-    GetNoticesQueryVariables
+    GetCompanyQuery,
+    GetCompanyQueryVariables
   >({
-    query: GetNoticesDocument,
+    query: GetCompanyDocument,
     variables: {
-      first: limit,
-      after: cursor,
+      uuid,
     },
     fetchPolicy: getFetchPolicy(),
   });
 
-  const notices = data.noticeCollection?.edges.map((item) => item.node) ?? [];
-  const noticesPageInfo = data.noticeCollection?.pageInfo;
+  const companyData =
+    data.companyCollection?.edges?.[0]?.node;
 
-  return { notices, noticesPageInfo };
+  return { companyData };
 };
