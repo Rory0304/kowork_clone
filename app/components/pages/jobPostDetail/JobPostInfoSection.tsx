@@ -11,7 +11,7 @@ const JobPostInfoSection: React.FC<JobPostInfoSectionProps> = ({
 }) => {
   return (
     <View className="px-4 pt-8 pb-4 bg-white">
-      <Text className="text-lg font-bold text-gray-600">{title}</Text>
+      <Text className="mb-6 text-lg font-bold text-gray-600">{title}</Text>
       <View>{children}</View>
     </View>
   );
