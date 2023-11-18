@@ -4,7 +4,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 //
 //
 
-const GRAPHQL_ENDPOINT = process.env.SUPABASE_STORE_URL ?? "";
+const GRAPHQL_ENDPOINT = process.env.SUPABASE_STORE_GRAPHQL_URL ?? "";
 const ACCESS_TOKEN = process.env.SUPABASE_API_KEY ?? "";
 
 //

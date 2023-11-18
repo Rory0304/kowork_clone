@@ -1,4 +1,5 @@
 import React from "react";
+import { useRoute, RouteProp } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import {
   JobPostBasicInfo,
@@ -6,14 +7,27 @@ import {
   JobPostDetailInfo,
   JobPostHeader,
 } from "app/components/pages/jobPostDetail";
-import { JobType, EmploymentArrangement } from "app/types/JobPost";
+import VStack from "app/components/blocks/Stack/VStack";
 import { useQuery } from "@tanstack/react-query";
 import { getJobPostById } from "app/api/jobPostList";
+import { getCompanyById } from "app/api/company";
+import type {
+  JobPostDescriptionInfoType,
+  preferredVisaListType,
+} from "app/types/JobPost";
+
+type JobPostDetailScreenParamList = {
+  params: {
+    uuid: string;
+  };
+};
 
 const JobPostDetailScreen: React.FC = () => {
-  const uuid = "0d899886-6d2a-44e6-8d30-227b0df0ea7e";
+  const {
+    params: { uuid },
+  } = useRoute<RouteProp<JobPostDetailScreenParamList, "params">>();
 
-  const { data, isSuccess, isError, isFetching, refetch } = useQuery({
+  const { data: JobPostData } = useQuery({
     queryKey: ["getJobPostById", uuid],
     queryFn: () =>
       getJobPostById({
@@ -21,36 +35,80 @@ const JobPostDetailScreen: React.FC = () => {
       }),
   });
 
-  const test = {
-    id: "1",
-    companyId: "1",
-    title: "backend developer recruit",
-    companyName: "닉스 주식회사",
-    endDate: "11월 24일",
-    jobType: JobType.FullTime,
-    workingHoursStart: "09:00",
-    workingHoursEnd: "18:00",
-    workingDays: ["mon", "thu", "wed", "thurs", "fri"],
-    employmentArrangement: EmploymentArrangement.Office,
-    area: "경기도 하남시",
-    salary: 0,
-  };
+  const companyId = JobPostData?.jobPost?.companyId;
 
-  return (
-    <ScrollView>
-      {/* <JobPostHeader title={test.title} companyName={test.companyName} endDate={test.endDate} /> */}
-      <JobPostBasicInfo
-        jobType={test.jobType}
-        workingDays={test.workingDays}
-        workingHoursStart={test.workingHoursStart}
-        workingHoursEnd={test.workingHoursEnd}
-        employmentArrangement={test.employmentArrangement}
-        salary={test.salary}
-      />
-      <JobPostDetailInfo />
-      <JobPostCompanyInfo />
-    </ScrollView>
-  );
+  const { data: companyData } = useQuery({
+    queryKey: ["getCompanyById", companyId],
+    queryFn: () =>
+      getCompanyById({
+        uuid: companyId,
+      }),
+    enabled: !!companyId,
+  });
+
+  if (JobPostData?.jobPost && companyData?.companyData) {
+    const {
+      id,
+      title,
+      endDate,
+      siDo,
+      siGunGu,
+      jobType,
+      employmentArrangement,
+      salary,
+      workingHoursEnd,
+      workingHoursStart,
+      workingDays,
+      jobDescription,
+      preferredVisaList,
+      benefits,
+      area,
+      companyName,
+    } = JobPostData?.jobPost;
+
+    return (
+      <ScrollView style={{flex: 1}}>
+        <JobPostHeader
+          {...{
+            id,
+            title,
+            endDate,
+            siDo,
+            siGunGu,
+            jobType,
+            employmentArrangement,
+            salary,
+            companyName,
+          }}
+        />
+        <JobPostBasicInfo
+          {...{
+            jobType,
+            workingDays,
+            workingHoursEnd,
+            workingHoursStart,
+            employmentArrangement,
+            salary,
+          }}
+        />
+        <VStack space={2} />
+        <JobPostDetailInfo
+          jobDescription={
+            JSON.parse(jobDescription) as JobPostDescriptionInfoType
+          }
+          preferredVisaList={
+            JSON.parse(preferredVisaList) as preferredVisaListType
+          }
+          area={area}
+          benefits={benefits}
+        />
+        <VStack space={2} />
+        <JobPostCompanyInfo {...companyData?.companyData} />
+      </ScrollView>
+    );
+  }
+
+  return <ScrollView></ScrollView>;
 };
 
 export default JobPostDetailScreen;

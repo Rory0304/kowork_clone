@@ -6,49 +6,76 @@ import ClockIcon from "react-native-heroicons/solid/ClockIcon";
 import BuildingOfficeIcon from "react-native-heroicons/solid/BuildingOfficeIcon";
 import CreditCardIcon from "react-native-heroicons/solid/CreditCardIcon";
 import MapPinIcon from "react-native-heroicons/solid/MapPinIcon";
-
+import { customColors } from "app/constants/styles/Colors";
 interface JobPostHeaderInfoProps
-  extends Pick<JobPostType, "id" | "title" | "endDate" | "basicInfo"> {
-  companyName: string;
-}
+  extends Pick<
+    JobPostType,
+    | "id"
+    | "title"
+    | "endDate"
+    | "siDo"
+    | "siGunGu"
+    | "salary"
+    | "jobType"
+    | "employmentArrangement"
+    | "companyName"
+  > {}
 
 const JobPostHeaderInfo: React.FC<JobPostHeaderInfoProps> = ({
   title,
   companyName,
   endDate,
-  basicInfo,
+  siDo,
+  siGunGu,
+  jobType,
+  employmentArrangement,
+  salary,
 }) => {
   const basicInfoItems = [
     {
       key: "jobType",
-      label: basicInfo.jobType,
-      icon: <ClockIcon width={20} height={20} />,
+      label: jobType,
+      icon: <ClockIcon width={20} height={20} color={customColors.secondary} />,
     },
     {
       key: "employmentArrangement",
-      label: basicInfo.employmentArrangement,
-      icon: <BuildingOfficeIcon width={20} height={20} />,
+      label: employmentArrangement,
+      icon: (
+        <BuildingOfficeIcon
+          width={20}
+          height={20}
+          color={customColors.secondary}
+        />
+      ),
     },
     {
       key: "area",
-      label: basicInfo.area,
-      icon: <MapPinIcon width={20} height={20} />,
+      label: `${siDo} ${siGunGu}`,
+      icon: (
+        <MapPinIcon width={20} height={20} color={customColors.secondary} />
+      ),
     },
     {
       key: "salary",
-      label: basicInfo.salary ?? "0만원",
-      icon: <CreditCardIcon width={20} height={20} />,
+      label: salary ?? "0만원",
+      icon: (
+        <CreditCardIcon width={20} height={20} color={customColors.secondary} />
+      ),
     },
   ] as const;
+
+  const jobPostEndDate = new Date(endDate);
 
   return (
     <View className="px-4 py-6 mb-4 bg-white">
       <Text className="mb-2 text-2xl font-bold">{title}</Text>
       <Stack styles="justify-between mb-2">
         <Text className="text-xs text-neutral-500">{companyName}</Text>
-        <Text className="text-xs text-neutral-500">~{endDate}</Text>
+        <Text className="text-xs text-neutral-500">
+          ~{jobPostEndDate.getMonth()}월 {jobPostEndDate.getDate()}일
+        </Text>
       </Stack>
-      <Stack styles="rounded-md bg-gray-50 px-6 py-2 justify-center">
+      <Stack styles="rounded-md bg-gray-50 px-4 py-2 justify-between">
         {basicInfoItems.map((item) => (
           <Stack
             key={item.key}

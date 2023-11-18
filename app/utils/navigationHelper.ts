@@ -1,6 +1,5 @@
 import { NAV_SCREENS } from "../constants/Routes";
 import type { NavigationProp } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type OpenNoticeItemModal = (
   navigation: NavigationProp<any, any>
@@ -8,7 +7,7 @@ type OpenNoticeItemModal = (
 
 type OpenJobPostDetailScreenProps = (
   navigation: NavigationProp<any, any>
-) => (props?: { id?: string }) => void;
+) => (props?: { uuid?: string }) => void;
 
 const openNoticeItemModal: OpenNoticeItemModal =
   (navigation) =>

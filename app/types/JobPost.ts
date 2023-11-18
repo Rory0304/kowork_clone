@@ -5,6 +5,22 @@ import {
 
 export { JobCategoryType, JobPostType };
 
+export interface JobPostDescriptionContentType {
+  qualification: string;
+  description: string;
+  preferred: string;
+  etc: string;
+}
+
+export interface preferredVisaListType {
+  visa: string[];
+}
+
+export interface JobPostDescriptionInfoType {
+  en: JobPostDescriptionContentType;
+  ko: JobPostDescriptionContentType;
+}
+
 export enum JobType {
   Temporary = "Temporary",
   FullTime = "FullTime",
