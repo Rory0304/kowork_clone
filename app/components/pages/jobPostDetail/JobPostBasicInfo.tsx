@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import JobPostInfoSection from "./JobPostInfoSection";
-import { JobPostType } from "app/types/JobPost";
+import { JobPostType, WorkingDaysType } from "app/types/JobPost";
 import Table from "app/components/blocks/Table/Table";
 
 interface JobPostBasicInfoProps
@@ -10,10 +10,11 @@ interface JobPostBasicInfoProps
     | "jobType"
     | "workingHoursStart"
     | "workingHoursEnd"
-    | "workingDays"
     | "employmentArrangement"
     | "salary"
-  > {}
+  > {
+  workingDays?: WorkingDaysType;
+}
 
 const JobPostBasicInfoJobPostHeader: React.FC<JobPostBasicInfoProps> = ({
   jobType,
@@ -23,13 +24,15 @@ const JobPostBasicInfoJobPostHeader: React.FC<JobPostBasicInfoProps> = ({
   employmentArrangement,
   salary,
 }) => {
+  const workingDaysString = workingDays?.days.join(",");
+
   const colHeader = ["직종", "근무시간", "근무요일", "근무형태", "급여(원화)"];
   const data = [
     <Text>{jobType}</Text>,
     <Text>
       {workingHoursStart}~{workingHoursEnd}
     </Text>,
-    <View>{workingDays?.days?.map((day: string) => <Text>{day}</Text>)}</View>,
+    <Text>{workingDaysString}</Text>,
     <Text>{employmentArrangement}</Text>,
     <Text>연봉 {salary}만원</Text>,
   ];
