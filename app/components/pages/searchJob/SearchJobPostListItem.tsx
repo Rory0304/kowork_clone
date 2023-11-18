@@ -9,11 +9,11 @@ import type { JobPostType } from "app/types/JobPost";
 interface JobPostListItemProps
   extends Pick<
     JobPostType,
-    | "id"
+    | "uuid"
     | "title"
     | "siDo"
     | "siGunGu"
-    | "companyId"
+    | "companyName"
     | "endDate"
     | "jobCategory"
     | "jobType"
@@ -22,9 +22,9 @@ interface JobPostListItemProps
 }
 
 const SearchJobPostListItem: React.FC<JobPostListItemProps> = ({
-  id,
+  uuid,
   title,
-  companyId,
+  companyName,
   siDo,
   siGunGu,
   endDate,
@@ -35,14 +35,14 @@ const SearchJobPostListItem: React.FC<JobPostListItemProps> = ({
   const navigator = navigate(navigation);
 
   return (
-    <Pressable onPress={() => navigator.openJobPostDetailScreen()}>
+    <Pressable onPress={() => navigator.openJobPostDetailScreen(uuid)}>
       <View className="p-4 border-t border-gray-200 bg-gray-50">
         <View className="flex flex-row justify-between">
           <View>
             <Text className="mb-2 font-bold text-primary">{jobType}</Text>
             <Text className="mb-1 text-lg font-bold">{title}</Text>
             <Text className="mb-3 font-semibold text-gray-600">
-              {companyId}
+              {companyName}
             </Text>
           </View>
           <View>{isBookMarked ? <FilledStarIcon /> : <EmptyStarIcon />}</View>
