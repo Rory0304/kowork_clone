@@ -42,8 +42,6 @@ const JobPostListSection: React.FC = () => {
 
   const jobPostList = data?.jobPostList;
 
-  const handleShowMore = () => navigator.openJobSearchScreen();
-
   return (
     <View className="mb-8">
       <FlatList
@@ -54,7 +52,7 @@ const JobPostListSection: React.FC = () => {
           <JobPostListItem
             title={item.node.title}
             id={item.node.id}
-            companyId={item.node.companyId}
+            companyId={item.node.companyName}
             endDate={item.node.endDate}
           />
         )}
@@ -63,7 +61,7 @@ const JobPostListSection: React.FC = () => {
       <View className="px-4">
         <TouchableOpacity
           className="p-3 rounded-lg bg-primary"
-          onPress={handleShowMore}
+          onPress={() => navigator.openJobSearchScreen()}
         >
           <Text className="text-lg font-bold text-center text-white">
             더 많은 공고 확인하기
