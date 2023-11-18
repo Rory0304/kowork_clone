@@ -67,7 +67,7 @@ const JobPostDetailScreen: React.FC = () => {
     } = JobPostData?.jobPost;
 
     return (
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{ flex: 1 }}>
         <JobPostHeader
           {...{
             id,
@@ -84,7 +84,7 @@ const JobPostDetailScreen: React.FC = () => {
         <JobPostBasicInfo
           {...{
             jobType,
-            workingDays,
+            workingDays: JSON.parse(workingDays),
             workingHoursEnd,
             workingHoursStart,
             employmentArrangement,
