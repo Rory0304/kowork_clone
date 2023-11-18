@@ -35,7 +35,7 @@ export const getJobPostById = async ({ uuid }: getJobPostByIdParams) => {
     fetchPolicy: getFetchPolicy(),
   });
 
-  const jobPost = data.jobPostCollection?.edges;
+  const jobPost = data.jobPostCollection?.edges?.[0].node;
   return { jobPost };
 };
 
