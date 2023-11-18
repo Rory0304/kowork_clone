@@ -7,7 +7,7 @@ import fetch from "cross-fetch";
  */
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: process.env.SUPABASE_STORE_URL!,
+    uri: process.env.SUPABASE_STORE_GRAPHQL_URL!,
     headers: {
       apikey: process.env.SUPABASE_API_KEY!,
     },
