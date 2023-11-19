@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import HomeNavigator from "./HomeNavigator";
+import MainNavigator from "./MainNavigator";
 import MyPageTabNavigator from "./MyPageTabNavigator";
 import SearchJobNavigator from "./SearchJobNavigator";
 import VisaNavigator from "./VisaNavigator";
@@ -10,7 +10,7 @@ import TabBarIcon from "./TabBarIcon";
 
 import type { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 
-const HomeTab: BottomTabNavigationOptions = {
+const MainTab: BottomTabNavigationOptions = {
   tabBarLabel: "홈",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon iconName="HomeIcon" focused={focused} />
@@ -43,14 +43,14 @@ const BottomTab = createBottomTabNavigator();
 const BottomTabNavigator: React.FC = () => {
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Main"
       screenOptions={{ headerShown: false }}
     >
       <BottomTab.Group>
         <BottomTab.Screen
-          name="HomeNavigator"
-          options={HomeTab}
-          component={HomeNavigator}
+          name="MainNavigator"
+          options={MainTab}
+          component={MainNavigator}
         />
         <BottomTab.Screen
           name="SearchJobNavigator"
