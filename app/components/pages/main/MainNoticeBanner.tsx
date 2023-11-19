@@ -3,7 +3,7 @@ import Swiper from "react-native-swiper";
 import { View, Text, Image, ImageSourcePropType } from "react-native";
 import Stack from "app/components/blocks/Stack/Stack";
 
-interface HomeNoticeBannerItemProps {
+interface MainNoticeBannerProps {
   id: number;
   category: string;
   subTitle: string;
@@ -16,7 +16,7 @@ interface HomeNoticeBannerItemProps {
   bgColor: string;
 }
 
-const HOME_NOTICE_BANNER_LIST: HomeNoticeBannerItemProps[] = [
+const MAIN_NOTICE_BANNER_LIST: MainNoticeBannerProps[] = [
   {
     id: 1,
     category: "NOTICE",
@@ -43,7 +43,7 @@ const HOME_NOTICE_BANNER_LIST: HomeNoticeBannerItemProps[] = [
   },
 ];
 
-const HomeNoticeBanner: React.FC = () => {
+const MainNoticeBanner: React.FC = () => {
   return (
     <View className="w-full">
       <Swiper
@@ -53,7 +53,7 @@ const HomeNoticeBanner: React.FC = () => {
         showsButtons={false}
         showsPagination={false}
       >
-        {HOME_NOTICE_BANNER_LIST.map((item, index) => (
+        {MAIN_NOTICE_BANNER_LIST.map((item, index) => (
           <Stack
             key={item.id}
             direction="row"
@@ -68,7 +68,7 @@ const HomeNoticeBanner: React.FC = () => {
               <Text className="text-gray-500">{item.subTitle}</Text>
               <Text className="mb-1 text-lg font-bold">{item.title}</Text>
               <Text className="text-lg text-white">
-                <Text>{index + 1}</Text> / {HOME_NOTICE_BANNER_LIST.length}
+                <Text>{index + 1}</Text> / {MAIN_NOTICE_BANNER_LIST.length}
               </Text>
             </Stack>
             <View>
@@ -90,4 +90,4 @@ const HomeNoticeBanner: React.FC = () => {
   );
 };
 
-export default HomeNoticeBanner;
+export default MainNoticeBanner;
