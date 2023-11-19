@@ -2,14 +2,10 @@ import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Control, Controller, useFormContext } from "react-hook-form";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import {
-  TextInput,
-  FormInputBox,
-  CheckBox,
-} from "app/components/pages/resume/Form";
+import { TextInput, FormInputBox, CheckBox } from "app/components/blocks/Form";
 import { checkIsValidDate, convertToFormatDate } from "app/utils/date";
 import { BottomSheet, Stack } from "app/components/blocks";
-import CountrySelectBox from "app/components/pages/resume/Form/CountrySelectBox";
+import CountrySelectBox from "app/components/pages/resume/CountrySelectBox";
 import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
 import { FormDataType, GenderType } from "app/types/Resume";
 

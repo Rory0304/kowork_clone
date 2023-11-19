@@ -1,3 +1,3 @@
-export * from "./home";
+export * from "./main";
 export * from "./visa";
 export * from "./searchJob";

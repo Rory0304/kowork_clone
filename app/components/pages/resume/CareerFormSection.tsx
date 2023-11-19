@@ -7,7 +7,7 @@ import {
   Control,
 } from "react-hook-form";
 
-import { TextInput, FormInputBox } from "app/components/pages/resume/Form";
+import { TextInput, FormInputBox } from "app/components/blocks/Form";
 import Stack from "app/components/blocks/Stack/Stack";
 import type { FormDataType, CareerInfoType } from "app/types/Resume";
 import CheckIcon from "app/components/blocks/Icon/CheckIcon";

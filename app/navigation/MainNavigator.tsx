@@ -1,10 +1,11 @@
 import React from "react";
-import HomeScreen from "../screens/Home/HomeScreen";
+import MainScreen from "../screens/Main/MainScreen";
 import { createStackNavigator } from "@react-navigation/stack";
+import { NAV_SCREENS } from "app/constants/Routes";
 
 const Stack = createStackNavigator();
 
-const HomeNavigator: React.FC = () => {
+const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -13,9 +14,9 @@ const HomeNavigator: React.FC = () => {
         },
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name={NAV_SCREENS.MainScreen} component={MainScreen} />
     </Stack.Navigator>
   );
 };
 
-export default HomeNavigator;
+export default MainNavigator;

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { countries } from "app/constants/Country.json";
-import TextInput from "./TextInput";
+import TextInput from "../../blocks/Form/TextInput";
 
 interface CountrySelectBoxProps {
   onPress: (value: string) => void;

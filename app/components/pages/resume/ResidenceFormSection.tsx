@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { Controller, Control } from "react-hook-form";
 import { Stack, VStack } from "app/components/blocks";
 import { FormDataType, ResidenceType } from "app/types/Resume";
-import { FormInputBox, CheckBox, TextInput } from "./Form";
+import { FormInputBox, CheckBox, TextInput } from "../../blocks/Form";
 
 interface ResidenceFormSectionProps {
   control: Control<FormDataType, any>;
@@ -13,7 +13,7 @@ const ResidenceFormSection: React.FC<ResidenceFormSectionProps> = ({
   control,
 }) => {
   return (
-    <View className='p-4 mb-2 bg-white'>
+    <View className="p-4 mb-2 bg-white">
       <FormInputBox
         title="현재 거주하는 곳"
         InputComponent={

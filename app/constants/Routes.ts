@@ -1,15 +1,25 @@
 export enum NAV_SCREENS {
-  HomeScreen = "Home",
-  SearchJobScreen = "SearchJob",
-  JobPostDetailScreen = "JobPostDetail",
+  // Home
+  HomeScreen = "HomeScreen",
+
+  //Auth
+  EmailSignInScreen = "EmailSignInScreen",
+  EmailSignUpScreen = "EmailSignUpScreen",
+  EmailCheckScreen = "EmailCheckScreen",
+  EmailCheckSuccessScreen = "EmailCheckSuccessScreen",
+
+  // Public
+  MainScreen = "MainScreen",
+  SearchJobScreen = "SearchJobScreen",
+  JobPostDetailScreen = "JobPostDetailScreen",
 
   // Visa
-  VisaScreen = "Visa",
-  VisaTestD101 = "VisaTestD101",
-  VisaTestF27 = "VisaTestF27",
+  VisaScreen = "VisaScreen",
+  VisaTestD101 = "VisaTestD101Screen",
+  VisaTestF27 = "VisaTestF27Screen",
 
   // MyPage
-  MyPageScreen = "MyPage",
+  MyPageScreen = "MyPageScren",
   MyApplyListScreen = "MyApplyListScreen",
   MyVisaHistoryScreen = "MyVisaHistoryScreen",
   MyVisaEnrollScreen = "MyVisaEnrollScreen",
@@ -21,7 +31,7 @@ export enum NAV_SCREENS {
   ResumeEditLanguageScreen = "ResumeEditLanguageScreen",
 
   // Notice Page
-  NoticeScreen = "NoticePage",
+  NoticeScreen = "NoticePageScreen",
   NoticeItemScreen = "NoticeItemScreen",
   MyNotificationScreen = "MyNotificationScreen",
 }

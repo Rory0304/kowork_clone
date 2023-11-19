@@ -7,7 +7,7 @@ interface TextInputProps extends RnTextInputProps {
   error?: boolean;
 }
 
-const TextInput: React.FC<TextInputProps> = ({ error, ...props }) => {
+const TextInput: React.FC<TextInputProps> = ({ error,  ...props }) => {
   return (
     <RnTextInput
       {...props}

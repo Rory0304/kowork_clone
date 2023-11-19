@@ -9,13 +9,17 @@ const config = getDefaultConfig(__dirname, {
 
 module.exports = (async () => {
   const {
-    resolver: { sourceExts },
+    resolver: { sourceExts, assetExts },
   } = await getDefaultConfig(__dirname);
 
   return {
     ...config,
+    transformer: {
+      babelTransformerPath: require.resolve("react-native-svg-transformer"),
+    },
     resolver: {
-      sourceExts: [...sourceExts, "mjs"],
+      assetExts: assetExts.filter((ext) => ext !== "svg"),
+      sourceExts: [...sourceExts, "svg", "mjs"],
     },
   };
 })();

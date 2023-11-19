@@ -9,6 +9,15 @@ type OpenJobPostDetailScreenProps = (
   navigation: NavigationProp<any, any>
 ) => (props?: { uuid?: string }) => void;
 
+const openMainScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("BottomTabNavigator", {
+      screen: NAV_SCREENS.MainScreen,
+      params: props,
+    });
+  };
+
 const openNoticeItemModal: OpenNoticeItemModal =
   (navigation) =>
   (props = {}) => {
@@ -105,9 +114,55 @@ const openResumeEditLanguageScreen =
     });
   };
 
+const openHomeScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("AuthNavigator", {
+      screen: NAV_SCREENS.HomeScreen,
+      param: props,
+    });
+  };
+
+const openEmailSignInScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("AuthNavigator", {
+      screen: NAV_SCREENS.EmailSignInScreen,
+      params: props,
+    });
+  };
+
+const openEmailSignUpScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("AuthNavigator", {
+      screen: NAV_SCREENS.EmailSignUpScreen,
+      params: props,
+    });
+  };
+
+const openEmailCheckScreen =
+  (navigation: NavigationProp<any, any>) => (props: { email: string }) => {
+    navigation.navigate("AuthNavigator", {
+      screen: NAV_SCREENS.EmailCheckScreen,
+      params: props,
+    });
+  };
+
+const openEmailCheckSuccessScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("AuthNavigator", {
+      screen: NAV_SCREENS.EmailCheckSuccessScreen,
+      params: props,
+    });
+  };
+
 const navigate = (
   navigation: NavigationProp<ReactNavigation.RootParamList>
 ) => ({
+  openHomeScreen: openHomeScreen(navigation),
+  openMainScreen: openMainScreen(navigation),
   openJobSearchScreen: openJobSearchScreen(navigation),
   openNoticeItemModal: openNoticeItemModal(navigation),
   openJobPostDetailScreen: openJobPostDetailScreen(navigation),
@@ -119,6 +174,10 @@ const navigate = (
   openResumeEditBasicInfoScreen: openResumeEditBasicInfoScreen(navigation),
   openResumeEditEduCareerScreen: openResumeEditEduCareerScreen(navigation),
   openResumeEditLanguageScreen: openResumeEditLanguageScreen(navigation),
+  openEmailSignInScreen: openEmailSignInScreen(navigation),
+  openEmailSignUpScreen: openEmailSignUpScreen(navigation),
+  openEmailCheckScreen: openEmailCheckScreen(navigation),
+  openEmailCheckSuccessScreen: openEmailCheckSuccessScreen(navigation),
 });
 
 export default navigate;
