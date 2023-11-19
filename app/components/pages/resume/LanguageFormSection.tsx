@@ -7,7 +7,7 @@ import {
   Control,
 } from "react-hook-form";
 
-import { TextInput, CheckBox } from "app/components/pages/resume/Form";
+import { TextInput, CheckBox } from "app/components/blocks/Form";
 import { Stack, Button } from "app/components/blocks";
 import { FormDataType, LanguageType, LanguageLevel } from "app/types/Resume";
 import MinusIcon from "react-native-heroicons/solid/MinusIcon";
