@@ -11,14 +11,13 @@ import {
 } from "react-native";
 import { VisaStatus, VisaCode } from "app/constants/VisaDetail";
 import { Controller, useForm } from "react-hook-form";
-import {
-  BottomSheetScrollView,
-  BottomSheetBackdrop,
-  BottomSheetModal,
-} from "@gorhom/bottom-sheet";
-import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { BottomSheet } from "app/components/blocks";
 import { gray } from "tailwindcss/colors";
 import { checkIsValidDate, convertToFormatDate } from "app/utils/date";
+import { updateVisaHistory } from "app/api/visaHistory";
+import { useAuth } from "app/contexts/AuthProvider";
+import { useNavigation } from "@react-navigation/native";
 
 interface MyVisaEnrollState {
   visaStatus?: VisaCode;
@@ -57,16 +56,20 @@ function myVisaEnrollReducer(
 }
 
 const MyVisaEnrollScreen: React.FC = () => {
+  const navigation = useNavigation();
+  const { userInfo } = useAuth();
+
   // Bottom Sheet
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
-  const snapPoints = React.useMemo(() => ["80%"], []);
+
+  const handleBottomSheetClose = () => bottomSheetRef?.current?.close();
 
   // Hook form
   const {
     control,
     watch,
     setValue,
-    formState: { errors },
+    formState: { isValid },
   } = useForm<MyVisaEnrollState>({
     mode: "onChange",
     defaultValues: {
@@ -77,24 +80,55 @@ const MyVisaEnrollScreen: React.FC = () => {
   });
 
   const watchedVisaStatus = watch("visaStatus");
+  const watchedVisaFinalEntryDate = watch("visaFinalEntryDate");
+  const watchedVisaIssueDate = watch("visaIssueDate");
 
-  const renderBackdrop = React.useCallback(
-    (
-      props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps
-    ) => (
-      <BottomSheetBackdrop
-        {...props}
-        disappearsOnIndex={1}
-        appearsOnIndex={2}
-        pressBehavior={"close"}
-      />
-    ),
-    []
-  );
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          disabled={!isValid}
+          onPress={() =>
+            handleVisaHistorySave(
+              watchedVisaFinalEntryDate,
+              watchedVisaIssueDate,
+              watchedVisaStatus,
+              userInfo?.id
+            )
+          }
+        >
+          <Text
+            className={`font-bold text-base ${
+              isValid ? "text-primary" : "text-secondary"
+            }`}
+          >
+            저장
+          </Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, isValid]);
+
+  const handleVisaHistorySave = async (
+    visaFinalEntryDate?: string,
+    visaIssueDate?: string,
+    visaStatus?: string,
+    userId?: string
+  ) => {
+    if (userId && visaFinalEntryDate && visaIssueDate && visaStatus) {
+      console.log("update");
+      await updateVisaHistory({
+        userId,
+        visaStatus,
+        visaIssueDate: new Date(visaIssueDate),
+        visaFinalEntryDate: new Date(visaFinalEntryDate),
+      });
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <ScrollView className="p-6">
+      <ScrollView className="px-4">
         <View className="py-6">
           <Text className="mb-2 text-base font-bold text-neutral-700">
             체류자격 / Status
@@ -200,36 +234,36 @@ const MyVisaEnrollScreen: React.FC = () => {
             }}
           />
         </View>
-        <BottomSheetModal
+        <BottomSheet
+          closeBtn
           ref={bottomSheetRef}
-          index={0}
-          snapPoints={snapPoints}
-          backdropComponent={renderBackdrop}
+          snapPoints={["80%"]}
+          headerTitle=""
+          onClose={handleBottomSheetClose}
         >
-          <BottomSheetScrollView>
-            <FlatList
-              className="p-4 py-6"
-              data={
-                Object.keys(VisaStatus) as unknown as Array<
-                  keyof typeof VisaStatus
-                >
-              }
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  className="my-3"
-                  onPress={() => {
-                    setValue("visaStatus", item, { shouldDirty: true });
-                    bottomSheetRef.current?.close();
-                  }}
-                >
-                  <Text className="text-base font-semibold text-neutral-600">
-                    {VisaStatus[item]}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </BottomSheetScrollView>
-        </BottomSheetModal>
+          <FlatList
+            scrollEnabled={false}
+            className="p-4 py-6"
+            data={
+              Object.keys(VisaStatus) as unknown as Array<
+                keyof typeof VisaStatus
+              >
+            }
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                className="my-3"
+                onPress={() => {
+                  setValue("visaStatus", item, { shouldDirty: true });
+                  bottomSheetRef.current?.close();
+                }}
+              >
+                <Text className="text-base font-semibold text-neutral-600">
+                  {VisaStatus[item]}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </BottomSheet>
       </ScrollView>
     </TouchableWithoutFeedback>
   );
