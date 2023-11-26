@@ -13,31 +13,31 @@ import { VisaCode, VisaStatus } from "app/constants/VisaDetail";
 
 interface MyVisaHistoryListProps {
   id: number;
-  status: VisaCode;
-  issueDate: string;
-  finalEntryDate: string;
+  visaStatus: VisaCode;
+  visaIssueDate: string;
+  visaFinalEntryDate: string;
 }
 
 const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
   id,
-  status,
-  issueDate,
-  finalEntryDate,
+  visaStatus,
+  visaIssueDate,
+  visaFinalEntryDate,
 }) => {
   const [open, setOpen] = React.useState(false);
 
   const configuredInfo = [
     {
       title: "체류자격 / Status",
-      value: status,
+      value: visaStatus,
     },
     {
       title: "발급일 / Issue Date",
-      value: issueDate,
+      value: visaIssueDate,
     },
     {
       title: "입국만료일 / Final Entry Date",
-      value: finalEntryDate,
+      value: visaFinalEntryDate,
     },
   ];
 
@@ -46,9 +46,9 @@ const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
       <TouchableOpacity onPress={() => setOpen((current) => !current)}>
         <Stack styles="p-4 bg-gray-50 rounded-xl justify-between items-center">
           <Text className="text-sm font-medium text-neutral-400">
-            ~{finalEntryDate}
+            ~{visaFinalEntryDate}
           </Text>
-          <Text className="text-base font-bold">{VisaStatus[status]}</Text>
+          <Text className="text-base font-bold">{VisaStatus[visaStatus]}</Text>
           <ChevronDownIcon />
         </Stack>
       </TouchableOpacity>
@@ -79,15 +79,15 @@ const MyVisaHistory: React.FC = () => {
   const myVisaHistoryList: MyVisaHistoryListProps[] = [
     {
       id: 1,
-      status: VisaCode.D4,
-      issueDate: "2026/06/06",
-      finalEntryDate: "2028/09/09",
+      visaStatus: VisaCode.D4,
+      visaIssueDate: "2026/06/06",
+      visaFinalEntryDate: "2028/09/09",
     },
     {
       id: 2,
-      status: VisaCode.D4,
-      issueDate: "2026/06/06",
-      finalEntryDate: "2028/09/09",
+      visaStatus: VisaCode.D4,
+      visaIssueDate: "2026/06/06",
+      visaFinalEntryDate: "2028/09/09",
     },
   ];
 
