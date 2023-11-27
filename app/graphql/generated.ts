@@ -1,5 +1,6 @@
 import { FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy } from '@apollo/client/cache';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -184,6 +185,21 @@ export type DatetimeFilter = {
   neq?: InputMaybe<Scalars['Datetime']['input']>;
 };
 
+export enum DegreeType {
+  Bachelor = 'Bachelor',
+  Doctorate = 'Doctorate',
+  Master = 'Master',
+  ProBachelor = 'ProBachelor'
+}
+
+/** Boolean expression comparing fields on type "DegreeType" */
+export type DegreeTypeFilter = {
+  eq?: InputMaybe<DegreeType>;
+  in?: InputMaybe<Array<DegreeType>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<DegreeType>;
+};
+
 export enum EmploymentArrangement {
   Office = 'Office',
   Offline = 'Offline'
@@ -212,6 +228,19 @@ export type FloatFilter = {
   lt?: InputMaybe<Scalars['Float']['input']>;
   lte?: InputMaybe<Scalars['Float']['input']>;
   neq?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export enum GenderType {
+  Female = 'Female',
+  Male = 'Male'
+}
+
+/** Boolean expression comparing fields on type "GenderType" */
+export type GenderTypeFilter = {
+  eq?: InputMaybe<GenderType>;
+  in?: InputMaybe<Array<GenderType>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<GenderType>;
 };
 
 /** Boolean expression comparing fields on type "ID" */
@@ -422,6 +451,21 @@ export type JobTypeFilter = {
   neq?: InputMaybe<JobType>;
 };
 
+export enum LanguageLevel {
+  Basic = 'Basic',
+  Fluent = 'Fluent',
+  Intermediate = 'Intermediate',
+  Native = 'Native'
+}
+
+/** Boolean expression comparing fields on type "LanguageLevel" */
+export type LanguageLevelFilter = {
+  eq?: InputMaybe<LanguageLevel>;
+  in?: InputMaybe<Array<LanguageLevel>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<LanguageLevel>;
+};
+
 /** The root type for creating and mutating data */
 export type Mutation = {
   __typename?: 'Mutation';
@@ -431,18 +475,36 @@ export type Mutation = {
   deleteFromJobPostCollection: JobPostDeleteResponse;
   /** Deletes zero or more records from the `Notice` collection */
   deleteFromNoticeCollection: NoticeDeleteResponse;
+  /** Deletes zero or more records from the `Profile` collection */
+  deleteFromProfileCollection: ProfileDeleteResponse;
+  /** Deletes zero or more records from the `Resume` collection */
+  deleteFromResumeCollection: ResumeDeleteResponse;
+  /** Deletes zero or more records from the `VisaHistory` collection */
+  deleteFromVisaHistoryCollection: VisaHistoryDeleteResponse;
   /** Adds one or more `Company` records to the collection */
   insertIntoCompanyCollection?: Maybe<CompanyInsertResponse>;
   /** Adds one or more `JobPost` records to the collection */
   insertIntoJobPostCollection?: Maybe<JobPostInsertResponse>;
   /** Adds one or more `Notice` records to the collection */
   insertIntoNoticeCollection?: Maybe<NoticeInsertResponse>;
+  /** Adds one or more `Profile` records to the collection */
+  insertIntoProfileCollection?: Maybe<ProfileInsertResponse>;
+  /** Adds one or more `Resume` records to the collection */
+  insertIntoResumeCollection?: Maybe<ResumeInsertResponse>;
+  /** Adds one or more `VisaHistory` records to the collection */
+  insertIntoVisaHistoryCollection?: Maybe<VisaHistoryInsertResponse>;
   /** Updates zero or more records in the `Company` collection */
   updateCompanyCollection: CompanyUpdateResponse;
   /** Updates zero or more records in the `JobPost` collection */
   updateJobPostCollection: JobPostUpdateResponse;
   /** Updates zero or more records in the `Notice` collection */
   updateNoticeCollection: NoticeUpdateResponse;
+  /** Updates zero or more records in the `Profile` collection */
+  updateProfileCollection: ProfileUpdateResponse;
+  /** Updates zero or more records in the `Resume` collection */
+  updateResumeCollection: ResumeUpdateResponse;
+  /** Updates zero or more records in the `VisaHistory` collection */
+  updateVisaHistoryCollection: VisaHistoryUpdateResponse;
 };
 
 
@@ -468,6 +530,27 @@ export type MutationDeleteFromNoticeCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationDeleteFromProfileCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<ProfileFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromResumeCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<ResumeFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromVisaHistoryCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<VisaHistoryFilter>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationInsertIntoCompanyCollectionArgs = {
   objects: Array<CompanyInsertInput>;
 };
@@ -482,6 +565,24 @@ export type MutationInsertIntoJobPostCollectionArgs = {
 /** The root type for creating and mutating data */
 export type MutationInsertIntoNoticeCollectionArgs = {
   objects: Array<NoticeInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntoProfileCollectionArgs = {
+  objects: Array<ProfileInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntoResumeCollectionArgs = {
+  objects: Array<ResumeInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntoVisaHistoryCollectionArgs = {
+  objects: Array<VisaHistoryInsertInput>;
 };
 
 
@@ -506,6 +607,30 @@ export type MutationUpdateNoticeCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<NoticeFilter>;
   set: NoticeUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateProfileCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<ProfileFilter>;
+  set: ProfileUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateResumeCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<ResumeFilter>;
+  set: ResumeUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateVisaHistoryCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<VisaHistoryFilter>;
+  set: VisaHistoryUpdateInput;
 };
 
 export type Node = {
@@ -613,6 +738,115 @@ export type PageInfo = {
   startCursor?: Maybe<Scalars['String']['output']>;
 };
 
+export type Profile = Node & {
+  __typename?: 'Profile';
+  birthDate: Scalars['Date']['output'];
+  country: Scalars['String']['output'];
+  created_at: Scalars['Datetime']['output'];
+  gender: GenderType;
+  id: Scalars['BigInt']['output'];
+  name: Scalars['String']['output'];
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID']['output'];
+  residence: ResidenceType;
+  userId: Scalars['UUID']['output'];
+  userType: Scalars['String']['output'];
+  visa: Scalars['String']['output'];
+};
+
+export type ProfileConnection = {
+  __typename?: 'ProfileConnection';
+  edges: Array<ProfileEdge>;
+  pageInfo: PageInfo;
+};
+
+export type ProfileDeleteResponse = {
+  __typename?: 'ProfileDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Profile>;
+};
+
+export type ProfileEdge = {
+  __typename?: 'ProfileEdge';
+  cursor: Scalars['String']['output'];
+  node: Profile;
+};
+
+export type ProfileFilter = {
+  /** Returns true only if all its inner filters are true, otherwise returns false */
+  and?: InputMaybe<Array<ProfileFilter>>;
+  birthDate?: InputMaybe<DateFilter>;
+  country?: InputMaybe<StringFilter>;
+  created_at?: InputMaybe<DatetimeFilter>;
+  gender?: InputMaybe<GenderTypeFilter>;
+  id?: InputMaybe<BigIntFilter>;
+  name?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  /** Negates a filter */
+  not?: InputMaybe<ProfileFilter>;
+  /** Returns true if at least one of its inner filters is true, otherwise returns false */
+  or?: InputMaybe<Array<ProfileFilter>>;
+  residence?: InputMaybe<ResidenceTypeFilter>;
+  userId?: InputMaybe<UuidFilter>;
+  userType?: InputMaybe<StringFilter>;
+  visa?: InputMaybe<StringFilter>;
+};
+
+export type ProfileInsertInput = {
+  birthDate?: InputMaybe<Scalars['Date']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  gender?: InputMaybe<GenderType>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  residence?: InputMaybe<ResidenceType>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  userType?: InputMaybe<Scalars['String']['input']>;
+  visa?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProfileInsertResponse = {
+  __typename?: 'ProfileInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Profile>;
+};
+
+export type ProfileOrderBy = {
+  birthDate?: InputMaybe<OrderByDirection>;
+  country?: InputMaybe<OrderByDirection>;
+  created_at?: InputMaybe<OrderByDirection>;
+  gender?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  name?: InputMaybe<OrderByDirection>;
+  residence?: InputMaybe<OrderByDirection>;
+  userId?: InputMaybe<OrderByDirection>;
+  userType?: InputMaybe<OrderByDirection>;
+  visa?: InputMaybe<OrderByDirection>;
+};
+
+export type ProfileUpdateInput = {
+  birthDate?: InputMaybe<Scalars['Date']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  gender?: InputMaybe<GenderType>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  residence?: InputMaybe<ResidenceType>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  userType?: InputMaybe<Scalars['String']['input']>;
+  visa?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProfileUpdateResponse = {
+  __typename?: 'ProfileUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Profile>;
+};
+
 /** The root type for querying data */
 export type Query = {
   __typename?: 'Query';
@@ -624,6 +858,12 @@ export type Query = {
   node?: Maybe<Node>;
   /** A pagable collection of type `Notice` */
   noticeCollection?: Maybe<NoticeConnection>;
+  /** A pagable collection of type `Profile` */
+  profileCollection?: Maybe<ProfileConnection>;
+  /** A pagable collection of type `Resume` */
+  resumeCollection?: Maybe<ResumeConnection>;
+  /** A pagable collection of type `VisaHistory` */
+  visaHistoryCollection?: Maybe<VisaHistoryConnection>;
 };
 
 
@@ -665,6 +905,185 @@ export type QueryNoticeCollectionArgs = {
   orderBy?: InputMaybe<Array<NoticeOrderBy>>;
 };
 
+
+/** The root type for querying data */
+export type QueryProfileCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<ProfileFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ProfileOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryResumeCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<ResumeFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ResumeOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryVisaHistoryCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<VisaHistoryFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<VisaHistoryOrderBy>>;
+};
+
+export enum ResidenceType {
+  Abroad = 'Abroad',
+  Domestic = 'Domestic'
+}
+
+/** Boolean expression comparing fields on type "ResidenceType" */
+export type ResidenceTypeFilter = {
+  eq?: InputMaybe<ResidenceType>;
+  in?: InputMaybe<Array<ResidenceType>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<ResidenceType>;
+};
+
+export type Resume = Node & {
+  __typename?: 'Resume';
+  address?: Maybe<Scalars['String']['output']>;
+  birthDate: Scalars['Date']['output'];
+  career?: Maybe<Scalars['JSON']['output']>;
+  country: Scalars['String']['output'];
+  created_at: Scalars['Datetime']['output'];
+  detailAddress?: Maybe<Scalars['String']['output']>;
+  education?: Maybe<Scalars['JSON']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  gender: GenderType;
+  id: Scalars['BigInt']['output'];
+  language?: Maybe<Scalars['JSON']['output']>;
+  name: Scalars['String']['output'];
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID']['output'];
+  phoneNumber?: Maybe<Scalars['String']['output']>;
+  residence: ResidenceType;
+  userId: Scalars['UUID']['output'];
+  visa: Scalars['String']['output'];
+};
+
+export type ResumeConnection = {
+  __typename?: 'ResumeConnection';
+  edges: Array<ResumeEdge>;
+  pageInfo: PageInfo;
+};
+
+export type ResumeDeleteResponse = {
+  __typename?: 'ResumeDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Resume>;
+};
+
+export type ResumeEdge = {
+  __typename?: 'ResumeEdge';
+  cursor: Scalars['String']['output'];
+  node: Resume;
+};
+
+export type ResumeFilter = {
+  address?: InputMaybe<StringFilter>;
+  /** Returns true only if all its inner filters are true, otherwise returns false */
+  and?: InputMaybe<Array<ResumeFilter>>;
+  birthDate?: InputMaybe<DateFilter>;
+  country?: InputMaybe<StringFilter>;
+  created_at?: InputMaybe<DatetimeFilter>;
+  detailAddress?: InputMaybe<StringFilter>;
+  email?: InputMaybe<StringFilter>;
+  gender?: InputMaybe<GenderTypeFilter>;
+  id?: InputMaybe<BigIntFilter>;
+  name?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  /** Negates a filter */
+  not?: InputMaybe<ResumeFilter>;
+  /** Returns true if at least one of its inner filters is true, otherwise returns false */
+  or?: InputMaybe<Array<ResumeFilter>>;
+  phoneNumber?: InputMaybe<StringFilter>;
+  residence?: InputMaybe<ResidenceTypeFilter>;
+  userId?: InputMaybe<UuidFilter>;
+  visa?: InputMaybe<StringFilter>;
+};
+
+export type ResumeInsertInput = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  birthDate?: InputMaybe<Scalars['Date']['input']>;
+  career?: InputMaybe<Scalars['JSON']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  detailAddress?: InputMaybe<Scalars['String']['input']>;
+  education?: InputMaybe<Scalars['JSON']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<GenderType>;
+  language?: InputMaybe<Scalars['JSON']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  residence?: InputMaybe<ResidenceType>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  visa?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ResumeInsertResponse = {
+  __typename?: 'ResumeInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Resume>;
+};
+
+export type ResumeOrderBy = {
+  address?: InputMaybe<OrderByDirection>;
+  birthDate?: InputMaybe<OrderByDirection>;
+  country?: InputMaybe<OrderByDirection>;
+  created_at?: InputMaybe<OrderByDirection>;
+  detailAddress?: InputMaybe<OrderByDirection>;
+  email?: InputMaybe<OrderByDirection>;
+  gender?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  name?: InputMaybe<OrderByDirection>;
+  phoneNumber?: InputMaybe<OrderByDirection>;
+  residence?: InputMaybe<OrderByDirection>;
+  userId?: InputMaybe<OrderByDirection>;
+  visa?: InputMaybe<OrderByDirection>;
+};
+
+export type ResumeUpdateInput = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  birthDate?: InputMaybe<Scalars['Date']['input']>;
+  career?: InputMaybe<Scalars['JSON']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  detailAddress?: InputMaybe<Scalars['String']['input']>;
+  education?: InputMaybe<Scalars['JSON']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<GenderType>;
+  language?: InputMaybe<Scalars['JSON']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  residence?: InputMaybe<ResidenceType>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  visa?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ResumeUpdateResponse = {
+  __typename?: 'ResumeUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Resume>;
+};
+
 /** Boolean expression comparing fields on type "String" */
 export type StringFilter = {
   eq?: InputMaybe<Scalars['String']['input']>;
@@ -700,6 +1119,95 @@ export type UuidFilter = {
   in?: InputMaybe<Array<Scalars['UUID']['input']>>;
   is?: InputMaybe<FilterIs>;
   neq?: InputMaybe<Scalars['UUID']['input']>;
+};
+
+export type VisaHistory = Node & {
+  __typename?: 'VisaHistory';
+  created_at: Scalars['Datetime']['output'];
+  id: Scalars['BigInt']['output'];
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID']['output'];
+  userId: Scalars['UUID']['output'];
+  visaFinalEntryDate: Scalars['Date']['output'];
+  visaIssueDate: Scalars['Date']['output'];
+  visaStatus: Scalars['String']['output'];
+};
+
+export type VisaHistoryConnection = {
+  __typename?: 'VisaHistoryConnection';
+  edges: Array<VisaHistoryEdge>;
+  pageInfo: PageInfo;
+};
+
+export type VisaHistoryDeleteResponse = {
+  __typename?: 'VisaHistoryDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<VisaHistory>;
+};
+
+export type VisaHistoryEdge = {
+  __typename?: 'VisaHistoryEdge';
+  cursor: Scalars['String']['output'];
+  node: VisaHistory;
+};
+
+export type VisaHistoryFilter = {
+  /** Returns true only if all its inner filters are true, otherwise returns false */
+  and?: InputMaybe<Array<VisaHistoryFilter>>;
+  created_at?: InputMaybe<DatetimeFilter>;
+  id?: InputMaybe<BigIntFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  /** Negates a filter */
+  not?: InputMaybe<VisaHistoryFilter>;
+  /** Returns true if at least one of its inner filters is true, otherwise returns false */
+  or?: InputMaybe<Array<VisaHistoryFilter>>;
+  userId?: InputMaybe<UuidFilter>;
+  visaFinalEntryDate?: InputMaybe<DateFilter>;
+  visaIssueDate?: InputMaybe<DateFilter>;
+  visaStatus?: InputMaybe<StringFilter>;
+};
+
+export type VisaHistoryInsertInput = {
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  visaFinalEntryDate?: InputMaybe<Scalars['Date']['input']>;
+  visaIssueDate?: InputMaybe<Scalars['Date']['input']>;
+  visaStatus?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type VisaHistoryInsertResponse = {
+  __typename?: 'VisaHistoryInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<VisaHistory>;
+};
+
+export type VisaHistoryOrderBy = {
+  created_at?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  userId?: InputMaybe<OrderByDirection>;
+  visaFinalEntryDate?: InputMaybe<OrderByDirection>;
+  visaIssueDate?: InputMaybe<OrderByDirection>;
+  visaStatus?: InputMaybe<OrderByDirection>;
+};
+
+export type VisaHistoryUpdateInput = {
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  visaFinalEntryDate?: InputMaybe<Scalars['Date']['input']>;
+  visaIssueDate?: InputMaybe<Scalars['Date']['input']>;
+  visaStatus?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type VisaHistoryUpdateResponse = {
+  __typename?: 'VisaHistoryUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<VisaHistory>;
 };
 
 export type CompanyKeySpecifier = ('email' | 'id' | 'industry' | 'jobPostCollection' | 'location' | 'name' | 'nodeId' | 'uuid' | 'website' | CompanyKeySpecifier)[];
@@ -791,17 +1299,26 @@ export type JobPostUpdateResponseFieldPolicy = {
 	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
 	records?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('deleteFromCompanyCollection' | 'deleteFromJobPostCollection' | 'deleteFromNoticeCollection' | 'insertIntoCompanyCollection' | 'insertIntoJobPostCollection' | 'insertIntoNoticeCollection' | 'updateCompanyCollection' | 'updateJobPostCollection' | 'updateNoticeCollection' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('deleteFromCompanyCollection' | 'deleteFromJobPostCollection' | 'deleteFromNoticeCollection' | 'deleteFromProfileCollection' | 'deleteFromResumeCollection' | 'deleteFromVisaHistoryCollection' | 'insertIntoCompanyCollection' | 'insertIntoJobPostCollection' | 'insertIntoNoticeCollection' | 'insertIntoProfileCollection' | 'insertIntoResumeCollection' | 'insertIntoVisaHistoryCollection' | 'updateCompanyCollection' | 'updateJobPostCollection' | 'updateNoticeCollection' | 'updateProfileCollection' | 'updateResumeCollection' | 'updateVisaHistoryCollection' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	deleteFromCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteFromJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteFromNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteFromProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteFromResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteFromVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	insertIntoCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	insertIntoJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	insertIntoNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	insertIntoProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	insertIntoResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	insertIntoVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>
+	updateNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type NodeKeySpecifier = ('nodeId' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
@@ -846,12 +1363,134 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('companyCollection' | 'jobPostCollection' | 'node' | 'noticeCollection' | QueryKeySpecifier)[];
+export type ProfileKeySpecifier = ('birthDate' | 'country' | 'created_at' | 'gender' | 'id' | 'name' | 'nodeId' | 'residence' | 'userId' | 'userType' | 'visa' | ProfileKeySpecifier)[];
+export type ProfileFieldPolicy = {
+	birthDate?: FieldPolicy<any> | FieldReadFunction<any>,
+	country?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	gender?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
+	residence?: FieldPolicy<any> | FieldReadFunction<any>,
+	userId?: FieldPolicy<any> | FieldReadFunction<any>,
+	userType?: FieldPolicy<any> | FieldReadFunction<any>,
+	visa?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ProfileConnectionKeySpecifier = ('edges' | 'pageInfo' | ProfileConnectionKeySpecifier)[];
+export type ProfileConnectionFieldPolicy = {
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ProfileDeleteResponseKeySpecifier = ('affectedCount' | 'records' | ProfileDeleteResponseKeySpecifier)[];
+export type ProfileDeleteResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ProfileEdgeKeySpecifier = ('cursor' | 'node' | ProfileEdgeKeySpecifier)[];
+export type ProfileEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ProfileInsertResponseKeySpecifier = ('affectedCount' | 'records' | ProfileInsertResponseKeySpecifier)[];
+export type ProfileInsertResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ProfileUpdateResponseKeySpecifier = ('affectedCount' | 'records' | ProfileUpdateResponseKeySpecifier)[];
+export type ProfileUpdateResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type QueryKeySpecifier = ('companyCollection' | 'jobPostCollection' | 'node' | 'noticeCollection' | 'profileCollection' | 'resumeCollection' | 'visaHistoryCollection' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	companyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	jobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>,
-	noticeCollection?: FieldPolicy<any> | FieldReadFunction<any>
+	noticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	profileCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	resumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	visaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResumeKeySpecifier = ('address' | 'birthDate' | 'career' | 'country' | 'created_at' | 'detailAddress' | 'education' | 'email' | 'gender' | 'id' | 'language' | 'name' | 'nodeId' | 'phoneNumber' | 'residence' | 'userId' | 'visa' | ResumeKeySpecifier)[];
+export type ResumeFieldPolicy = {
+	address?: FieldPolicy<any> | FieldReadFunction<any>,
+	birthDate?: FieldPolicy<any> | FieldReadFunction<any>,
+	career?: FieldPolicy<any> | FieldReadFunction<any>,
+	country?: FieldPolicy<any> | FieldReadFunction<any>,
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	detailAddress?: FieldPolicy<any> | FieldReadFunction<any>,
+	education?: FieldPolicy<any> | FieldReadFunction<any>,
+	email?: FieldPolicy<any> | FieldReadFunction<any>,
+	gender?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	language?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
+	phoneNumber?: FieldPolicy<any> | FieldReadFunction<any>,
+	residence?: FieldPolicy<any> | FieldReadFunction<any>,
+	userId?: FieldPolicy<any> | FieldReadFunction<any>,
+	visa?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResumeConnectionKeySpecifier = ('edges' | 'pageInfo' | ResumeConnectionKeySpecifier)[];
+export type ResumeConnectionFieldPolicy = {
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResumeDeleteResponseKeySpecifier = ('affectedCount' | 'records' | ResumeDeleteResponseKeySpecifier)[];
+export type ResumeDeleteResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResumeEdgeKeySpecifier = ('cursor' | 'node' | ResumeEdgeKeySpecifier)[];
+export type ResumeEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResumeInsertResponseKeySpecifier = ('affectedCount' | 'records' | ResumeInsertResponseKeySpecifier)[];
+export type ResumeInsertResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResumeUpdateResponseKeySpecifier = ('affectedCount' | 'records' | ResumeUpdateResponseKeySpecifier)[];
+export type ResumeUpdateResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type VisaHistoryKeySpecifier = ('created_at' | 'id' | 'nodeId' | 'userId' | 'visaFinalEntryDate' | 'visaIssueDate' | 'visaStatus' | VisaHistoryKeySpecifier)[];
+export type VisaHistoryFieldPolicy = {
+	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
+	userId?: FieldPolicy<any> | FieldReadFunction<any>,
+	visaFinalEntryDate?: FieldPolicy<any> | FieldReadFunction<any>,
+	visaIssueDate?: FieldPolicy<any> | FieldReadFunction<any>,
+	visaStatus?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type VisaHistoryConnectionKeySpecifier = ('edges' | 'pageInfo' | VisaHistoryConnectionKeySpecifier)[];
+export type VisaHistoryConnectionFieldPolicy = {
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type VisaHistoryDeleteResponseKeySpecifier = ('affectedCount' | 'records' | VisaHistoryDeleteResponseKeySpecifier)[];
+export type VisaHistoryDeleteResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type VisaHistoryEdgeKeySpecifier = ('cursor' | 'node' | VisaHistoryEdgeKeySpecifier)[];
+export type VisaHistoryEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type VisaHistoryInsertResponseKeySpecifier = ('affectedCount' | 'records' | VisaHistoryInsertResponseKeySpecifier)[];
+export type VisaHistoryInsertResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type VisaHistoryUpdateResponseKeySpecifier = ('affectedCount' | 'records' | VisaHistoryUpdateResponseKeySpecifier)[];
+export type VisaHistoryUpdateResponseFieldPolicy = {
+	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	records?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type StrictTypedTypePolicies = {
 	Company?: Omit<TypePolicy, "fields" | "keyFields"> & {
@@ -938,9 +1577,81 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier),
 		fields?: PageInfoFieldPolicy,
 	},
+	Profile?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ProfileKeySpecifier | (() => undefined | ProfileKeySpecifier),
+		fields?: ProfileFieldPolicy,
+	},
+	ProfileConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ProfileConnectionKeySpecifier | (() => undefined | ProfileConnectionKeySpecifier),
+		fields?: ProfileConnectionFieldPolicy,
+	},
+	ProfileDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ProfileDeleteResponseKeySpecifier | (() => undefined | ProfileDeleteResponseKeySpecifier),
+		fields?: ProfileDeleteResponseFieldPolicy,
+	},
+	ProfileEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ProfileEdgeKeySpecifier | (() => undefined | ProfileEdgeKeySpecifier),
+		fields?: ProfileEdgeFieldPolicy,
+	},
+	ProfileInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ProfileInsertResponseKeySpecifier | (() => undefined | ProfileInsertResponseKeySpecifier),
+		fields?: ProfileInsertResponseFieldPolicy,
+	},
+	ProfileUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ProfileUpdateResponseKeySpecifier | (() => undefined | ProfileUpdateResponseKeySpecifier),
+		fields?: ProfileUpdateResponseFieldPolicy,
+	},
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
+	},
+	Resume?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResumeKeySpecifier | (() => undefined | ResumeKeySpecifier),
+		fields?: ResumeFieldPolicy,
+	},
+	ResumeConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResumeConnectionKeySpecifier | (() => undefined | ResumeConnectionKeySpecifier),
+		fields?: ResumeConnectionFieldPolicy,
+	},
+	ResumeDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResumeDeleteResponseKeySpecifier | (() => undefined | ResumeDeleteResponseKeySpecifier),
+		fields?: ResumeDeleteResponseFieldPolicy,
+	},
+	ResumeEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResumeEdgeKeySpecifier | (() => undefined | ResumeEdgeKeySpecifier),
+		fields?: ResumeEdgeFieldPolicy,
+	},
+	ResumeInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResumeInsertResponseKeySpecifier | (() => undefined | ResumeInsertResponseKeySpecifier),
+		fields?: ResumeInsertResponseFieldPolicy,
+	},
+	ResumeUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResumeUpdateResponseKeySpecifier | (() => undefined | ResumeUpdateResponseKeySpecifier),
+		fields?: ResumeUpdateResponseFieldPolicy,
+	},
+	VisaHistory?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VisaHistoryKeySpecifier | (() => undefined | VisaHistoryKeySpecifier),
+		fields?: VisaHistoryFieldPolicy,
+	},
+	VisaHistoryConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VisaHistoryConnectionKeySpecifier | (() => undefined | VisaHistoryConnectionKeySpecifier),
+		fields?: VisaHistoryConnectionFieldPolicy,
+	},
+	VisaHistoryDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VisaHistoryDeleteResponseKeySpecifier | (() => undefined | VisaHistoryDeleteResponseKeySpecifier),
+		fields?: VisaHistoryDeleteResponseFieldPolicy,
+	},
+	VisaHistoryEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VisaHistoryEdgeKeySpecifier | (() => undefined | VisaHistoryEdgeKeySpecifier),
+		fields?: VisaHistoryEdgeFieldPolicy,
+	},
+	VisaHistoryInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VisaHistoryInsertResponseKeySpecifier | (() => undefined | VisaHistoryInsertResponseKeySpecifier),
+		fields?: VisaHistoryInsertResponseFieldPolicy,
+	},
+	VisaHistoryUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VisaHistoryUpdateResponseKeySpecifier | (() => undefined | VisaHistoryUpdateResponseKeySpecifier),
+		fields?: VisaHistoryUpdateResponseFieldPolicy,
 	}
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;
@@ -987,6 +1698,13 @@ export const JobPostItemFieldsFragmentDoc = gql`
   endDate
   siDo
   siGunGu
+}
+    `;
+export const VisaHistoryFieldsFragmentDoc = gql`
+    fragment VisaHistoryFields on VisaHistory {
+  visaStatus
+  visaIssueDate
+  visaFinalEntryDate
 }
     `;
 export const GetCompanyDocument = gql`
@@ -1067,11 +1785,51 @@ export const GetNoticesDocument = gql`
   }
 }
     `;
+export const GetVisaHistoryDocument = gql`
+    query GetVisaHistory($userId: UUID) {
+  visaHistoryCollection(filter: {userId: {eq: $userId}}) {
+    edges {
+      node {
+        ...VisaHistoryFields
+      }
+    }
+  }
+}
+    ${VisaHistoryFieldsFragmentDoc}`;
+export const InsertVisaEnrolLHistoryDocument = gql`
+    mutation insertVisaEnrolLHistory($userId: UUID, $visaStatus: String, $visaIssueDate: Date, $visaFinalEntryDate: Date) {
+  insertIntoVisaHistoryCollection(
+    objects: {userId: $userId, visaStatus: $visaStatus, visaIssueDate: $visaIssueDate, visaFinalEntryDate: $visaFinalEntryDate}
+  ) {
+    records {
+      id
+    }
+  }
+}
+    `;
+export type InsertVisaEnrolLHistoryMutationFn = Apollo.MutationFunction<InsertVisaEnrolLHistoryMutation, InsertVisaEnrolLHistoryMutationVariables>;
+export type InsertVisaEnrolLHistoryMutationOptions = Apollo.BaseMutationOptions<InsertVisaEnrolLHistoryMutation, InsertVisaEnrolLHistoryMutationVariables>;
+export const UpdateVisaEnrolLHistoryDocument = gql`
+    mutation updateVisaEnrolLHistory($userId: UUID, $visaStatus: String, $visaIssueDate: Date, $visaFinalEntryDate: Date) {
+  updateVisaHistoryCollection(
+    set: {visaStatus: $visaStatus, visaIssueDate: $visaIssueDate, visaFinalEntryDate: $visaFinalEntryDate}
+    filter: {userId: {eq: $userId}}
+  ) {
+    records {
+      id
+    }
+  }
+}
+    `;
+export type UpdateVisaEnrolLHistoryMutationFn = Apollo.MutationFunction<UpdateVisaEnrolLHistoryMutation, UpdateVisaEnrolLHistoryMutationVariables>;
+export type UpdateVisaEnrolLHistoryMutationOptions = Apollo.BaseMutationOptions<UpdateVisaEnrolLHistoryMutation, UpdateVisaEnrolLHistoryMutationVariables>;
 export type ComapnyFieldsFragment = { __typename?: 'Company', uuid: any, name: string, email?: string | null, website?: string | null, industry?: string | null, location?: string | null };
 
 export type JobPostListItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string };
 
 export type JobPostItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyName: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null, siDo: string, siGunGu: string };
+
+export type VisaHistoryFieldsFragment = { __typename?: 'VisaHistory', visaStatus: string, visaIssueDate: any, visaFinalEntryDate: any };
 
 export type GetCompanyQueryVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
@@ -1112,3 +1870,30 @@ export type GetNoticesQueryVariables = Exact<{
 
 
 export type GetNoticesQuery = { __typename?: 'Query', noticeCollection?: { __typename?: 'NoticeConnection', edges: Array<{ __typename?: 'NoticeEdge', cursor: string, node: { __typename?: 'Notice', id: any, title: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+
+export type GetVisaHistoryQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+}>;
+
+
+export type GetVisaHistoryQuery = { __typename?: 'Query', visaHistoryCollection?: { __typename?: 'VisaHistoryConnection', edges: Array<{ __typename?: 'VisaHistoryEdge', node: { __typename?: 'VisaHistory', visaStatus: string, visaIssueDate: any, visaFinalEntryDate: any } }> } | null };
+
+export type InsertVisaEnrolLHistoryMutationVariables = Exact<{
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  visaStatus?: InputMaybe<Scalars['String']['input']>;
+  visaIssueDate?: InputMaybe<Scalars['Date']['input']>;
+  visaFinalEntryDate?: InputMaybe<Scalars['Date']['input']>;
+}>;
+
+
+export type InsertVisaEnrolLHistoryMutation = { __typename?: 'Mutation', insertIntoVisaHistoryCollection?: { __typename?: 'VisaHistoryInsertResponse', records: Array<{ __typename?: 'VisaHistory', id: any }> } | null };
+
+export type UpdateVisaEnrolLHistoryMutationVariables = Exact<{
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  visaStatus?: InputMaybe<Scalars['String']['input']>;
+  visaIssueDate?: InputMaybe<Scalars['Date']['input']>;
+  visaFinalEntryDate?: InputMaybe<Scalars['Date']['input']>;
+}>;
+
+
+export type UpdateVisaEnrolLHistoryMutation = { __typename?: 'Mutation', updateVisaHistoryCollection: { __typename?: 'VisaHistoryUpdateResponse', records: Array<{ __typename?: 'VisaHistory', id: any }> } };
