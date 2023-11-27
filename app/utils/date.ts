@@ -39,3 +39,13 @@ export const convertToFormatDate = (value: string) => {
     MM.length === 2 && DD.length > 0 ? "/" : ""
   }${DD}`;
 };
+
+//
+// Convert to 'YYYY,MM,DD' format from 'YYYY/MM/DD'
+//
+export const convertToFormatDateWithComma = (value: string) => {
+  const [year, month, day] = value.split("/").map(Number);
+  const parsedDate = new Date(year, month - 1, day);
+
+  return parsedDate;
+};
