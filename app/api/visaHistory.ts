@@ -1,4 +1,5 @@
 import client from "../graphql/client";
+import { supabaseClient } from "app/utils/supabase";
 import { getFetchPolicy } from "../utils/getFetchPolicy";
 
 import {
@@ -8,7 +9,6 @@ import {
   UpdateVisaEnrolLHistoryDocument,
   UpdateVisaEnrolLHistoryMutation,
   UpdateVisaEnrolLHistoryMutationVariables,
-  UpdateVisaEnrolLHistoryMutationFn,
   UuidFilter,
 } from "../graphql/generated";
 
@@ -35,7 +35,7 @@ export const getVisaHistoryByUserId = async ({
   return { visaHistory };
 };
 
-interface UpdateVisaHistoryParmas {
+interface VisaHistoryParmas {
   userId: string;
   visaStatus: string;
   visaIssueDate: Date;
@@ -47,22 +47,38 @@ export const updateVisaHistory = async ({
   visaStatus,
   visaIssueDate,
   visaFinalEntryDate,
-}: UpdateVisaHistoryParmas) => {
-  const { data } = await client.query<
+}: VisaHistoryParmas) => {
+  const { data } = await client.mutate<
     UpdateVisaEnrolLHistoryMutation,
     UpdateVisaEnrolLHistoryMutationVariables
   >({
-    query: UpdateVisaEnrolLHistoryDocument,
+    mutation: UpdateVisaEnrolLHistoryDocument,
     variables: {
       userId,
       visaFinalEntryDate,
       visaIssueDate,
       visaStatus,
     },
-    fetchPolicy: getFetchPolicy(),
   });
 
-  const response = data.updateVisaHistoryCollection.records;
+  const response = data?.updateVisaHistoryCollection.records;
 
   return { response };
+};
+
+export const insertVisaHistory = async ({
+  userId,
+  visaStatus,
+  visaIssueDate,
+  visaFinalEntryDate,
+}: VisaHistoryParmas) => {
+  const { data, error } = await supabaseClient
+    .from("VisaHistory")
+    .insert({ userId, visaStatus, visaIssueDate, visaFinalEntryDate });
+
+  if (error) {
+    throw new Error("fail to insert visa history");
+  }
+
+  return data;
 };
