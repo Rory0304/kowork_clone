@@ -176,7 +176,7 @@ const MyVisaEnrollScreen: React.FC = () => {
           name="visaFinalEntryDate"
           control={control}
           render={({ field, fieldState: { error } }) => (
-            <>
+            <View>
               <TextInput
                 {...field}
                 className={`p-4 font-medium bg-gray-200 border border-gray-300 rounded-xl ${
@@ -194,7 +194,7 @@ const MyVisaEnrollScreen: React.FC = () => {
                 }}
               />
               {error && <Text className="text-red-400">{error.message}</Text>}
-            </>
+            </View>
           )}
           rules={{
             validate: (value) => {
