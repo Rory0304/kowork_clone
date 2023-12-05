@@ -1,4 +1,5 @@
 import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NAV_SCREENS } from "../constants/Routes";
 import EmailSignInScreen from "app/screens/Auth/EmailSignInScreen";
@@ -6,7 +7,9 @@ import EmailSignUpScreen from "app/screens/Auth/EmailSignUpScreen";
 import EmailCheckScreen from "app/screens/Auth/EmailCheckScreen";
 import HomeScreen from "app/screens/Home/HomeScreen";
 import EmailCheckSuccessScreen from "app/screens/Auth/EmailCheckSuccessScreen";
-import { AuthContext } from "app/contexts/AuthProvider";
+import ProfileEnrollAlertScreen from "app/screens/Auth/ProfileEnrollAlertScreen";
+import { useAuth } from "app/contexts/AuthProvider";
+import { useProfile } from "app/contexts/ProfileProvider";
 
 export type NativeStackParamList = {
   HomeScreen: undefined;
@@ -14,59 +17,71 @@ export type NativeStackParamList = {
   EmailSignUpScreen: undefined;
   EmailCheckScreen: { email: string };
   EmailCheckSuccessScreen: undefined;
+  ProfileEnrollAlertScreen: undefined;
 };
 
-const NativeStack = createNativeStackNavigator<NativeStackParamList>();
+const NativeStack = createStackNavigator<NativeStackParamList>();
 
 const AuthNavigator: React.FC = () => {
-  const { authorized, userInfo } = React.useContext(AuthContext);
+  const { authorized } = useAuth();
+  const { profileInfo } = useProfile();
 
   return (
     <NativeStack.Navigator>
-      <React.Fragment>
+      <NativeStack.Group screenOptions={{ presentation: "modal" }}>
         <NativeStack.Screen
           name={NAV_SCREENS.HomeScreen}
           component={HomeScreen}
           options={{
+            animationEnabled: true,
+            presentation: "modal",
             headerShown: false,
             headerBackTitleVisible: false,
           }}
         />
+      </NativeStack.Group>
+      {!authorized ? (
+        <NativeStack.Group screenOptions={{ headerBackTitleVisible: true }}>
+          <NativeStack.Screen
+            name={NAV_SCREENS.EmailSignInScreen}
+            component={EmailSignInScreen}
+            options={{
+              headerBackTitle: "",
+              headerTitle: "이메일 로그인",
+            }}
+          />
+          <NativeStack.Screen
+            name={NAV_SCREENS.EmailSignUpScreen}
+            component={EmailSignUpScreen}
+            options={{
+              headerTitle: "회원가입",
+            }}
+          />
+        </NativeStack.Group>
+      ) : null}
+      {!profileInfo ? (
         <NativeStack.Screen
-          name={NAV_SCREENS.EmailSignInScreen}
-          component={EmailSignInScreen}
+          name={NAV_SCREENS.ProfileEnrollAlertScreen}
+          component={ProfileEnrollAlertScreen}
           options={{
-            headerBackVisible: true,
-            headerTitle: "이메일 로그인",
-          }}
-        />
-        <NativeStack.Screen
-          name={NAV_SCREENS.EmailSignUpScreen}
-          component={EmailSignUpScreen}
-          options={{
-            headerBackVisible: true,
-            headerTitle: "회원가입",
-          }}
-        />
-      </React.Fragment>
-      <NativeStack.Screen
-        name={NAV_SCREENS.EmailCheckScreen}
-        component={EmailCheckScreen}
-        options={{
-          headerBackVisible: true,
-          headerTitle: "회원가입",
-        }}
-      />
-      {userInfo?.identities?.[0]?.identity_data?.email_verified ? (
-        <NativeStack.Screen
-          name={NAV_SCREENS.EmailCheckSuccessScreen}
-          component={EmailCheckSuccessScreen}
-          options={{
-            headerBackVisible: true,
             headerTitle: "회원가입",
           }}
         />
       ) : null}
+      <NativeStack.Screen
+        name={NAV_SCREENS.EmailCheckScreen}
+        component={EmailCheckScreen}
+        options={{
+          headerTitle: "회원가입",
+        }}
+      />
+      <NativeStack.Screen
+        name={NAV_SCREENS.EmailCheckSuccessScreen}
+        component={EmailCheckSuccessScreen}
+        options={{
+          headerTitle: "회원가입",
+        }}
+      />
     </NativeStack.Navigator>
   );
 };

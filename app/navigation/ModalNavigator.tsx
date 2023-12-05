@@ -42,7 +42,8 @@ const ModalNavigator: React.FC = () => {
         name={NAV_SCREENS.MyVisaEnrollScreen}
         component={MyVisaEnrollScreen}
         options={{
-          headerTitle: "비자 정보입력",
+          headerBackButtonMenuEnabled: true,
+          headerTitle: "비자 정보 입력",
         }}
       />
       <Stack.Screen

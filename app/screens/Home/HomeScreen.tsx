@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-} from "react-native";
+import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 
@@ -36,7 +30,7 @@ const HomeScreen: React.FC = () => {
               <Text className="mb-2 text-base font-medium text-white">
                 외국인 구인구직 전문 플랫폼
               </Text>
-              <LogoIcon width={175} height={25} fill="#fff" />
+              <LogoIcon width={175} height={25} color="#fff" />
             </View>
             <Text className="text-2xl text-center text-white">
               {"Korean-based Recruitment \n& Visa Consulting"}

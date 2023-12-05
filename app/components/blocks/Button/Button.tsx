@@ -9,7 +9,8 @@ type ButtonSize = "default" | "large";
 
 interface ButtonProps {
   label: string;
-  variant: ButtonVariantType;
+  variant?: ButtonVariantType;
+  isFullWidth?: boolean;
   color?: ButtonColor;
   disabeld?: boolean;
   size?: ButtonSize;
@@ -19,26 +20,32 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({
   label,
-  variant,
-  color,
+  variant = "default",
+  color = "default",
+  isFullWidth = false,
   size = "default",
   disabeld = false,
   Icon,
   onPress,
 }) => {
   const ButtonWrapperStyles = clsx(
-    "justify-center items-center rounded-lg",
+    // disable
+    disabeld === true ? "opacity-30" : "opactiy-100",
+    `justify-center items-center rounded-lg ${isFullWidth ? "w-full" : ""}`,
+    // variant
     variant === "dashed" &&
       color === "primary" &&
       "border border-primary border-dashed",
     variant === "filled" && color === "primary" && "bg-primary",
-    disabeld === true ? "opacity-30" : "opactiy-100",
+    variant === "default" && "bg-neutral-100",
+    // size
     size === "default" && "px-4 py-3",
     size === "large" && "px-4 py-4"
   );
 
   const ButtonLabelStyles = clsx(
-    "text-base font-bold",
+    "text-base font-bold text-center",
+    color === "default" && "text-neutral-400",
     variant === "filled" && color === "primary" && "text-white",
     variant === "dashed" && color === "primary" && "text-primary"
   );

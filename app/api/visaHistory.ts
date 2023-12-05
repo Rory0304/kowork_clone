@@ -1,4 +1,5 @@
 import client from "../graphql/client";
+
 import { supabaseClient } from "app/utils/supabase";
 import { getFetchPolicy } from "../utils/getFetchPolicy";
 
@@ -48,22 +49,16 @@ export const updateVisaHistory = async ({
   visaIssueDate,
   visaFinalEntryDate,
 }: VisaHistoryParmas) => {
-  const { data } = await client.mutate<
-    UpdateVisaEnrolLHistoryMutation,
-    UpdateVisaEnrolLHistoryMutationVariables
-  >({
-    mutation: UpdateVisaEnrolLHistoryDocument,
-    variables: {
-      userId,
-      visaFinalEntryDate,
-      visaIssueDate,
-      visaStatus,
-    },
-  });
+  const { data, error } = await supabaseClient
+    .from("Profile")
+    .update({ visaStatus, visaFinalEntryDate, visaIssueDate })
+    .eq("userId", userId);
 
-  const response = data?.updateVisaHistoryCollection.records;
+  if (error) {
+    throw new Error("fail to update visa history");
+  }
 
-  return { response };
+  return data;
 };
 
 export const insertVisaHistory = async ({

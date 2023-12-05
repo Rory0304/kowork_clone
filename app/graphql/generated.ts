@@ -751,7 +751,6 @@ export type Profile = Node & {
   residence: ResidenceType;
   userId: Scalars['UUID']['output'];
   userType: Scalars['String']['output'];
-  visa: Scalars['String']['output'];
 };
 
 export type ProfileConnection = {
@@ -791,7 +790,6 @@ export type ProfileFilter = {
   residence?: InputMaybe<ResidenceTypeFilter>;
   userId?: InputMaybe<UuidFilter>;
   userType?: InputMaybe<StringFilter>;
-  visa?: InputMaybe<StringFilter>;
 };
 
 export type ProfileInsertInput = {
@@ -803,7 +801,6 @@ export type ProfileInsertInput = {
   residence?: InputMaybe<ResidenceType>;
   userId?: InputMaybe<Scalars['UUID']['input']>;
   userType?: InputMaybe<Scalars['String']['input']>;
-  visa?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ProfileInsertResponse = {
@@ -824,7 +821,6 @@ export type ProfileOrderBy = {
   residence?: InputMaybe<OrderByDirection>;
   userId?: InputMaybe<OrderByDirection>;
   userType?: InputMaybe<OrderByDirection>;
-  visa?: InputMaybe<OrderByDirection>;
 };
 
 export type ProfileUpdateInput = {
@@ -836,7 +832,6 @@ export type ProfileUpdateInput = {
   residence?: InputMaybe<ResidenceType>;
   userId?: InputMaybe<Scalars['UUID']['input']>;
   userType?: InputMaybe<Scalars['String']['input']>;
-  visa?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ProfileUpdateResponse = {
@@ -1128,8 +1123,8 @@ export type VisaHistory = Node & {
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
   userId: Scalars['UUID']['output'];
-  visaFinalEntryDate: Scalars['Date']['output'];
-  visaIssueDate: Scalars['Date']['output'];
+  visaFinalEntryDate?: Maybe<Scalars['Date']['output']>;
+  visaIssueDate?: Maybe<Scalars['Date']['output']>;
   visaStatus: Scalars['String']['output'];
 };
 
@@ -1363,7 +1358,7 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProfileKeySpecifier = ('birthDate' | 'country' | 'created_at' | 'gender' | 'id' | 'name' | 'nodeId' | 'residence' | 'userId' | 'userType' | 'visa' | ProfileKeySpecifier)[];
+export type ProfileKeySpecifier = ('birthDate' | 'country' | 'created_at' | 'gender' | 'id' | 'name' | 'nodeId' | 'residence' | 'userId' | 'userType' | ProfileKeySpecifier)[];
 export type ProfileFieldPolicy = {
 	birthDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	country?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1374,8 +1369,7 @@ export type ProfileFieldPolicy = {
 	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	residence?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>,
-	userType?: FieldPolicy<any> | FieldReadFunction<any>,
-	visa?: FieldPolicy<any> | FieldReadFunction<any>
+	userType?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ProfileConnectionKeySpecifier = ('edges' | 'pageInfo' | ProfileConnectionKeySpecifier)[];
 export type ProfileConnectionFieldPolicy = {
@@ -1700,6 +1694,16 @@ export const JobPostItemFieldsFragmentDoc = gql`
   siGunGu
 }
     `;
+export const ProfileFieldsFragmentDoc = gql`
+    fragment ProfileFields on Profile {
+  name
+  gender
+  country
+  birthDate
+  residence
+  userType
+}
+    `;
 export const VisaHistoryFieldsFragmentDoc = gql`
     fragment VisaHistoryFields on VisaHistory {
   visaStatus
@@ -1785,6 +1789,17 @@ export const GetNoticesDocument = gql`
   }
 }
     `;
+export const GetProfileDocument = gql`
+    query GetProfile($userId: UUID) {
+  profileCollection(filter: {userId: {eq: $userId}}) {
+    edges {
+      node {
+        ...ProfileFields
+      }
+    }
+  }
+}
+    ${ProfileFieldsFragmentDoc}`;
 export const GetVisaHistoryDocument = gql`
     query GetVisaHistory($userId: UUID) {
   visaHistoryCollection(filter: {userId: {eq: $userId}}) {
@@ -1829,7 +1844,9 @@ export type JobPostListItemFieldsFragment = { __typename?: 'JobPost', id: any, t
 
 export type JobPostItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyName: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null, siDo: string, siGunGu: string };
 
-export type VisaHistoryFieldsFragment = { __typename?: 'VisaHistory', visaStatus: string, visaIssueDate: any, visaFinalEntryDate: any };
+export type ProfileFieldsFragment = { __typename?: 'Profile', name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, userType: string };
+
+export type VisaHistoryFieldsFragment = { __typename?: 'VisaHistory', visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null };
 
 export type GetCompanyQueryVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
@@ -1871,12 +1888,19 @@ export type GetNoticesQueryVariables = Exact<{
 
 export type GetNoticesQuery = { __typename?: 'Query', noticeCollection?: { __typename?: 'NoticeConnection', edges: Array<{ __typename?: 'NoticeEdge', cursor: string, node: { __typename?: 'Notice', id: any, title: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
 
+export type GetProfileQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+}>;
+
+
+export type GetProfileQuery = { __typename?: 'Query', profileCollection?: { __typename?: 'ProfileConnection', edges: Array<{ __typename?: 'ProfileEdge', node: { __typename?: 'Profile', name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, userType: string } }> } | null };
+
 export type GetVisaHistoryQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
 
-export type GetVisaHistoryQuery = { __typename?: 'Query', visaHistoryCollection?: { __typename?: 'VisaHistoryConnection', edges: Array<{ __typename?: 'VisaHistoryEdge', node: { __typename?: 'VisaHistory', visaStatus: string, visaIssueDate: any, visaFinalEntryDate: any } }> } | null };
+export type GetVisaHistoryQuery = { __typename?: 'Query', visaHistoryCollection?: { __typename?: 'VisaHistoryConnection', edges: Array<{ __typename?: 'VisaHistoryEdge', node: { __typename?: 'VisaHistory', visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null } }> } | null };
 
 export type InsertVisaEnrolLHistoryMutationVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;

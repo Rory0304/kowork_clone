@@ -1,14 +1,19 @@
-"use client";
-
 import React from "react";
-import { User } from "@supabase/supabase-js";
+import { User, AuthResponse } from "@supabase/supabase-js";
 import { supabaseClient } from "app/utils/supabase";
-
-type AuthProviderProps = { children: React.ReactNode };
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
 
 interface AuthContextType {
   authorized: boolean;
   userInfo: User | null;
+  signOut: () => Promise<void>;
+  signUp?: (
+    email: string,
+    password: string,
+    prefix: string
+  ) => Promise<AuthResponse>;
 }
 
 //
@@ -17,6 +22,9 @@ interface AuthContextType {
 const AuthContext = React.createContext<AuthContextType>({
   authorized: false,
   userInfo: null,
+  signOut: function (): Promise<void> {
+    throw new Error("Function not implemented.");
+  },
 });
 
 //
@@ -48,9 +56,39 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       resetUserInfo();
     }
 
-    setAuthorized(Boolean(session?.user));
-    setUserInfo(session?.user || null);
+    setAuthorized(Boolean(userInfo?.role === "authenticated"));
+    setAuthorized(Boolean(session?.user?.role === "authenticated"));
   }, []);
+
+  //
+  //
+  //
+  const signUp = async (email: string, password: string, prefix: string) => {
+    return await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${prefix}email-check/${email}`,
+      },
+    });
+  };
+
+  //
+  //
+  //
+  const signOut = async () => {
+    try {
+      await supabaseClient.auth.signOut().then((res) => {
+        if (res.error) {
+          throw new Error("fail to sign out");
+        }
+
+        resetUserInfo();
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   //
   //
@@ -60,7 +98,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       (_event, session) => {
         console.log(_event);
         setUserInfo(session?.user || null);
-        setAuthorized(Boolean(session?.user));
+        setAuthorized(Boolean(session?.user?.role === "authenticated"));
       }
     );
 
@@ -72,7 +110,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userInfo, authorized }}>
+    <AuthContext.Provider value={{ userInfo, authorized, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

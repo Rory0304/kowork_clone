@@ -5,7 +5,10 @@ import BottomTabNavigator from "./BottomTabNavigator";
 import AuthNavigator from "./AuthNavigator";
 import ModalNavigator from "./ModalNavigator";
 import ResumeEditNavigator from "./ResumeEditNavigator";
+import ProfileNavigator from "./ProfileNavigator";
 import * as Linking from "expo-linking";
+import { useAuth } from "app/contexts/AuthProvider";
+import { useProfile } from "app/contexts/ProfileProvider";
 
 const CustomTheme = {
   ...DefaultTheme,
@@ -21,31 +24,23 @@ const prefix = Linking.createURL("/");
 const AppStack = createNativeStackNavigator();
 
 const AppNavigator: React.FC = () => {
+  const { authorized } = useAuth();
+  const { profileInfo } = useProfile();
+
   return (
     <NavigationContainer
       linking={{
         prefixes: [prefix],
         config: {
-          initialRouteName: "HomeScreen",
           screens: {
             HomeScreen: "home",
-            EmailCheckScreen: "email-check:email",
+            AuthNavigator: {
+              path: "auth",
+            },
+            EmailCheckScreen: {
+              path: "auth/email-check:email",
+            },
           },
-        },
-        async getInitialURL() {
-          let url = await Linking.getInitialURL();
-          if (url != null) {
-            return url;
-          }
-          return url;
-        },
-        subscribe(listener) {
-          const onReceiveURL = ({ url }: { url: string }) => listener(url);
-
-          // Listen to incoming links from deep linking
-          Linking.addEventListener("url", onReceiveURL);
-
-          return () => {};
         },
       }}
       theme={CustomTheme}
@@ -54,13 +49,21 @@ const AppNavigator: React.FC = () => {
         screenOptions={{
           headerShown: false,
           contentStyle: {
-            maxWidth: 980,
+            maxWidth: 450,
             width: "100%",
             marginHorizontal: "auto",
           },
         }}
       >
-        <AppStack.Screen name="AuthNavigator" component={AuthNavigator} />
+        {!authorized || !profileInfo ? (
+          <AppStack.Screen name="AuthNavigator" component={AuthNavigator} />
+        ) : null}
+        {!profileInfo ? (
+          <AppStack.Screen
+            name="ProfileNavigator"
+            component={ProfileNavigator}
+          />
+        ) : null}
         <AppStack.Screen
           name="BottomTabNavigator"
           component={BottomTabNavigator}

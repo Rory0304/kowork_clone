@@ -1,28 +1,13 @@
 import React from "react";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
 import { FormInputBox, TextInput, Button, Stack } from "app/components/blocks";
 import { ScrollView, Text } from "react-native";
 import CheckIcon from "react-native-heroicons/solid/CheckIcon";
-import { supabaseClient } from "app/utils/supabase";
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 import * as Linking from "expo-linking";
-
-const AUTH_FORM_SCHEMA = yup.object().shape({
-  email: yup
-    .string()
-    .matches(/^[^@\s]+@[^@\s]+\.[^@\s]+$/, "이메일 형식이어야 합니다.")
-    .required("이메일을 입력해주세요."),
-  password: yup
-    .string()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-      "8자 이상의 영문, 숫자 조합이어야 합니다."
-    )
-    .required(),
-});
+import { authSchemaResolver } from "app/constants/validation/User";
+import { useAuth } from "app/contexts/AuthProvider";
 
 const EmailSignInScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -30,12 +15,14 @@ const EmailSignInScreen: React.FC = () => {
 
   const prefix = Linking.createURL("/");
 
+  const { signUp } = useAuth();
+
   const {
     control,
     watch,
     formState: { isValid },
   } = useForm({
-    resolver: yupResolver(AUTH_FORM_SCHEMA),
+    resolver: authSchemaResolver,
     mode: "onChange",
   });
 
@@ -44,23 +31,17 @@ const EmailSignInScreen: React.FC = () => {
 
   const handleSignUp = async (email: string, password: string) => {
     try {
-      await supabaseClient.auth
-        .signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${prefix}email-check:${email}`,
-          },
-        })
-        .then((res) => {
+      if (typeof signUp === "function") {
+        await signUp(email, password, prefix).then((res) => {
           if (res.data) {
-            navigator.openEmailCheckScreen({email});
+            navigator.openEmailCheckScreen({ email });
           }
           if (res.error) {
-            console.log(res.error)
+            console.log(res.error);
             throw new Error("fail to singup");
           }
         });
+      }
     } catch (err) {
       console.error(err);
       // show snackbar

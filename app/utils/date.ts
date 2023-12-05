@@ -13,7 +13,7 @@ export const checkIsValidDate = (year: number, month: number, day?: number) => {
   // are not in given range
   if (year > MAX_VALID_YR || year < MIN_VALID_YR) return false;
   if (month < 1 || month > 12) return false;
-  if (day && (day < 1 || day > 31)) return false;
+  if (typeof day === 'number' && (day < 1 || day > 31)) return false;
 
   // Handle February month
   // with leap year

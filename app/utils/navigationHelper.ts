@@ -117,9 +117,8 @@ const openResumeEditLanguageScreen =
 const openHomeScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("AuthNavigator", {
-      screen: NAV_SCREENS.HomeScreen,
-      param: props,
+    navigation.reset({
+      routes: [{ name: "AuthNavigator" }],
     });
   };
 
@@ -158,6 +157,42 @@ const openEmailCheckSuccessScreen =
     });
   };
 
+const openProfileEnrollAlertScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("AuthNavigator", {
+      screen: NAV_SCREENS.ProfileEnrollAlertScreen,
+      params: props,
+    });
+  };
+
+const openProfileEnrollUserTypeScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("ProfileNavigator", {
+      screen: NAV_SCREENS.ProfileEnrollUserTypeScreen,
+      params: props,
+    });
+  };
+
+const openProfileEnrollBasicInfoScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("ProfileNavigator", {
+      screen: NAV_SCREENS.ProfileEnrollBasicInfoScreen,
+      params: props,
+    });
+  };
+
+const openProfileEnrollVisaInfoScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("ProfileNavigator", {
+      screen: NAV_SCREENS.ProfileEnrollVisaInfoScreen,
+      params: props,
+    });
+  };
+
 const navigate = (
   navigation: NavigationProp<ReactNavigation.RootParamList>
 ) => ({
@@ -178,6 +213,11 @@ const navigate = (
   openEmailSignUpScreen: openEmailSignUpScreen(navigation),
   openEmailCheckScreen: openEmailCheckScreen(navigation),
   openEmailCheckSuccessScreen: openEmailCheckSuccessScreen(navigation),
+  openProfileEnrollAlertScreen: openProfileEnrollAlertScreen(navigation),
+  openProfileEnrollUserTypeScreen: openProfileEnrollUserTypeScreen(navigation),
+  openProfileEnrollBasicInfoScreen:
+    openProfileEnrollBasicInfoScreen(navigation),
+  openProfileEnrollVisaInfoScreen: openProfileEnrollVisaInfoScreen(navigation),
 });
 
 export default navigate;

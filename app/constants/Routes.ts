@@ -2,16 +2,22 @@ export enum NAV_SCREENS {
   // Home
   HomeScreen = "HomeScreen",
 
-  //Auth
-  EmailSignInScreen = "EmailSignInScreen",
-  EmailSignUpScreen = "EmailSignUpScreen",
-  EmailCheckScreen = "EmailCheckScreen",
-  EmailCheckSuccessScreen = "EmailCheckSuccessScreen",
+  // Auth
+  EmailSignInScreen = "EmailSignInScreen", // 로그인
+  EmailSignUpScreen = "EmailSignUpScreen", // 회원가입
+  EmailCheckScreen = "EmailCheckScreen", // 이메일 확인
+  EmailCheckSuccessScreen = "EmailCheckSuccessScreen", // 이메일 확인 완료
+  ProfileEnrollAlertScreen = "ProfileEnrollAlertScreen", // 프로필 설정
+
+  // Profile
+  ProfileEnrollUserTypeScreen = "ProfileEnrollUserTypeScreen",
+  ProfileEnrollBasicInfoScreen = "ProfileEnrollBasicInfoScreen",
+  ProfileEnrollVisaInfoScreen = "ProfileEnrollVisaInfoScreen",
 
   // Public
-  MainScreen = "MainScreen",
-  SearchJobScreen = "SearchJobScreen",
-  JobPostDetailScreen = "JobPostDetailScreen",
+  MainScreen = "MainScreen", // 메인 화면
+  SearchJobScreen = "SearchJobScreen", // 일자리 찾기
+  JobPostDetailScreen = "JobPostDetailScreen", // 일자리 디테일
 
   // Visa
   VisaScreen = "VisaScreen",

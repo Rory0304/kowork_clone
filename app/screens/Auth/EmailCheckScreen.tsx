@@ -1,9 +1,9 @@
 import React from "react";
-import { Text, ScrollView, View } from "react-native";
+import { Text, View } from "react-native";
 import { Button, Stack } from "app/components/blocks";
 import { NativeStackParamList } from "app/navigation/AuthNavigator";
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { AuthContext } from "app/contexts/AuthProvider";
+import { useAuth } from "app/contexts/AuthProvider";
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 
@@ -11,14 +11,24 @@ const EmailCheckScreen: React.FC = () => {
   const navigation = useNavigation();
   const navigator = navigate(navigation);
 
-  const { authorized } = React.useContext(AuthContext);
+  const { authorized } = useAuth();
+  const [emailCheckSuccess, setEmailCheckSuccess] = React.useState(authorized);
 
   const { params } =
     useRoute<RouteProp<NativeStackParamList, "EmailCheckScreen">>();
 
   const email = params?.email;
 
-  console.log(authorized);
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // The screen is focused
+      // Call any action
+      setEmailCheckSuccess(authorized);
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [authorized]);
 
   return (
     <Stack direction="column" styles=" justify-center flex-1 px-4 pb-12">
@@ -32,7 +42,7 @@ const EmailCheckScreen: React.FC = () => {
         label="다음"
         variant="filled"
         color="primary"
-        disabeld={!authorized}
+        disabeld={!emailCheckSuccess}
         onPress={() => navigator.openEmailCheckSuccessScreen()}
       />
     </Stack>
