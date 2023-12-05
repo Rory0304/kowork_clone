@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  ScrollView,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import { countries } from "app/constants/Country.json";
 import TextInput from "../../blocks/Form/TextInput";
+import useDebounce from "app/hooks/useDebounce";
 
 interface CountrySelectBoxProps {
   onPress: (value: string) => void;
@@ -16,15 +11,19 @@ interface CountrySelectBoxProps {
 const CountrySelectBox: React.FC<CountrySelectBoxProps> = ({ onPress }) => {
   const [keyword, setKeyword] = React.useState("");
   const [searchedCountries, setSearchedCountries] = React.useState(countries);
+  const [debouncedKeyword, setDebouncedKeyword] = React.useState("");
+
+  useDebounce(() => setDebouncedKeyword(keyword), 300, [keyword]);
 
   React.useEffect(() => {
-    const result = searchedCountries.filter(
+    const result = countries.filter(
       (country) =>
-        country.ko.includes(keyword) || country.name.includes(keyword)
+        country.ko.includes(debouncedKeyword) ||
+        country.name.includes(debouncedKeyword)
     );
 
     setSearchedCountries(result);
-  }, [keyword]);
+  }, [debouncedKeyword]);
 
   return (
     <FlatList
