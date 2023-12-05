@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 
 import Stack from "app/components/blocks/Stack/Stack";
+import { useAuth } from "app/contexts/AuthProvider";
 
 const MyPageScreen: React.FC = () => {
   const name = "Eunsoo";
@@ -20,13 +21,12 @@ const MyPageScreen: React.FC = () => {
   const navigation = useNavigation();
   const navigator = navigate(navigation);
 
+  const { signOut } = useAuth();
+
   const handleSignOut = async () => {
     try {
-      await supabaseClient.auth.signOut().then((res) => {
-        if (res.error) {
-          throw new Error("fail to sign out");
-        }
-        navigator.openHomeScreen();
+      await signOut().then(() => {
+        return navigator.openHomeScreen();
       });
     } catch (err) {
       console.error(err);
@@ -104,7 +104,7 @@ const MyPageScreen: React.FC = () => {
   );
 
   return (
-    <ScrollView className="px-4 pt-4 pb-12">
+    <ScrollView className="px-4 pt-4">
       <Stack direction="column" rowGap={12}>
         <View>
           <Text className="text-lg font-bold text-neutral-600">{name}</Text>
@@ -115,9 +115,13 @@ const MyPageScreen: React.FC = () => {
         {ResumeSection}
         {ApplySection}
         {VisaSection}
-        <TouchableOpacity onPress={handleSignOut}>
-          <Text>로그아웃</Text>
-        </TouchableOpacity>
+        <View className="pt-8 pb-12">
+          <TouchableOpacity onPress={handleSignOut}>
+            <Text className="text-base font-semibold text-secondary">
+              로그아웃
+            </Text>
+          </TouchableOpacity>
+        </View>
       </Stack>
     </ScrollView>
   );
