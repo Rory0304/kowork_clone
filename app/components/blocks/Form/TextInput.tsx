@@ -7,15 +7,17 @@ interface TextInputProps extends RnTextInputProps {
   error?: boolean;
 }
 
-const TextInput: React.FC<TextInputProps> = ({ error,  ...props }) => {
+const TextInput: React.FC<TextInputProps> = ({ error, ...props }) => {
   return (
     <RnTextInput
       {...props}
-      focusable
-      className={`p-3 text-base font-medium bg-slate-100 border border-gray-300 rounded-lg ${
-        error ? "border-red-500" : "focus:border-primary"
+      className={`p-3 font-medium bg-slate-100 border border-gray-300 rounded-lg ${
+        error ? "border-red-500" : "focus:border-primary leading-none"
       }`}
       placeholderTextColor={gray[400]}
+      style={{
+        fontSize: 16,
+      }}
     />
   );
 };
