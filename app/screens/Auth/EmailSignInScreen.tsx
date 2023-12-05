@@ -1,37 +1,40 @@
 import React from "react";
-import { FormInputBox, TextInput, Button } from "app/components/blocks";
+import {
+  FormInputBox,
+  TextInput,
+  Button,
+  OverlaySpinner,
+} from "app/components/blocks";
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 import { supabaseClient } from "app/utils/supabase";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
-import Snackbar from "react-native-snackbar";
+import { getProfileByUserId } from "app/api/profile";
+import { Snackbar, Portal } from "react-native-paper";
+import { authSchemaResolver } from "app/constants/validation/User";
+import { AuthTokenResponse } from "@supabase/supabase-js";
+import { useAuth } from "app/contexts/AuthProvider";
+import * as Linking from "expo-linking";
 
-const AUTH_FORM_SCHEMA = yup.object().shape({
-  email: yup
-    .string()
-    .matches(/^[^@\s]+@[^@\s]+\.[^@\s]+$/, "이메일 형식이어야 합니다.")
-    .required("이메일을 입력해주세요."),
-  password: yup
-    .string()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-      "8자 이상의 영문, 숫자 조합이어야 합니다."
-    )
-    .required(),
-});
+enum SupabaseAuthErrorMessageType {
+  InvalidLoginCredentials = "Invalid login credentials",
+  EmailNotConfirmed = "Email not confirmed",
+}
 
 const EmailSignInScreen: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
+  const [snackBarInfo, setSnackbarInfo] = React.useState<{
+    message: string;
+    variant: "error" | "success";
+  } | null>(null);
 
   const {
     control,
     watch,
     formState: { isValid },
-  } = useForm({
-    resolver: yupResolver(AUTH_FORM_SCHEMA),
+  } = useForm<{ email: string; password: string }>({
+    resolver: authSchemaResolver,
     mode: "onChange",
   });
 
@@ -40,6 +43,66 @@ const EmailSignInScreen: React.FC = () => {
 
   const watchedEmail = watch("email");
   const watchedPassword = watch("password");
+
+  const prefix = Linking.createURL("/");
+
+  const { signUp } = useAuth();
+
+  //
+  //
+  //
+  const getUserProfile = async (userId: string) => {
+    const { profile } = await getProfileByUserId({
+      userId: userId,
+    });
+    return profile;
+  };
+
+  const handleSignUp = async (email: string, password: string) => {
+    try {
+      if (typeof signUp === "function") {
+        await signUp(email, password, prefix).then((res) => {
+          if (res.data) {
+            return navigator.openEmailCheckScreen({ email });
+          }
+          if (res.error) {
+            throw new Error("fail to singup");
+          }
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  //
+  //
+  //
+  const resolveAuthTokenResponse = async (
+    email: string,
+    password: string,
+    authToken: AuthTokenResponse
+  ) => {
+    const { data, error } = authToken;
+
+    if (error) {
+      console.log(error.message);
+      // 이메일 컨펌이 되지 않았다면 해당 계정으로 가입 이메일 재전송
+      if (error.message === SupabaseAuthErrorMessageType.EmailNotConfirmed) {
+        console.log("handle siingup");
+        return handleSignUp(email, password);
+      }
+      // 그 외의 경우에 대해서는 로그인 실패 처리
+      throw new Error(error?.message);
+    } else {
+      const profile = await getUserProfile(data.user.id);
+      console.log(profile);
+
+      return profile
+        ? navigator.openMainScreen()
+        : navigator.openProfileEnrollAlertScreen();
+    }
+  };
 
   //
   //
@@ -53,26 +116,19 @@ const EmailSignInScreen: React.FC = () => {
           email,
           password,
         })
-        .then((res) => {
-          if (res.data.session) {
-            navigator.openMainScreen();
-            return;
-          }
-          if (!!res.error?.name) {
-            throw new Error();
-          }
-        });
+        .then(async (res) => resolveAuthTokenResponse(email, password, res));
     } catch (err) {
-      // Snackbar.show({
-      //   text: "Hello world",
-      // });
+      setSnackbarInfo({
+        message: "해당되는 계정이 없어요",
+        variant: "error",
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <ScrollView className="px-4 pt-4">
+    <ScrollView className="px-4 pt-4 bg-white">
       <FormInputBox
         title="이메일"
         InputComponent={
@@ -104,13 +160,20 @@ const EmailSignInScreen: React.FC = () => {
             name="password"
             control={control}
             render={({ field, fieldState: { error } }) => (
-              <TextInput
-                {...field}
-                onChange={(e) => field.onChange(e.nativeEvent.text)}
-                secureTextEntry={true}
-                placeholder="비밀번호를 입력해주세요"
-                error={Boolean(error?.message)}
-              />
+              <>
+                <TextInput
+                  {...field}
+                  onChange={(e) => field.onChange(e.nativeEvent.text)}
+                  secureTextEntry={true}
+                  placeholder="비밀번호를 입력해주세요"
+                  error={Boolean(error?.message)}
+                />
+                {Boolean(error?.message) ? (
+                  <Text className="mt-1 text-sm text-danger">
+                    {error?.message}
+                  </Text>
+                ) : null}
+              </>
             )}
           />
         }
@@ -136,6 +199,15 @@ const EmailSignInScreen: React.FC = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <Portal>
+        <Snackbar
+          visible={Boolean(snackBarInfo?.message)}
+          onDismiss={() => setSnackbarInfo(null)}
+        >
+          <Text>{snackBarInfo?.message}</Text>
+        </Snackbar>
+      </Portal>
+      {loading ? <OverlaySpinner /> : null}
     </ScrollView>
   );
 };
