@@ -3,9 +3,11 @@ import { KeyboardAvoidingView, Platform, StatusBar } from "react-native";
 import { enableScreens } from "react-native-screens";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AppProvider from "./app/contexts/AppProvider";
+import { ProfileProvider } from "./app/contexts/ProfileProvider";
 import { AuthProvider } from "./app/contexts/AuthProvider";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Provider as PaperProvider } from "react-native-paper";
 
 import { NativeWindStyleSheet } from "nativewind";
 
@@ -18,20 +20,26 @@ const App: React.FC = () => {
 
   return (
     <AuthProvider>
-      <AppProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <BottomSheetModalProvider>
-            <StatusBar barStyle="dark-content" />
-            <KeyboardAvoidingView
-              behavior={Platform.select({ ios: "padding", android: undefined })}
-              keyboardVerticalOffset={16}
-              style={{ flex: 1 }}
-            >
-              <AppNavigator />
-            </KeyboardAvoidingView>
-          </BottomSheetModalProvider>
-        </GestureHandlerRootView>
-      </AppProvider>
+      <ProfileProvider>
+        <AppProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <PaperProvider>
+              <BottomSheetModalProvider>
+                <StatusBar barStyle="dark-content" />
+                <KeyboardAvoidingView
+                  behavior={Platform.select({
+                    ios: "padding",
+                    android: undefined,
+                  })}
+                  style={{ flex: 1 }}
+                >
+                  <AppNavigator />
+                </KeyboardAvoidingView>
+              </BottomSheetModalProvider>
+            </PaperProvider>
+          </GestureHandlerRootView>
+        </AppProvider>
+      </ProfileProvider>
     </AuthProvider>
   );
 };
