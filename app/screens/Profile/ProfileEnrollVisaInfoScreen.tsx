@@ -9,16 +9,19 @@ import {
 import { Controller, useFormContext } from "react-hook-form";
 import { gray } from "tailwindcss/colors";
 import { Stack, Button } from "app/components/blocks";
-import { updateVisaHistory } from "app/api/visaHistory";
 import { useAuth } from "app/contexts/AuthProvider";
 import navigate from "app/utils/navigationHelper";
 import { useNavigation } from "@react-navigation/native";
 import { ProfileFormType } from "app/types/Profile";
-
+import {
+  UpdateVisaEnrolLHistoryMutation,
+  UpdateVisaEnrolLHistoryDocument,
+} from "app/graphql/generated";
 import {
   convertToFormatDateWithComma,
   convertToFormatDate,
 } from "app/utils/date";
+import { useMutation } from "@apollo/client";
 
 const ProfileEnrollVisaInfoScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -31,6 +34,11 @@ const ProfileEnrollVisaInfoScreen: React.FC = () => {
     watch,
     formState: { isValid },
   } = useFormContext<ProfileFormType>();
+
+  const [updateVisaHistory, { loading, data, error }] =
+    useMutation<UpdateVisaEnrolLHistoryMutation>(
+      UpdateVisaEnrolLHistoryDocument
+    );
 
   const handleUpdateVisaHistory = async ({
     userId,
@@ -49,13 +57,16 @@ const ProfileEnrollVisaInfoScreen: React.FC = () => {
       visaIssueDate;
 
       await updateVisaHistory({
-        userId: userId,
-        visaStatus: visaStatus,
-        visaFinalEntryDate: convertedVisaFinalEntryDate,
-        visaIssueDate: convertedVisaIssueDate,
+        variables: {
+          userId,
+          visaStatus,
+          visaFinalEntryDate: convertedVisaFinalEntryDate,
+          visaIssueDate: convertedVisaIssueDate,
+        },
       });
     }
   };
+
   return (
     <ScrollView className="px-4 bg-white">
       <Text className="py-4 text-secondary">
