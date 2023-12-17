@@ -1,3 +1,4 @@
+import React from "react";
 import {
   ScrollView,
   View,
@@ -5,21 +6,27 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
-import Stack from "app/components/blocks/Stack/Stack";
+import { CheckIcon, Stack } from "app/components/blocks";
 import TrashIcon from "react-native-heroicons/solid/TrashIcon";
 import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
 import { VisaCode, VisaStatus } from "app/constants/VisaDetail";
+import { useQuery, useMutation } from "@apollo/client";
+import {
+  GetVisaHistoryDocument,
+  GetVisaHistoryQuery,
+  DeleteVisaHistoryDocument,
+  DeleteVisaHistoryMutation,
+} from "app/graphql/generated";
+import { useAuth } from "app/contexts/AuthProvider";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 
 interface MyVisaHistoryListProps {
-  id: number;
   visaStatus: VisaCode;
   visaIssueDate: string;
   visaFinalEntryDate: string;
 }
 
 const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
-  id,
   visaStatus,
   visaIssueDate,
   visaFinalEntryDate,
@@ -29,7 +36,7 @@ const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
   const configuredInfo = [
     {
       title: "체류자격 / Status",
-      value: visaStatus,
+      value: VisaStatus[visaStatus],
     },
     {
       title: "발급일 / Issue Date",
@@ -42,7 +49,7 @@ const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
   ];
 
   return (
-    <View className="px-4 mb-4">
+    <View className="mb-4 w-full flex flex-col shrink">
       <TouchableOpacity onPress={() => setOpen((current) => !current)}>
         <Stack styles="p-4 bg-gray-50 rounded-xl justify-between items-center">
           <Text className="text-sm font-medium text-neutral-400">
@@ -74,22 +81,81 @@ const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
 };
 
 const MyVisaHistory: React.FC = () => {
-  const [isEditShown, setIsEditShown] = React.useState(false);
+  const { userInfo } = useAuth();
+  const { showActionSheetWithOptions } = useActionSheet();
 
-  const myVisaHistoryList: MyVisaHistoryListProps[] = [
+  const [isEditShown, setIsEditShown] = React.useState(false);
+  const [selectedItem, setSelectedItem] = React.useState<number[]>([]);
+
+  const { data, refetch } = useQuery<GetVisaHistoryQuery>(
+    GetVisaHistoryDocument,
     {
-      id: 1,
-      visaStatus: VisaCode.D4,
-      visaIssueDate: "2026/06/06",
-      visaFinalEntryDate: "2028/09/09",
+      variables: {
+        userId: userInfo?.id,
+      },
+    }
+  );
+
+  const [deleteVisaHistory, { loading, error, data: deleteVisaHistoryRes }] =
+    useMutation<DeleteVisaHistoryMutation>(DeleteVisaHistoryDocument);
+
+  const visaHistory = data?.visaHistoryCollection?.edges;
+
+  const handleItemCheck = React.useCallback(
+    (id: number) => {
+      const newSelectedItem = selectedItem.includes(id)
+        ? selectedItem.filter((item) => item !== id)
+        : [...selectedItem, id];
+
+      setSelectedItem(newSelectedItem);
     },
-    {
-      id: 2,
-      visaStatus: VisaCode.D4,
-      visaIssueDate: "2026/06/06",
-      visaFinalEntryDate: "2028/09/09",
-    },
-  ];
+    [selectedItem]
+  );
+
+  const handleItemCheckAll = React.useCallback(() => {
+    setSelectedItem(visaHistory?.map((item) => Number(item.node.id)) || []);
+  }, [visaHistory]);
+
+  const handleVisaHistoryDelete = async (idList: number[]) => {
+    await deleteVisaHistory({
+      variables: {
+        id: idList,
+      },
+    }).then((res) => {
+      if (res.data) {
+        refetch();
+        setSelectedItem([]);
+      }
+    });
+  };
+
+  const handleDeleteButtonClick = React.useCallback(() => {
+    if (selectedItem.length === 0) return;
+
+    const options = ["선택 목록 삭제", "취소"];
+    const destructiveButtonIndex = 0;
+    const cancelButtonIndex = 1;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      (index?: number) => {
+        switch (index) {
+          case destructiveButtonIndex:
+            handleVisaHistoryDelete(selectedItem);
+            // Delete
+            break;
+
+          case cancelButtonIndex:
+            // Canceled
+            break;
+        }
+      }
+    );
+  }, [selectedItem]);
 
   return (
     <ScrollView className={`pb-12 bg-white`}>
@@ -99,10 +165,10 @@ const MyVisaHistory: React.FC = () => {
           styles="justify-between p-4 border-b border-neutral-300"
         >
           <Text className="text-sm font-medium text-neutral-400">
-            총 {myVisaHistoryList.length}건
+            총 <Text className="text-primary">{visaHistory?.length}건</Text>
           </Text>
           <TouchableOpacity onPress={() => setIsEditShown(!isEditShown)}>
-            <Text className="text-sm font-medium text-neutral-400">
+            <Text className="text-sm font-medium text-primary">
               {isEditShown ? "취소" : "편집"}
             </Text>
           </TouchableOpacity>
@@ -113,22 +179,50 @@ const MyVisaHistory: React.FC = () => {
             isEditShown ? "block" : "hidden"
           } px-4 py-3 items-center justify-between`}
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleItemCheckAll}>
             <Text className="text-sm font-medium text-neutral-400">
-              전체선택
+              전체 선택
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <Text className="font-bold text-base">
+            {selectedItem.length > 0
+              ? `${selectedItem.length}개 항목 선택됨`
+              : null}
+          </Text>
+          <TouchableOpacity
+            accessible={true}
+            accessibilityLabel="delete my visa history"
+            onPress={handleDeleteButtonClick}
+          >
             <TrashIcon />
           </TouchableOpacity>
         </Stack>
       </View>
-
       <FlatList
+        className="px-4"
         scrollEnabled={false}
-        data={myVisaHistoryList}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={({ item }) => <MyVisaHistoryItem {...item} />}
+        data={visaHistory}
+        keyExtractor={(_, index) => `visaHistory-${index}`}
+        renderItem={({ item }) => (
+          <Stack direction="row" styles="w-full items-start">
+            {isEditShown ? (
+              <TouchableOpacity
+                onPress={() => handleItemCheck(Number(item.node.id))}
+                className="my-4 mr-2"
+              >
+                <CheckIcon
+                  variant="square"
+                  checked={selectedItem.includes(Number(item.node.id))}
+                />
+              </TouchableOpacity>
+            ) : null}
+            <MyVisaHistoryItem
+              visaFinalEntryDate={item.node.visaFinalEntryDate}
+              visaIssueDate={item.node.visaIssueDate}
+              visaStatus={item.node.visaStatus as VisaCode}
+            />
+          </Stack>
+        )}
       />
     </ScrollView>
   );
