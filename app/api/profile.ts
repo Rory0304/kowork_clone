@@ -27,7 +27,6 @@ export const getProfileByUserId = async ({
     fetchPolicy: getFetchPolicy(),
   });
 
-  console.log("data", data);
   const profile = data.profileCollection?.edges?.[0]?.node || null;
 
   return { profile };
