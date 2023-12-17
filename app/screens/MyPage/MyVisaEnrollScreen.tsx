@@ -1,4 +1,5 @@
 import React from "react";
+import { useRoute, RouteProp } from "@react-navigation/native";
 import {
   TextInput,
   View,
@@ -13,22 +14,41 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { BottomSheet } from "app/components/blocks";
 import { gray } from "tailwindcss/colors";
 import {
-  checkIsValidDate,
   convertToFormatDate,
   convertToFormatDateWithComma,
 } from "app/utils/date";
-import { insertVisaHistory } from "app/api/visaHistory";
 import { useAuth } from "app/contexts/AuthProvider";
 import { useNavigation } from "@react-navigation/native";
+import {
+  InsertVisaEnrolLHistoryDocument,
+  InsertVisaEnrolLHistoryMutation,
+} from "app/graphql/generated";
+import { useMutation } from "@apollo/client";
+import { visaEnrollSchemaResolver } from "app/constants/validation/VisaEnroll";
+import navigate from "app/utils/navigationHelper";
+import type { VisaHistoryType } from "app/types/VisaHistory";
+
 interface MyVisaEnrollState {
-  visaStatus?: VisaCode;
-  visaIssueDate?: string;
-  visaFinalEntryDate?: string;
+  visaStatus: VisaCode;
+  visaIssueDate: string;
+  visaFinalEntryDate: string;
 }
+
+type VisaHistoryParamList = {
+  params: {
+    visaHistory: VisaHistoryType;
+  };
+};
 
 const MyVisaEnrollScreen: React.FC = () => {
   const navigation = useNavigation();
+  const navigator = navigate(navigation);
+
   const { userInfo } = useAuth();
+
+  const {
+    params: { visaHistory },
+  } = useRoute<RouteProp<VisaHistoryParamList, "params">>();
 
   // Bottom Sheet
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
@@ -43,11 +63,20 @@ const MyVisaEnrollScreen: React.FC = () => {
   } = useForm<MyVisaEnrollState>({
     mode: "onChange",
     defaultValues: {
-      visaStatus: undefined,
-      visaIssueDate: undefined,
-      visaFinalEntryDate: undefined,
+      ...(visaHistory && {
+        visaStatus: visaHistory.visaStatus as VisaCode,
+        visaIssueDate: visaHistory.visaIssueDate,
+        visaFinalEntryDate: visaHistory.visaFinalEntryDate,
+      }),
     },
+    resolver: visaEnrollSchemaResolver,
   });
+
+  // 비자 등록
+  const [insertVisaHistory, { loading, error }] =
+    useMutation<InsertVisaEnrolLHistoryMutation>(
+      InsertVisaEnrolLHistoryDocument
+    );
 
   const watchedVisaStatus = watch("visaStatus");
 
@@ -56,17 +85,17 @@ const MyVisaEnrollScreen: React.FC = () => {
       headerRight: () => (
         <TouchableOpacity
           disabled={!isValid}
-          onPress={() => {
-            return handleVisaHistorySave({
+          onPress={() =>
+            handleVisaHistorySave({
               userId: userInfo?.id,
               visaStatus: watchedVisaStatus,
               visaIssueDate: watch("visaFinalEntryDate"),
               visaFinalEntryDate: watch("visaIssueDate"),
-            });
-          }}
+            })
+          }
         >
           <Text
-            className={`font-bold text-base ${
+            className={`m-4 font-bold text-base ${
               isValid ? "text-primary" : "text-secondary"
             }`}
           >
@@ -91,14 +120,20 @@ const MyVisaEnrollScreen: React.FC = () => {
     if (userId && visaFinalEntryDate && visaIssueDate && visaStatus) {
       const convertedVisaIssueDate =
         convertToFormatDateWithComma(visaIssueDate);
-      const convertedVisaFinalDate =
+      const convertedVisaFinalEntryDate =
         convertToFormatDateWithComma(visaFinalEntryDate);
 
       await insertVisaHistory({
-        userId,
-        visaStatus,
-        visaIssueDate: convertedVisaIssueDate,
-        visaFinalEntryDate: convertedVisaFinalDate,
+        variables: {
+          userId,
+          visaStatus,
+          visaFinalEntryDate: convertedVisaFinalEntryDate,
+          visaIssueDate: convertedVisaIssueDate,
+        },
+      }).then((res) => {
+        if (res.data && !res.errors) {
+          return navigator.openMyPageScreen();
+        }
       });
     }
   };
@@ -151,21 +186,6 @@ const MyVisaEnrollScreen: React.FC = () => {
               {error && <Text className="text-red-400">{error.message}</Text>}
             </>
           )}
-          rules={{
-            validate: (value) => {
-              const formattedDate = value?.replace(/\D/g, "");
-
-              const year = Number(formattedDate?.substring(0, 4));
-              const month = Number(formattedDate?.substring(4, 6));
-              const day = Number(formattedDate?.substring(6, 8));
-
-              if (!checkIsValidDate(year, month, day)) {
-                return "Invalid date";
-              }
-
-              return true;
-            },
-          }}
         />
       </View>
       <View className="py-6">
@@ -196,21 +216,6 @@ const MyVisaEnrollScreen: React.FC = () => {
               {error && <Text className="text-red-400">{error.message}</Text>}
             </View>
           )}
-          rules={{
-            validate: (value) => {
-              const formattedDate = value?.replace(/\D/g, "");
-
-              const year = Number(formattedDate?.substring(0, 4));
-              const month = Number(formattedDate?.substring(4, 6));
-              const day = Number(formattedDate?.substring(6, 8));
-
-              if (!checkIsValidDate(year, month, day)) {
-                return "Invalid date";
-              }
-
-              return true;
-            },
-          }}
         />
       </View>
       <BottomSheet
@@ -221,10 +226,11 @@ const MyVisaEnrollScreen: React.FC = () => {
         onClose={handleBottomSheetClose}
       >
         <FlatList
-          scrollEnabled={false}
           className="p-4 py-6"
           data={
-            Object.keys(VisaStatus) as unknown as Array<keyof typeof VisaStatus>
+            Object.keys(VisaStatus).filter(
+              (item) => item !== VisaCode.NA
+            ) as unknown as Array<keyof typeof VisaStatus>
           }
           renderItem={({ item }) => (
             <TouchableOpacity
