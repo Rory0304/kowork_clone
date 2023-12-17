@@ -21,7 +21,7 @@ export const INSERT_VISA_HISTORY = gql`
     $visaStatus: String
     $visaIssueDate: Date
     $visaFinalEntryDate: Date
-  ) {
+    ) {
     insertIntoVisaHistoryCollection(
       objects: {
         userId: $userId
@@ -58,3 +58,11 @@ export const UPDATE_VISA_HISTORY = gql`
     }
   }
 `;
+
+export const DELETE_VISA_HISTORY = gql`
+  mutation DeleteVisaHistory($id: [BigInt!]) {
+    deleteFromVisaHistoryCollection(filter: {id: {in: $id}}, atMost: 10) {
+      affectedCount
+    }
+  }
+`
