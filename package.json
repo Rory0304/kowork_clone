@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
+    "@expo/react-native-action-sheet": "^4.0.1",
     "@expo/vector-icons": "^13.0.0",
     "@gorhom/bottom-sheet": "^4",
     "@hookform/resolvers": "^3.3.2",

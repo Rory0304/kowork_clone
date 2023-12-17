@@ -42,6 +42,7 @@ export const convertToFormatDate = (value: string) => {
 
 //
 // Convert to 'YYYY,MM,DD' format from 'YYYY/MM/DD'
+// Ref: https://chrispennington.blog/blog/safari-does-not-show-new-date-from-javascript/
 //
 export const convertToFormatDateWithComma = (value: string) => {
   const [year, month, day] = value.split("/").map(Number);
@@ -49,3 +50,11 @@ export const convertToFormatDateWithComma = (value: string) => {
 
   return parsedDate;
 };
+
+
+//
+// Compare target date is after certain date
+//
+export const isDateAfterThreshold = (target: Date, threshold: Date) => {
+  return target.getTime() > threshold.getTime()
+}

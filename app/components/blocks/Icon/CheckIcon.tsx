@@ -1,6 +1,7 @@
 import React from "react";
 import NativeCheckIcon from "react-native-heroicons/solid/CheckIcon";
 import { View } from "react-native";
+import { customColors } from "app/constants/styles/Colors";
 
 interface CheckIconProps {
   variant?: "circle" | "square";
@@ -17,7 +18,11 @@ const CheckIcon: React.FC<CheckIconProps> = ({
         variant === "square" ? "rounded-md" : "rounded-full"
       } ${checked ? "border-primary" : "border-neutral-300"} `}
     >
-      {checked ? <NativeCheckIcon /> : null}
+      {checked ? (
+        <NativeCheckIcon
+          fill={checked ? customColors.primary : customColors.neutral[300]}
+        />
+      ) : null}
     </View>
   );
 };

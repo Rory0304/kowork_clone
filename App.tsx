@@ -8,6 +8,7 @@ import { AuthProvider } from "./app/contexts/AuthProvider";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider as PaperProvider } from "react-native-paper";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 import { NativeWindStyleSheet } from "nativewind";
 
@@ -23,20 +24,22 @@ const App: React.FC = () => {
       <ProfileProvider>
         <AppProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
-            <PaperProvider>
-              <BottomSheetModalProvider>
-                <StatusBar barStyle="dark-content" />
-                <KeyboardAvoidingView
-                  behavior={Platform.select({
-                    ios: "padding",
-                    android: undefined,
-                  })}
-                  style={{ flex: 1 }}
-                >
-                  <AppNavigator />
-                </KeyboardAvoidingView>
-              </BottomSheetModalProvider>
-            </PaperProvider>
+            <ActionSheetProvider>
+              <PaperProvider>
+                <BottomSheetModalProvider>
+                  <StatusBar barStyle="dark-content" />
+                  <KeyboardAvoidingView
+                    behavior={Platform.select({
+                      ios: "padding",
+                      android: undefined,
+                    })}
+                    style={{ flex: 1 }}
+                  >
+                    <AppNavigator />
+                  </KeyboardAvoidingView>
+                </BottomSheetModalProvider>
+              </PaperProvider>
+            </ActionSheetProvider>
           </GestureHandlerRootView>
         </AppProvider>
       </ProfileProvider>

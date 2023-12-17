@@ -7,14 +7,10 @@ import {
   GetVisaHistoryDocument,
   GetVisaHistoryQuery,
   GetVisaHistoryQueryVariables,
-  UpdateVisaEnrolLHistoryDocument,
-  UpdateVisaEnrolLHistoryMutation,
-  UpdateVisaEnrolLHistoryMutationVariables,
-  UuidFilter,
 } from "../graphql/generated";
 
 interface GetVisaHistoryParams {
-  userId: UuidFilter;
+  userId: string;
 }
 
 export const getVisaHistoryByUserId = async ({

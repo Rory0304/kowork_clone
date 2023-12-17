@@ -119,7 +119,7 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
         residence,
         birthDate,
         gender,
-        userType
+        userType,
       } = data;
 
       Promise.all([
@@ -135,7 +135,6 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
         }),
       ])
         .then((res) => {
-          console.log(res);
           navigator.openProfileEnrollVisaInfoScreen();
           setApiStatus("resolved");
         })
@@ -343,7 +342,7 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
       >
         <Button label="이전" onPress={() => navigation.goBack()} />
         <Button
-          disabeld={!isValid || apiStatus === 'pending'}
+          disabeld={!isValid || apiStatus === "pending"}
           label="다음"
           variant="filled"
           color="primary"

@@ -86,18 +86,14 @@ const EmailSignInScreen: React.FC = () => {
     const { data, error } = authToken;
 
     if (error) {
-      console.log(error.message);
       // 이메일 컨펌이 되지 않았다면 해당 계정으로 가입 이메일 재전송
       if (error.message === SupabaseAuthErrorMessageType.EmailNotConfirmed) {
-        console.log("handle siingup");
         return handleSignUp(email, password);
       }
       // 그 외의 경우에 대해서는 로그인 실패 처리
       throw new Error(error?.message);
     } else {
       const profile = await getUserProfile(data.user.id);
-      console.log(profile);
-
       return profile
         ? navigator.openMainScreen()
         : navigator.openProfileEnrollAlertScreen();

@@ -1704,8 +1704,26 @@ export const ProfileFieldsFragmentDoc = gql`
   userType
 }
     `;
+export const ResumeFieldsFragmentDoc = gql`
+    fragment ResumeFields on Resume {
+  name
+  gender
+  country
+  birthDate
+  visa
+  residence
+  address
+  detailAddress
+  email
+  phoneNumber
+  career
+  education
+  language
+}
+    `;
 export const VisaHistoryFieldsFragmentDoc = gql`
     fragment VisaHistoryFields on VisaHistory {
+  id
   visaStatus
   visaIssueDate
   visaFinalEntryDate
@@ -1800,6 +1818,17 @@ export const GetProfileDocument = gql`
   }
 }
     ${ProfileFieldsFragmentDoc}`;
+export const GetResumeDocument = gql`
+    query GetResume($userId: UUID) {
+  resumeCollection(filter: {userId: {eq: $userId}}) {
+    edges {
+      node {
+        ...ResumeFields
+      }
+    }
+  }
+}
+    ${ResumeFieldsFragmentDoc}`;
 export const GetVisaHistoryDocument = gql`
     query GetVisaHistory($userId: UUID) {
   visaHistoryCollection(filter: {userId: {eq: $userId}}) {
@@ -1838,6 +1867,15 @@ export const UpdateVisaEnrolLHistoryDocument = gql`
     `;
 export type UpdateVisaEnrolLHistoryMutationFn = Apollo.MutationFunction<UpdateVisaEnrolLHistoryMutation, UpdateVisaEnrolLHistoryMutationVariables>;
 export type UpdateVisaEnrolLHistoryMutationOptions = Apollo.BaseMutationOptions<UpdateVisaEnrolLHistoryMutation, UpdateVisaEnrolLHistoryMutationVariables>;
+export const DeleteVisaHistoryDocument = gql`
+    mutation DeleteVisaHistory($id: [BigInt!]) {
+  deleteFromVisaHistoryCollection(filter: {id: {in: $id}}, atMost: 10) {
+    affectedCount
+  }
+}
+    `;
+export type DeleteVisaHistoryMutationFn = Apollo.MutationFunction<DeleteVisaHistoryMutation, DeleteVisaHistoryMutationVariables>;
+export type DeleteVisaHistoryMutationOptions = Apollo.BaseMutationOptions<DeleteVisaHistoryMutation, DeleteVisaHistoryMutationVariables>;
 export type ComapnyFieldsFragment = { __typename?: 'Company', uuid: any, name: string, email?: string | null, website?: string | null, industry?: string | null, location?: string | null };
 
 export type JobPostListItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string };
@@ -1846,7 +1884,9 @@ export type JobPostItemFieldsFragment = { __typename?: 'JobPost', id: any, title
 
 export type ProfileFieldsFragment = { __typename?: 'Profile', name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, userType: string };
 
-export type VisaHistoryFieldsFragment = { __typename?: 'VisaHistory', visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null };
+export type ResumeFieldsFragment = { __typename?: 'Resume', name: string, gender: GenderType, country: string, birthDate: any, visa: string, residence: ResidenceType, address?: string | null, detailAddress?: string | null, email?: string | null, phoneNumber?: string | null, career?: any | null, education?: any | null, language?: any | null };
+
+export type VisaHistoryFieldsFragment = { __typename?: 'VisaHistory', id: any, visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null };
 
 export type GetCompanyQueryVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
@@ -1895,12 +1935,19 @@ export type GetProfileQueryVariables = Exact<{
 
 export type GetProfileQuery = { __typename?: 'Query', profileCollection?: { __typename?: 'ProfileConnection', edges: Array<{ __typename?: 'ProfileEdge', node: { __typename?: 'Profile', name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, userType: string } }> } | null };
 
+export type GetResumeQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+}>;
+
+
+export type GetResumeQuery = { __typename?: 'Query', resumeCollection?: { __typename?: 'ResumeConnection', edges: Array<{ __typename?: 'ResumeEdge', node: { __typename?: 'Resume', name: string, gender: GenderType, country: string, birthDate: any, visa: string, residence: ResidenceType, address?: string | null, detailAddress?: string | null, email?: string | null, phoneNumber?: string | null, career?: any | null, education?: any | null, language?: any | null } }> } | null };
+
 export type GetVisaHistoryQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
 
-export type GetVisaHistoryQuery = { __typename?: 'Query', visaHistoryCollection?: { __typename?: 'VisaHistoryConnection', edges: Array<{ __typename?: 'VisaHistoryEdge', node: { __typename?: 'VisaHistory', visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null } }> } | null };
+export type GetVisaHistoryQuery = { __typename?: 'Query', visaHistoryCollection?: { __typename?: 'VisaHistoryConnection', edges: Array<{ __typename?: 'VisaHistoryEdge', node: { __typename?: 'VisaHistory', id: any, visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null } }> } | null };
 
 export type InsertVisaEnrolLHistoryMutationVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
@@ -1921,3 +1968,10 @@ export type UpdateVisaEnrolLHistoryMutationVariables = Exact<{
 
 
 export type UpdateVisaEnrolLHistoryMutation = { __typename?: 'Mutation', updateVisaHistoryCollection: { __typename?: 'VisaHistoryUpdateResponse', records: Array<{ __typename?: 'VisaHistory', id: any }> } };
+
+export type DeleteVisaHistoryMutationVariables = Exact<{
+  id?: InputMaybe<Array<Scalars['BigInt']['input']> | Scalars['BigInt']['input']>;
+}>;
+
+
+export type DeleteVisaHistoryMutation = { __typename?: 'Mutation', deleteFromVisaHistoryCollection: { __typename?: 'VisaHistoryDeleteResponse', affectedCount: number } };

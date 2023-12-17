@@ -1,22 +1,19 @@
 import React from "react";
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
-
-import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
 import ChevronRightIcon from "react-native-heroicons/solid/ChevronRightIcon";
 import PencilIcon from "react-native-heroicons/solid/PencilIcon";
-import { supabaseClient } from "app/utils/supabase";
 
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 
 import Stack from "app/components/blocks/Stack/Stack";
 import { useAuth } from "app/contexts/AuthProvider";
+import { useProfile } from "app/contexts/ProfileProvider";
+
+import MyVisaHistorySection from "app/components/pages/mypage/MyVisaHistorySection";
 
 const MyPageScreen: React.FC = () => {
-  const name = "Eunsoo";
-  const visaType = "C-4(단기취업)";
-  const visaList = [] as any[];
-  const currentVisa = visaList?.[0] || "비자 없음";
+  const { profileInfo } = useProfile();
 
   const navigation = useNavigation();
   const navigator = navigate(navigation);
@@ -77,44 +74,20 @@ const MyPageScreen: React.FC = () => {
     </TouchableOpacity>
   );
 
-  const VisaSection = (
-    <View className="px-4 py-3 rounded-md bg-gray-50">
-      <Text className="mb-2 font-semibold text-md text-neutral-400">
-        {name}님의 현재 비자
-      </Text>
-      <Text className="text-lg font-bold">{currentVisa}</Text>
-      <TouchableOpacity onPress={() => navigator.openMyVisaEnrollScreen()}>
-        <Text className="py-4 text-lg font-semibold text-center underline text-neutral-400">
-          비자 등록하기
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigator.openMyVisaHistoryScreen()}>
-        <View className="px-4 py-2 border rounded-md">
-          <Text className="font-bold text-center text-neutral-500">
-            비자 히스토리
-          </Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <View className="flex flex-row justify-center w-full p-3">
-          <ChevronDownIcon width={24} height={24} />
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
-
   return (
     <ScrollView className="px-4 pt-4">
       <Stack direction="column" rowGap={12}>
         <View>
-          <Text className="text-lg font-bold text-neutral-600">{name}</Text>
+          <Text className="text-lg font-bold text-neutral-600">
+            {profileInfo?.name}
+          </Text>
           <Text className="text-base font-bold text-right underline text-neutral-500">
             미리보기
           </Text>
         </View>
         {ResumeSection}
         {ApplySection}
-        {VisaSection}
+        <MyVisaHistorySection name={profileInfo?.name || ""} />
         <View className="pt-8 pb-12">
           <TouchableOpacity onPress={handleSignOut}>
             <Text className="text-base font-semibold text-secondary">

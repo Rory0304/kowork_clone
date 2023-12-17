@@ -1,14 +1,18 @@
 import React from "react";
+import { NAV_SCREENS } from "../constants/Routes";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MyPageScreen from "../screens/MyPage/MyPageScreen";
 
-const Stack = createNativeStackNavigator();
+const NativeStack = createNativeStackNavigator();
 
 const MyPageNavigator: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName="MyPage">
-      <Stack.Screen name="MyPage" component={MyPageScreen} />
-    </Stack.Navigator>
+    <NativeStack.Navigator initialRouteName={NAV_SCREENS.MyPageScreen}>
+      <NativeStack.Screen
+        name={NAV_SCREENS.MyPageScreen}
+        component={MyPageScreen}
+      />
+    </NativeStack.Navigator>
   );
 };
 
