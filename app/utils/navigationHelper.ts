@@ -193,6 +193,16 @@ const openProfileEnrollVisaInfoScreen =
     });
   };
 
+  const openMyPageScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("BottomTabNavigator", {
+      screen: NAV_SCREENS.MyPageScreen,
+      params: props,
+    });
+  };
+
+
 const navigate = (
   navigation: NavigationProp<ReactNavigation.RootParamList>
 ) => ({
@@ -218,6 +228,7 @@ const navigate = (
   openProfileEnrollBasicInfoScreen:
     openProfileEnrollBasicInfoScreen(navigation),
   openProfileEnrollVisaInfoScreen: openProfileEnrollVisaInfoScreen(navigation),
+  openMyPageScreen: openMyPageScreen(navigation)
 });
 
 export default navigate;
