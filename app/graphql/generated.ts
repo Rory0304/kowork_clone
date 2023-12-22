@@ -948,24 +948,25 @@ export type ResidenceTypeFilter = {
 
 export type Resume = Node & {
   __typename?: 'Resume';
-  address?: Maybe<Scalars['String']['output']>;
+  address: Scalars['String']['output'];
   birthDate: Scalars['Date']['output'];
-  career?: Maybe<Scalars['JSON']['output']>;
+  career: Array<Maybe<Scalars['JSON']['output']>>;
   country: Scalars['String']['output'];
   created_at: Scalars['Datetime']['output'];
-  detailAddress?: Maybe<Scalars['String']['output']>;
-  education?: Maybe<Scalars['JSON']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
+  detailAddress: Scalars['String']['output'];
+  education: Array<Maybe<Scalars['JSON']['output']>>;
+  email: Scalars['String']['output'];
+  etc: Scalars['JSON']['output'];
   gender: GenderType;
   id: Scalars['BigInt']['output'];
-  language?: Maybe<Scalars['JSON']['output']>;
+  language: Scalars['JSON']['output'];
   name: Scalars['String']['output'];
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
-  phoneNumber?: Maybe<Scalars['String']['output']>;
+  phoneNumber: Scalars['String']['output'];
   residence: ResidenceType;
   userId: Scalars['UUID']['output'];
-  visa: Scalars['String']['output'];
+  uuid: Scalars['UUID']['output'];
 };
 
 export type ResumeConnection = {
@@ -1008,25 +1009,26 @@ export type ResumeFilter = {
   phoneNumber?: InputMaybe<StringFilter>;
   residence?: InputMaybe<ResidenceTypeFilter>;
   userId?: InputMaybe<UuidFilter>;
-  visa?: InputMaybe<StringFilter>;
+  uuid?: InputMaybe<UuidFilter>;
 };
 
 export type ResumeInsertInput = {
   address?: InputMaybe<Scalars['String']['input']>;
   birthDate?: InputMaybe<Scalars['Date']['input']>;
-  career?: InputMaybe<Scalars['JSON']['input']>;
+  career?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   country?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   detailAddress?: InputMaybe<Scalars['String']['input']>;
-  education?: InputMaybe<Scalars['JSON']['input']>;
+  education?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   email?: InputMaybe<Scalars['String']['input']>;
+  etc?: InputMaybe<Scalars['JSON']['input']>;
   gender?: InputMaybe<GenderType>;
   language?: InputMaybe<Scalars['JSON']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
   residence?: InputMaybe<ResidenceType>;
   userId?: InputMaybe<Scalars['UUID']['input']>;
-  visa?: InputMaybe<Scalars['String']['input']>;
+  uuid?: InputMaybe<Scalars['UUID']['input']>;
 };
 
 export type ResumeInsertResponse = {
@@ -1050,25 +1052,26 @@ export type ResumeOrderBy = {
   phoneNumber?: InputMaybe<OrderByDirection>;
   residence?: InputMaybe<OrderByDirection>;
   userId?: InputMaybe<OrderByDirection>;
-  visa?: InputMaybe<OrderByDirection>;
+  uuid?: InputMaybe<OrderByDirection>;
 };
 
 export type ResumeUpdateInput = {
   address?: InputMaybe<Scalars['String']['input']>;
   birthDate?: InputMaybe<Scalars['Date']['input']>;
-  career?: InputMaybe<Scalars['JSON']['input']>;
+  career?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   country?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   detailAddress?: InputMaybe<Scalars['String']['input']>;
-  education?: InputMaybe<Scalars['JSON']['input']>;
+  education?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   email?: InputMaybe<Scalars['String']['input']>;
+  etc?: InputMaybe<Scalars['JSON']['input']>;
   gender?: InputMaybe<GenderType>;
   language?: InputMaybe<Scalars['JSON']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
   residence?: InputMaybe<ResidenceType>;
   userId?: InputMaybe<Scalars['UUID']['input']>;
-  visa?: InputMaybe<Scalars['String']['input']>;
+  uuid?: InputMaybe<Scalars['UUID']['input']>;
 };
 
 export type ResumeUpdateResponse = {
@@ -1406,7 +1409,7 @@ export type QueryFieldPolicy = {
 	resumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	visaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ResumeKeySpecifier = ('address' | 'birthDate' | 'career' | 'country' | 'created_at' | 'detailAddress' | 'education' | 'email' | 'gender' | 'id' | 'language' | 'name' | 'nodeId' | 'phoneNumber' | 'residence' | 'userId' | 'visa' | ResumeKeySpecifier)[];
+export type ResumeKeySpecifier = ('address' | 'birthDate' | 'career' | 'country' | 'created_at' | 'detailAddress' | 'education' | 'email' | 'etc' | 'gender' | 'id' | 'language' | 'name' | 'nodeId' | 'phoneNumber' | 'residence' | 'userId' | 'uuid' | ResumeKeySpecifier)[];
 export type ResumeFieldPolicy = {
 	address?: FieldPolicy<any> | FieldReadFunction<any>,
 	birthDate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1416,6 +1419,7 @@ export type ResumeFieldPolicy = {
 	detailAddress?: FieldPolicy<any> | FieldReadFunction<any>,
 	education?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
+	etc?: FieldPolicy<any> | FieldReadFunction<any>,
 	gender?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	language?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1424,7 +1428,7 @@ export type ResumeFieldPolicy = {
 	phoneNumber?: FieldPolicy<any> | FieldReadFunction<any>,
 	residence?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>,
-	visa?: FieldPolicy<any> | FieldReadFunction<any>
+	uuid?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ResumeConnectionKeySpecifier = ('edges' | 'pageInfo' | ResumeConnectionKeySpecifier)[];
 export type ResumeConnectionFieldPolicy = {
@@ -1706,11 +1710,11 @@ export const ProfileFieldsFragmentDoc = gql`
     `;
 export const ResumeFieldsFragmentDoc = gql`
     fragment ResumeFields on Resume {
+  uuid
   name
   gender
   country
   birthDate
-  visa
   residence
   address
   detailAddress
@@ -1719,6 +1723,7 @@ export const ResumeFieldsFragmentDoc = gql`
   career
   education
   language
+  etc
 }
     `;
 export const VisaHistoryFieldsFragmentDoc = gql`
@@ -1818,8 +1823,8 @@ export const GetProfileDocument = gql`
   }
 }
     ${ProfileFieldsFragmentDoc}`;
-export const GetResumeDocument = gql`
-    query GetResume($userId: UUID) {
+export const GetResumeByIdDocument = gql`
+    query GetResumeById($userId: UUID) {
   resumeCollection(filter: {userId: {eq: $userId}}) {
     edges {
       node {
@@ -1829,6 +1834,33 @@ export const GetResumeDocument = gql`
   }
 }
     ${ResumeFieldsFragmentDoc}`;
+export const InsertResumeByIdDocument = gql`
+    mutation InsertResumeById($uuid: UUID, $userId: UUID, $name: String, $gender: GenderType, $country: String, $birthDate: Date, $residence: ResidenceType, $address: String, $detailAddress: String, $email: String, $phoneNumber: String, $career: [JSON], $education: [JSON], $language: JSON, $etc: JSON) {
+  insertIntoResumeCollection(
+    objects: {uuid: $uuid, userId: $userId, name: $name, gender: $gender, country: $country, birthDate: $birthDate, residence: $residence, address: $address, detailAddress: $detailAddress, email: $email, phoneNumber: $phoneNumber, career: $career, education: $education, language: $language, etc: $etc}
+  ) {
+    records {
+      id
+    }
+  }
+}
+    `;
+export type InsertResumeByIdMutationFn = Apollo.MutationFunction<InsertResumeByIdMutation, InsertResumeByIdMutationVariables>;
+export type InsertResumeByIdMutationOptions = Apollo.BaseMutationOptions<InsertResumeByIdMutation, InsertResumeByIdMutationVariables>;
+export const UpdateResumeByIdDocument = gql`
+    mutation UpdateResumeById($uuid: UUID, $name: String, $gender: GenderType, $country: String, $birthDate: Date, $residence: ResidenceType, $address: String, $detailAddress: String, $email: String, $phoneNumber: String, $career: [JSON], $education: [JSON], $language: JSON, $etc: JSON) {
+  updateResumeCollection(
+    filter: {uuid: {eq: $uuid}}
+    set: {name: $name, gender: $gender, country: $country, birthDate: $birthDate, residence: $residence, address: $address, detailAddress: $detailAddress, email: $email, phoneNumber: $phoneNumber, career: $career, education: $education, language: $language, etc: $etc}
+  ) {
+    records {
+      id
+    }
+  }
+}
+    `;
+export type UpdateResumeByIdMutationFn = Apollo.MutationFunction<UpdateResumeByIdMutation, UpdateResumeByIdMutationVariables>;
+export type UpdateResumeByIdMutationOptions = Apollo.BaseMutationOptions<UpdateResumeByIdMutation, UpdateResumeByIdMutationVariables>;
 export const GetVisaHistoryDocument = gql`
     query GetVisaHistory($userId: UUID) {
   visaHistoryCollection(filter: {userId: {eq: $userId}}) {
@@ -1884,7 +1916,7 @@ export type JobPostItemFieldsFragment = { __typename?: 'JobPost', id: any, title
 
 export type ProfileFieldsFragment = { __typename?: 'Profile', name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, userType: string };
 
-export type ResumeFieldsFragment = { __typename?: 'Resume', name: string, gender: GenderType, country: string, birthDate: any, visa: string, residence: ResidenceType, address?: string | null, detailAddress?: string | null, email?: string | null, phoneNumber?: string | null, career?: any | null, education?: any | null, language?: any | null };
+export type ResumeFieldsFragment = { __typename?: 'Resume', uuid: any, name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, address: string, detailAddress: string, email: string, phoneNumber: string, career: Array<any | null>, education: Array<any | null>, language: any, etc: any };
 
 export type VisaHistoryFieldsFragment = { __typename?: 'VisaHistory', id: any, visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null };
 
@@ -1935,12 +1967,53 @@ export type GetProfileQueryVariables = Exact<{
 
 export type GetProfileQuery = { __typename?: 'Query', profileCollection?: { __typename?: 'ProfileConnection', edges: Array<{ __typename?: 'ProfileEdge', node: { __typename?: 'Profile', name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, userType: string } }> } | null };
 
-export type GetResumeQueryVariables = Exact<{
+export type GetResumeByIdQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
 
-export type GetResumeQuery = { __typename?: 'Query', resumeCollection?: { __typename?: 'ResumeConnection', edges: Array<{ __typename?: 'ResumeEdge', node: { __typename?: 'Resume', name: string, gender: GenderType, country: string, birthDate: any, visa: string, residence: ResidenceType, address?: string | null, detailAddress?: string | null, email?: string | null, phoneNumber?: string | null, career?: any | null, education?: any | null, language?: any | null } }> } | null };
+export type GetResumeByIdQuery = { __typename?: 'Query', resumeCollection?: { __typename?: 'ResumeConnection', edges: Array<{ __typename?: 'ResumeEdge', node: { __typename?: 'Resume', uuid: any, name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, address: string, detailAddress: string, email: string, phoneNumber: string, career: Array<any | null>, education: Array<any | null>, language: any, etc: any } }> } | null };
+
+export type InsertResumeByIdMutationVariables = Exact<{
+  uuid?: InputMaybe<Scalars['UUID']['input']>;
+  userId?: InputMaybe<Scalars['UUID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<GenderType>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  birthDate?: InputMaybe<Scalars['Date']['input']>;
+  residence?: InputMaybe<ResidenceType>;
+  address?: InputMaybe<Scalars['String']['input']>;
+  detailAddress?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  career?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>> | InputMaybe<Scalars['JSON']['input']>>;
+  education?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>> | InputMaybe<Scalars['JSON']['input']>>;
+  language?: InputMaybe<Scalars['JSON']['input']>;
+  etc?: InputMaybe<Scalars['JSON']['input']>;
+}>;
+
+
+export type InsertResumeByIdMutation = { __typename?: 'Mutation', insertIntoResumeCollection?: { __typename?: 'ResumeInsertResponse', records: Array<{ __typename?: 'Resume', id: any }> } | null };
+
+export type UpdateResumeByIdMutationVariables = Exact<{
+  uuid?: InputMaybe<Scalars['UUID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<GenderType>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  birthDate?: InputMaybe<Scalars['Date']['input']>;
+  residence?: InputMaybe<ResidenceType>;
+  address?: InputMaybe<Scalars['String']['input']>;
+  detailAddress?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  career?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>> | InputMaybe<Scalars['JSON']['input']>>;
+  education?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>> | InputMaybe<Scalars['JSON']['input']>>;
+  language?: InputMaybe<Scalars['JSON']['input']>;
+  etc?: InputMaybe<Scalars['JSON']['input']>;
+}>;
+
+
+export type UpdateResumeByIdMutation = { __typename?: 'Mutation', updateResumeCollection: { __typename?: 'ResumeUpdateResponse', records: Array<{ __typename?: 'Resume', id: any }> } };
 
 export type GetVisaHistoryQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
