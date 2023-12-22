@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import navigate from "app/utils/navigationHelper";
 import Stack from "app/components/blocks/Stack/Stack";
@@ -13,7 +13,7 @@ const MyApplyListScreen: React.FC = () => {
   const navigator = navigate(navigation);
 
   return (
-    <View className={`bg-white pb-12`}>
+    <ScrollView className="bg-white pb-12 flex-1">
       <Text className="px-4 py-4 font-semibold text-neutral-600">
         더 나은 서비스를 위해 합격 여부를 알려주세요
       </Text>
@@ -45,10 +45,7 @@ const MyApplyListScreen: React.FC = () => {
       </Stack>
 
       <View>
-        <Stack
-          direction="column"
-          styles="h-full justify-center  items-center pb-32"
-        >
+        <Stack direction="column" styles="h-full justify-center items-center">
           <Text className="mb-4 text-base font-semibold text-neutral-400">
             지원내역이 아직 없어요.
           </Text>
@@ -61,7 +58,7 @@ const MyApplyListScreen: React.FC = () => {
           </TouchableOpacity>
         </Stack>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
