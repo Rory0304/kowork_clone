@@ -5,12 +5,12 @@ import { useAuth } from "./AuthProvider";
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import fetch from "cross-fetch";
 
-interface AppProviderProps {
+interface QueryProviderProps {
   children: React.ReactNode;
 }
 
 // - Apollo provider ref: https://www.apollographql.com/docs/react/get-started/
-const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
+const QueryProvider: React.FC<QueryProviderProps> = ({ children }) => {
   const { accessToken } = useAuth();
 
   const [queryClient] = React.useState(
@@ -45,10 +45,12 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     cache: new InMemoryCache(),
   });
 
+
   return (
     <QueryClientProvider client={queryClient}>
       <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
     </QueryClientProvider>
   );
 };
-export default AppProvider;
+
+export default QueryProvider;
