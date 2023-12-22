@@ -1,19 +1,33 @@
 import React from "react";
-import { Text, Alert, ScrollView, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  Alert,
+  ScrollView,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import {
   useFormContext,
   Controller,
   useFieldArray,
   Control,
 } from "react-hook-form";
-
-import { TextInput, FormInputBox } from "app/components/blocks/Form";
-import Stack from "app/components/blocks/Stack/Stack";
-import type { FormDataType, CareerInfoType } from "app/types/Resume";
-import CheckIcon from "app/components/blocks/Icon/CheckIcon";
+import {
+  TextInput,
+  FormInputBox,
+  Stack,
+  Button,
+  CheckIcon,
+} from "app/components/blocks";
+import { ResumeFormSectionTitle } from "app/components/pages/resume";
 import { checkIsValidDate, convertToFormatDate } from "app/utils/date";
 import MinusIcon from "react-native-heroicons/solid/MinusIcon";
 import PlusIcon from "react-native-heroicons/solid/PlusIcon";
+import { customColors } from "app/constants/styles/Colors";
+import useModals from "app/hooks/useModals";
+import { MODAL_TYPES } from "app/components/pages/global/Modals/Modals";
+import type { FormDataType, CareerInfoType } from "app/types/Resume";
 
 const DEFAULT_CAREER_INPUT_DATA: CareerInfoType = {
   company: "",
@@ -145,8 +159,10 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
         name={`career.${index}.isResigned`}
         render={({ field: { value, onChange } }) => (
           <TouchableOpacity onPress={() => onChange(!value)}>
-            <CheckIcon checked={Boolean(value)} variant="circle" />
-            <Text>재직중</Text>
+            <Stack direction="row" styles="items-center justify-end">
+              <CheckIcon checked={Boolean(value)} variant="circle" />
+              <Text>재직중</Text>
+            </Stack>
           </TouchableOpacity>
         )}
       />
@@ -160,13 +176,41 @@ const CareerFormSection: React.FC = () => {
     control,
     name: "career",
   });
+  const { openModal, closeModal } = useModals();
 
-  const handleRemoveEduFormInput = (index: number) => remove(index);
+  const handleRemoveCareerFormInput = (index: number) => remove(index);
 
   const handleAddCareerFormInput = () => append(DEFAULT_CAREER_INPUT_DATA);
 
-  const createRemoveCareerFormInputAlert = (index: number) =>
-    Alert.alert(
+  const createRemoveCareerFormInputAlert = (index: number) => {
+    if (Platform.OS === "web") {
+      return openModal(MODAL_TYPES.confirm, {
+        title: "선택한 경력 삭제",
+        description: `작성된 내용은 저장되지 않아요.\n선택한 경력정보를 삭제하시겠어요?`,
+        ActionComponent: () => (
+          <Stack styles="justify-center" columnGap={8}>
+            <Button
+              label="취소"
+              color="default"
+              variant="filled"
+              onPress={() => closeModal(MODAL_TYPES.confirm)}
+            />
+            <Button
+              label="삭제"
+              color="primary"
+              variant="outlined"
+              onPress={() => {
+                handleRemoveCareerFormInput(index);
+                closeModal(MODAL_TYPES.confirm);
+              }}
+            />
+          </Stack>
+        ),
+        open: true,
+        closeModal: () => closeModal(MODAL_TYPES.confirm),
+      });
+    }
+    return Alert.alert(
       "선택한 경력 삭제",
       "작성된 내용은 저장되지 않아요.\n선택한 경력정보를 삭제하시겠어요?",
       [
@@ -174,12 +218,14 @@ const CareerFormSection: React.FC = () => {
           text: "취소",
           style: "cancel",
         },
-        { text: "삭제", onPress: () => handleRemoveEduFormInput(index) },
+        { text: "삭제", onPress: () => handleRemoveCareerFormInput(index) },
       ]
     );
+  };
 
   return (
     <ScrollView>
+      <ResumeFormSectionTitle title="경력정보" />
       {fields.map((field, index) => (
         <View key={field.id}>
           <Stack styles="justify-between border-b  border-gray-300 p-4 bg-white">
@@ -201,7 +247,7 @@ const CareerFormSection: React.FC = () => {
         <View className="px-4 py-6">
           <TouchableOpacity onPress={handleAddCareerFormInput}>
             <Stack styles="justify-center items-center px-4 py-3 border rounded-xl border-primary border-dashed">
-              <PlusIcon />
+              <PlusIcon fill={customColors.primary} />
               <Text className="ml-2 text-base font-bold text-primary">
                 경력 정보 추가하기
               </Text>
