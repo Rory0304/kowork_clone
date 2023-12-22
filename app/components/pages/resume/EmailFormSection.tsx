@@ -12,6 +12,7 @@ const EmailFormSection: React.FC<EmailFormSectionProps> = ({ control }) => {
   return (
     <View className="p-4 bg-white">
       <FormInputBox
+        required
         title="이메일"
         InputComponent={
           <Controller
@@ -24,6 +25,7 @@ const EmailFormSection: React.FC<EmailFormSectionProps> = ({ control }) => {
         }
       />
       <FormInputBox
+        required
         title="연락처"
         InputComponent={
           <Controller
