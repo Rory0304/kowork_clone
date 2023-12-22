@@ -1,34 +1,18 @@
-export enum GenderType {
-  Male = "Male",
-  Female = "Femail",
-}
+import {
+  GenderType,
+  ResidenceType,
+  DegreeType,
+  LanguageLevel,
+} from "app/graphql/generated";
 
-export enum ResidenceType {
-  Domestic = "Domestic",
-  Abroad = "Abroad",
-}
+export { GenderType, ResidenceType, DegreeType, LanguageLevel };
 
-export enum DegreeType {
-  ProBachelor = "ProBachelor",
-  Bachelor = "Bachelor",
-  Master = "Master",
-  Doctorate = "Doctorate",
-}
-
-export enum LanguageLevel {
-  Basic = "Basic",
-  Intermediate = "Intermediate",
-  Fluent = "Fluent",
-  Native = "Native",
-}
-
-export interface BasciInfoFormData {
+export interface BasicInfoFormData {
   name: string;
-  gender: GenderType | string;
+  gender: GenderType;
   country: string;
   birthDate: string;
-  visa: string;
-  residence: ResidenceType | string;
+  residence: ResidenceType;
   address: string;
   detailAddress: string;
   email: string;
@@ -36,7 +20,7 @@ export interface BasciInfoFormData {
 }
 
 export interface EducationInfoType {
-  degree: DegreeType | string;
+  degree: DegreeType;
   isGraduate: boolean;
   univName: string;
   major: string;
@@ -59,22 +43,47 @@ export interface EduCareerFormData {
 
 export interface LanguageType {
   name: string;
-  level: LanguageLevel | string;
+  level: LanguageLevel;
 }
 
 export interface LanguageFormDataType {
   language: {
     ko: {
-      level?: LanguageLevel | string;
+      level: LanguageLevel;
     };
     en: {
-      level?: LanguageLevel | string;
+      level: LanguageLevel;
     };
-    etc: LanguageType[];
+    etc?: LanguageType[];
+  };
+}
+
+export interface ProfileImageType {
+  name: string;
+  type: string;
+  uri: string;
+  base64?: string;
+}
+
+export interface AttatchmentFileType {
+  name: string;
+  type: string;
+  uri: string;
+  file?: File;
+}
+
+export interface EtcFormDataType {
+  etc: {
+    profileImage?: ProfileImageType;
+    attatchmentFile?: AttatchmentFileType;
+    portfolioLink?: string;
   };
 }
 
 export interface FormDataType
-  extends BasciInfoFormData,
+  extends BasicInfoFormData,
     EduCareerFormData,
-    LanguageFormDataType {}
+    LanguageFormDataType,
+    EtcFormDataType {
+  uuid: string;
+}
