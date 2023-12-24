@@ -1,8 +1,12 @@
 import React from "react";
-import { ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  ApolloProvider,
+} from "@apollo/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useAuth } from "./AuthProvider";
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import fetch from "cross-fetch";
 
 interface QueryProviderProps {
@@ -36,15 +40,26 @@ const QueryProvider: React.FC<QueryProviderProps> = ({ children }) => {
     return headers;
   };
 
-  let apolloClient = new ApolloClient({
-    link: new HttpLink({
-      uri: process.env.SUPABASE_STORE_GRAPHQL_URL,
-      headers: getHeaders(accessToken),
-      fetch,
-    }),
-    cache: new InMemoryCache(),
-  });
+  const initializeApolloClient = React.useCallback(
+    () =>
+      new ApolloClient({
+        link: new HttpLink({
+          uri: process.env.SUPABASE_STORE_GRAPHQL_URL,
+          headers: getHeaders(accessToken),
+          fetch,
+        }),
+        cache: new InMemoryCache(),
+      }),
+    [accessToken]
+  );
 
+  const [apolloClient, setApolloClient] = React.useState(
+    initializeApolloClient()
+  );
+
+  React.useEffect(() => {
+    setApolloClient(initializeApolloClient());
+  }, [accessToken]);
 
   return (
     <QueryClientProvider client={queryClient}>
