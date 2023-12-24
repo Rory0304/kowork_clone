@@ -25,14 +25,14 @@ export interface EducationInfoType {
   univName: string;
   major: string;
   enterDate: string;
-  graduateDate: string;
+  graduateDate: string | null;
 }
 
 export interface CareerInfoType {
   company: string;
   task: string;
   joinDate: string;
-  resignDate: string;
+  resignDate: string | null;
   isResigned?: boolean;
 }
 
