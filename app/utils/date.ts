@@ -13,7 +13,7 @@ export const checkIsValidDate = (year: number, month: number, day?: number) => {
   // are not in given range
   if (year > MAX_VALID_YR || year < MIN_VALID_YR) return false;
   if (month < 1 || month > 12) return false;
-  if (typeof day === 'number' && (day < 1 || day > 31)) return false;
+  if (typeof day === "number" && (day < 1 || day > 31)) return false;
 
   // Handle February month
   // with leap year
@@ -41,20 +41,26 @@ export const convertToFormatDate = (value: string) => {
 };
 
 //
-// Convert to 'YYYY,MM,DD' format from 'YYYY/MM/DD'
+// Convert to 'YYYY,MM,DD' format from 'YYYY/MM/DD' or 'YY/MM'
 // Ref: https://chrispennington.blog/blog/safari-does-not-show-new-date-from-javascript/
 //
 export const convertToFormatDateWithComma = (value: string) => {
   const [year, month, day] = value.split("/").map(Number);
-  const parsedDate = new Date(year, month - 1, day);
+  const parsedDate = new Date(year, month - 1, day ?? 0);
 
   return parsedDate;
 };
-
 
 //
 // Compare target date is after certain date
 //
 export const isDateAfterThreshold = (target: Date, threshold: Date) => {
-  return target.getTime() > threshold.getTime()
-}
+  return target.getTime() > threshold.getTime();
+};
+
+//
+// Compare target date is before certain date
+//
+export const isDateBeforeThreshold = (target: Date, threshold: Date) => {
+  return target.getTime() < threshold.getTime();
+};
