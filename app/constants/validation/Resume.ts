@@ -40,6 +40,11 @@ const RESUME_FORM_SCHEMA: yup.ObjectSchema<FormDataType> = yup.object().shape({
         graduateDate: yup
           .string()
           .checkIsYearMonthDateFormat("올바르지 않은 날짜 형식입니다.")
+          .checkIsDateAfterThreshold(
+            yup.ref("enterDate"),
+            "졸업일은 입학일 이후여야 합니다."
+          )
+          .nullable()
           .required(),
       })
     )
@@ -50,8 +55,19 @@ const RESUME_FORM_SCHEMA: yup.ObjectSchema<FormDataType> = yup.object().shape({
       yup.object().shape({
         company: yup.string().required(),
         task: yup.string().required(),
-        joinDate: yup.string().required(),
-        resignDate: yup.string().required(),
+        joinDate: yup
+          .string()
+          .required("필수 입력 사항입니다")
+          .checkIsYearMonthDateFormat("올바르지 않은 날짜 형식입니다."),
+        resignDate: yup
+          .string()
+          .checkIsYearMonthDateFormat("올바르지 않은 날짜 형식입니다.")
+          .checkIsDateAfterThreshold(
+            yup.ref("joinDate"),
+            "퇴사일은 입사일 이후여야 합니다."
+          )
+          .nullable()
+          .required(),
         isResigned: yup.boolean(),
       })
     )
