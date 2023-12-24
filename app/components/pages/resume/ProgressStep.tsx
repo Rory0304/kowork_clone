@@ -30,7 +30,10 @@ const ProgressStep: React.FC<ProgressSteProps> = ({ currentStepIdx }) => {
       <View className="flex flex-col justify-center">
         <View className="flex flex-row items-center justify-between">
           {resumeProgress.map((step, idx) => (
-            <View className={`relative basis-1/4 flex flex-col items-center`}>
+            <View
+              key={`progress-${idx}`}
+              className={`relative basis-1/4 flex flex-col items-center`}
+            >
               <Text
                 className={`mb-2 text-xs font-bold ${
                   currentStepIdx === idx ? "text-primary" : "text-neutral-300"
