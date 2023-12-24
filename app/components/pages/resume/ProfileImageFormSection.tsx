@@ -115,7 +115,7 @@ const ProfileImageFormSection: React.FC = () => {
         </Text>
       </View>
       <View className="p-4 flex justify-center">
-        {image ? (
+        {image?.uri ? (
           renderPrivewImage(image)
         ) : (
           <Button

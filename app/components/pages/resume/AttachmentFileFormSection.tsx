@@ -103,7 +103,7 @@ const AttachmentFileFormSection: React.FC = () => {
         </Text>
       </View>
       <View className="p-4">
-        {document ? (
+        {document?.uri ? (
           renderPreviewDocument(document)
         ) : (
           <Button
