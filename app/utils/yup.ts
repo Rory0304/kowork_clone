@@ -1,11 +1,23 @@
 import * as yup from "yup";
-import { checkIsValidDate,isDateAfterThreshold,  convertToFormatDateWithComma } from "app/utils/date";
+import {
+  checkIsValidDate,
+  isDateAfterThreshold,
+  isDateBeforeThreshold,
+  convertToFormatDateWithComma,
+} from "app/utils/date";
 
 declare module "yup" {
   interface StringSchema<TType, TContext, TDefault, TFlags> {
     checkIsFullDateFormat(errorMessage: string): this;
     checkIsYearMonthDateFormat(errorMessage: string): this;
-    checkIsDateAfterThreshold(threshold: yup.Reference, errorMessage: string): this;
+    checkIsDateBeforeThreshold(
+      threshold: yup.Reference,
+      errorMessage: string
+    ): this;
+    checkIsDateAfterThreshold(
+      threshold: yup.Reference,
+      errorMessage: string
+    ): this;
   }
 }
 
@@ -48,27 +60,60 @@ yup.addMethod(yup.string, "checkIsFullDateFormat", function (errorMessage) {
 
 yup.addMethod(
   yup.string,
+  "checkIsDateBeforeThreshold",
+  function (threshold: string, errorMessage: string) {
+    return this.test({
+      name: "checkIsDateBeforeThreshold",
+      message: errorMessage,
+      params: {
+        threshold,
+      },
+      test(value) {
+        const { path, createError } = this;
+
+        if (value && threshold) {
+          const targetDate = convertToFormatDateWithComma(value);
+          const thresholdDate = convertToFormatDateWithComma(
+            this.resolve(threshold)
+          );
+
+          return (
+            isDateBeforeThreshold(targetDate, thresholdDate) ||
+            createError({ path, message: errorMessage })
+          );
+        }
+      },
+    });
+  }
+);
+
+yup.addMethod(
+  yup.string,
   "checkIsDateAfterThreshold",
   function (threshold: string, errorMessage: string) {
     return this.test({
-      name: 'checkIsDateAfterThreshold',
+      name: "checkIsDateAfterThreshold",
       message: errorMessage,
       params: {
-        threshold
+        threshold,
       },
-      test(value){
+      test(value) {
         const { path, createError } = this;
 
-        if(value && threshold){
+        if (value && threshold) {
           const targetDate = convertToFormatDateWithComma(value);
-          const thresholdDate = convertToFormatDateWithComma(this.resolve(threshold));
+          const thresholdDate = convertToFormatDateWithComma(
+            this.resolve(threshold)
+          );
 
-          return isDateAfterThreshold(targetDate, thresholdDate) || createError({path, message: errorMessage})
+          return (
+            isDateAfterThreshold(targetDate, thresholdDate) ||
+            createError({ path, message: errorMessage })
+          );
         }
-      }
-    })}
+      },
+    });
+  }
 );
-
-
 
 export default yup;
