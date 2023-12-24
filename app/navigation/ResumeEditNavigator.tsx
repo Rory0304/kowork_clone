@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, Platform } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useAuth } from "app/contexts/AuthProvider";
 import { useQuery } from "@apollo/client";
 
@@ -10,7 +10,13 @@ import ResumeEditEduCareerScreen from "app/screens/Resume/ResumeEditEduCareerScr
 import ResumeEditLanguageScreen from "app/screens/Resume/ResumeEditLanguageScreen";
 import ResumeEditEtcInfoScreen from "app/screens/Resume/ResumeEditEtcInfoScreen";
 
-import { HeaderBackIcon, Stack, Button } from "app/components/blocks";
+import {
+  HeaderBackIcon,
+  Stack,
+  Button,
+  OverlaySpinner,
+  DefferedLoading,
+} from "app/components/blocks";
 import { NAV_SCREENS } from "../constants/Routes";
 import { DEFAULT_RESUME_FORM_DATA } from "app/constants/Resume";
 import type {
@@ -39,8 +45,8 @@ const NativeStack = createNativeStackNavigator();
 
 const ResumeEditNavigator: React.FC = () => {
   const navigation = useNavigation();
-  const { userInfo } = useAuth();
 
+  const { userInfo } = useAuth();
   const { supbaseClient } = useSupabaseClient();
 
   const method = useForm<FormDataType>({
@@ -57,9 +63,10 @@ const ResumeEditNavigator: React.FC = () => {
       variables: {
         userId: userInfo?.id,
       },
-      
     }
   );
+
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     const resetResumeData = async ({
@@ -67,55 +74,65 @@ const ResumeEditNavigator: React.FC = () => {
     }: {
       resumeData?: GetResumeByIdQuery;
     }) => {
-      const myResume = resumeData?.resumeCollection?.edges?.[0]?.node;
+      try {
+        setLoading(true);
 
-      if (myResume && supbaseClient) {
-        const getPrivateUrl = async (props: GetStoragePrivateUrlProps) => {
-          if (!!props.pathname) {
-            return await getStoragePrivateUrl(supabaseClient)(props);
-          }
-          return "";
-        };
+        const myResume = resumeData?.resumeCollection?.edges?.[0]?.node;
 
-        const parsedEtcInfo = JSON.parse(
-          myResume?.etc
-        ) as EtcFormDataType["etc"];
-        const parsedLanguageInfo = JSON.parse(
-          myResume?.language
-        ) as LanguageFormDataType["language"];
+        if (myResume && supbaseClient) {
+          const getPrivateUrl = async (props: GetStoragePrivateUrlProps) => {
+            if (!!props.pathname) {
+              return await getStoragePrivateUrl(supabaseClient)(props);
+            }
+            return "";
+          };
 
-        const profileImageUri = await getPrivateUrl({
-          pathname: parsedEtcInfo.profileImage?.uri || "",
-          storageName: SupabaseStorage.resumeProfile,
-          transform: {
-            width: 103,
-            height: 132,
-          },
-        });
+          const parsedEtcInfo = JSON.parse(
+            myResume?.etc
+          ) as EtcFormDataType["etc"];
+          const parsedLanguageInfo = JSON.parse(
+            myResume?.language
+          ) as LanguageFormDataType["language"];
 
-        const attatchmentFileUri = await getPrivateUrl({
-          pathname: parsedEtcInfo.attatchmentFile?.uri || "",
-          storageName: SupabaseStorage.resumeFile,
-          transform: {
-            width: 103,
-            height: 132,
-          },
-        });
-
-        method.reset({
-          ...myResume,
-          etc: {
-            profileImage: {
-              ...parsedEtcInfo.profileImage,
-              uri: profileImageUri,
+          const profileImageUri = await getPrivateUrl({
+            pathname: parsedEtcInfo.profileImage?.uri || "",
+            storageName: SupabaseStorage.resumeProfile,
+            transform: {
+              width: 103,
+              height: 132,
             },
-            attatchmentFile: {
-              ...parsedEtcInfo.attatchmentFile,
-              uri: attatchmentFileUri,
+          });
+
+          const attatchmentFileUri = await getPrivateUrl({
+            pathname: parsedEtcInfo.attatchmentFile?.uri || "",
+            storageName: SupabaseStorage.resumeFile,
+            transform: {
+              width: 103,
+              height: 132,
             },
-          },
-          language: parsedLanguageInfo,
-        });
+          });
+
+          method.reset({
+            ...myResume,
+            education: myResume.education[0],
+            career: myResume.career[0],
+            etc: {
+              profileImage: {
+                ...parsedEtcInfo.profileImage,
+                uri: profileImageUri,
+              },
+              attatchmentFile: {
+                ...parsedEtcInfo.attatchmentFile,
+                uri: attatchmentFileUri,
+              },
+            },
+            language: parsedLanguageInfo,
+          });
+        }
+      } catch (error) {
+        setLoading(false);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -168,6 +185,12 @@ const ResumeEditNavigator: React.FC = () => {
 
   return (
     <FormProvider {...method}>
+      {loading ? (
+        <DefferedLoading timedOut={200}>
+          <OverlaySpinner />
+        </DefferedLoading>
+      ) : null}
+
       <NativeStack.Navigator
         initialRouteName={NAV_SCREENS.ResumeEditBasicInfoScreen}
         screenOptions={{
