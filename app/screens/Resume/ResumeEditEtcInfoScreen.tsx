@@ -82,6 +82,8 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
 
         const configuredResumeData: UpdateResumeByIdMutationVariables = {
           ...resumeData,
+          career: JSON.stringify(resumeData.career),
+          education: JSON.stringify(resumeData.education),
           language: JSON.stringify(resumeData.language),
           etc: JSON.stringify({
             profileImage: {
@@ -102,6 +104,12 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
         }).then((res) => {
           if (res.data) {
             setApiStatus("resolved");
+            enqueueSnackbar({
+              message: "성공적으로 이력서를 저장했습니다.",
+              variant: "success",
+              duration: 500,
+            });
+            navigator.openMyPageScreen();
           } else {
             throw new Error("이력서 저장에 실패했습니다. 다시 시도해주세요");
           }
@@ -120,7 +128,7 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView className="flex-1" stickyHeaderIndices={[0]}>
+    <ScrollView className="flex-1 relative" stickyHeaderIndices={[0]}>
       <ProgressStep currentStepIdx={3} />
       <ResumeFormWrapperTitle title="기타정보" step={4} />
       <View>
