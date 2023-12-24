@@ -12,6 +12,9 @@ import {
   Controller,
   useFieldArray,
   Control,
+  useWatch,
+  UseFormSetValue,
+  UseFormTrigger,
 } from "react-hook-form";
 import {
   TextInput,
@@ -21,12 +24,13 @@ import {
   CheckIcon,
 } from "app/components/blocks";
 import { ResumeFormSectionTitle } from "app/components/pages/resume";
-import { checkIsValidDate, convertToFormatDate } from "app/utils/date";
+import { convertToFormatDate } from "app/utils/date";
 import MinusIcon from "react-native-heroicons/solid/MinusIcon";
 import PlusIcon from "react-native-heroicons/solid/PlusIcon";
 import { customColors } from "app/constants/styles/Colors";
 import useModals from "app/hooks/useModals";
 import { MODAL_TYPES } from "app/components/pages/global/Modals/Modals";
+
 import type { FormDataType, CareerInfoType } from "app/types/Resume";
 
 const DEFAULT_CAREER_INPUT_DATA: CareerInfoType = {
@@ -40,12 +44,18 @@ const DEFAULT_CAREER_INPUT_DATA: CareerInfoType = {
 interface CareerFormInputProps {
   index: number;
   control: Control<FormDataType, any>;
+  setValue: UseFormSetValue<FormDataType>;
+  trigger: UseFormTrigger<FormDataType>;
 }
 
 const CareerFormInput: React.FC<CareerFormInputProps> = ({
   index,
   control,
+  setValue,
+  trigger,
 }) => {
+  const watchedIsResigned = useWatch({ name: `career.${index}.isResigned` });
+
   return (
     <View className="px-4">
       {/* 회사명 */}
@@ -69,7 +79,7 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
             control={control}
             name={`career.${index}.task`}
             render={({ field }) => (
-              <TextInput {...field} placeholder="학교명" />
+              <TextInput {...field} placeholder="담당업무" />
             )}
           />
         }
@@ -87,9 +97,10 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
                 <TextInput
                   focusable
                   value={field.value}
-                  onChangeText={(value) =>
-                    field.onChange(convertToFormatDate(value))
-                  }
+                  onChangeText={(value) => {
+                    field.onChange(convertToFormatDate(value));
+                    trigger(`career.${index}.resignDate`);
+                  }}
                   placeholder="YYYY / MM"
                   keyboardType="numeric"
                   maxLength={7}
@@ -97,20 +108,6 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
                 {error && <Text className="text-red-400">{error.message}</Text>}
               </>
             )}
-            rules={{
-              validate: (value) => {
-                const formattedDate = value?.replace(/\D/g, "");
-
-                const year = Number(formattedDate?.substring(0, 4));
-                const month = Number(formattedDate?.substring(4, 6));
-
-                if (!checkIsValidDate(year, month)) {
-                  return "Invalid date";
-                }
-
-                return true;
-              },
-            }}
           />
         }
       />
@@ -121,34 +118,26 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
           <Controller
             control={control}
             name={`career.${index}.resignDate`}
-            render={({ field, fieldState: { error } }) => (
-              <>
-                <TextInput
-                  focusable
-                  value={field.value}
-                  onChangeText={(value) =>
-                    field.onChange(convertToFormatDate(value))
-                  }
-                  placeholder="YYYY / MM"
-                  keyboardType="numeric"
-                  maxLength={7}
-                />
-                {error && <Text className="text-red-400">{error.message}</Text>}
-              </>
-            )}
-            rules={{
-              validate: (value) => {
-                const formattedDate = value?.replace(/\D/g, "");
-
-                const year = Number(formattedDate?.substring(0, 4));
-                const month = Number(formattedDate?.substring(4, 6));
-
-                if (!checkIsValidDate(year, month)) {
-                  return "Invalid date";
-                }
-
-                return true;
-              },
+            render={({ field, fieldState: { error } }) => {
+              return (
+                <>
+                  <TextInput
+                    focusable
+                    editable={!watchedIsResigned}
+                    value={field.value || ""}
+                    onChangeText={(value) => {
+                      field.onChange(convertToFormatDate(value));
+                      trigger(`career.${index}.joinDate`);
+                    }}
+                    placeholder="YYYY / MM"
+                    keyboardType="numeric"
+                    maxLength={7}
+                  />
+                  {error && (
+                    <Text className="text-red-400">{error.message}</Text>
+                  )}
+                </>
+              );
             }}
           />
         }
@@ -158,10 +147,19 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
         control={control}
         name={`career.${index}.isResigned`}
         render={({ field: { value, onChange } }) => (
-          <TouchableOpacity onPress={() => onChange(!value)}>
-            <Stack direction="row" styles="items-center justify-end">
+          <TouchableOpacity
+            onPress={() => {
+              onChange(!value);
+              if (!value) {
+                setValue(`career.${index}.resignDate`, null, {
+                  shouldDirty: true,
+                });
+              }
+            }}
+          >
+            <Stack direction="row" styles="items-center justify-end py-4">
               <CheckIcon checked={Boolean(value)} variant="circle" />
-              <Text>재직중</Text>
+              <Text className="ml-2">재직중</Text>
             </Stack>
           </TouchableOpacity>
         )}
@@ -171,11 +169,17 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
 };
 
 const CareerFormSection: React.FC = () => {
-  const { control } = useFormContext<FormDataType>();
+  const {
+    control,
+    trigger,
+    setValue,
+    formState: { errors },
+  } = useFormContext<FormDataType>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "career",
   });
+
   const { openModal, closeModal } = useModals();
 
   const handleRemoveCareerFormInput = (index: number) => remove(index);
@@ -236,7 +240,7 @@ const CareerFormSection: React.FC = () => {
               <MinusIcon />
             </TouchableOpacity>
           </Stack>
-          <CareerFormInput {...{ control, index }} />
+          <CareerFormInput {...{ control, setValue, trigger, index }} />
         </View>
       ))}
 
