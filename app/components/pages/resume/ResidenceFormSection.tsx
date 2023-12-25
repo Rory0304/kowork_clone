@@ -1,7 +1,7 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { Controller, Control } from "react-hook-form";
-import { Stack, VStack } from "app/components/blocks";
+import { Stack } from "app/components/blocks";
 import { FormDataType, ResidenceType } from "app/types/Resume";
 import { FormInputBox, CheckBox, TextInput } from "../../blocks/Form";
 
@@ -15,6 +15,7 @@ const ResidenceFormSection: React.FC<ResidenceFormSectionProps> = ({
   return (
     <View className="p-4 mb-2 bg-white">
       <FormInputBox
+        required
         title="현재 거주하는 곳"
         InputComponent={
           <Controller
@@ -46,22 +47,33 @@ const ResidenceFormSection: React.FC<ResidenceFormSectionProps> = ({
         }
       />
       <FormInputBox
+        required
         title="주소"
         InputComponent={
           <>
             <Controller
               control={control}
               name="address"
-              render={({ field }) => (
-                <TextInput {...field} placeholder="주소 입력하기" />
+              render={({ field, fieldState: { error } }) => (
+                <>
+                  <TextInput {...field} placeholder="주소 입력하기" />
+                  {error && (
+                    <Text className="text-red-400">{error.message}</Text>
+                  )}
+                </>
               )}
             />
             <View className="my-[4px]" />
             <Controller
               control={control}
               name="detailAddress"
-              render={({ field }) => (
-                <TextInput {...field} placeholder="상세주소 입력하기" />
+              render={({ field, fieldState: { error } }) => (
+                <>
+                  <TextInput {...field} placeholder="상세주소 입력하기" />
+                  {error && (
+                    <Text className="text-red-400">{error.message}</Text>
+                  )}
+                </>
               )}
             />
           </>

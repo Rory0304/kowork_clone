@@ -35,6 +35,7 @@ export enum NAV_SCREENS {
   ResumeEditBasicInfoScreen = "ResumeEditBasicInfoScreen",
   ResumeEditEduCareerScreen = "ResumeEditEduCareerScreen",
   ResumeEditLanguageScreen = "ResumeEditLanguageScreen",
+  ResumeEditEtcInfoScreen = "ResumeEditEtcInfoScreen",
 
   // Notice Page
   NoticeScreen = "NoticePageScreen",

@@ -6,3 +6,4 @@ export * from "./Table";
 export * from "./Form";
 export * from "./Icon";
 export * from "./Spinner";
+export * from "./DeferredLoading";

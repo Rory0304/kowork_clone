@@ -49,6 +49,7 @@ const AppNavigator: React.FC = () => {
         screenOptions={{
           headerShown: false,
           contentStyle: {
+            position: "relative",
             maxWidth: 450,
             width: "100%",
             marginHorizontal: "auto",

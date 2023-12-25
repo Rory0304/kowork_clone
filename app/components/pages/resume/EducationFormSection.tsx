@@ -1,22 +1,41 @@
 import React from "react";
-import { Text, Alert, ScrollView, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  Alert,
+  ScrollView,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import {
   useFormContext,
   Controller,
   useFieldArray,
   Control,
+  UseFormSetValue,
+  UseFormTrigger,
+  useWatch,
 } from "react-hook-form";
-
-import { TextInput, CheckBox, FormInputBox } from "app/components/blocks/Form";
-import Stack from "app/components/blocks/Stack/Stack";
+import { ResumeFormSectionTitle } from "app/components/pages/resume";
+import {
+  CheckIcon,
+  TextInput,
+  CheckBox,
+  FormInputBox,
+  Stack,
+  Button,
+} from "app/components/blocks";
 import type { FormDataType, EducationInfoType } from "app/types/Resume";
-import CheckIcon from "app/components/blocks/Icon/CheckIcon";
 import { checkIsValidDate, convertToFormatDate } from "app/utils/date";
 import MinusIcon from "react-native-heroicons/solid/MinusIcon";
 import PlusIcon from "react-native-heroicons/solid/PlusIcon";
+import { DegreeType } from "app/graphql/generated";
+import { customColors } from "app/constants/styles/Colors";
+import useModals from "app/hooks/useModals";
+import { MODAL_TYPES } from "app/components/pages/global/Modals/Modals";
 
 const DEFAULT_EDUCATION_INPUT_DATA: EducationInfoType = {
-  degree: "",
+  degree: DegreeType.ProBachelor,
   isGraduate: false,
   univName: "",
   major: "",
@@ -27,12 +46,18 @@ const DEFAULT_EDUCATION_INPUT_DATA: EducationInfoType = {
 interface EducationFormInputProps {
   index: number;
   control: Control<FormDataType, any>;
+  setValue: UseFormSetValue<FormDataType>;
+  trigger: UseFormTrigger<FormDataType>;
 }
 
 const EducationFormInput: React.FC<EducationFormInputProps> = ({
   index,
   control,
+  setValue,
+  trigger,
 }) => {
+  const isGraduate = useWatch({ name: `education.${index}.isGraduate` });
+
   return (
     <View className="px-4">
       {/* 학위 정보 */}
@@ -64,17 +89,6 @@ const EducationFormInput: React.FC<EducationFormInputProps> = ({
             )}
           />
         }
-      />
-      {/* 재학중 */}
-      <Controller
-        control={control}
-        name={`education.${index}.isGraduate`}
-        render={({ field: { value, onChange } }) => (
-          <TouchableOpacity onPress={() => onChange(!value)}>
-            <CheckIcon checked={Boolean(value)} variant="circle" />
-            <Text>재학중</Text>
-          </TouchableOpacity>
-        )}
       />
       {/* 학교명 */}
       <FormInputBox
@@ -114,9 +128,10 @@ const EducationFormInput: React.FC<EducationFormInputProps> = ({
                 <TextInput
                   focusable
                   value={field.value}
-                  onChangeText={(value) =>
-                    field.onChange(convertToFormatDate(value))
-                  }
+                  onChangeText={(value) => {
+                    field.onChange(convertToFormatDate(value));
+                    trigger(`education.${index}.graduateDate`);
+                  }}
                   placeholder="YYYY / MM"
                   keyboardType="numeric"
                   maxLength={7}
@@ -124,20 +139,6 @@ const EducationFormInput: React.FC<EducationFormInputProps> = ({
                 {error && <Text className="text-red-400">{error.message}</Text>}
               </>
             )}
-            rules={{
-              validate: (value) => {
-                const formattedDate = value?.replace(/\D/g, "");
-
-                const year = Number(formattedDate?.substring(0, 4));
-                const month = Number(formattedDate?.substring(4, 6));
-
-                if (!checkIsValidDate(year, month)) {
-                  return "Invalid date";
-                }
-
-                return true;
-              },
-            }}
           />
         }
       />
@@ -152,10 +153,12 @@ const EducationFormInput: React.FC<EducationFormInputProps> = ({
               <>
                 <TextInput
                   focusable
-                  value={field.value}
-                  onChangeText={(value) =>
-                    field.onChange(convertToFormatDate(value))
-                  }
+                  editable={!isGraduate}
+                  value={field.value || ""}
+                  onChangeText={(value) => {
+                    field.onChange(convertToFormatDate(value));
+                    trigger(`education.${index}.enterDate`);
+                  }}
                   placeholder="YYYY / MM"
                   keyboardType="numeric"
                   maxLength={7}
@@ -163,40 +166,74 @@ const EducationFormInput: React.FC<EducationFormInputProps> = ({
                 {error && <Text className="text-red-400">{error.message}</Text>}
               </>
             )}
-            rules={{
-              validate: (value) => {
-                const formattedDate = value?.replace(/\D/g, "");
-
-                const year = Number(formattedDate?.substring(0, 4));
-                const month = Number(formattedDate?.substring(4, 6));
-
-                if (!checkIsValidDate(year, month)) {
-                  return "Invalid date";
-                }
-
-                return true;
-              },
-            }}
           />
         }
+      />
+      {/* 재학중 */}
+      <Controller
+        control={control}
+        name={`education.${index}.isGraduate`}
+        render={({ field: { value, onChange } }) => (
+          <TouchableOpacity
+            onPress={() => {
+              onChange(!value);
+              setValue(`education.${index}.graduateDate`, null);
+            }}
+          >
+            <Stack direction="row" styles="items-center justify-end py-4">
+              <CheckIcon checked={Boolean(value)} variant="circle" />
+              <Text className="ml-2">재학중</Text>
+            </Stack>
+          </TouchableOpacity>
+        )}
       />
     </View>
   );
 };
 
 const EducationFormSection: React.FC = () => {
-  const { control } = useFormContext<FormDataType>();
+  const { control, setValue, trigger } = useFormContext<FormDataType>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "education",
   });
+  const { openModal, closeModal } = useModals();
 
-  const handleRemoveEduFormInput = (index: number) => remove(index);
+  const handleRemoveEduFormInput = (index: number) => {
+    remove(index);
+  };
 
   const handleAddEduFormInput = () => append(DEFAULT_EDUCATION_INPUT_DATA);
 
-  const createRemoveEduFormInputAlert = (index: number) =>
-    Alert.alert(
+  const createRemoveEduFormInputAlert = (index: number) => {
+    if (Platform.OS === "web") {
+      return openModal(MODAL_TYPES.confirm, {
+        title: "선택한 학력 삭제",
+        description: `작성된 내용은 저장되지 않아요.\n선택한 학력정보를 삭제하시겠어요?`,
+        ActionComponent: () => (
+          <Stack styles="justify-center" columnGap={8}>
+            <Button
+              label="취소"
+              color="default"
+              variant="filled"
+              onPress={() => closeModal(MODAL_TYPES.confirm)}
+            />
+            <Button
+              label="삭제"
+              color="primary"
+              variant="outlined"
+              onPress={() => {
+                handleRemoveEduFormInput(index);
+                closeModal(MODAL_TYPES.confirm);
+              }}
+            />
+          </Stack>
+        ),
+        open: true,
+        closeModal: () => closeModal(MODAL_TYPES.confirm),
+      });
+    }
+    return Alert.alert(
       "선택한 학력 삭제",
       "작성된 내용은 저장되지 않아요.\n선택한 학력정보를 삭제하시겠어요?",
       [
@@ -207,9 +244,11 @@ const EducationFormSection: React.FC = () => {
         { text: "삭제", onPress: () => handleRemoveEduFormInput(index) },
       ]
     );
+  };
 
   return (
     <ScrollView>
+      <ResumeFormSectionTitle title="학력 정보" />
       {fields.map((field, index) => (
         <View key={field.id}>
           <Stack styles="justify-between border-b border-gray-300 p-4 bg-white">
@@ -220,7 +259,7 @@ const EducationFormSection: React.FC = () => {
               <MinusIcon />
             </TouchableOpacity>
           </Stack>
-          <EducationFormInput {...{ control, index }} />
+          <EducationFormInput {...{ control, index, setValue, trigger }} />
         </View>
       ))}
 
@@ -231,7 +270,7 @@ const EducationFormSection: React.FC = () => {
         <View className="px-4 py-6">
           <TouchableOpacity onPress={handleAddEduFormInput}>
             <Stack styles="justify-center items-center px-4 py-3 border rounded-xl border-primary border-dashed">
-              <PlusIcon />
+              <PlusIcon fill={customColors.primary} />
               <Text className="ml-2 text-base font-bold text-primary">
                 학력 정보 추가하기
               </Text>

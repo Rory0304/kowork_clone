@@ -12,7 +12,11 @@ const TextInput: React.FC<TextInputProps> = ({ error, ...props }) => {
     <RnTextInput
       {...props}
       className={`p-3 font-medium bg-slate-100 border border-gray-300 rounded-lg ${
-        error ? "border-red-500" : "focus:border-primary leading-none"
+        props.editable === false
+          ? "bg-gray-200"
+          : error
+          ? "border-red-500"
+          : "focus:border-primary leading-none"
       }`}
       placeholderTextColor={gray[400]}
       style={{

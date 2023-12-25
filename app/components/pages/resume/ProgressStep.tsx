@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import CheckCircleIcon from "react-native-heroicons/solid/CheckCircleIcon";
 import { resumeProgress } from "app/constants/Resume";
+import { customColors } from "app/constants/styles/Colors";
 
 interface ProgressSteProps {
   currentStepIdx: number;
@@ -13,7 +14,11 @@ const CurrentAdorment = (
   </View>
 );
 
-const FinishedAdorment = <CheckCircleIcon />;
+const FinishedAdorment = (
+  <View className="z-10">
+    <CheckCircleIcon fill={customColors.primary} />
+  </View>
+);
 
 const InPorgressAdorment = (
   <View className="p-2 bg-white border-2 rounded-full border-neutral-400"></View>
@@ -21,12 +26,19 @@ const InPorgressAdorment = (
 
 const ProgressStep: React.FC<ProgressSteProps> = ({ currentStepIdx }) => {
   return (
-    <View className="py-4 bg-white">
+    <View className="py-4 bg-white shadow-sm">
       <View className="flex flex-col justify-center">
         <View className="flex flex-row items-center justify-between">
           {resumeProgress.map((step, idx) => (
-            <View className={`relative basis-1/4 flex flex-col items-center`}>
-              <Text className="mb-2 text-xs font-bold text-primary">
+            <View
+              key={`progress-${idx}`}
+              className={`relative basis-1/4 flex flex-col items-center`}
+            >
+              <Text
+                className={`mb-2 text-xs font-bold ${
+                  currentStepIdx === idx ? "text-primary" : "text-neutral-300"
+                }`}
+              >
                 {step.name}
               </Text>
               {idx < resumeProgress.length - 1 ? (

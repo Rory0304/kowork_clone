@@ -11,6 +11,9 @@ const MyPageNavigator: React.FC = () => {
       <NativeStack.Screen
         name={NAV_SCREENS.MyPageScreen}
         component={MyPageScreen}
+        options={{
+          headerTitle: '내 정보'
+        }}
       />
     </NativeStack.Navigator>
   );

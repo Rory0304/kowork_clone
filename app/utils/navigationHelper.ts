@@ -114,6 +114,15 @@ const openResumeEditLanguageScreen =
     });
   };
 
+const openResumeEditEtcInfoScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate("ResumeEditNavigator", {
+      screen: NAV_SCREENS.ResumeEditEtcInfoScreen,
+      params: props,
+    });
+  };
+
 const openHomeScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
@@ -193,7 +202,7 @@ const openProfileEnrollVisaInfoScreen =
     });
   };
 
-  const openMyPageScreen =
+const openMyPageScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
     navigation.navigate("BottomTabNavigator", {
@@ -201,7 +210,6 @@ const openProfileEnrollVisaInfoScreen =
       params: props,
     });
   };
-
 
 const navigate = (
   navigation: NavigationProp<ReactNavigation.RootParamList>
@@ -228,7 +236,8 @@ const navigate = (
   openProfileEnrollBasicInfoScreen:
     openProfileEnrollBasicInfoScreen(navigation),
   openProfileEnrollVisaInfoScreen: openProfileEnrollVisaInfoScreen(navigation),
-  openMyPageScreen: openMyPageScreen(navigation)
+  openMyPageScreen: openMyPageScreen(navigation),
+  openResumeEditEtcInfoScreen: openResumeEditEtcInfoScreen(navigation),
 });
 
 export default navigate;

@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from "react-native";
 import { Control, Controller, useFormContext } from "react-hook-form";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { TextInput, FormInputBox, CheckBox } from "app/components/blocks/Form";
-import { checkIsValidDate, convertToFormatDate } from "app/utils/date";
+import { convertToFormatDate } from "app/utils/date";
 import { BottomSheet, Stack } from "app/components/blocks";
 import CountrySelectBox from "app/components/pages/resume/CountrySelectBox";
 import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
@@ -26,18 +26,25 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
     <View className="p-4 mb-2 bg-white">
       <View>
         <FormInputBox
+          required
           title="이름"
           InputComponent={
             <Controller
               name="name"
               control={control}
-              render={({ field }) => (
-                <TextInput {...field} placeholder="이름 입력하기" />
+              render={({ field, fieldState: { error } }) => (
+                <>
+                  <TextInput {...field} placeholder="이름 입력하기" />
+                  {error && (
+                    <Text className="text-red-400">{error.message}</Text>
+                  )}
+                </>
               )}
             />
           }
         />
         <FormInputBox
+          required
           title="성별"
           InputComponent={
             <Controller
@@ -65,12 +72,13 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
           }
         />
         <FormInputBox
+          required
           title="국적"
           InputComponent={
             <Controller
               name="country"
               control={control}
-              render={({ field: { value } }) => (
+              render={({ field: { value }, fieldState: { error } }) => (
                 <TouchableOpacity
                   onPress={() => bottomSheetRef?.current?.present()}
                 >
@@ -83,12 +91,16 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
                       className="flex-1"
                     />
                   </Stack>
+                  {error && (
+                    <Text className="text-red-400">{error.message}</Text>
+                  )}
                 </TouchableOpacity>
               )}
             />
           }
         />
         <FormInputBox
+          required
           title="생년월일"
           InputComponent={
             <Controller
@@ -114,21 +126,6 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
                   )}
                 </>
               )}
-              rules={{
-                validate: (value) => {
-                  const formattedDate = value?.replace(/\D/g, "");
-
-                  const year = Number(formattedDate?.substring(0, 4));
-                  const month = Number(formattedDate?.substring(4, 6));
-                  const day = Number(formattedDate?.substring(6, 8));
-
-                  if (!checkIsValidDate(year, month, day)) {
-                    return "Invalid date";
-                  }
-
-                  return true;
-                },
-              }}
             />
           }
         />
