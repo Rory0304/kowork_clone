@@ -343,7 +343,7 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
       >
         <Button label="이전" onPress={() => navigation.goBack()} />
         <Button
-          disabeld={!isValid || apiStatus === 'pending'}
+          disabled={!isValid || apiStatus === 'pending'}
           label="다음"
           variant="filled"
           color="primary"
