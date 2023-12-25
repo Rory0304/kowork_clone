@@ -1,8 +1,10 @@
-import React from "react";
-import { View } from "react-native";
-import { Controller, Control } from "react-hook-form";
-import { FormDataType } from "app/types/Resume";
-import { FormInputBox, TextInput } from "../../blocks/Form";
+import React from 'react';
+import { Control, Controller } from 'react-hook-form';
+import { View } from 'react-native';
+
+import { FormDataType } from 'app/types/Resume';
+
+import { FormInputBox, TextInput } from '../../blocks/Form';
 
 interface EmailFormSectionProps {
   control: Control<FormDataType, any>;

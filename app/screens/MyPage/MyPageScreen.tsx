@@ -1,15 +1,15 @@
-import React from "react";
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
+import React from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import ChevronRightIcon from 'react-native-heroicons/solid/ChevronRightIcon';
 
-import Stack from "app/components/blocks/Stack/Stack";
-import { useAuth } from "app/contexts/AuthProvider";
-import { useProfile } from "app/contexts/ProfileProvider";
+import { useNavigation } from '@react-navigation/native';
 
-import MyVisaHistorySection from "app/components/pages/mypage/MyVisaHistorySection";
-import MyResumeSection from "app/components/pages/mypage/MyResumeSection";
-import ChevronRightIcon from "react-native-heroicons/solid/ChevronRightIcon";
+import Stack from 'app/components/blocks/Stack/Stack';
+import MyResumeSection from 'app/components/pages/mypage/MyResumeSection';
+import MyVisaHistorySection from 'app/components/pages/mypage/MyVisaHistorySection';
+import { useAuth } from 'app/contexts/AuthProvider';
+import { useProfile } from 'app/contexts/ProfileProvider';
+import navigate from 'app/utils/navigationHelper';
 
 const MyPageScreen: React.FC = () => {
   const { profileInfo } = useProfile();
@@ -53,7 +53,7 @@ const MyPageScreen: React.FC = () => {
         </View>
         <MyResumeSection />
         {ApplySection}
-        <MyVisaHistorySection name={profileInfo?.name || ""} />
+        <MyVisaHistorySection name={profileInfo?.name || ''} />
         <View className="pt-8 pb-12">
           <TouchableOpacity onPress={handleSignOut}>
             <Text className="text-base font-semibold text-secondary">

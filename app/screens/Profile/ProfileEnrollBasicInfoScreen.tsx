@@ -1,39 +1,40 @@
-import React from "react";
-import { Text, View, ScrollView, TouchableOpacity } from "react-native";
-import { Controller, useFormContext } from "react-hook-form";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import {
-  TextInput,
-  FormInputBox,
-  CheckBox,
-  Button,
-  Stack,
-  BottomSheet,
-  OverlaySpinner,
-  TextDropDownInput,
-} from "app/components/blocks";
-import { useAuth } from "app/contexts/AuthProvider";
-import CountrySelectBox from "app/components/pages/resume/CountrySelectBox";
-import { ResidenceType, GenderType } from "app/types/Profile";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import VisaSelectBox from "app/components/pages/global/BottomSheetContent/VisaSelectBox";
-import { VisaStatus } from "app/constants/VisaDetail";
-import { BasicProfileInfoFormType, ProfileFormType } from "app/types/Profile";
-import { insertProfileData } from "app/api/profile";
-import { insertVisaHistory } from "app/api/visaHistory";
+import React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
+
+import { insertProfileData } from 'app/api/profile';
+import { insertVisaHistory } from 'app/api/visaHistory';
 import {
-  convertToFormatDateWithComma,
+  BottomSheet,
+  Button,
+  CheckBox,
+  FormInputBox,
+  OverlaySpinner,
+  Stack,
+  TextDropDownInput,
+  TextInput,
+} from 'app/components/blocks';
+import VisaSelectBox from 'app/components/pages/global/BottomSheetContent/VisaSelectBox';
+import CountrySelectBox from 'app/components/pages/resume/CountrySelectBox';
+import { VisaStatus } from 'app/constants/VisaDetail';
+import { useAuth } from 'app/contexts/AuthProvider';
+import { APIStatus } from 'app/types/ApiStatus';
+import { GenderType, ResidenceType } from 'app/types/Profile';
+import { BasicProfileInfoFormType, ProfileFormType } from 'app/types/Profile';
+import {
   convertToFormatDate,
-} from "app/utils/date";
-import { APIStatus } from "app/types/ApiStatus";
+  convertToFormatDateWithComma,
+} from 'app/utils/date';
+import navigate from 'app/utils/navigationHelper';
 
 const ProfileEnrollBasicInfoScreen: React.FC = () => {
   const navigation = useNavigation();
   const navigator = navigate(navigation);
 
-  const [apiStatus, setApiStatus] = React.useState<APIStatus>("idle");
+  const [apiStatus, setApiStatus] = React.useState<APIStatus>('idle');
 
   const {
     setValue,
@@ -108,7 +109,7 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
     userId?: string;
   }) => {
     if (userId) {
-      setApiStatus("pending");
+      setApiStatus('pending');
 
       const {
         visaStatus,
@@ -134,20 +135,20 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
           visaIssueDate,
         }),
       ])
-        .then((res) => {
+        .then(res => {
           navigator.openProfileEnrollVisaInfoScreen();
-          setApiStatus("resolved");
+          setApiStatus('resolved');
         })
-        .catch((err) => {
+        .catch(err => {
           console.error(err);
-          setApiStatus("rejected");
+          setApiStatus('rejected');
         });
     }
   };
 
   return (
     <ScrollView className="flex-1 p-4 mb-2 bg-white">
-      {apiStatus === "pending" ? <OverlaySpinner /> : null}
+      {apiStatus === 'pending' ? <OverlaySpinner /> : null}
       <View>
         <FormInputBox
           required
@@ -161,7 +162,7 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
                   <TextInput
                     {...field}
                     placeholder="이름 입력하기"
-                    onChange={(e) => field.onChange(e.nativeEvent.text)}
+                    onChange={e => field.onChange(e.nativeEvent.text)}
                   />
                   {Boolean(error?.message) && (
                     <Text className="text-red-400">{error?.message}</Text>
@@ -184,9 +185,9 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
               }) => (
                 <View>
                   <Stack columnGap={8} styles="justify-between">
-                    {Object.values(GenderType).map((gender) => {
+                    {Object.values(GenderType).map(gender => {
                       const label =
-                        gender === "Male" ? "남자(Male)" : "여자(Female)";
+                        gender === 'Male' ? '남자(Male)' : '여자(Female)';
 
                       return (
                         <View className="shrink basis-1/2">
@@ -250,7 +251,7 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
                         focusable
                         value={field.value}
                         error={Boolean(error?.message)}
-                        onChangeText={(value) =>
+                        onChangeText={value =>
                           field.onChange(convertToFormatDate(value))
                         }
                         placeholder="YYYY / MM / DD"
@@ -284,9 +285,9 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
                           >
                             <CheckBox
                               label={
-                                item === "Domestic"
-                                  ? "국내(Domestic)"
-                                  : "해외(Abroad)"
+                                item === 'Domestic'
+                                  ? '국내(Domestic)'
+                                  : '해외(Abroad)'
                               }
                               active={item === value}
                               onPress={() => onChange(item)}
@@ -342,7 +343,7 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
       >
         <Button label="이전" onPress={() => navigation.goBack()} />
         <Button
-          disabeld={!isValid || apiStatus === "pending"}
+          disabeld={!isValid || apiStatus === 'pending'}
           label="다음"
           variant="filled"
           color="primary"
@@ -358,13 +359,13 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
       <BottomSheet
         closeBtn
         ref={countryBottomSheetRef}
-        snapPoints={["80%"]}
+        snapPoints={['80%']}
         headerTitle="국적"
         onClose={handleCountryBottomSheetClose}
       >
         <CountrySelectBox
-          onPress={(value) => {
-            setValue("country", value, {
+          onPress={value => {
+            setValue('country', value, {
               shouldValidate: true,
               shouldDirty: true,
             });
@@ -376,13 +377,13 @@ const ProfileEnrollBasicInfoScreen: React.FC = () => {
       <BottomSheet
         closeBtn
         ref={visaBottomSheetRef}
-        snapPoints={["80%"]}
+        snapPoints={['80%']}
         headerTitle="체류자격(비자)"
         onClose={handleVisaBottomSheetClose}
       >
         <VisaSelectBox
-          onPress={(visaCode) => {
-            setValue("visaStatus", visaCode, {
+          onPress={visaCode => {
+            setValue('visaStatus', visaCode, {
               shouldValidate: true,
               shouldDirty: true,
             });

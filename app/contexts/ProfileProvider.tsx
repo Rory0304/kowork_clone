@@ -1,8 +1,9 @@
-import React from "react";
-import { AppState } from "react-native";
-import { useAuth } from "app/contexts/AuthProvider";
-import { getProfileByUserId } from "app/api/profile";
-import type { ProfileType } from "app/types/Profile";
+import React from 'react';
+import { AppState } from 'react-native';
+
+import { getProfileByUserId } from 'app/api/profile';
+import { useAuth } from 'app/contexts/AuthProvider';
+import type { ProfileType } from 'app/types/Profile';
 
 interface ProfileProviderProps {
   children: React.ReactNode;
@@ -53,8 +54,8 @@ const ProfileProvider = ({ children }: ProfileProviderProps) => {
   // when user close app when tyring to enroll profile, then signOut
   //
   React.useEffect(() => {
-    const subscription = AppState.addEventListener("change", (nextAppState) => {
-      if (nextAppState === "inactive" || nextAppState === "background") {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'inactive' || nextAppState === 'background') {
         if (!profileInfo) {
           setProfileInfo(null); // reset profile info
           signOut(); // reset auth and userInfo

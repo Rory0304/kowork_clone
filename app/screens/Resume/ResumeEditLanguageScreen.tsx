@@ -1,16 +1,17 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { ScrollView, View } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
+import { Button, Stack } from 'app/components/blocks';
 import {
   LanguageFormSection,
   ProgressStep,
   ResumeFormWrapperTitle,
-} from "app/components/pages/resume";
-import { Button, Stack } from "app/components/blocks";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import { useFormContext } from "react-hook-form";
-import { FormDataType } from "app/types/Resume";
+} from 'app/components/pages/resume';
+import { FormDataType } from 'app/types/Resume';
+import navigate from 'app/utils/navigationHelper';
 
 const ResumeEditLanguageScreen: React.FC = () => {
   const navigation = useNavigation();

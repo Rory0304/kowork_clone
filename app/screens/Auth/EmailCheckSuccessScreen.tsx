@@ -1,10 +1,12 @@
-import React from "react";
-import { Text, View } from "react-native";
-import { Button, Stack } from "app/components/blocks";
-import CheckCircleIcon from "react-native-heroicons/solid/CheckCircleIcon";
-import { customColors } from "app/constants/styles/Colors";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
+import React from 'react';
+import { Text, View } from 'react-native';
+import CheckCircleIcon from 'react-native-heroicons/solid/CheckCircleIcon';
+
+import { useNavigation } from '@react-navigation/native';
+
+import { Button, Stack } from 'app/components/blocks';
+import { customColors } from 'app/constants/styles/Colors';
+import navigate from 'app/utils/navigationHelper';
 
 const EmailCheckSuccessScreen: React.FC = () => {
   const navigation = useNavigation();

@@ -1,9 +1,9 @@
 import {
-  GenderType,
-  ResidenceType,
   DegreeType,
+  GenderType,
   LanguageLevel,
-} from "app/graphql/generated";
+  ResidenceType,
+} from 'app/graphql/generated';
 
 export { GenderType, ResidenceType, DegreeType, LanguageLevel };
 

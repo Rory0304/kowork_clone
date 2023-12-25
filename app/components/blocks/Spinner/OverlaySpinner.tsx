@@ -1,7 +1,8 @@
-import React from "react";
-import { View } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
-import { customColors } from "app/constants/styles/Colors";
+import React from 'react';
+import { View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
+
+import { customColors } from 'app/constants/styles/Colors';
 
 const OverlaySpinner: React.FC = () => {
   return (

@@ -1,1 +1,1 @@
-export type APIStatus = "idle" | "pending" | "resolved" | "rejected";
+export type APIStatus = 'idle' | 'pending' | 'resolved' | 'rejected';

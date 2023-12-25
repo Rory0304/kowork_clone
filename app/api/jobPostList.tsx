@@ -1,18 +1,17 @@
-import client from "../graphql/client";
-import { getFetchPolicy } from "../utils/getFetchPolicy";
-
+import client from '../graphql/client';
 import {
-  GetJobPostDocument,
-  GetJobPostQuery,
-  GetJobPostQueryVariables,
-  GetJobPostByFilterDocument,
-  GetJobPostByFilterQueryVariables,
-  GetJobPostByFilterQuery,
   GetHighlightedJobPostDocument,
   GetHighlightedJobPostQuery,
   GetHighlightedJobPostQueryVariables,
+  GetJobPostByFilterDocument,
+  GetJobPostByFilterQuery,
+  GetJobPostByFilterQueryVariables,
+  GetJobPostDocument,
+  GetJobPostQuery,
+  GetJobPostQueryVariables,
   JobCategory as JobCategoryType,
-} from "../graphql/generated";
+} from '../graphql/generated';
+import { getFetchPolicy } from '../utils/getFetchPolicy';
 
 export { JobCategoryType };
 

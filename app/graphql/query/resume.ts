@@ -1,5 +1,6 @@
-import { gql } from "@apollo/client";
-import { FRAGMENT_RESUME } from "../fragment/resume";
+import { gql } from '@apollo/client';
+
+import { FRAGMENT_RESUME } from '../fragment/resume';
 
 export const GET_RESUME_BY_ID = gql`
   query GetResumeById($userId: UUID) {

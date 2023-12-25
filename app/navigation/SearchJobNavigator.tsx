@@ -1,11 +1,13 @@
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
+import MagnifyingGlassIcon from 'react-native-heroicons/outline/MagnifyingGlassIcon';
 
-import SearchJobScreen from "../screens/SearchJob/SearchJobScreen";
-import JobPostDetailScreen from "../screens/JobPostDetail/JobPostDetailScreen";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NAV_SCREENS } from "app/constants/Routes";
-import MagnifyingGlassIcon from "react-native-heroicons/outline/MagnifyingGlassIcon";
+import { createStackNavigator } from '@react-navigation/stack';
+
+import { NAV_SCREENS } from 'app/constants/Routes';
+
+import JobPostDetailScreen from '../screens/JobPostDetail/JobPostDetailScreen';
+import SearchJobScreen from '../screens/SearchJob/SearchJobScreen';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +18,7 @@ const SearchJobNavigator: React.FC = () => {
         name={NAV_SCREENS.SearchJobScreen}
         component={SearchJobScreen}
         options={{
-          headerTitleStyle: { display: "none" },
+          headerTitleStyle: { display: 'none' },
           headerLeft: () => (
             <Text className="text-xl font-bold">일자리 찾기</Text>
           ),
@@ -27,7 +29,7 @@ const SearchJobNavigator: React.FC = () => {
         name={NAV_SCREENS.JobPostDetailScreen}
         component={JobPostDetailScreen}
         options={{
-          headerTitleStyle: { display: "none" },
+          headerTitleStyle: { display: 'none' },
           headerBackTitleVisible: false,
         }}
       />

@@ -1,16 +1,18 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "../../../utils/navigationHelper";
-import MegaphoneIcon from "react-native-heroicons/solid/MegaphoneIcon";
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import MegaphoneIcon from 'react-native-heroicons/solid/MegaphoneIcon';
+
+import { useNavigation } from '@react-navigation/native';
+
+import navigate from '../../../utils/navigationHelper';
 
 const ImportantNoticeSection: React.FC = () => {
   const navigation = useNavigation();
   const navigator = navigate(navigation);
 
   const importantNotice = {
-    id: "1",
-    title: "1달 만에 D-4에서 E-7 비자 변경한 후기",
+    id: '1',
+    title: '1달 만에 D-4에서 E-7 비자 변경한 후기',
   };
 
   return (

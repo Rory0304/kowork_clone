@@ -1,7 +1,8 @@
-import React from "react";
-import Swiper from "react-native-swiper";
-import { View, Text, Image, ImageSourcePropType } from "react-native";
-import Stack from "app/components/blocks/Stack/Stack";
+import React from 'react';
+import { Image, ImageSourcePropType, Text, View } from 'react-native';
+import Swiper from 'react-native-swiper';
+
+import Stack from 'app/components/blocks/Stack/Stack';
 
 interface MainNoticeBannerProps {
   id: number;
@@ -19,27 +20,27 @@ interface MainNoticeBannerProps {
 const MAIN_NOTICE_BANNER_LIST: MainNoticeBannerProps[] = [
   {
     id: 1,
-    category: "NOTICE",
-    subTitle: "비자에 대해 알아보는 시간",
-    title: "About E-7 Visa",
+    category: 'NOTICE',
+    subTitle: '비자에 대해 알아보는 시간',
+    title: 'About E-7 Visa',
     img: {
-      src: require("../../../../assets/images/document.png"),
+      src: require('../../../../assets/images/document.png'),
       width: 130,
       height: 130,
     },
-    bgColor: "bg-[#edc431]",
+    bgColor: 'bg-[#edc431]',
   },
   {
     id: 2,
-    category: "NOTICE",
-    subTitle: "앱 만족도를 실시해요!",
-    title: "Survey for satsfaction",
+    category: 'NOTICE',
+    subTitle: '앱 만족도를 실시해요!',
+    title: 'Survey for satsfaction',
     img: {
-      src: require("../../../../assets/images/message-bubble.png"),
+      src: require('../../../../assets/images/message-bubble.png'),
       width: 100,
       height: 100,
     },
-    bgColor: "bg-[#65e139]",
+    bgColor: 'bg-[#65e139]',
   },
 ];
 
@@ -77,7 +78,7 @@ const MainNoticeBanner: React.FC = () => {
                 source={item.img.src}
                 resizeMode="contain"
                 style={{
-                  objectFit: "contain",
+                  objectFit: 'contain',
                   width: item.img.width,
                   height: item.img.height,
                 }}

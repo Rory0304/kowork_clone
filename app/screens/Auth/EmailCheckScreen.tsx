@@ -1,11 +1,13 @@
-import React from "react";
-import { Text, View } from "react-native";
-import { Button, Stack } from "app/components/blocks";
-import { NativeStackParamList } from "app/navigation/AuthNavigator";
-import { RouteProp, useRoute } from "@react-navigation/native";
-import { useAuth } from "app/contexts/AuthProvider";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
+import React from 'react';
+import { Text, View } from 'react-native';
+
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+
+import { Button, Stack } from 'app/components/blocks';
+import { useAuth } from 'app/contexts/AuthProvider';
+import { NativeStackParamList } from 'app/navigation/AuthNavigator';
+import navigate from 'app/utils/navigationHelper';
 
 const EmailCheckScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -15,12 +17,12 @@ const EmailCheckScreen: React.FC = () => {
   const [emailCheckSuccess, setEmailCheckSuccess] = React.useState(authorized);
 
   const { params } =
-    useRoute<RouteProp<NativeStackParamList, "EmailCheckScreen">>();
+    useRoute<RouteProp<NativeStackParamList, 'EmailCheckScreen'>>();
 
   const email = params?.email;
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
+    const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
       // Call any action
       setEmailCheckSuccess(authorized);

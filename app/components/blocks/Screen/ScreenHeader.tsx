@@ -1,9 +1,10 @@
-import React from "react";
-import { Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
+import React from 'react';
+import { Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-type TRightAction = "back" | "close";
+import { useNavigation } from '@react-navigation/native';
+
+type TRightAction = 'back' | 'close';
 
 export interface ScreenHeaderProps {
   headerTitle: string;
@@ -19,7 +20,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
   const onPressBackHandle = () => navigation.goBack();
 
   const renderLeftAction = () => {
-    if (rightAction === "back") {
+    if (rightAction === 'back') {
       return (
         <View style={styles.leftAction}>
           {/* <BackArrowButton onPress={onPressBackHandle} /> */}
@@ -27,7 +28,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
       );
     }
 
-    if (rightAction === "close") {
+    if (rightAction === 'close') {
       return (
         <View style={styles.leftAction}>
           {/* <CrossButton onPress={onPressBackHandle} /> */}
@@ -48,20 +49,20 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
     height: 50,
   },
   leftAction: {
-    position: "absolute",
+    position: 'absolute',
     left: 16,
   },
   title: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 18,
-    fontWeight: "500",
+    fontWeight: '500',
   },
 });
 

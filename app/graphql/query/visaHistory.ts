@@ -1,5 +1,6 @@
-import { gql } from "@apollo/client";
-import { FRAGMENT_VISA_HISTORY } from "../fragment/visaHIstory";
+import { gql } from '@apollo/client';
+
+import { FRAGMENT_VISA_HISTORY } from '../fragment/visaHIstory';
 
 export const GET_VISA_HISTORY = gql`
   query GetVisaHistory($userId: UUID) {
@@ -21,7 +22,7 @@ export const INSERT_VISA_HISTORY = gql`
     $visaStatus: String
     $visaIssueDate: Date
     $visaFinalEntryDate: Date
-    ) {
+  ) {
     insertIntoVisaHistoryCollection(
       objects: {
         userId: $userId
@@ -61,8 +62,8 @@ export const UPDATE_VISA_HISTORY = gql`
 
 export const DELETE_VISA_HISTORY = gql`
   mutation DeleteVisaHistory($id: [BigInt!]) {
-    deleteFromVisaHistoryCollection(filter: {id: {in: $id}}, atMost: 10) {
+    deleteFromVisaHistoryCollection(filter: { id: { in: $id } }, atMost: 10) {
       affectedCount
     }
   }
-`
+`;

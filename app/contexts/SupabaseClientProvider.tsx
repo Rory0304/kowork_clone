@@ -1,6 +1,8 @@
-import React from "react";
-import { SupabaseClient, createClient } from "@supabase/supabase-js";
-import { useAuth } from "./AuthProvider";
+import React from 'react';
+
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
+
+import { useAuth } from './AuthProvider';
 
 interface SupabaseClientProviderProps {
   children: React.ReactNode;
@@ -17,8 +19,8 @@ const SupabaseClientProvider: React.FC<SupabaseClientProviderProps> = ({
 
   const [supabaseClient] = React.useState(() =>
     createClient(
-      process.env.SUPABASE_STORE_URL || "",
-      accessToken || process.env.SUPABASE_API_KEY || ""
+      process.env.SUPABASE_STORE_URL || '',
+      accessToken || process.env.SUPABASE_API_KEY || ''
     )
   );
 

@@ -1,2 +1,2 @@
-export { default as CheckIcon } from "./CheckIcon";
-export { default as HeaderBackIcon } from "./HeaderBackIcon";
+export { default as CheckIcon } from './CheckIcon';
+export { default as HeaderBackIcon } from './HeaderBackIcon';

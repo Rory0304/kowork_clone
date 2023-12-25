@@ -1,13 +1,13 @@
-import client from "../graphql/client";
-import { getFetchPolicy } from "../utils/getFetchPolicy";
+import type { ProfileType } from 'app/types/Profile';
+import { supabaseClient } from 'app/utils/supabase';
 
+import client from '../graphql/client';
 import {
   GetProfileDocument,
   GetProfileQuery,
   GetProfileQueryVariables,
-} from "../graphql/generated";
-import { supabaseClient } from "app/utils/supabase";
-import type { ProfileType } from "app/types/Profile";
+} from '../graphql/generated';
+import { getFetchPolicy } from '../utils/getFetchPolicy';
 
 interface GetProfileByUserIdProps {
   userId: string;
@@ -38,11 +38,11 @@ interface InsertProfileDataProps extends ProfileType {
 
 export const insertProfileData = async (props: InsertProfileDataProps) => {
   const { data, error } = await supabaseClient
-    .from("Profile")
+    .from('Profile')
     .insert({ ...props });
 
   if (error) {
-    throw new Error("fail to insert profile data");
+    throw new Error('fail to insert profile data');
   }
 
   return data;

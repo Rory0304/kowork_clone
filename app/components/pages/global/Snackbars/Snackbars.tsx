@@ -1,18 +1,19 @@
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 import {
   Snackbar as PaperSnackbar,
-  Portal,
   SnackbarProps as PaperSnackbarProps,
-} from "react-native-paper";
-import useSnackbars from "app/hooks/useSnackbars";
-import { SnackbarProps } from "app/recoil/snackbars/atoms";
+  Portal,
+} from 'react-native-paper';
+
+import useSnackbars from 'app/hooks/useSnackbars';
+import { SnackbarProps } from 'app/recoil/snackbars/atoms';
 
 interface CustomSnackbarProps
   extends SnackbarProps,
-    Omit<PaperSnackbarProps, "children" | "onDismiss" | "visible"> {}
+    Omit<PaperSnackbarProps, 'children' | 'onDismiss' | 'visible'> {}
 
-const Snackbar: React.FC<CustomSnackbarProps> = (props) => {
+const Snackbar: React.FC<CustomSnackbarProps> = props => {
   const [visible, setVisible] = React.useState(true);
 
   return (

@@ -1,12 +1,13 @@
-import React from "react";
-import { ScrollView, View } from "react-native";
-import { D101Test } from "app/constants/VisaTestSheet";
-import TestSheet from "app/components/pages/VisaTest/TestSheet/TestSheet";
-import QuestionItem from "app/components/pages/VisaTest/TestSheet/QuestionItem";
-import WorkExperienceQuestionItem from "app/components/pages/VisaTest/TestSheet/WorkExperienceQuestionItem";
-import VisaTestScoreFooter from "app/components/pages/VisaTest/VisaTestScoreFooter";
-import VisaTestNoticeAccordion from "app/components/pages/VisaTest/VisaTestNoticeAccordion";
-import ProgressBar from "app/components/blocks/ProgressBar/ProgressBar";
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+
+import ProgressBar from 'app/components/blocks/ProgressBar/ProgressBar';
+import QuestionItem from 'app/components/pages/VisaTest/TestSheet/QuestionItem';
+import TestSheet from 'app/components/pages/VisaTest/TestSheet/TestSheet';
+import WorkExperienceQuestionItem from 'app/components/pages/VisaTest/TestSheet/WorkExperienceQuestionItem';
+import VisaTestNoticeAccordion from 'app/components/pages/VisaTest/VisaTestNoticeAccordion';
+import VisaTestScoreFooter from 'app/components/pages/VisaTest/VisaTestScoreFooter';
+import { D101Test } from 'app/constants/VisaTestSheet';
 
 const VisaTestD101Screen: React.FC = () => {
   const [totalScoreInfo, setTotalScoreInfo] = React.useState<{
@@ -23,7 +24,7 @@ const VisaTestD101Screen: React.FC = () => {
 
   const handleTotoalScoreSet = React.useCallback(
     (name: string, score: number) => {
-      setTotalScoreInfo((prev) => ({ ...prev, [name]: score }));
+      setTotalScoreInfo(prev => ({ ...prev, [name]: score }));
     },
     []
   );
@@ -53,9 +54,7 @@ const VisaTestD101Screen: React.FC = () => {
         onContentSizeChange={(_, height) => {
           setSccrollViewContentHeight(height);
         }}
-        onLayout={(event) =>
-          setScrollViewHeight(event.nativeEvent.layout.height)
-        }
+        onLayout={event => setScrollViewHeight(event.nativeEvent.layout.height)}
         scrollEventThrottle={12}
       >
         <VisaTestNoticeAccordion />
@@ -72,7 +71,7 @@ const VisaTestD101Screen: React.FC = () => {
         {optionalTest ? (
           <TestSheet {...optionalTest}>
             {optionalTest.items.map((item, index) => {
-              return item.name === "workExperience" ? (
+              return item.name === 'workExperience' ? (
                 <WorkExperienceQuestionItem
                   key={item.name}
                   index={index + 1}

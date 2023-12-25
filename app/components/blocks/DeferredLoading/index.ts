@@ -1,1 +1,1 @@
-export { default as DefferedLoading } from "./DeferredLoading";
+export { default as DefferedLoading } from './DeferredLoading';

@@ -1,5 +1,6 @@
-import { NAV_SCREENS } from "../constants/Routes";
-import type { NavigationProp } from "@react-navigation/native";
+import type { NavigationProp } from '@react-navigation/native';
+
+import { NAV_SCREENS } from '../constants/Routes';
 
 type OpenNoticeItemModal = (
   navigation: NavigationProp<any, any>
@@ -12,16 +13,16 @@ type OpenJobPostDetailScreenProps = (
 const openMainScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("BottomTabNavigator", {
+    navigation.navigate('BottomTabNavigator', {
       screen: NAV_SCREENS.MainScreen,
       params: props,
     });
   };
 
 const openNoticeItemModal: OpenNoticeItemModal =
-  (navigation) =>
+  navigation =>
   (props = {}) => {
-    navigation.navigate("ModalNavigator", {
+    navigation.navigate('ModalNavigator', {
       screen: NAV_SCREENS.NoticeItemScreen,
       params: props,
     });
@@ -30,13 +31,13 @@ const openNoticeItemModal: OpenNoticeItemModal =
 const openJobSearchScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("SearchJobNavigator", props);
+    navigation.navigate('SearchJobNavigator', props);
   };
 
 const openJobPostDetailScreen: OpenJobPostDetailScreenProps =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("SearchJobNavigator", {
+    navigation.navigate('SearchJobNavigator', {
       screen: NAV_SCREENS.JobPostDetailScreen,
       params: props,
     });
@@ -45,7 +46,7 @@ const openJobPostDetailScreen: OpenJobPostDetailScreenProps =
 const openVisaTestD101Screen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ModalNavigator", {
+    navigation.navigate('ModalNavigator', {
       screen: NAV_SCREENS.VisaTestD101,
       params: props,
     });
@@ -54,7 +55,7 @@ const openVisaTestD101Screen =
 const openVisaTestF27Screen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ModalNavigator", {
+    navigation.navigate('ModalNavigator', {
       screen: NAV_SCREENS.VisaTestF27,
       params: props,
     });
@@ -63,7 +64,7 @@ const openVisaTestF27Screen =
 const openMyApplyListScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ModalNavigator", {
+    navigation.navigate('ModalNavigator', {
       screen: NAV_SCREENS.MyApplyListScreen,
       params: props,
     });
@@ -72,7 +73,7 @@ const openMyApplyListScreen =
 const openMyVisaEnrollScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ModalNavigator", {
+    navigation.navigate('ModalNavigator', {
       screen: NAV_SCREENS.MyVisaEnrollScreen,
       params: props,
     });
@@ -81,7 +82,7 @@ const openMyVisaEnrollScreen =
 const openMyVisaHistoryScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ModalNavigator", {
+    navigation.navigate('ModalNavigator', {
       screen: NAV_SCREENS.MyVisaHistoryScreen,
       params: props,
     });
@@ -90,7 +91,7 @@ const openMyVisaHistoryScreen =
 const openResumeEditBasicInfoScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ResumeEditNavigator", {
+    navigation.navigate('ResumeEditNavigator', {
       screen: NAV_SCREENS.ResumeEditBasicInfoScreen,
       params: props,
     });
@@ -99,7 +100,7 @@ const openResumeEditBasicInfoScreen =
 const openResumeEditEduCareerScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ResumeEditNavigator", {
+    navigation.navigate('ResumeEditNavigator', {
       screen: NAV_SCREENS.ResumeEditEduCareerScreen,
       params: props,
     });
@@ -108,7 +109,7 @@ const openResumeEditEduCareerScreen =
 const openResumeEditLanguageScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ResumeEditNavigator", {
+    navigation.navigate('ResumeEditNavigator', {
       screen: NAV_SCREENS.ResumeEditLanguageScreen,
       params: props,
     });
@@ -117,7 +118,7 @@ const openResumeEditLanguageScreen =
 const openResumeEditEtcInfoScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ResumeEditNavigator", {
+    navigation.navigate('ResumeEditNavigator', {
       screen: NAV_SCREENS.ResumeEditEtcInfoScreen,
       params: props,
     });
@@ -127,14 +128,14 @@ const openHomeScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
     navigation.reset({
-      routes: [{ name: "AuthNavigator" }],
+      routes: [{ name: 'AuthNavigator' }],
     });
   };
 
 const openEmailSignInScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("AuthNavigator", {
+    navigation.navigate('AuthNavigator', {
       screen: NAV_SCREENS.EmailSignInScreen,
       params: props,
     });
@@ -143,7 +144,7 @@ const openEmailSignInScreen =
 const openEmailSignUpScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("AuthNavigator", {
+    navigation.navigate('AuthNavigator', {
       screen: NAV_SCREENS.EmailSignUpScreen,
       params: props,
     });
@@ -151,7 +152,7 @@ const openEmailSignUpScreen =
 
 const openEmailCheckScreen =
   (navigation: NavigationProp<any, any>) => (props: { email: string }) => {
-    navigation.navigate("AuthNavigator", {
+    navigation.navigate('AuthNavigator', {
       screen: NAV_SCREENS.EmailCheckScreen,
       params: props,
     });
@@ -160,7 +161,7 @@ const openEmailCheckScreen =
 const openEmailCheckSuccessScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("AuthNavigator", {
+    navigation.navigate('AuthNavigator', {
       screen: NAV_SCREENS.EmailCheckSuccessScreen,
       params: props,
     });
@@ -169,7 +170,7 @@ const openEmailCheckSuccessScreen =
 const openProfileEnrollAlertScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("AuthNavigator", {
+    navigation.navigate('AuthNavigator', {
       screen: NAV_SCREENS.ProfileEnrollAlertScreen,
       params: props,
     });
@@ -178,7 +179,7 @@ const openProfileEnrollAlertScreen =
 const openProfileEnrollUserTypeScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ProfileNavigator", {
+    navigation.navigate('ProfileNavigator', {
       screen: NAV_SCREENS.ProfileEnrollUserTypeScreen,
       params: props,
     });
@@ -187,7 +188,7 @@ const openProfileEnrollUserTypeScreen =
 const openProfileEnrollBasicInfoScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ProfileNavigator", {
+    navigation.navigate('ProfileNavigator', {
       screen: NAV_SCREENS.ProfileEnrollBasicInfoScreen,
       params: props,
     });
@@ -196,7 +197,7 @@ const openProfileEnrollBasicInfoScreen =
 const openProfileEnrollVisaInfoScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("ProfileNavigator", {
+    navigation.navigate('ProfileNavigator', {
       screen: NAV_SCREENS.ProfileEnrollVisaInfoScreen,
       params: props,
     });
@@ -205,7 +206,7 @@ const openProfileEnrollVisaInfoScreen =
 const openMyPageScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate("BottomTabNavigator", {
+    navigation.navigate('BottomTabNavigator', {
       screen: NAV_SCREENS.MyPageScreen,
       params: props,
     });

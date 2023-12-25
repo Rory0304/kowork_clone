@@ -1,14 +1,15 @@
-import React from "react";
-import { View, Text } from "react-native";
-import JobPostInfoSection from "./JobPostInfoSection";
-import Table from "app/components/blocks/Table/Table";
+import React from 'react';
+import { Text, View } from 'react-native';
 
-import { Company as CompanyType } from "app/graphql/generated";
+import Table from 'app/components/blocks/Table/Table';
+import { Company as CompanyType } from 'app/graphql/generated';
+
+import JobPostInfoSection from './JobPostInfoSection';
 
 interface JobPostCompanyInfo
   extends Pick<
     CompanyType,
-    "email" | "name" | "location" | "industry" | "website"
+    'email' | 'name' | 'location' | 'industry' | 'website'
   > {}
 
 const JobPostCompanyInfo: React.FC<JobPostCompanyInfo> = ({
@@ -18,7 +19,7 @@ const JobPostCompanyInfo: React.FC<JobPostCompanyInfo> = ({
   location,
   industry,
 }) => {
-  const colHeader = ["기업명", "이메일", "웹사이트", "업종", "회사위치"];
+  const colHeader = ['기업명', '이메일', '웹사이트', '업종', '회사위치'];
   const data = [
     <Text>{name}</Text>,
     <Text>{email}</Text>,

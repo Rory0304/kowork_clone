@@ -1,1 +1,1 @@
-export { default as OverlaySpinner } from "./OverlaySpinner";
+export { default as OverlaySpinner } from './OverlaySpinner';

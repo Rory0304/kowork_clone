@@ -1,7 +1,8 @@
-import React from "react";
-import { View, Text, FlatList, Image } from "react-native";
-import Stack from "app/components/blocks/Stack/Stack";
-import TitleAndDescriptionSection from "app/components/pages/global/Section/TitleAndDescriptionSection";
+import React from 'react';
+import { FlatList, Image, Text, View } from 'react-native';
+
+import Stack from 'app/components/blocks/Stack/Stack';
+import TitleAndDescriptionSection from 'app/components/pages/global/Section/TitleAndDescriptionSection';
 
 interface VisaPlanProps {
   visaType: string;
@@ -10,20 +11,20 @@ interface VisaPlanProps {
 
 const VISA_PLAN: VisaPlanProps[] = [
   {
-    visaType: "D-2",
-    visaName: "학생비자",
+    visaType: 'D-2',
+    visaName: '학생비자',
   },
   {
-    visaType: "D-10",
-    visaName: "구직비자",
+    visaType: 'D-10',
+    visaName: '구직비자',
   },
   {
-    visaType: "E-7",
-    visaName: "전문직비자",
+    visaType: 'E-7',
+    visaName: '전문직비자',
   },
   {
-    visaType: "F-2",
-    visaName: "거주비자",
+    visaType: 'F-2',
+    visaName: '거주비자',
   },
 ];
 
@@ -39,7 +40,7 @@ const VisaPlanSection: React.FC = () => {
 
   const BlueDotLine: React.FC = () => {
     const dotStyle =
-      "absolute w-2 h-2 bg-black rounded-full top-[-4px] left-[-1px]";
+      'absolute w-2 h-2 bg-black rounded-full top-[-4px] left-[-1px]';
 
     return (
       <View className={`mb-4 flex flex-row`}>
@@ -66,7 +67,7 @@ const VisaPlanSection: React.FC = () => {
             data={VISA_PLAN}
             scrollEnabled={false}
             renderItem={({ item }) => <Item {...item} />}
-            keyExtractor={(item) => item.visaType}
+            keyExtractor={item => item.visaType}
           />
         </Stack>
         <Stack
@@ -76,10 +77,10 @@ const VisaPlanSection: React.FC = () => {
           <>
             <Image
               alt=""
-              source={require("../../../../assets/images/flag.png")}
+              source={require('../../../../assets/images/flag.png')}
               resizeMode="contain"
               style={{
-                objectFit: "contain",
+                objectFit: 'contain',
                 width: 50,
                 height: 50,
               }}

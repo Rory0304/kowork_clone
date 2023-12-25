@@ -1,13 +1,12 @@
-import client from "../graphql/client";
+import { supabaseClient } from 'app/utils/supabase';
 
-import { supabaseClient } from "app/utils/supabase";
-import { getFetchPolicy } from "../utils/getFetchPolicy";
-
+import client from '../graphql/client';
 import {
   GetVisaHistoryDocument,
   GetVisaHistoryQuery,
   GetVisaHistoryQueryVariables,
-} from "../graphql/generated";
+} from '../graphql/generated';
+import { getFetchPolicy } from '../utils/getFetchPolicy';
 
 interface GetVisaHistoryParams {
   userId: string;
@@ -46,12 +45,12 @@ export const updateVisaHistory = async ({
   visaFinalEntryDate,
 }: VisaHistoryParmas) => {
   const { data, error } = await supabaseClient
-    .from("Profile")
+    .from('Profile')
     .update({ visaStatus, visaFinalEntryDate, visaIssueDate })
-    .eq("userId", userId);
+    .eq('userId', userId);
 
   if (error) {
-    throw new Error("fail to update visa history");
+    throw new Error('fail to update visa history');
   }
 
   return data;
@@ -64,11 +63,11 @@ export const insertVisaHistory = async ({
   visaFinalEntryDate,
 }: VisaHistoryParmas) => {
   const { data, error } = await supabaseClient
-    .from("VisaHistory")
+    .from('VisaHistory')
     .insert({ userId, visaStatus, visaIssueDate, visaFinalEntryDate });
 
   if (error) {
-    throw new Error("fail to insert visa history");
+    throw new Error('fail to insert visa history');
   }
 
   return data;

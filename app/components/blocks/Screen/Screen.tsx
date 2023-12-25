@@ -1,8 +1,8 @@
-import React from "react";
-import { StatusBar, View, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import React from 'react';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import ScreenHeader, { ScreenHeaderProps } from "./ScreenHeader";
+import ScreenHeader, { ScreenHeaderProps } from './ScreenHeader';
 
 interface ScreenProps extends ScreenHeaderProps {
   children: React.ReactNode;
@@ -27,12 +27,12 @@ const Screen: React.FC<ScreenProps> = ({ children, ...headerProps }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   screen: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     // backgroundColor: Colors.lighter,
   },
 });

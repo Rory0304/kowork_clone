@@ -1,22 +1,24 @@
-import React from "react";
-import { View, Text, Pressable } from "react-native";
-import FilledStarIcon from "react-native-heroicons/solid/StarIcon";
-import EmptyStarIcon from "react-native-heroicons/outline/StarIcon";
-import navigate from "app/utils/navigationHelper";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import { Pressable, Text, View } from 'react-native';
+import EmptyStarIcon from 'react-native-heroicons/outline/StarIcon';
+import FilledStarIcon from 'react-native-heroicons/solid/StarIcon';
 
-import type { JobPostType } from "app/types/JobPost";
+import { useNavigation } from '@react-navigation/native';
+
+import type { JobPostType } from 'app/types/JobPost';
+import navigate from 'app/utils/navigationHelper';
+
 interface JobPostListItemProps
   extends Pick<
     JobPostType,
-    | "uuid"
-    | "title"
-    | "siDo"
-    | "siGunGu"
-    | "companyName"
-    | "endDate"
-    | "jobCategory"
-    | "jobType"
+    | 'uuid'
+    | 'title'
+    | 'siDo'
+    | 'siGunGu'
+    | 'companyName'
+    | 'endDate'
+    | 'jobCategory'
+    | 'jobType'
   > {
   isBookMarked: boolean;
 }

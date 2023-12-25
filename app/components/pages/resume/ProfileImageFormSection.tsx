@@ -1,18 +1,19 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { ResumeFormSectionTitle } from "./layout";
-import { customColors } from "app/constants/styles/Colors";
-import { Button } from "app/components/blocks";
-import { getImageFormatFromDataUri, pickImage } from "app/utils/image";
-import { getFileSizeFromURI, isFileSizeExceeded } from "app/utils/file";
-import { getErrorMessage } from "app/utils/error";
-import { useFormContext, useWatch } from "react-hook-form";
-import XCircleIcon from "react-native-heroicons/solid/XCircleIcon";
-import PhotoIcon from "react-native-heroicons/solid/PhotoIcon";
+import React from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import PhotoIcon from 'react-native-heroicons/solid/PhotoIcon';
+import XCircleIcon from 'react-native-heroicons/solid/XCircleIcon';
 
-import type { ProfileImageType, FormDataType } from "app/types/Resume";
-import useSnackbars from "app/hooks/useSnackbars";
-import { useAuth } from "app/contexts/AuthProvider";
+import { Button } from 'app/components/blocks';
+import { customColors } from 'app/constants/styles/Colors';
+import { useAuth } from 'app/contexts/AuthProvider';
+import useSnackbars from 'app/hooks/useSnackbars';
+import type { FormDataType, ProfileImageType } from 'app/types/Resume';
+import { getErrorMessage } from 'app/utils/error';
+import { getFileSizeFromURI, isFileSizeExceeded } from 'app/utils/file';
+import { getImageFormatFromDataUri, pickImage } from 'app/utils/image';
+
+import { ResumeFormSectionTitle } from './layout';
 
 const ProfileImageFormSection: React.FC = () => {
   const { userInfo } = useAuth();
@@ -21,8 +22,8 @@ const ProfileImageFormSection: React.FC = () => {
 
   const [image, setImage] = React.useState<ProfileImageType | null>();
 
-  const profileName = useWatch({ name: "name" });
-  const profileImage = useWatch({ name: "etc.profileImage" });
+  const profileName = useWatch({ name: 'name' });
+  const profileImage = useWatch({ name: 'etc.profileImage' });
 
   React.useEffect(() => {
     setImage(profileImage);
@@ -44,7 +45,7 @@ const ProfileImageFormSection: React.FC = () => {
         const fileSize = await getFileSizeFromURI(result.uri);
         if (fileSize) {
           if (isFileSizeExceeded(fileSize)) {
-            throw new Error("5MB 이하 사진만 가능해요");
+            throw new Error('5MB 이하 사진만 가능해요');
           } else {
             const imgFormat = getImageFormatFromDataUri(result.uri);
 
@@ -55,19 +56,19 @@ const ProfileImageFormSection: React.FC = () => {
               base64: result.base64 || undefined,
             };
 
-            setValue("etc.profileImage", configuredImageData, {
+            setValue('etc.profileImage', configuredImageData, {
               shouldDirty: true,
             });
             setImage(configuredImageData);
           }
         } else {
-          throw new Error("사진 업로드에 실패했습니다. 다시 시도해주세요");
+          throw new Error('사진 업로드에 실패했습니다. 다시 시도해주세요');
         }
       }
     } catch (error) {
       enqueueSnackbar({
         message: getErrorMessage(error),
-        variant: "error",
+        variant: 'error',
         duration: 500,
       });
     }
@@ -88,7 +89,7 @@ const ProfileImageFormSection: React.FC = () => {
           <View className="absolute right-[-5px] top-[-5px]">
             <TouchableOpacity
               onPress={() => {
-                setValue("etc.profileImage", undefined, {
+                setValue('etc.profileImage', undefined, {
                   shouldDirty: true,
                 });
                 setImage(null);

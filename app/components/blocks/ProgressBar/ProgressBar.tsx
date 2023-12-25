@@ -1,5 +1,5 @@
-import React from "react";
-import * as Progress from "react-native-progress";
+import React from 'react';
+import * as Progress from 'react-native-progress';
 
 interface ProgressBarProps {
   progress: number;

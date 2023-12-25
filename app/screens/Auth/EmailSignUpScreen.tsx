@@ -1,19 +1,21 @@
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
-import { FormInputBox, TextInput, Button, Stack } from "app/components/blocks";
-import { ScrollView, Text } from "react-native";
-import CheckIcon from "react-native-heroicons/solid/CheckIcon";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import * as Linking from "expo-linking";
-import { authSchemaResolver } from "app/constants/validation/User";
-import { useAuth } from "app/contexts/AuthProvider";
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { ScrollView, Text } from 'react-native';
+import CheckIcon from 'react-native-heroicons/solid/CheckIcon';
+
+import { useNavigation } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
+
+import { Button, FormInputBox, Stack, TextInput } from 'app/components/blocks';
+import { authSchemaResolver } from 'app/constants/validation/User';
+import { useAuth } from 'app/contexts/AuthProvider';
+import navigate from 'app/utils/navigationHelper';
 
 const EmailSignInScreen: React.FC = () => {
   const navigation = useNavigation();
   const navigator = navigate(navigation);
 
-  const prefix = Linking.createURL("/");
+  const prefix = Linking.createURL('/');
 
   const { signUp } = useAuth();
 
@@ -23,22 +25,22 @@ const EmailSignInScreen: React.FC = () => {
     formState: { isValid },
   } = useForm({
     resolver: authSchemaResolver,
-    mode: "onChange",
+    mode: 'onChange',
   });
 
-  const watchedEmail = watch("email");
-  const watchedPassword = watch("password");
+  const watchedEmail = watch('email');
+  const watchedPassword = watch('password');
 
   const handleSignUp = async (email: string, password: string) => {
     try {
-      if (typeof signUp === "function") {
-        await signUp(email, password, prefix).then((res) => {
+      if (typeof signUp === 'function') {
+        await signUp(email, password, prefix).then(res => {
           if (res.data) {
             navigator.openEmailCheckScreen({ email });
           }
           if (res.error) {
             console.log(res.error);
-            throw new Error("fail to singup");
+            throw new Error('fail to singup');
           }
         });
       }
@@ -60,7 +62,7 @@ const EmailSignInScreen: React.FC = () => {
               <>
                 <TextInput
                   {...field}
-                  onChange={(e) => field.onChange(e.nativeEvent.text)}
+                  onChange={e => field.onChange(e.nativeEvent.text)}
                   placeholder="이메일을 입력해주세요"
                   error={Boolean(error?.message)}
                 />
@@ -84,7 +86,7 @@ const EmailSignInScreen: React.FC = () => {
               <>
                 <TextInput
                   {...field}
-                  onChange={(e) => field.onChange(e.nativeEvent.text)}
+                  onChange={e => field.onChange(e.nativeEvent.text)}
                   secureTextEntry={true}
                   placeholder="비밀번호를 입력해주세요"
                   error={Boolean(error?.message)}
@@ -94,14 +96,14 @@ const EmailSignInScreen: React.FC = () => {
                     width={18}
                     height={18}
                     color={
-                      Boolean(error?.message) || !field.value ? "gray" : "green"
+                      Boolean(error?.message) || !field.value ? 'gray' : 'green'
                     }
                   />
                   <Text
                     className={`${
                       Boolean(error?.message) || !field.value
-                        ? "text-neutral-500"
-                        : "text-black"
+                        ? 'text-neutral-500'
+                        : 'text-black'
                     }`}
                   >
                     8자 이상의 영문, 숫자 조합

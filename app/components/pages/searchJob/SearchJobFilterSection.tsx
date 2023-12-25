@@ -1,29 +1,30 @@
-import React from "react";
+import React from 'react';
 import {
-  ScrollView,
-  View,
   FlatList,
   Pressable,
-  TouchableOpacity,
+  ScrollView,
   Text,
-} from "react-native";
-import SearchJobPostListItem from "./SearchJobPostListItem";
-import ArrowPathIcon from "react-native-heroicons/solid/ArrowPathIcon";
-import MapPinIcon from "react-native-heroicons/solid/MapPinIcon";
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import ArrowPathIcon from 'react-native-heroicons/solid/ArrowPathIcon';
+import MapPinIcon from 'react-native-heroicons/solid/MapPinIcon';
 
-import Stack from "app/components/blocks/Stack/Stack";
-import Chip from "app/components/blocks/Chip/Chip";
-import SearchJobAreaBox from "./SearchJobAreaBox";
 import {
-  BottomSheetScrollView,
   BottomSheetBackdrop,
   BottomSheetModal,
-} from "@gorhom/bottom-sheet";
+  BottomSheetScrollView,
+} from '@gorhom/bottom-sheet';
+import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import { useQuery } from '@tanstack/react-query';
 
-import { useQuery } from "@tanstack/react-query";
-import { getJobPostByFilter, JobCategoryType } from "app/api/jobPostList";
-import { JobType, JobTypeCategory } from "app/constants/JobCategory";
-import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
+import { JobCategoryType, getJobPostByFilter } from 'app/api/jobPostList';
+import Chip from 'app/components/blocks/Chip/Chip';
+import Stack from 'app/components/blocks/Stack/Stack';
+import { JobType, JobTypeCategory } from 'app/constants/JobCategory';
+
+import SearchJobAreaBox from './SearchJobAreaBox';
+import SearchJobPostListItem from './SearchJobPostListItem';
 
 const JOB_POST_LIST_COUNT = 5;
 interface JobPostListItemProps {
@@ -45,14 +46,14 @@ const SearchJobFilterSection: React.FC = () => {
 
   // Bottom Sheet
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
-  const snapPoints = React.useMemo(() => ["65%"], []);
+  const snapPoints = React.useMemo(() => ['65%'], []);
 
   const { data, isError, error } = useQuery({
     queryKey: [selectedArea, selectedJobType],
     queryFn: async () =>
       await getJobPostByFilter({
         jobCategory: [JobCategoryType.Etc],
-        siDo: ["경기도"],
+        siDo: ['경기도'],
         after: cursor,
         first: JOB_POST_LIST_COUNT,
       }),
@@ -86,7 +87,7 @@ const SearchJobFilterSection: React.FC = () => {
         {...props}
         disappearsOnIndex={1}
         appearsOnIndex={2}
-        pressBehavior={"close"}
+        pressBehavior={'close'}
       />
     ),
     []
@@ -103,7 +104,7 @@ const SearchJobFilterSection: React.FC = () => {
       <Stack styles="items-center border-b px-1 pb-0.5 justify-between">
         <Text className="mr-1">
           {selectedArea.length === 0
-            ? "지역"
+            ? '지역'
             : selectedArea.length === 1
             ? selectedArea[0]
             : `${selectedArea[0]} 외 ${selectedArea.length - 1} 곳`}
@@ -117,11 +118,11 @@ const SearchJobFilterSection: React.FC = () => {
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <Stack columnGap={8} styles="mx-4">
         {(Object.keys(JobTypeCategory) as Array<keyof typeof JobType>).map(
-          (jobTypekey) => (
+          jobTypekey => (
             <Chip
               key={jobTypekey}
               label={JobTypeCategory[jobTypekey]}
-              variant={jobTypekey === "All" ? "filled" : "outlined"}
+              variant={jobTypekey === 'All' ? 'filled' : 'outlined'}
               active={jobTypekey === selectedJobType}
               onPress={() => setSelectedJobType(jobTypekey)}
             />
@@ -147,7 +148,7 @@ const SearchJobFilterSection: React.FC = () => {
           renderItem={({ item }) => (
             <SearchJobPostListItem {...item.node} isBookMarked={false} />
           )}
-          keyExtractor={(item) => `${item.node.id}`}
+          keyExtractor={item => `${item.node.id}`}
           ListEmptyComponent={
             <Stack styles="justify-center items-center h-80 ">
               <Text className="text-base text-neutral-500">
@@ -166,7 +167,7 @@ const SearchJobFilterSection: React.FC = () => {
         <BottomSheetScrollView>
           <SearchJobAreaBox
             defaultArea={selectedArea}
-            onSaveBtnClick={(areaList) => {
+            onSaveBtnClick={areaList => {
               setSelectedArea(areaList);
               handleBottomSheetClose();
             }}

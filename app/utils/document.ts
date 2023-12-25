@@ -1,6 +1,7 @@
-import * as DocumentPicker from "expo-document-picker";
-import { SupabaseClient } from "@supabase/supabase-js";
-import type { SupabaseStorage } from "app/types/Supabase";
+import { SupabaseClient } from '@supabase/supabase-js';
+import * as DocumentPicker from 'expo-document-picker';
+
+import type { SupabaseStorage } from 'app/types/Supabase';
 
 export const pickDocument = async (
   props?: DocumentPicker.DocumentPickerOptions
@@ -30,12 +31,12 @@ export const uploadDocument =
     const { data, error } = await supabaseClient.storage
       .from(storageName)
       .upload(fileName, file, {
-        cacheControl: "3600",
+        cacheControl: '3600',
         upsert: true,
       });
 
     if (error) {
-      throw new Error("fail to upload image");
+      throw new Error('fail to upload image');
     }
 
     return data.path;

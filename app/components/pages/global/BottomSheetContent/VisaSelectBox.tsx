@@ -1,6 +1,7 @@
-import React from "react";
-import { Text, FlatList, TouchableOpacity } from "react-native";
-import { VisaStatus, VisaCode } from "app/constants/VisaDetail";
+import React from 'react';
+import { FlatList, Text, TouchableOpacity } from 'react-native';
+
+import { VisaCode, VisaStatus } from 'app/constants/VisaDetail';
 
 interface VisaSelectBoxProps {
   onPress: (visaCode: VisaCode) => void;
@@ -16,7 +17,7 @@ const VisaSelectBox: React.FC<VisaSelectBoxProps> = ({ onPress }) => {
       renderItem={({ item }) => (
         <TouchableOpacity
           className="my-3"
-          onPress={(e) => {
+          onPress={e => {
             e.preventDefault();
             onPress(item);
           }}

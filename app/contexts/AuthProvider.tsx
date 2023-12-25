@@ -1,6 +1,9 @@
-import React from "react";
-import { User, AuthResponse } from "@supabase/supabase-js";
-import { supabaseClient } from "app/utils/supabase";
+import React from 'react';
+
+import { AuthResponse, User } from '@supabase/supabase-js';
+
+import { supabaseClient } from 'app/utils/supabase';
+
 interface AuthProviderProps {
   children: React.ReactNode;
 }
@@ -25,7 +28,7 @@ const AuthContext = React.createContext<AuthContextType>({
   accessToken: null,
   userInfo: null,
   signOut: function (): Promise<void> {
-    throw new Error("Function not implemented.");
+    throw new Error('Function not implemented.');
   },
 });
 
@@ -56,12 +59,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     } = await supabaseClient.auth.getSession();
 
     if (error) {
-      console.error("fail to resolve session key");
+      console.error('fail to resolve session key');
       resetUserInfo();
     }
 
-    setAuthorized(Boolean(userInfo?.role === "authenticated"));
-    setAuthorized(Boolean(session?.user?.role === "authenticated"));
+    setAuthorized(Boolean(userInfo?.role === 'authenticated'));
+    setAuthorized(Boolean(session?.user?.role === 'authenticated'));
     setAccessToken(session?.access_token || null);
   }, []);
 
@@ -83,9 +86,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   //
   const signOut = async () => {
     try {
-      await supabaseClient.auth.signOut().then((res) => {
+      await supabaseClient.auth.signOut().then(res => {
         if (res.error) {
-          throw new Error("fail to sign out");
+          throw new Error('fail to sign out');
         }
 
         resetUserInfo();
@@ -103,7 +106,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       (_event, session) => {
         console.log(_event);
         setUserInfo(session?.user || null);
-        setAuthorized(Boolean(session?.user?.role === "authenticated"));
+        setAuthorized(Boolean(session?.user?.role === 'authenticated'));
         setAccessToken(session?.access_token || null);
       }
     );

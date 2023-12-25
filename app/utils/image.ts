@@ -1,7 +1,8 @@
-import * as ImagePicker from "expo-image-picker";
-import { decode } from "base64-arraybuffer";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { SupabaseStorage } from "app/types/Supabase";
+import { SupabaseClient } from '@supabase/supabase-js';
+import { decode } from 'base64-arraybuffer';
+import * as ImagePicker from 'expo-image-picker';
+
+import { SupabaseStorage } from 'app/types/Supabase';
 
 export const pickImage = async (props?: ImagePicker.ImagePickerOptions) => {
   let result = await ImagePicker.launchImageLibraryAsync({
@@ -80,7 +81,7 @@ export const uploadImage =
       });
 
     if (error) {
-      throw new Error("fail to upload image");
+      throw new Error('fail to upload image');
     }
 
     return data.path;
@@ -89,5 +90,5 @@ export const uploadImage =
 export const getImageFormatFromDataUri = (dataUri: string) => {
   const match = dataUri.match(/^data:image\/([a-z]+);base64,/i);
 
-  return match ? match[1] : "png";
+  return match ? match[1] : 'png';
 };

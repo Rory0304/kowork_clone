@@ -3,10 +3,10 @@ import {
   StackCardInterpolationProps,
   StackNavigationOptions,
   TransitionSpecs,
-} from "@react-navigation/stack";
+} from '@react-navigation/stack';
 
 export const horizontalAnimation: StackNavigationOptions = {
-  gestureDirection: "horizontal",
+  gestureDirection: 'horizontal',
   transitionSpec: {
     open: TransitionSpecs.TransitionIOSSpec,
     close: TransitionSpecs.TransitionIOSSpec,
@@ -32,7 +32,7 @@ export const horizontalAnimation: StackNavigationOptions = {
 };
 
 export const verticalAnimation: StackNavigationOptions = {
-  gestureDirection: "vertical",
+  gestureDirection: 'vertical',
   transitionSpec: {
     open: TransitionSpecs.TransitionIOSSpec,
     close: TransitionSpecs.TransitionIOSSpec,

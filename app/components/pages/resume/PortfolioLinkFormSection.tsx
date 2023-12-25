@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { TextInput } from "app/components/blocks";
-import { useFormContext, Controller } from "react-hook-form";
-import type { FormDataType } from "app/types/Resume";
+import React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { Text, View } from 'react-native';
+
+import { TextInput } from 'app/components/blocks';
+import type { FormDataType } from 'app/types/Resume';
 
 const PortfoliLinkFormSection: React.FC = () => {
   const { control } = useFormContext<FormDataType>();
@@ -17,7 +18,7 @@ const PortfoliLinkFormSection: React.FC = () => {
       <View className="py-4">
         <Controller
           control={control}
-          name={"etc.portfolioLink"}
+          name={'etc.portfolioLink'}
           render={({ field }) => (
             <TextInput {...field} placeholder="https://" />
           )}

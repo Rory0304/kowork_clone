@@ -1,7 +1,9 @@
-import React from "react";
-import { NAV_SCREENS } from "../constants/Routes";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import MyPageScreen from "../screens/MyPage/MyPageScreen";
+import React from 'react';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { NAV_SCREENS } from '../constants/Routes';
+import MyPageScreen from '../screens/MyPage/MyPageScreen';
 
 const NativeStack = createNativeStackNavigator();
 
@@ -12,7 +14,7 @@ const MyPageNavigator: React.FC = () => {
         name={NAV_SCREENS.MyPageScreen}
         component={MyPageScreen}
         options={{
-          headerTitle: '내 정보'
+          headerTitle: '내 정보',
         }}
       />
     </NativeStack.Navigator>

@@ -1,9 +1,11 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { Controller, Control } from "react-hook-form";
-import { Stack } from "app/components/blocks";
-import { FormDataType, ResidenceType } from "app/types/Resume";
-import { FormInputBox, CheckBox, TextInput } from "../../blocks/Form";
+import React from 'react';
+import { Control, Controller } from 'react-hook-form';
+import { Text, View } from 'react-native';
+
+import { Stack } from 'app/components/blocks';
+import { FormDataType, ResidenceType } from 'app/types/Resume';
+
+import { CheckBox, FormInputBox, TextInput } from '../../blocks/Form';
 
 interface ResidenceFormSectionProps {
   control: Control<FormDataType, any>;
@@ -31,9 +33,9 @@ const ResidenceFormSection: React.FC<ResidenceFormSectionProps> = ({
                     >
                       <CheckBox
                         label={
-                          item === "Domestic"
-                            ? "국내(Domestic)"
-                            : "해외(Abroad)"
+                          item === 'Domestic'
+                            ? '국내(Domestic)'
+                            : '해외(Abroad)'
                         }
                         active={item === value}
                         onPress={() => onChange(item)}

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
+import React from 'react';
+import { Image, Text, View } from 'react-native';
 
 const VisaAdBanner: React.FC = () => {
   return (
@@ -11,11 +11,11 @@ const VisaAdBanner: React.FC = () => {
       <View className="absolute top-4 w-[40%] h-full right-1">
         <Image
           alt=""
-          source={require("../../../../assets/images/zoom.png")}
+          source={require('../../../../assets/images/zoom.png')}
           resizeMode="contain"
           style={{
-            width: "100%",
-            height: "100%",
+            width: '100%',
+            height: '100%',
           }}
         />
       </View>

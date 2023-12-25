@@ -1,5 +1,6 @@
-import { gql } from "@apollo/client";
-import { FRAGMENT_COMPANY } from "../fragment/company";
+import { gql } from '@apollo/client';
+
+import { FRAGMENT_COMPANY } from '../fragment/company';
 
 export const GET_COMPANY = gql`
   query GetCompany($uuid: UUID) {

@@ -1,10 +1,11 @@
-import React from "react";
-import Chip from "app/components/blocks/Chip/Chip";
-import { AREA_LIST } from "app/constants/JobCategory";
-import { View, Text, TouchableOpacity } from "react-native";
-import Stack from "app/components/blocks/Stack/Stack";
-import XMarkIcon from "react-native-heroicons/solid/XMarkIcon";
-import ArrowPathIcon from "react-native-heroicons/solid/ArrowPathIcon";
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import ArrowPathIcon from 'react-native-heroicons/solid/ArrowPathIcon';
+import XMarkIcon from 'react-native-heroicons/solid/XMarkIcon';
+
+import Chip from 'app/components/blocks/Chip/Chip';
+import Stack from 'app/components/blocks/Stack/Stack';
+import { AREA_LIST } from 'app/constants/JobCategory';
 
 interface SearchJobAreaBoxProps {
   defaultArea: string[];
@@ -21,7 +22,7 @@ const SearchJobAreaBox: React.FC<SearchJobAreaBoxProps> = ({
     <View>
       <Stack
         styles={
-          "justify-between items-center w-full px-4 border-b border-neutral-100 pb-2 sticky top-0 left-0"
+          'justify-between items-center w-full px-4 border-b border-neutral-100 pb-2 sticky top-0 left-0'
         }
       >
         <XMarkIcon />
@@ -31,17 +32,17 @@ const SearchJobAreaBox: React.FC<SearchJobAreaBoxProps> = ({
         </TouchableOpacity>
       </Stack>
       <Stack
-        styles={"flex-wrap justify-center px-8 py-4"}
+        styles={'flex-wrap justify-center px-8 py-4'}
         rowGap={8}
         columnGap={8}
       >
         <Chip
-          label={"전체"}
+          label={'전체'}
           variant="filled"
           active={selectedArea.length === 0}
           onPress={() => setSelectedArea([])}
         />
-        {AREA_LIST.map((area) => {
+        {AREA_LIST.map(area => {
           const isActive = selectedArea.includes(area);
           return (
             <Chip
@@ -49,10 +50,10 @@ const SearchJobAreaBox: React.FC<SearchJobAreaBoxProps> = ({
               variant="outlined"
               active={isActive}
               onPress={() => {
-                if (!isActive) setSelectedArea((current) => [...current, area]);
+                if (!isActive) setSelectedArea(current => [...current, area]);
                 else
-                  setSelectedArea((current) =>
-                    current.filter((curArea) => curArea !== area)
+                  setSelectedArea(current =>
+                    current.filter(curArea => curArea !== area)
                   );
               }}
             />

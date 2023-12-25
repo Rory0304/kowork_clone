@@ -1,14 +1,15 @@
-import React from "react";
-import { View, Text } from "react-native";
-import TitleAndDescriptionSection from "app/components/pages/global/Section/TitleAndDescriptionSection";
+import React from 'react';
+import { Text, View } from 'react-native';
+
+import TitleAndDescriptionSection from 'app/components/pages/global/Section/TitleAndDescriptionSection';
 
 const VisaRecommendSection: React.FC = () => {
-  const userName = "Eunsoo";
+  const userName = 'Eunsoo';
   const reconmmendVisa = {
-    type: "F-2",
-    name: "거주",
+    type: 'F-2',
+    name: '거주',
     discription:
-      "거주 비자로 영주자격을 부여받기 위하여 국내 장기체류하려는 자에게 발급되는 비자",
+      '거주 비자로 영주자격을 부여받기 위하여 국내 장기체류하려는 자에게 발급되는 비자',
   };
 
   return (

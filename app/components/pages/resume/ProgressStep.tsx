@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text } from "react-native";
-import CheckCircleIcon from "react-native-heroicons/solid/CheckCircleIcon";
-import { resumeProgress } from "app/constants/Resume";
-import { customColors } from "app/constants/styles/Colors";
+import React from 'react';
+import { Text, View } from 'react-native';
+import CheckCircleIcon from 'react-native-heroicons/solid/CheckCircleIcon';
+
+import { resumeProgress } from 'app/constants/Resume';
+import { customColors } from 'app/constants/styles/Colors';
 
 interface ProgressSteProps {
   currentStepIdx: number;
@@ -36,7 +37,7 @@ const ProgressStep: React.FC<ProgressSteProps> = ({ currentStepIdx }) => {
             >
               <Text
                 className={`mb-2 text-xs font-bold ${
-                  currentStepIdx === idx ? "text-primary" : "text-neutral-300"
+                  currentStepIdx === idx ? 'text-primary' : 'text-neutral-300'
                 }`}
               >
                 {step.name}

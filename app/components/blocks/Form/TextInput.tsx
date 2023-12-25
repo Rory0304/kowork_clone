@@ -1,7 +1,8 @@
-import React from "react";
-import { TextInput as RnTextInput } from "react-native";
-import type { TextInputProps as RnTextInputProps } from "react-native";
-import { gray } from "tailwindcss/colors";
+import React from 'react';
+import { TextInput as RnTextInput } from 'react-native';
+import type { TextInputProps as RnTextInputProps } from 'react-native';
+
+import { gray } from 'tailwindcss/colors';
 
 interface TextInputProps extends RnTextInputProps {
   error?: boolean;
@@ -13,10 +14,10 @@ const TextInput: React.FC<TextInputProps> = ({ error, ...props }) => {
       {...props}
       className={`p-3 font-medium bg-slate-100 border border-gray-300 rounded-lg ${
         props.editable === false
-          ? "bg-gray-200"
+          ? 'bg-gray-200'
           : error
-          ? "border-red-500"
-          : "focus:border-primary leading-none"
+          ? 'border-red-500'
+          : 'focus:border-primary leading-none'
       }`}
       placeholderTextColor={gray[400]}
       style={{

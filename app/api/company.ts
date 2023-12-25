@@ -1,11 +1,10 @@
-import client from "../graphql/client";
-import { getFetchPolicy } from "../utils/getFetchPolicy";
-
+import client from '../graphql/client';
 import {
   GetCompanyDocument,
   GetCompanyQuery,
   GetCompanyQueryVariables,
-} from "../graphql/generated";
+} from '../graphql/generated';
+import { getFetchPolicy } from '../utils/getFetchPolicy';
 
 interface getNoticesParams {
   uuid: string;
@@ -23,8 +22,7 @@ export const getCompanyById = async ({ uuid }: getNoticesParams) => {
     fetchPolicy: getFetchPolicy(),
   });
 
-  const companyData =
-    data.companyCollection?.edges?.[0]?.node;
+  const companyData = data.companyCollection?.edges?.[0]?.node;
 
   return { companyData };
 };

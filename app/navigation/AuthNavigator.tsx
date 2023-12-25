@@ -1,15 +1,18 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NAV_SCREENS } from "../constants/Routes";
-import EmailSignInScreen from "app/screens/Auth/EmailSignInScreen";
-import EmailSignUpScreen from "app/screens/Auth/EmailSignUpScreen";
-import EmailCheckScreen from "app/screens/Auth/EmailCheckScreen";
-import HomeScreen from "app/screens/Home/HomeScreen";
-import EmailCheckSuccessScreen from "app/screens/Auth/EmailCheckSuccessScreen";
-import ProfileEnrollAlertScreen from "app/screens/Auth/ProfileEnrollAlertScreen";
-import { useAuth } from "app/contexts/AuthProvider";
-import { useProfile } from "app/contexts/ProfileProvider";
+import React from 'react';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import { useAuth } from 'app/contexts/AuthProvider';
+import { useProfile } from 'app/contexts/ProfileProvider';
+import EmailCheckScreen from 'app/screens/Auth/EmailCheckScreen';
+import EmailCheckSuccessScreen from 'app/screens/Auth/EmailCheckSuccessScreen';
+import EmailSignInScreen from 'app/screens/Auth/EmailSignInScreen';
+import EmailSignUpScreen from 'app/screens/Auth/EmailSignUpScreen';
+import ProfileEnrollAlertScreen from 'app/screens/Auth/ProfileEnrollAlertScreen';
+import HomeScreen from 'app/screens/Home/HomeScreen';
+
+import { NAV_SCREENS } from '../constants/Routes';
 
 export type NativeStackParamList = {
   HomeScreen: undefined;
@@ -28,13 +31,13 @@ const AuthNavigator: React.FC = () => {
 
   return (
     <NativeStack.Navigator>
-      <NativeStack.Group screenOptions={{ presentation: "modal" }}>
+      <NativeStack.Group screenOptions={{ presentation: 'modal' }}>
         <NativeStack.Screen
           name={NAV_SCREENS.HomeScreen}
           component={HomeScreen}
           options={{
             animationEnabled: true,
-            presentation: "modal",
+            presentation: 'modal',
             headerShown: false,
             headerBackTitleVisible: false,
           }}
@@ -46,15 +49,15 @@ const AuthNavigator: React.FC = () => {
             name={NAV_SCREENS.EmailSignInScreen}
             component={EmailSignInScreen}
             options={{
-              headerBackTitle: "",
-              headerTitle: "이메일 로그인",
+              headerBackTitle: '',
+              headerTitle: '이메일 로그인',
             }}
           />
           <NativeStack.Screen
             name={NAV_SCREENS.EmailSignUpScreen}
             component={EmailSignUpScreen}
             options={{
-              headerTitle: "회원가입",
+              headerTitle: '회원가입',
             }}
           />
         </NativeStack.Group>
@@ -64,7 +67,7 @@ const AuthNavigator: React.FC = () => {
           name={NAV_SCREENS.ProfileEnrollAlertScreen}
           component={ProfileEnrollAlertScreen}
           options={{
-            headerTitle: "회원가입",
+            headerTitle: '회원가입',
           }}
         />
       ) : null}
@@ -72,14 +75,14 @@ const AuthNavigator: React.FC = () => {
         name={NAV_SCREENS.EmailCheckScreen}
         component={EmailCheckScreen}
         options={{
-          headerTitle: "회원가입",
+          headerTitle: '회원가입',
         }}
       />
       <NativeStack.Screen
         name={NAV_SCREENS.EmailCheckSuccessScreen}
         component={EmailCheckSuccessScreen}
         options={{
-          headerTitle: "회원가입",
+          headerTitle: '회원가입',
         }}
       />
     </NativeStack.Navigator>

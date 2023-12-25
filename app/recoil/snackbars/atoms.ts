@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
-export type SnackbarVariantType = "error" | "success" | "warn";
+export type SnackbarVariantType = 'error' | 'success' | 'warn';
 
 export interface SnackbarProps {
   message: string;
@@ -12,7 +12,7 @@ const snackbarsAtom = atom<
     props: SnackbarProps;
   }>
 >({
-  key: "snackbarsAtom",
+  key: 'snackbarsAtom',
   default: [],
 });
 

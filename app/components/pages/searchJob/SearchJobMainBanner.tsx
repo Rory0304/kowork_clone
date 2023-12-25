@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
+import React from 'react';
+import { Image, Text, View } from 'react-native';
 
 const JobPostListSection: React.FC = () => {
   return (
@@ -7,7 +7,7 @@ const JobPostListSection: React.FC = () => {
       <View className="p-2 mr-2 border border-gray-200 rounded bg-gray-50">
         <Image
           alt=""
-          source={require("../../../../assets/images/home_speaker.png")}
+          source={require('../../../../assets/images/home_speaker.png')}
           resizeMode="contain"
           style={{
             width: 32,

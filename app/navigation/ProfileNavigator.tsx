@@ -1,12 +1,15 @@
-import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NAV_SCREENS } from "../constants/Routes";
-import ProfileEnrollUserTypeScreen from "app/screens/Profile/ProfileEnrollUserTypeScreen";
-import ProfileEnrollBasicInfoScreen from "app/screens/Profile/ProfileEnrollBasicInfoScreen";
-import ProfileEnrollVisaInfoScreen from "app/screens/Profile/ProfileEnrollVisaInfoScreen";
-import { ProfileFormType } from "app/types/Profile";
-import { profileSchemaResolver } from "app/constants/validation/Profile";
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { profileSchemaResolver } from 'app/constants/validation/Profile';
+import ProfileEnrollBasicInfoScreen from 'app/screens/Profile/ProfileEnrollBasicInfoScreen';
+import ProfileEnrollUserTypeScreen from 'app/screens/Profile/ProfileEnrollUserTypeScreen';
+import ProfileEnrollVisaInfoScreen from 'app/screens/Profile/ProfileEnrollVisaInfoScreen';
+import { ProfileFormType } from 'app/types/Profile';
+
+import { NAV_SCREENS } from '../constants/Routes';
 
 export type NativeStackParamList = {
   ProfileEnrollUserTypeScreen: undefined;
@@ -29,9 +32,9 @@ const ProfileNavigator: React.FC = () => {
           name={NAV_SCREENS.ProfileEnrollUserTypeScreen}
           component={ProfileEnrollUserTypeScreen}
           options={{
-            presentation: "fullScreenModal",
+            presentation: 'fullScreenModal',
             headerBackVisible: true,
-            headerTitle: "회원 구분",
+            headerTitle: '회원 구분',
           }}
         />
         <NativeStack.Screen
@@ -39,7 +42,7 @@ const ProfileNavigator: React.FC = () => {
           component={ProfileEnrollBasicInfoScreen}
           options={{
             headerBackVisible: true,
-            headerTitle: "프로필 설정",
+            headerTitle: '프로필 설정',
           }}
         />
         <NativeStack.Screen
@@ -47,7 +50,7 @@ const ProfileNavigator: React.FC = () => {
           component={ProfileEnrollVisaInfoScreen}
           options={{
             headerBackVisible: true,
-            headerTitle: "비자 정보입력",
+            headerTitle: '비자 정보입력',
           }}
         />
       </NativeStack.Navigator>
