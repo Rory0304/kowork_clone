@@ -44,7 +44,7 @@ const EmailCheckScreen: React.FC = () => {
         label="다음"
         variant="filled"
         color="primary"
-        disabeld={!emailCheckSuccess}
+        disabled={!emailCheckSuccess}
         onPress={() => navigator.openEmailCheckSuccessScreen()}
       />
     </Stack>

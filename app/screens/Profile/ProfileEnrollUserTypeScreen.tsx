@@ -76,7 +76,7 @@ const ProfileEnrollUserTypeScreen: React.FC = () => {
             label="다음"
             variant="filled"
             size="large"
-            disabeld={watchedUserType !== 'employee'}
+            disabled={watchedUserType !== 'employee'}
             onPress={() => navigator.openProfileEnrollBasicInfoScreen()}
           />
         </View>

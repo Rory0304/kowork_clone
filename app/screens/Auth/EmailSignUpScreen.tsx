@@ -115,7 +115,7 @@ const EmailSignInScreen: React.FC = () => {
         }
       />
       <Button
-        disabeld={!isValid}
+        disabled={!isValid}
         label="다음"
         variant="filled"
         color="primary"
