@@ -1,27 +1,29 @@
-import React from "react";
+import React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 import {
-  TextInput,
-  View,
   ScrollView,
   Text,
+  TextInput,
   TouchableOpacity,
-} from "react-native";
-import { Controller, useFormContext } from "react-hook-form";
-import { gray } from "tailwindcss/colors";
-import { Stack, Button } from "app/components/blocks";
-import { useAuth } from "app/contexts/AuthProvider";
-import navigate from "app/utils/navigationHelper";
-import { useNavigation } from "@react-navigation/native";
-import { ProfileFormType } from "app/types/Profile";
+  View,
+} from 'react-native';
+
+import { useMutation } from '@apollo/client';
+import { useNavigation } from '@react-navigation/native';
+import { gray } from 'tailwindcss/colors';
+
+import { Button, Stack } from 'app/components/blocks';
+import { useAuth } from 'app/contexts/AuthProvider';
 import {
-  UpdateVisaEnrolLHistoryMutation,
   UpdateVisaEnrolLHistoryDocument,
-} from "app/graphql/generated";
+  UpdateVisaEnrolLHistoryMutation,
+} from 'app/graphql/generated';
+import { ProfileFormType } from 'app/types/Profile';
 import {
-  convertToFormatDateWithComma,
   convertToFormatDate,
-} from "app/utils/date";
-import { useMutation } from "@apollo/client";
+  convertToFormatDateWithComma,
+} from 'app/utils/date';
+import navigate from 'app/utils/navigationHelper';
 
 const ProfileEnrollVisaInfoScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -102,10 +104,10 @@ const ProfileEnrollVisaInfoScreen: React.FC = () => {
               <TextInput
                 value={field.value}
                 className={`p-4 text-base font-medium bg-gray-200 border border-gray-300 rounded-xl ${
-                  error ? "border-red-500" : "focus:border-primary"
+                  error ? 'border-red-500' : 'focus:border-primary'
                 }`}
                 placeholderTextColor={gray[400]}
-                onChangeText={(value) =>
+                onChangeText={value =>
                   field.onChange(convertToFormatDate(value))
                 }
                 placeholder="YYYY / MM / DD"
@@ -129,7 +131,7 @@ const ProfileEnrollVisaInfoScreen: React.FC = () => {
               <TextInput
                 className="p-4 bg-gray-200 border border-gray-300 tfont-medium ext-base rounded-xl"
                 placeholderTextColor={gray[400]}
-                onChangeText={(value) =>
+                onChangeText={value =>
                   field.onChange(convertToFormatDate(value))
                 }
                 value={field.value}

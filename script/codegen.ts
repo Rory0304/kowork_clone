@@ -1,11 +1,11 @@
-import type { CodegenConfig } from "@graphql-codegen/cli";
+import type { CodegenConfig } from '@graphql-codegen/cli';
 
 //
 //
 //
 
-const GRAPHQL_ENDPOINT = process.env.SUPABASE_STORE_GRAPHQL_URL ?? "";
-const ACCESS_TOKEN = process.env.SUPABASE_API_KEY ?? "";
+const GRAPHQL_ENDPOINT = process.env.SUPABASE_STORE_GRAPHQL_URL ?? '';
+const ACCESS_TOKEN = process.env.SUPABASE_API_KEY ?? '';
 
 //
 // Generate GraphQL schema and TypeScript types
@@ -22,14 +22,14 @@ const config: CodegenConfig = {
       },
     },
   },
-  documents: "app/graphql/**/*.ts",
+  documents: 'app/graphql/**/*.ts',
   generates: {
-    "app/graphql/generated.ts": {
+    'app/graphql/generated.ts': {
       plugins: [
-        "typescript",
-        "typescript-apollo-client-helpers",
-        "typescript-react-apollo",
-        "typescript-operations",
+        'typescript',
+        'typescript-apollo-client-helpers',
+        'typescript-react-apollo',
+        'typescript-operations',
       ],
       config: {
         // ref: https://the-guild.dev/graphql/codegen/plugins/typescript/typescript-react-apollo#withhooks
@@ -38,8 +38,8 @@ const config: CodegenConfig = {
         withResultType: false,
       },
     },
-    "./graphql.schema.json": {
-      plugins: ["introspection"],
+    './graphql.schema.json': {
+      plugins: ['introspection'],
     },
   },
 };

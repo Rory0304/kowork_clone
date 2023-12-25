@@ -1,7 +1,10 @@
-import React from "react";
-import MainScreen from "../screens/Main/MainScreen";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NAV_SCREENS } from "app/constants/Routes";
+import React from 'react';
+
+import { createStackNavigator } from '@react-navigation/stack';
+
+import { NAV_SCREENS } from 'app/constants/Routes';
+
+import MainScreen from '../screens/Main/MainScreen';
 
 const Stack = createStackNavigator();
 
@@ -10,7 +13,7 @@ const MainNavigator: React.FC = () => {
     <Stack.Navigator
       screenOptions={{
         cardStyle: {
-          backgroundColor: "#FFFFFF",
+          backgroundColor: '#FFFFFF',
         },
       }}
     >

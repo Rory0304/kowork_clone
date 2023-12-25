@@ -1,17 +1,17 @@
-import { FormDataType, LanguageLevel } from "app/types/Resume";
+import { FormDataType, LanguageLevel } from 'app/types/Resume';
 
 export const resumeProgress = [
   {
-    name: "기본정보",
+    name: '기본정보',
   },
   {
-    name: "학력/경력",
+    name: '학력/경력',
   },
   {
-    name: "언어",
+    name: '언어',
   },
   {
-    name: "기타정보",
+    name: '기타정보',
   },
 ];
 

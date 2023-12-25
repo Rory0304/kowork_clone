@@ -1,10 +1,11 @@
-import React from "react";
-import { View, Text } from "react-native";
-import Stack from "app/components/blocks/Stack/Stack";
+import React from 'react';
+import { Text, View } from 'react-native';
 
-import type { Item } from "app/types/VisaTestSheet";
-import _sum from "lodash/sum";
-import TestSheetOption from "app/components/pages/VisaTest/TestSheet/TestSheetOption";
+import _sum from 'lodash/sum';
+
+import Stack from 'app/components/blocks/Stack/Stack';
+import TestSheetOption from 'app/components/pages/VisaTest/TestSheet/TestSheetOption';
+import type { Item } from 'app/types/VisaTestSheet';
 
 interface WorkExperienceQuestionitemProps extends Item {
   index: number;
@@ -17,8 +18,8 @@ const WorkExperienceQuestionitem: React.FC<WorkExperienceQuestionitemProps> = ({
   title,
   description,
   options,
-  layout = "vertical",
-  optionVariant = "default",
+  layout = 'vertical',
+  optionVariant = 'default',
   onOptionClickCallback,
 }) => {
   const domesticOptionIdx = [1, 2, 3];
@@ -28,7 +29,7 @@ const WorkExperienceQuestionitem: React.FC<WorkExperienceQuestionitemProps> = ({
   const [total, setTotal] = React.useState(0);
 
   React.useEffect(() => {
-    if (typeof onOptionClickCallback === "function") {
+    if (typeof onOptionClickCallback === 'function') {
       onOptionClickCallback(name, total);
     }
   }, [total]);
@@ -45,32 +46,32 @@ const WorkExperienceQuestionitem: React.FC<WorkExperienceQuestionitemProps> = ({
     // deselect
     if (activeOption.includes(selectedOptionIdx)) {
       const newOption = activeOption.filter(
-        (idx) => idx !== selectedOptionIdx
+        idx => idx !== selectedOptionIdx
       ) || [0];
       setOption(newOption);
-      setTotal((current) => current - score);
+      setTotal(current => current - score);
       return;
     }
 
     // select domestic option
     if (domesticOptionIdx.includes(selectedOptionIdx)) {
-      const prevDomesticOption = activeOption.filter((option) =>
+      const prevDomesticOption = activeOption.filter(option =>
         domesticOptionIdx.includes(option)
       )[0];
 
       if (prevDomesticOption) {
         const newOption = activeOption.filter(
-          (option) => option !== prevDomesticOption
+          option => option !== prevDomesticOption
         );
 
         setOption([...newOption, selectedOptionIdx]);
         setTotal(
-          (current) =>
+          current =>
             (current -= options?.[prevDomesticOption].score || 0) + score
         );
       } else {
-        setOption((current) => [...current, selectedOptionIdx]);
-        setTotal((current) => current + score);
+        setOption(current => [...current, selectedOptionIdx]);
+        setTotal(current => current + score);
       }
 
       return;
@@ -78,23 +79,22 @@ const WorkExperienceQuestionitem: React.FC<WorkExperienceQuestionitemProps> = ({
 
     // select abroad option
     if (abroadOptionIdx.includes(selectedOptionIdx)) {
-      const prevAbroadOption = activeOption.filter((option) =>
+      const prevAbroadOption = activeOption.filter(option =>
         abroadOptionIdx.includes(option)
       )[0];
 
       if (prevAbroadOption) {
         const newOption = activeOption.filter(
-          (option) => option !== prevAbroadOption
+          option => option !== prevAbroadOption
         );
 
         setOption([...newOption, selectedOptionIdx]);
         setTotal(
-          (current) =>
-            (current -= options?.[prevAbroadOption].score || 0) + score
+          current => (current -= options?.[prevAbroadOption].score || 0) + score
         );
       } else {
-        setOption((current) => [...current, selectedOptionIdx]);
-        setTotal((current) => current + score);
+        setOption(current => [...current, selectedOptionIdx]);
+        setTotal(current => current + score);
       }
 
       return;
@@ -116,8 +116,8 @@ const WorkExperienceQuestionitem: React.FC<WorkExperienceQuestionitemProps> = ({
         ) : null}
       </View>
       <Stack
-        direction={layout === "vertical" ? "column" : "row"}
-        styles={layout === "vertical" ? "" : "flex-wrap"}
+        direction={layout === 'vertical' ? 'column' : 'row'}
+        styles={layout === 'vertical' ? '' : 'flex-wrap'}
         rowGap={8}
         columnGap={10}
       >

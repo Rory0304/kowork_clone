@@ -1,25 +1,28 @@
-import React from "react";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import BottomTabNavigator from "./BottomTabNavigator";
-import AuthNavigator from "./AuthNavigator";
-import ModalNavigator from "./ModalNavigator";
-import ResumeEditNavigator from "./ResumeEditNavigator";
-import ProfileNavigator from "./ProfileNavigator";
-import * as Linking from "expo-linking";
-import { useAuth } from "app/contexts/AuthProvider";
-import { useProfile } from "app/contexts/ProfileProvider";
+import React from 'react';
+
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Linking from 'expo-linking';
+
+import { useAuth } from 'app/contexts/AuthProvider';
+import { useProfile } from 'app/contexts/ProfileProvider';
+
+import AuthNavigator from './AuthNavigator';
+import BottomTabNavigator from './BottomTabNavigator';
+import ModalNavigator from './ModalNavigator';
+import ProfileNavigator from './ProfileNavigator';
+import ResumeEditNavigator from './ResumeEditNavigator';
 
 const CustomTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: "#2c5ae9",
-    backgroundColor: "#ced3d6",
+    primary: '#2c5ae9',
+    backgroundColor: '#ced3d6',
   },
 };
 
-const prefix = Linking.createURL("/");
+const prefix = Linking.createURL('/');
 
 const AppStack = createNativeStackNavigator();
 
@@ -33,12 +36,12 @@ const AppNavigator: React.FC = () => {
         prefixes: [prefix],
         config: {
           screens: {
-            HomeScreen: "home",
+            HomeScreen: 'home',
             AuthNavigator: {
-              path: "auth",
+              path: 'auth',
             },
             EmailCheckScreen: {
-              path: "auth/email-check:email",
+              path: 'auth/email-check:email',
             },
           },
         },
@@ -49,10 +52,10 @@ const AppNavigator: React.FC = () => {
         screenOptions={{
           headerShown: false,
           contentStyle: {
-            position: "relative",
+            position: 'relative',
             maxWidth: 450,
-            width: "100%",
-            marginHorizontal: "auto",
+            width: '100%',
+            marginHorizontal: 'auto',
           },
         }}
       >

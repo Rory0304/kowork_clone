@@ -1,8 +1,9 @@
-import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
-import CheckIcon from "app/components/blocks/Icon/CheckIcon";
-import Stack from "app/components/blocks/Stack/Stack";
-import type { ItemLayout, OptionVariant } from "app/types/VisaTestSheet";
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+
+import CheckIcon from 'app/components/blocks/Icon/CheckIcon';
+import Stack from 'app/components/blocks/Stack/Stack';
+import type { ItemLayout, OptionVariant } from 'app/types/VisaTestSheet';
 
 interface TestSheetOptionProps {
   title: string;
@@ -16,8 +17,8 @@ interface TestSheetOptionProps {
 const TestSheetOption: React.FC<TestSheetOptionProps> = ({
   title,
   score,
-  itemLayout = "vertical",
-  variant = "default",
+  itemLayout = 'vertical',
+  variant = 'default',
   onPress,
   active,
 }) => {
@@ -27,15 +28,15 @@ const TestSheetOption: React.FC<TestSheetOptionProps> = ({
     score,
     itemLayout,
     variant,
-  }: Omit<TestSheetOptionProps, "onPress">) => {
+  }: Omit<TestSheetOptionProps, 'onPress'>) => {
     switch (variant) {
-      case "checkbox":
+      case 'checkbox':
         return (
           <Stack
-            direction={itemLayout === "horiztonal" ? "column" : "row"}
+            direction={itemLayout === 'horiztonal' ? 'column' : 'row'}
             styles="w-full flex-wrap items-center justify-between"
           >
-            {variant === "checkbox" ? (
+            {variant === 'checkbox' ? (
               score !== 0 ? (
                 <CheckIcon checked={active} />
               ) : (
@@ -44,16 +45,16 @@ const TestSheetOption: React.FC<TestSheetOptionProps> = ({
             ) : null}
             <Text
               className={`${
-                variant === "checkbox" && score === 0 ? "text-center" : ""
+                variant === 'checkbox' && score === 0 ? 'text-center' : ''
               } max-w-[75%] text-base font-bold beak-words ${
-                active ? "text-primary" : "text-neutral-400"
+                active ? 'text-primary' : 'text-neutral-400'
               }`}
             >
               {title}
             </Text>
             <Text
               className={`font-semibold ${
-                active ? "text-primary" : "text-neutral-400"
+                active ? 'text-primary' : 'text-neutral-400'
               }`}
             >
               {score}점
@@ -63,19 +64,19 @@ const TestSheetOption: React.FC<TestSheetOptionProps> = ({
       default:
         return (
           <Stack
-            direction={itemLayout === "horiztonal" ? "column" : "row"}
+            direction={itemLayout === 'horiztonal' ? 'column' : 'row'}
             styles="w-full flex-wrap items-center justify-between "
           >
             <Text
               className={`text-base font-bold beak-words ${
-                active ? "text-primary" : "text-neutral-400"
+                active ? 'text-primary' : 'text-neutral-400'
               }`}
             >
               {title}
             </Text>
             <Text
               className={`font-semibold ${
-                active ? "text-primary" : "text-neutral-400"
+                active ? 'text-primary' : 'text-neutral-400'
               }`}
             >
               {score}점
@@ -87,17 +88,17 @@ const TestSheetOption: React.FC<TestSheetOptionProps> = ({
 
   const getLayoutStyles = (layout: ItemLayout) => {
     switch (layout) {
-      case "grid":
-        return "max-w-[48%] basis-1/2";
+      case 'grid':
+        return 'max-w-[48%] basis-1/2';
 
-      case "horiztonal":
-        return "max-w-[30.6%] basis-1/3";
+      case 'horiztonal':
+        return 'max-w-[30.6%] basis-1/3';
 
-      case "vertical":
-        return "basis-1";
+      case 'vertical':
+        return 'basis-1';
 
       default:
-        return "";
+        return '';
     }
   };
 
@@ -105,7 +106,7 @@ const TestSheetOption: React.FC<TestSheetOptionProps> = ({
     <TouchableOpacity className={getLayoutStyles(itemLayout)} onPress={onPress}>
       <View
         className={`p-3 flex flex-row flex-wrap rounded-lg  ${
-          active ? "border-primary border-2" : "border-neutral-300 border"
+          active ? 'border-primary border-2' : 'border-neutral-300 border'
         }`}
       >
         {renderTestSheetOptionContent({ variant, title, score, active })}

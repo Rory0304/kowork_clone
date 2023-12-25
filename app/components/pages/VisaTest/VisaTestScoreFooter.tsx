@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
+import React from 'react';
+import { Image, Text, View } from 'react-native';
 
 interface VisaTestScoreFooterProps {
   totalScore: number;
@@ -11,8 +11,8 @@ const VisaTestScoreFooter: React.FC<VisaTestScoreFooterProps> = ({
 }) => {
   const isTotalScoreOverStandard = totalScore >= standardScore;
   const imageSrc = isTotalScoreOverStandard
-    ? require("../../../../assets/images/clap.png")
-    : require("../../../../assets/images/needMoreEmoji.png");
+    ? require('../../../../assets/images/clap.png')
+    : require('../../../../assets/images/needMoreEmoji.png');
 
   return (
     <View className="absolute bottom-0 w-full px-4 opacity-90">
@@ -28,11 +28,11 @@ const VisaTestScoreFooter: React.FC<VisaTestScoreFooterProps> = ({
         <Text className="text-base font-bold text-neutral-600">
           {isTotalScoreOverStandard
             ? `${standardScore} 이상으로 합격이에요!`
-            : "점수가 조금 더 필요해요"}
+            : '점수가 조금 더 필요해요'}
         </Text>
         <Text
           className={`text-2xl font-bold ${
-            isTotalScoreOverStandard ? "text-green-400" : "text-neutral-600"
+            isTotalScoreOverStandard ? 'text-green-400' : 'text-neutral-600'
           }`}
         >
           {totalScore}

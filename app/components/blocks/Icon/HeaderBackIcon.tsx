@@ -1,6 +1,7 @@
-import { TouchableOpacity } from "react-native";
-import XMarkIcon from "react-native-heroicons/solid/XMarkIcon";
-import { HeaderBackButtonProps } from "@react-navigation/elements";
+import { TouchableOpacity } from 'react-native';
+import XMarkIcon from 'react-native-heroicons/solid/XMarkIcon';
+
+import { HeaderBackButtonProps } from '@react-navigation/elements';
 
 interface HeaderBackIconProps extends HeaderBackButtonProps {}
 

@@ -1,11 +1,12 @@
-import React from "react";
-import { ScrollView, View } from "react-native";
-import { F27Test } from "app/constants/VisaTestSheet";
-import TestSheet from "app/components/pages/VisaTest/TestSheet/TestSheet";
-import QuestionItem from "app/components/pages/VisaTest/TestSheet/QuestionItem";
-import VisaTestScoreFooter from "app/components/pages/VisaTest/VisaTestScoreFooter";
-import VisaTestNoticeAccordion from "app/components/pages/VisaTest/VisaTestNoticeAccordion";
-import ProgressBar from "app/components/blocks/ProgressBar/ProgressBar";
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+
+import ProgressBar from 'app/components/blocks/ProgressBar/ProgressBar';
+import QuestionItem from 'app/components/pages/VisaTest/TestSheet/QuestionItem';
+import TestSheet from 'app/components/pages/VisaTest/TestSheet/TestSheet';
+import VisaTestNoticeAccordion from 'app/components/pages/VisaTest/VisaTestNoticeAccordion';
+import VisaTestScoreFooter from 'app/components/pages/VisaTest/VisaTestScoreFooter';
+import { F27Test } from 'app/constants/VisaTestSheet';
 
 const VisaTestF27: React.FC = () => {
   const [totalScoreInfo, setTotalScoreInfo] = React.useState<{
@@ -26,7 +27,7 @@ const VisaTestF27: React.FC = () => {
 
   const handleTotoalScoreSet = React.useCallback(
     (name: string, score: number) => {
-      setTotalScoreInfo((prev) => ({ ...prev, [name]: score }));
+      setTotalScoreInfo(prev => ({ ...prev, [name]: score }));
     },
     []
   );
@@ -51,9 +52,7 @@ const VisaTestF27: React.FC = () => {
         onContentSizeChange={(_, height) => {
           setSccrollViewContentHeight(height);
         }}
-        onLayout={(event) =>
-          setScrollViewHeight(event.nativeEvent.layout.height)
-        }
+        onLayout={event => setScrollViewHeight(event.nativeEvent.layout.height)}
         scrollEventThrottle={12}
       >
         <VisaTestNoticeAccordion />

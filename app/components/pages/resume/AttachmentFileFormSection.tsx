@@ -1,20 +1,21 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { ResumeFormSectionTitle } from "./layout";
-import PaperClipIcon from "react-native-heroicons/solid/PaperClipIcon";
-import TrashIcon from "react-native-heroicons/solid/TrashIcon";
-import DocumentTextIcon from "react-native-heroicons/solid/DocumentTextIcon";
-import { customColors } from "app/constants/styles/Colors";
-import { Button, Stack } from "app/components/blocks";
-import { pickDocument } from "app/utils/document";
-import { getFileSizeFromURI, isFileSizeExceeded } from "app/utils/file";
-import { getErrorMessage } from "app/utils/error";
-import { useWatch, useFormContext } from "react-hook-form";
-import { useAuth } from "app/contexts/AuthProvider";
-import useSnackbars from "app/hooks/useSnackbars";
+import React from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { Text, TouchableOpacity, View } from 'react-native';
+import DocumentTextIcon from 'react-native-heroicons/solid/DocumentTextIcon';
+import PaperClipIcon from 'react-native-heroicons/solid/PaperClipIcon';
+import TrashIcon from 'react-native-heroicons/solid/TrashIcon';
 
-import type { AttatchmentFileType, FormDataType } from "app/types/Resume";
-import { getImageFormatFromDataUri } from "app/utils/image";
+import { Button, Stack } from 'app/components/blocks';
+import { customColors } from 'app/constants/styles/Colors';
+import { useAuth } from 'app/contexts/AuthProvider';
+import useSnackbars from 'app/hooks/useSnackbars';
+import type { AttatchmentFileType, FormDataType } from 'app/types/Resume';
+import { pickDocument } from 'app/utils/document';
+import { getErrorMessage } from 'app/utils/error';
+import { getFileSizeFromURI, isFileSizeExceeded } from 'app/utils/file';
+import { getImageFormatFromDataUri } from 'app/utils/image';
+
+import { ResumeFormSectionTitle } from './layout';
 
 const AttachmentFileFormSection: React.FC = () => {
   const [document, setDocument] = React.useState<AttatchmentFileType | null>();
@@ -23,9 +24,9 @@ const AttachmentFileFormSection: React.FC = () => {
   const { enqueueSnackbar } = useSnackbars();
   const { control, setValue } = useFormContext<FormDataType>();
 
-  const profileName = useWatch({ control, name: "name" });
+  const profileName = useWatch({ control, name: 'name' });
   const attatchmentFile = useWatch({
-    name: "etc.attatchmentFile",
+    name: 'etc.attatchmentFile',
   });
 
   React.useEffect(() => {
@@ -35,14 +36,14 @@ const AttachmentFileFormSection: React.FC = () => {
   const handleDocumentFilePick = React.useCallback(async () => {
     try {
       const result = await pickDocument({
-        type: ["application/pdf", "image/png", "image/jpeg"],
+        type: ['application/pdf', 'image/png', 'image/jpeg'],
       });
 
       if (result) {
         const fileSize = await getFileSizeFromURI(result.uri);
         if (fileSize) {
           if (isFileSizeExceeded(fileSize, 30 * 1024 * 1024)) {
-            throw new Error("30MB 이하 파일만 가능해요");
+            throw new Error('30MB 이하 파일만 가능해요');
           } else {
             const documentFormat = getImageFormatFromDataUri(result.uri);
 
@@ -53,19 +54,19 @@ const AttachmentFileFormSection: React.FC = () => {
               file: result.file,
             };
 
-            setValue("etc.attatchmentFile", configuredDocument, {
+            setValue('etc.attatchmentFile', configuredDocument, {
               shouldDirty: true,
             });
             setDocument(configuredDocument);
           }
         } else {
-          throw new Error("파일 업로드에 실패했습니다. 다시 시도해주세요");
+          throw new Error('파일 업로드에 실패했습니다. 다시 시도해주세요');
         }
       }
     } catch (error) {
       enqueueSnackbar({
         message: getErrorMessage(error),
-        variant: "error",
+        variant: 'error',
       });
     }
   }, []);
@@ -83,7 +84,7 @@ const AttachmentFileFormSection: React.FC = () => {
         <View>
           <TouchableOpacity
             onPress={() => {
-              setValue("etc.attatchmentFile", undefined, { shouldDirty: true });
+              setValue('etc.attatchmentFile', undefined, { shouldDirty: true });
               setDocument(null);
             }}
           >

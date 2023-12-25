@@ -1,5 +1,5 @@
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import fetch from "cross-fetch";
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import fetch from 'cross-fetch';
 
 /**
  * GraphQL client.

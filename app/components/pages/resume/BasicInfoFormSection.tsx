@@ -1,13 +1,15 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import { Control, Controller, useFormContext } from "react-hook-form";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { TextInput, FormInputBox, CheckBox } from "app/components/blocks/Form";
-import { convertToFormatDate } from "app/utils/date";
-import { BottomSheet, Stack } from "app/components/blocks";
-import CountrySelectBox from "app/components/pages/resume/CountrySelectBox";
-import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
-import { FormDataType, GenderType } from "app/types/Resume";
+import React from 'react';
+import { Control, Controller, useFormContext } from 'react-hook-form';
+import { Text, TouchableOpacity, View } from 'react-native';
+import ChevronDownIcon from 'react-native-heroicons/solid/ChevronDownIcon';
+
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+
+import { BottomSheet, Stack } from 'app/components/blocks';
+import { CheckBox, FormInputBox, TextInput } from 'app/components/blocks/Form';
+import CountrySelectBox from 'app/components/pages/resume/CountrySelectBox';
+import { FormDataType, GenderType } from 'app/types/Resume';
+import { convertToFormatDate } from 'app/utils/date';
 
 interface BasicInfoFormSectionProps {
   control: Control<FormDataType, any>;
@@ -52,9 +54,9 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
               control={control}
               render={({ field: { value, onChange } }) => (
                 <Stack columnGap={8} styles="justify-between">
-                  {Object.values(GenderType).map((gender) => {
+                  {Object.values(GenderType).map(gender => {
                     const label =
-                      gender === "Male" ? "남자(Male)" : "여자(Female)";
+                      gender === 'Male' ? '남자(Male)' : '여자(Female)';
 
                     return (
                       <View className="shrink basis-1/2">
@@ -112,9 +114,9 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
                     focusable
                     value={field.value}
                     className={`p-4 text-base font-medium bg-gray-200 border border-gray-300 rounded-xl ${
-                      error ? "border-red-500" : "focus:border-primary"
+                      error ? 'border-red-500' : 'focus:border-primary'
                     }`}
-                    onChangeText={(value) =>
+                    onChangeText={value =>
                       field.onChange(convertToFormatDate(value))
                     }
                     placeholder="YYYY / MM / DD"
@@ -132,14 +134,14 @@ const BasicInfoFormSection: React.FC<BasicInfoFormSectionProps> = ({
       </View>
       <BottomSheet
         ref={bottomSheetRef}
-        snapPoints={["80%"]}
+        snapPoints={['80%']}
         headerTitle="국적"
         closeBtn
         onClose={handleBottomSheetClose}
       >
         <CountrySelectBox
-          onPress={(value) => {
-            setValue("country", value);
+          onPress={value => {
+            setValue('country', value);
             handleBottomSheetClose();
           }}
         />

@@ -1,13 +1,15 @@
-import React from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import { useQuery } from "@tanstack/react-query";
-import { getHighlightedJobPost } from "app/api/jobPostList";
-import type { JobPostType } from "app/types/JobPost";
+import React from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import { useQuery } from '@tanstack/react-query';
+
+import { getHighlightedJobPost } from 'app/api/jobPostList';
+import type { JobPostType } from 'app/types/JobPost';
+import navigate from 'app/utils/navigationHelper';
 
 interface JobPostListItemProps
-  extends Pick<JobPostType, "id" | "title" | "companyId" | "endDate"> {}
+  extends Pick<JobPostType, 'id' | 'title' | 'companyId' | 'endDate'> {}
 
 const JobPostListItem: React.FC<JobPostListItemProps> = ({
   title,
@@ -33,7 +35,7 @@ const JobPostListSection: React.FC = () => {
   const navigator = navigate(navigation);
 
   const { data, isError, error } = useQuery({
-    queryKey: ["getHighlightedJobPost"],
+    queryKey: ['getHighlightedJobPost'],
     queryFn: async () =>
       await getHighlightedJobPost({
         first: 8,
@@ -56,7 +58,7 @@ const JobPostListSection: React.FC = () => {
             endDate={item.node.endDate}
           />
         )}
-        keyExtractor={(item) => `${item.node.id}`}
+        keyExtractor={item => `${item.node.id}`}
       />
       <View className="px-4">
         <TouchableOpacity

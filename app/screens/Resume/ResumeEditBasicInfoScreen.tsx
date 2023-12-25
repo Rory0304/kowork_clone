@@ -1,17 +1,19 @@
-import React from "react";
-import { ScrollView } from "react-native";
-import { useFormContext } from "react-hook-form";
-import { FormDataType } from "app/types/Resume";
-import { Button, Stack } from "app/components/blocks";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { ScrollView } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+
+import { Button, Stack } from 'app/components/blocks';
 import {
   BasicInfoFormSection,
-  ResidenceFormSection,
   EmailFormSection,
   ProgressStep,
+  ResidenceFormSection,
   ResumeFormWrapperTitle,
-} from "app/components/pages/resume";
+} from 'app/components/pages/resume';
+import { FormDataType } from 'app/types/Resume';
+import navigate from 'app/utils/navigationHelper';
 
 const ResumeEditBasicInfoScreen: React.FC = () => {
   const {

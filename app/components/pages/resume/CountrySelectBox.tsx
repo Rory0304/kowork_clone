@@ -1,23 +1,25 @@
-import React from "react";
-import { Text, View, FlatList, TouchableOpacity } from "react-native";
-import { countries } from "app/constants/Country.json";
-import TextInput from "../../blocks/Form/TextInput";
-import useDebounce from "app/hooks/useDebounce";
+import React from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+
+import { countries } from 'app/constants/Country.json';
+import useDebounce from 'app/hooks/useDebounce';
+
+import TextInput from '../../blocks/Form/TextInput';
 
 interface CountrySelectBoxProps {
   onPress: (value: string) => void;
 }
 
 const CountrySelectBox: React.FC<CountrySelectBoxProps> = ({ onPress }) => {
-  const [keyword, setKeyword] = React.useState("");
+  const [keyword, setKeyword] = React.useState('');
   const [searchedCountries, setSearchedCountries] = React.useState(countries);
-  const [debouncedKeyword, setDebouncedKeyword] = React.useState("");
+  const [debouncedKeyword, setDebouncedKeyword] = React.useState('');
 
   useDebounce(() => setDebouncedKeyword(keyword), 300, [keyword]);
 
   React.useEffect(() => {
     const result = countries.filter(
-      (country) =>
+      country =>
         country.ko.includes(debouncedKeyword) ||
         country.name.includes(debouncedKeyword)
     );
@@ -28,7 +30,7 @@ const CountrySelectBox: React.FC<CountrySelectBoxProps> = ({ onPress }) => {
   return (
     <FlatList
       data={searchedCountries}
-      keyExtractor={(item) => item.name}
+      keyExtractor={item => item.name}
       ListHeaderComponent={
         <View className="py-2 bg-white">
           <Text className="pb-2 text-neutral-500">
@@ -37,7 +39,7 @@ const CountrySelectBox: React.FC<CountrySelectBoxProps> = ({ onPress }) => {
           <TextInput
             value={keyword}
             placeholder="국가 검색"
-            onChangeText={(value) => setKeyword(value)}
+            onChangeText={value => setKeyword(value)}
           />
         </View>
       }

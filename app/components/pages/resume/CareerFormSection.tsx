@@ -1,43 +1,43 @@
-import React from "react";
+import React from 'react';
 import {
-  Text,
-  Alert,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
-import {
-  useFormContext,
-  Controller,
-  useFieldArray,
   Control,
-  useWatch,
+  Controller,
   UseFormSetValue,
   UseFormTrigger,
-} from "react-hook-form";
+  useFieldArray,
+  useFormContext,
+  useWatch,
+} from 'react-hook-form';
 import {
-  TextInput,
-  FormInputBox,
-  Stack,
+  Alert,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import MinusIcon from 'react-native-heroicons/solid/MinusIcon';
+import PlusIcon from 'react-native-heroicons/solid/PlusIcon';
+
+import {
   Button,
   CheckIcon,
-} from "app/components/blocks";
-import { ResumeFormSectionTitle } from "app/components/pages/resume";
-import { convertToFormatDate } from "app/utils/date";
-import MinusIcon from "react-native-heroicons/solid/MinusIcon";
-import PlusIcon from "react-native-heroicons/solid/PlusIcon";
-import { customColors } from "app/constants/styles/Colors";
-import useModals from "app/hooks/useModals";
-import { MODAL_TYPES } from "app/components/pages/global/Modals/Modals";
-
-import type { FormDataType, CareerInfoType } from "app/types/Resume";
+  FormInputBox,
+  Stack,
+  TextInput,
+} from 'app/components/blocks';
+import { MODAL_TYPES } from 'app/components/pages/global/Modals/Modals';
+import { ResumeFormSectionTitle } from 'app/components/pages/resume';
+import { customColors } from 'app/constants/styles/Colors';
+import useModals from 'app/hooks/useModals';
+import type { CareerInfoType, FormDataType } from 'app/types/Resume';
+import { convertToFormatDate } from 'app/utils/date';
 
 const DEFAULT_CAREER_INPUT_DATA: CareerInfoType = {
-  company: "",
-  task: "",
-  joinDate: "",
-  resignDate: "",
+  company: '',
+  task: '',
+  joinDate: '',
+  resignDate: '',
   isResigned: false,
 };
 
@@ -97,7 +97,7 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
                 <TextInput
                   focusable
                   value={field.value}
-                  onChangeText={(value) => {
+                  onChangeText={value => {
                     field.onChange(convertToFormatDate(value));
                     trigger(`career.${index}.resignDate`);
                   }}
@@ -124,8 +124,8 @@ const CareerFormInput: React.FC<CareerFormInputProps> = ({
                   <TextInput
                     focusable
                     editable={!watchedIsResigned}
-                    value={field.value || ""}
-                    onChangeText={(value) => {
+                    value={field.value || ''}
+                    onChangeText={value => {
                       field.onChange(convertToFormatDate(value));
                       trigger(`career.${index}.joinDate`);
                     }}
@@ -177,7 +177,7 @@ const CareerFormSection: React.FC = () => {
   } = useFormContext<FormDataType>();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "career",
+    name: 'career',
   });
 
   const { openModal, closeModal } = useModals();
@@ -187,9 +187,9 @@ const CareerFormSection: React.FC = () => {
   const handleAddCareerFormInput = () => append(DEFAULT_CAREER_INPUT_DATA);
 
   const createRemoveCareerFormInputAlert = (index: number) => {
-    if (Platform.OS === "web") {
+    if (Platform.OS === 'web') {
       return openModal(MODAL_TYPES.confirm, {
-        title: "선택한 경력 삭제",
+        title: '선택한 경력 삭제',
         description: `작성된 내용은 저장되지 않아요.\n선택한 경력정보를 삭제하시겠어요?`,
         ActionComponent: () => (
           <Stack styles="justify-center" columnGap={8}>
@@ -215,14 +215,14 @@ const CareerFormSection: React.FC = () => {
       });
     }
     return Alert.alert(
-      "선택한 경력 삭제",
-      "작성된 내용은 저장되지 않아요.\n선택한 경력정보를 삭제하시겠어요?",
+      '선택한 경력 삭제',
+      '작성된 내용은 저장되지 않아요.\n선택한 경력정보를 삭제하시겠어요?',
       [
         {
-          text: "취소",
-          style: "cancel",
+          text: '취소',
+          style: 'cancel',
         },
-        { text: "삭제", onPress: () => handleRemoveCareerFormInput(index) },
+        { text: '삭제', onPress: () => handleRemoveCareerFormInput(index) },
       ]
     );
   };

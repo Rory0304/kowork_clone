@@ -1,22 +1,23 @@
-import React from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
-import { VisaCode, VisaStatus } from "app/constants/VisaDetail";
-import Stack from "app/components/blocks/Stack/Stack";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useMutation, useQuery } from "@apollo/client";
+import React from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import ChevronDownIcon from 'react-native-heroicons/solid/ChevronDownIcon';
+import ChevronUpIcon from 'react-native-heroicons/solid/ChevronUpIcon';
+import EllipsisVerticalIcon from 'react-native-heroicons/solid/EllipsisVerticalIcon';
+
+import { useMutation, useQuery } from '@apollo/client';
+import { useActionSheet } from '@expo/react-native-action-sheet';
+import { useNavigation } from '@react-navigation/native';
+
+import Stack from 'app/components/blocks/Stack/Stack';
+import { VisaCode, VisaStatus } from 'app/constants/VisaDetail';
+import { useAuth } from 'app/contexts/AuthProvider';
 import {
   DeleteVisaHistoryDocument,
   DeleteVisaHistoryMutation,
   GetVisaHistoryDocument,
   GetVisaHistoryQuery,
-} from "app/graphql/generated";
-import { useAuth } from "app/contexts/AuthProvider";
-
-import EllipsisVerticalIcon from "react-native-heroicons/solid/EllipsisVerticalIcon";
-import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
-import ChevronUpIcon from "react-native-heroicons/solid/ChevronUpIcon";
+} from 'app/graphql/generated';
+import navigate from 'app/utils/navigationHelper';
 
 interface MyVisaHistorySectionProps {
   name: string;
@@ -48,19 +49,19 @@ const MyVisaHistorySection: React.FC<MyVisaHistorySectionProps> = ({
 
   const currentVisaStatus = currentVisaHistory
     ? VisaStatus[currentVisaHistory.visaStatus as VisaCode]
-    : "비자 없음";
+    : '비자 없음';
 
   const visaHistory = [
     {
-      title: "체류자격 / Status",
+      title: '체류자격 / Status',
       data: currentVisaStatus,
     },
     {
-      title: "발급일 / Issue Date",
+      title: '발급일 / Issue Date',
       data: currentVisaHistory?.visaIssueDate,
     },
     {
-      title: "입국만료일 / Final Entry Date",
+      title: '입국만료일 / Final Entry Date',
       data: currentVisaHistory?.visaFinalEntryDate,
     },
   ];
@@ -70,7 +71,7 @@ const MyVisaHistorySection: React.FC<MyVisaHistorySectionProps> = ({
       variables: {
         id: idList,
       },
-    }).then((res) => {
+    }).then(res => {
       if (res.data) {
         refetch();
       }
@@ -78,7 +79,7 @@ const MyVisaHistorySection: React.FC<MyVisaHistorySectionProps> = ({
   };
 
   const handleMenuButtonClick = React.useCallback(() => {
-    const options = ["새로운 비자 등록", "수정하기", "삭제하기", "취소"];
+    const options = ['새로운 비자 등록', '수정하기', '삭제하기', '취소'];
     const destructiveButtonIndex = 2;
     const cancelButtonIndex = 3;
 
@@ -130,7 +131,7 @@ const MyVisaHistorySection: React.FC<MyVisaHistorySectionProps> = ({
           </TouchableOpacity>
         </Stack>
       </View>
-      <View className={`${isHistoryClosed ? "hidden" : "block"}`}>
+      <View className={`${isHistoryClosed ? 'hidden' : 'block'}`}>
         {currentVisaHistory ? (
           <FlatList
             scrollEnabled={false}
@@ -164,9 +165,7 @@ const MyVisaHistorySection: React.FC<MyVisaHistorySectionProps> = ({
           </Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => setIsHistoryClosed((current) => !current)}
-      >
+      <TouchableOpacity onPress={() => setIsHistoryClosed(current => !current)}>
         <View className="flex flex-row justify-center w-full p-3">
           {isHistoryClosed ? (
             <ChevronDownIcon width={24} height={24} />

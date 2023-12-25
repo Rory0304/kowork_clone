@@ -1,11 +1,10 @@
-import client from "../graphql/client";
-import { getFetchPolicy } from "../utils/getFetchPolicy";
-
+import client from '../graphql/client';
 import {
   GetNoticesDocument,
   GetNoticesQuery,
   GetNoticesQueryVariables,
-} from "../graphql/generated";
+} from '../graphql/generated';
+import { getFetchPolicy } from '../utils/getFetchPolicy';
 
 interface getNoticesParams {
   cursor: string;
@@ -25,7 +24,7 @@ export const getNotices = async ({ cursor, limit }: getNoticesParams) => {
     fetchPolicy: getFetchPolicy(),
   });
 
-  const notices = data.noticeCollection?.edges.map((item) => item.node) ?? [];
+  const notices = data.noticeCollection?.edges.map(item => item.node) ?? [];
   const noticesPageInfo = data.noticeCollection?.pageInfo;
 
   return { notices, noticesPageInfo };

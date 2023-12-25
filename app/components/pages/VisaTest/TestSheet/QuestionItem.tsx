@@ -1,10 +1,11 @@
-import React from "react";
-import { View, Text } from "react-native";
-import Stack from "app/components/blocks/Stack/Stack";
+import React from 'react';
+import { Text, View } from 'react-native';
 
-import type { Item } from "app/types/VisaTestSheet";
-import _sum from "lodash/sum";
-import TestSheetOption from "app/components/pages/VisaTest/TestSheet/TestSheetOption";
+import _sum from 'lodash/sum';
+
+import Stack from 'app/components/blocks/Stack/Stack';
+import TestSheetOption from 'app/components/pages/VisaTest/TestSheet/TestSheetOption';
+import type { Item } from 'app/types/VisaTestSheet';
 
 interface QuestionItemProps extends Item {
   index: number;
@@ -20,8 +21,8 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
   subItems,
   isMulti,
   limit,
-  layout = "vertical",
-  optionVariant = "default",
+  layout = 'vertical',
+  optionVariant = 'default',
   onOptionClickCallback,
 }) => {
   const [activeOption, setOption] = React.useState(
@@ -31,7 +32,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
   const [total, setTotal] = React.useState(0);
 
   React.useEffect(() => {
-    if (typeof onOptionClickCallback === "function") {
+    if (typeof onOptionClickCallback === 'function') {
       onOptionClickCallback(name, total);
     }
   }, [total]);
@@ -44,7 +45,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
     const newActiveOption = activeOption
       .slice()
       .map((item, index) =>
-        index === itemIndex ? item.filter((i) => i !== 0) : item
+        index === itemIndex ? item.filter(i => i !== 0) : item
       );
 
     if (isMulti) {
@@ -57,7 +58,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
 
       if (newActiveOption[itemIndex].includes(selectedOption)) {
         newActiveOption[itemIndex] = newActiveOption[itemIndex].filter(
-          (item) => item !== selectedOption
+          item => item !== selectedOption
         );
 
         if (newActiveOption[itemIndex].length === 0) {
@@ -65,13 +66,13 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
         }
 
         setOption(newActiveOption);
-        setTotal((current) => current - score);
+        setTotal(current => current - score);
         return;
       }
 
       newActiveOption[itemIndex].push(selectedOption);
       setOption(newActiveOption);
-      setTotal((current) =>
+      setTotal(current =>
         limit ? Math.min(current + score, limit) : current + score
       );
       return;
@@ -112,8 +113,8 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
         ) : null}
       </View>
       <Stack
-        direction={layout === "vertical" ? "column" : "row"}
-        styles={layout === "vertical" ? "" : "flex-wrap"}
+        direction={layout === 'vertical' ? 'column' : 'row'}
+        styles={layout === 'vertical' ? '' : 'flex-wrap'}
         rowGap={8}
         columnGap={10}
       >
@@ -133,7 +134,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
               <Text className="text-xs text-neutral-500">{description}</Text>
             </Stack>
             <Stack
-              direction={layout === "vertical" ? "column" : "row"}
+              direction={layout === 'vertical' ? 'column' : 'row'}
               styles="flex-wrap"
               rowGap={10}
               columnGap={10}

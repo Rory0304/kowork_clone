@@ -1,24 +1,26 @@
-import React from "react";
+import React from 'react';
 import {
-  ScrollView,
-  View,
-  Text,
   FlatList,
+  ScrollView,
+  Text,
   TouchableOpacity,
-} from "react-native";
-import { CheckIcon, Stack } from "app/components/blocks";
-import TrashIcon from "react-native-heroicons/solid/TrashIcon";
-import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
-import { VisaCode, VisaStatus } from "app/constants/VisaDetail";
-import { useQuery, useMutation } from "@apollo/client";
+  View,
+} from 'react-native';
+import ChevronDownIcon from 'react-native-heroicons/solid/ChevronDownIcon';
+import TrashIcon from 'react-native-heroicons/solid/TrashIcon';
+
+import { useMutation, useQuery } from '@apollo/client';
+import { useActionSheet } from '@expo/react-native-action-sheet';
+
+import { CheckIcon, Stack } from 'app/components/blocks';
+import { VisaCode, VisaStatus } from 'app/constants/VisaDetail';
+import { useAuth } from 'app/contexts/AuthProvider';
 import {
-  GetVisaHistoryDocument,
-  GetVisaHistoryQuery,
   DeleteVisaHistoryDocument,
   DeleteVisaHistoryMutation,
-} from "app/graphql/generated";
-import { useAuth } from "app/contexts/AuthProvider";
-import { useActionSheet } from "@expo/react-native-action-sheet";
+  GetVisaHistoryDocument,
+  GetVisaHistoryQuery,
+} from 'app/graphql/generated';
 
 interface MyVisaHistoryListProps {
   visaStatus: VisaCode;
@@ -35,22 +37,22 @@ const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
 
   const configuredInfo = [
     {
-      title: "체류자격 / Status",
+      title: '체류자격 / Status',
       value: VisaStatus[visaStatus],
     },
     {
-      title: "발급일 / Issue Date",
+      title: '발급일 / Issue Date',
       value: visaIssueDate,
     },
     {
-      title: "입국만료일 / Final Entry Date",
+      title: '입국만료일 / Final Entry Date',
       value: visaFinalEntryDate,
     },
   ];
 
   return (
     <View className="mb-4 w-full flex flex-col shrink">
-      <TouchableOpacity onPress={() => setOpen((current) => !current)}>
+      <TouchableOpacity onPress={() => setOpen(current => !current)}>
         <Stack styles="p-4 bg-gray-50 rounded-xl justify-between items-center">
           <Text className="text-sm font-medium text-neutral-400">
             ~{visaFinalEntryDate}
@@ -59,14 +61,14 @@ const MyVisaHistoryItem: React.FC<MyVisaHistoryListProps> = ({
           <ChevronDownIcon />
         </Stack>
       </TouchableOpacity>
-      <View className={`${open ? "block" : "hidden"} px-2`}>
+      <View className={`${open ? 'block' : 'hidden'} px-2`}>
         {configuredInfo.map((item, index) => (
           <Stack
             direction="column"
             styles={
               index === configuredInfo.length - 1
-                ? ""
-                : "border-b border-neutral-200"
+                ? ''
+                : 'border-b border-neutral-200'
             }
           >
             <Text className="my-4 font-semibold text-neutral-400">
@@ -104,7 +106,7 @@ const MyVisaHistory: React.FC = () => {
   const handleItemCheck = React.useCallback(
     (id: number) => {
       const newSelectedItem = selectedItem.includes(id)
-        ? selectedItem.filter((item) => item !== id)
+        ? selectedItem.filter(item => item !== id)
         : [...selectedItem, id];
 
       setSelectedItem(newSelectedItem);
@@ -113,7 +115,7 @@ const MyVisaHistory: React.FC = () => {
   );
 
   const handleItemCheckAll = React.useCallback(() => {
-    setSelectedItem(visaHistory?.map((item) => Number(item.node.id)) || []);
+    setSelectedItem(visaHistory?.map(item => Number(item.node.id)) || []);
   }, [visaHistory]);
 
   const handleVisaHistoryDelete = async (idList: number[]) => {
@@ -121,7 +123,7 @@ const MyVisaHistory: React.FC = () => {
       variables: {
         id: idList,
       },
-    }).then((res) => {
+    }).then(res => {
       if (res.data) {
         refetch();
         setSelectedItem([]);
@@ -132,7 +134,7 @@ const MyVisaHistory: React.FC = () => {
   const handleDeleteButtonClick = React.useCallback(() => {
     if (selectedItem.length === 0) return;
 
-    const options = ["선택 목록 삭제", "취소"];
+    const options = ['선택 목록 삭제', '취소'];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 1;
 
@@ -169,14 +171,14 @@ const MyVisaHistory: React.FC = () => {
           </Text>
           <TouchableOpacity onPress={() => setIsEditShown(!isEditShown)}>
             <Text className="text-sm font-medium text-primary">
-              {isEditShown ? "취소" : "편집"}
+              {isEditShown ? '취소' : '편집'}
             </Text>
           </TouchableOpacity>
         </Stack>
         <Stack
           direction="row"
           styles={`${
-            isEditShown ? "block" : "hidden"
+            isEditShown ? 'block' : 'hidden'
           } px-4 py-3 items-center justify-between`}
         >
           <TouchableOpacity onPress={handleItemCheckAll}>

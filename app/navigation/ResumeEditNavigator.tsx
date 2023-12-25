@@ -1,45 +1,45 @@
-import React from "react";
-import { Alert, Platform } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FormProvider, useForm } from "react-hook-form";
-import { useAuth } from "app/contexts/AuthProvider";
-import { useQuery } from "@apollo/client";
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { Alert, Platform } from 'react-native';
 
-import ResumeEditBasicInfoScreen from "app/screens/Resume/ResumeEditBasicInfoScreen";
-import ResumeEditEduCareerScreen from "app/screens/Resume/ResumeEditEduCareerScreen";
-import ResumeEditLanguageScreen from "app/screens/Resume/ResumeEditLanguageScreen";
-import ResumeEditEtcInfoScreen from "app/screens/Resume/ResumeEditEtcInfoScreen";
+import { useQuery } from '@apollo/client';
+import { useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
-  HeaderBackIcon,
-  Stack,
   Button,
-  OverlaySpinner,
   DefferedLoading,
-} from "app/components/blocks";
-import { NAV_SCREENS } from "../constants/Routes";
-import { DEFAULT_RESUME_FORM_DATA } from "app/constants/Resume";
+  HeaderBackIcon,
+  OverlaySpinner,
+  Stack,
+} from 'app/components/blocks';
+import { MODAL_TYPES } from 'app/components/pages/global/Modals/Modals';
+import { DEFAULT_RESUME_FORM_DATA } from 'app/constants/Resume';
+import { resumeSchemaResolver } from 'app/constants/validation/Resume';
+import { useAuth } from 'app/contexts/AuthProvider';
+import { useSupabaseClient } from 'app/contexts/SupabaseClientProvider';
+import {
+  GetResumeByIdDocument,
+  GetResumeByIdQuery,
+} from 'app/graphql/generated';
+import useModals from 'app/hooks/useModals';
+import ResumeEditBasicInfoScreen from 'app/screens/Resume/ResumeEditBasicInfoScreen';
+import ResumeEditEduCareerScreen from 'app/screens/Resume/ResumeEditEduCareerScreen';
+import ResumeEditEtcInfoScreen from 'app/screens/Resume/ResumeEditEtcInfoScreen';
+import ResumeEditLanguageScreen from 'app/screens/Resume/ResumeEditLanguageScreen';
 import type {
   EtcFormDataType,
   FormDataType,
   LanguageFormDataType,
-} from "app/types/Resume";
-import { useNavigation } from "@react-navigation/native";
-import { resumeSchemaResolver } from "app/constants/validation/Resume";
-import useModals from "app/hooks/useModals";
-import { MODAL_TYPES } from "app/components/pages/global/Modals/Modals";
-
+} from 'app/types/Resume';
+import { SupabaseStorage } from 'app/types/Supabase';
 import {
-  GetResumeByIdDocument,
-  GetResumeByIdQuery,
-} from "app/graphql/generated";
-import {
-  getStoragePrivateUrl,
   GetStoragePrivateUrlProps,
-} from "app/utils/image";
-import { useSupabaseClient } from "app/contexts/SupabaseClientProvider";
-import { SupabaseStorage } from "app/types/Supabase";
-import { supabaseClient } from "app/utils/supabase";
+  getStoragePrivateUrl,
+} from 'app/utils/image';
+import { supabaseClient } from 'app/utils/supabase';
+
+import { NAV_SCREENS } from '../constants/Routes';
 
 const NativeStack = createNativeStackNavigator();
 
@@ -51,7 +51,7 @@ const ResumeEditNavigator: React.FC = () => {
 
   const method = useForm<FormDataType>({
     defaultValues: DEFAULT_RESUME_FORM_DATA,
-    mode: "onChange",
+    mode: 'onChange',
     resolver: resumeSchemaResolver,
   });
 
@@ -84,18 +84,18 @@ const ResumeEditNavigator: React.FC = () => {
             if (!!props.pathname) {
               return await getStoragePrivateUrl(supabaseClient)(props);
             }
-            return "";
+            return '';
           };
 
           const parsedEtcInfo = JSON.parse(
             myResume?.etc
-          ) as EtcFormDataType["etc"];
+          ) as EtcFormDataType['etc'];
           const parsedLanguageInfo = JSON.parse(
             myResume?.language
-          ) as LanguageFormDataType["language"];
+          ) as LanguageFormDataType['language'];
 
           const profileImageUri = await getPrivateUrl({
-            pathname: parsedEtcInfo.profileImage?.uri || "",
+            pathname: parsedEtcInfo.profileImage?.uri || '',
             storageName: SupabaseStorage.resumeProfile,
             transform: {
               width: 103,
@@ -104,7 +104,7 @@ const ResumeEditNavigator: React.FC = () => {
           });
 
           const attatchmentFileUri = await getPrivateUrl({
-            pathname: parsedEtcInfo.attatchmentFile?.uri || "",
+            pathname: parsedEtcInfo.attatchmentFile?.uri || '',
             storageName: SupabaseStorage.resumeFile,
             transform: {
               width: 103,
@@ -141,9 +141,9 @@ const ResumeEditNavigator: React.FC = () => {
 
   const onPressBackHandle = (isDirty: boolean) => {
     if (isDirty) {
-      if (Platform.OS === "web") {
+      if (Platform.OS === 'web') {
         openModal(MODAL_TYPES.confirm, {
-          title: "저장하지 않고 나가시겠어요?",
+          title: '저장하지 않고 나가시겠어요?',
           description: `페이지 이탈 시\n저장하지 않은 정보는 잃게 됩니다.`,
           ActionComponent: () => (
             <Stack styles="justify-center" columnGap={8}>
@@ -169,14 +169,14 @@ const ResumeEditNavigator: React.FC = () => {
         });
       } else {
         Alert.alert(
-          "저장하지 않고 나가시겠어요?",
-          "페이지 이탈 시\n저장하지 않은 정보는 잃게 됩니다.",
+          '저장하지 않고 나가시겠어요?',
+          '페이지 이탈 시\n저장하지 않은 정보는 잃게 됩니다.',
           [
             {
-              text: "취소",
-              style: "cancel",
+              text: '취소',
+              style: 'cancel',
             },
-            { text: "나가기", onPress: () => navigation.goBack() },
+            { text: '나가기', onPress: () => navigation.goBack() },
           ]
         );
       }
@@ -194,8 +194,8 @@ const ResumeEditNavigator: React.FC = () => {
       <NativeStack.Navigator
         initialRouteName={NAV_SCREENS.ResumeEditBasicInfoScreen}
         screenOptions={{
-          headerTitle: "이력서 작성",
-          presentation: "card",
+          headerTitle: '이력서 작성',
+          presentation: 'card',
           headerLeft: () => (
             <HeaderBackIcon
               onPress={() => onPressBackHandle(method.formState.isDirty)}

@@ -1,12 +1,13 @@
-import * as yup from "yup";
+import * as yup from 'yup';
+
 import {
   checkIsValidDate,
+  convertToFormatDateWithComma,
   isDateAfterThreshold,
   isDateBeforeThreshold,
-  convertToFormatDateWithComma,
-} from "app/utils/date";
+} from 'app/utils/date';
 
-declare module "yup" {
+declare module 'yup' {
   interface StringSchema<TType, TContext, TDefault, TFlags> {
     checkIsFullDateFormat(errorMessage: string): this;
     checkIsYearMonthDateFormat(errorMessage: string): this;
@@ -23,12 +24,12 @@ declare module "yup" {
 
 yup.addMethod(
   yup.string,
-  "checkIsYearMonthDateFormat",
+  'checkIsYearMonthDateFormat',
   function (errorMessage) {
     return this.test(`YYYY/MM`, errorMessage, function (value) {
       const { path, createError } = this;
 
-      const formattedDate = value?.replace(/\D/g, "");
+      const formattedDate = value?.replace(/\D/g, '');
 
       const year = Number(formattedDate?.substring(0, 4));
       const month = Number(formattedDate?.substring(4, 6));
@@ -41,11 +42,11 @@ yup.addMethod(
   }
 );
 
-yup.addMethod(yup.string, "checkIsFullDateFormat", function (errorMessage) {
+yup.addMethod(yup.string, 'checkIsFullDateFormat', function (errorMessage) {
   return this.test(`YYYY/MM/DD`, errorMessage, function (value) {
     const { path, createError } = this;
 
-    const formattedDate = value?.replace(/\D/g, "");
+    const formattedDate = value?.replace(/\D/g, '');
 
     const year = Number(formattedDate?.substring(0, 4));
     const month = Number(formattedDate?.substring(4, 6));
@@ -60,10 +61,10 @@ yup.addMethod(yup.string, "checkIsFullDateFormat", function (errorMessage) {
 
 yup.addMethod(
   yup.string,
-  "checkIsDateBeforeThreshold",
+  'checkIsDateBeforeThreshold',
   function (threshold: string, errorMessage: string) {
     return this.test({
-      name: "checkIsDateBeforeThreshold",
+      name: 'checkIsDateBeforeThreshold',
       message: errorMessage,
       params: {
         threshold,
@@ -89,10 +90,10 @@ yup.addMethod(
 
 yup.addMethod(
   yup.string,
-  "checkIsDateAfterThreshold",
+  'checkIsDateAfterThreshold',
   function (threshold: string, errorMessage: string) {
     return this.test({
-      name: "checkIsDateAfterThreshold",
+      name: 'checkIsDateAfterThreshold',
       message: errorMessage,
       params: {
         threshold,

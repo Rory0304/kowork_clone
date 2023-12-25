@@ -1,5 +1,6 @@
-import * as FileSystem from "expo-file-system";
-import { Platform } from "react-native";
+import { Platform } from 'react-native';
+
+import * as FileSystem from 'expo-file-system';
 
 /** Check file size is exceeded
  * @param  fileSize file in bytes
@@ -17,7 +18,7 @@ export const isFileSizeExceeded = (
  * @returns return file size in bytes
  */
 export const getFileSizeFromURI = async (fileURI: string) => {
-  if (Platform.OS === "web") {
+  if (Platform.OS === 'web') {
     const response = await fetch(fileURI);
     const blob = await response.blob();
     const fileSizeInBytes = blob.size;

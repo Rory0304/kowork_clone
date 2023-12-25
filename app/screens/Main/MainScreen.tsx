@@ -1,14 +1,16 @@
-import React from "react";
-import { ScrollView, View } from "react-native";
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+
+import VStack from 'app/components/blocks/Stack/VStack';
+
 import {
-  VisaRecommendSection,
-  VisaTestSection,
-  JobPostListSection,
   ImportantNoticeSection,
+  JobPostListSection,
   MainNoticeBanner,
   SearchJobMainBanner,
-} from "../../components/pages";
-import VStack from "app/components/blocks/Stack/VStack";
+  VisaRecommendSection,
+  VisaTestSection,
+} from '../../components/pages';
 
 const MainScreen: React.FC = () => {
   return (

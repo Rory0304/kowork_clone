@@ -1,9 +1,11 @@
-import React from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import Stack from "app/components/blocks/Stack/Stack";
-import TrashIcon from "react-native-heroicons/solid/TrashIcon";
+import React from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import TrashIcon from 'react-native-heroicons/solid/TrashIcon';
+
+import { useNavigation } from '@react-navigation/native';
+
+import Stack from 'app/components/blocks/Stack/Stack';
+import navigate from 'app/utils/navigationHelper';
 
 const MyApplyListScreen: React.FC = () => {
   const myApplyList = [];
@@ -26,14 +28,14 @@ const MyApplyListScreen: React.FC = () => {
         </Text>
         <TouchableOpacity onPress={() => setIsEditShown(!isEditShown)}>
           <Text className="text-sm font-medium text-neutral-400">
-            {isEditShown ? "취소" : "편집"}
+            {isEditShown ? '취소' : '편집'}
           </Text>
         </TouchableOpacity>
       </Stack>
       <Stack
         direction="row"
         styles={`${
-          isEditShown ? "block" : "hidden"
+          isEditShown ? 'block' : 'hidden'
         } px-4 py-3 items-center justify-between`}
       >
         <TouchableOpacity>

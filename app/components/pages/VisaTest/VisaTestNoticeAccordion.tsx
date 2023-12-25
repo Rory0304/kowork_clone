@@ -1,15 +1,16 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import ChevronDownIcon from 'react-native-heroicons/solid/ChevronDownIcon';
+import ChevronUpIcon from 'react-native-heroicons/solid/ChevronUpIcon';
+import PhoneIcon from 'react-native-heroicons/solid/PhoneIcon';
 import Animated, {
+  interpolate,
+  useAnimatedStyle,
   useSharedValue,
   withTiming,
-  useAnimatedStyle,
-  interpolate,
-} from "react-native-reanimated";
-import ChevronUpIcon from "react-native-heroicons/solid/ChevronUpIcon";
-import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
-import PhoneIcon from "react-native-heroicons/solid/PhoneIcon";
-import Stack from "app/components/blocks/Stack/Stack";
+} from 'react-native-reanimated';
+
+import Stack from 'app/components/blocks/Stack/Stack';
 
 const VisaTesetNoticeAccordion: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(true);
@@ -46,7 +47,7 @@ const VisaTesetNoticeAccordion: React.FC = () => {
 
   return (
     <View className="px-3 py-2 mb-2 transition-all bg-gray-100 border rounded border-neutral-500">
-      <View className={`${isOpen ? "border-b pb-2" : ""} border-neutral-300`}>
+      <View className={`${isOpen ? 'border-b pb-2' : ''} border-neutral-300`}>
         <TouchableOpacity onPress={toggleOpen}>
           <Stack styles="justify-between items-center">
             <Text className="text-sm">
@@ -60,10 +61,10 @@ const VisaTesetNoticeAccordion: React.FC = () => {
           </Stack>
         </TouchableOpacity>
       </View>
-      <Animated.View style={[{ overflow: "hidden" }, animatedHeight]}>
+      <Animated.View style={[{ overflow: 'hidden' }, animatedHeight]}>
         <View
           className="absolute"
-          onLayout={(event) => {
+          onLayout={event => {
             contentBodyHeight.value = event.nativeEvent.layout.height;
           }}
         >

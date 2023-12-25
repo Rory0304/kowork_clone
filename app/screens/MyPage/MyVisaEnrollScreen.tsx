@@ -1,32 +1,34 @@
-import React from "react";
-import { useRoute, RouteProp } from "@react-navigation/native";
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
-  TextInput,
-  View,
+  FlatList,
   ScrollView,
   Text,
-  FlatList,
+  TextInput,
   TouchableOpacity,
-} from "react-native";
-import { VisaStatus, VisaCode } from "app/constants/VisaDetail";
-import { Controller, useForm } from "react-hook-form";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { BottomSheet } from "app/components/blocks";
-import { gray } from "tailwindcss/colors";
-import {
-  convertToFormatDate,
-  convertToFormatDateWithComma,
-} from "app/utils/date";
-import { useAuth } from "app/contexts/AuthProvider";
-import { useNavigation } from "@react-navigation/native";
+  View,
+} from 'react-native';
+
+import { useMutation } from '@apollo/client';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { gray } from 'tailwindcss/colors';
+
+import { BottomSheet } from 'app/components/blocks';
+import { VisaCode, VisaStatus } from 'app/constants/VisaDetail';
+import { visaEnrollSchemaResolver } from 'app/constants/validation/VisaEnroll';
+import { useAuth } from 'app/contexts/AuthProvider';
 import {
   InsertVisaEnrolLHistoryDocument,
   InsertVisaEnrolLHistoryMutation,
-} from "app/graphql/generated";
-import { useMutation } from "@apollo/client";
-import { visaEnrollSchemaResolver } from "app/constants/validation/VisaEnroll";
-import navigate from "app/utils/navigationHelper";
-import type { VisaHistoryType } from "app/types/VisaHistory";
+} from 'app/graphql/generated';
+import type { VisaHistoryType } from 'app/types/VisaHistory';
+import {
+  convertToFormatDate,
+  convertToFormatDateWithComma,
+} from 'app/utils/date';
+import navigate from 'app/utils/navigationHelper';
 
 interface MyVisaEnrollState {
   visaStatus: VisaCode;
@@ -48,7 +50,7 @@ const MyVisaEnrollScreen: React.FC = () => {
 
   const {
     params: { visaHistory },
-  } = useRoute<RouteProp<VisaHistoryParamList, "params">>();
+  } = useRoute<RouteProp<VisaHistoryParamList, 'params'>>();
 
   // Bottom Sheet
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
@@ -61,7 +63,7 @@ const MyVisaEnrollScreen: React.FC = () => {
     setValue,
     formState: { isValid },
   } = useForm<MyVisaEnrollState>({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
       ...(visaHistory && {
         visaStatus: visaHistory.visaStatus as VisaCode,
@@ -78,7 +80,7 @@ const MyVisaEnrollScreen: React.FC = () => {
       InsertVisaEnrolLHistoryDocument
     );
 
-  const watchedVisaStatus = watch("visaStatus");
+  const watchedVisaStatus = watch('visaStatus');
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -89,14 +91,14 @@ const MyVisaEnrollScreen: React.FC = () => {
             handleVisaHistorySave({
               userId: userInfo?.id,
               visaStatus: watchedVisaStatus,
-              visaIssueDate: watch("visaFinalEntryDate"),
-              visaFinalEntryDate: watch("visaIssueDate"),
+              visaIssueDate: watch('visaFinalEntryDate'),
+              visaFinalEntryDate: watch('visaIssueDate'),
             })
           }
         >
           <Text
             className={`m-4 font-bold text-base ${
-              isValid ? "text-primary" : "text-secondary"
+              isValid ? 'text-primary' : 'text-secondary'
             }`}
           >
             저장
@@ -130,7 +132,7 @@ const MyVisaEnrollScreen: React.FC = () => {
           visaFinalEntryDate: convertedVisaFinalEntryDate,
           visaIssueDate: convertedVisaIssueDate,
         },
-      }).then((res) => {
+      }).then(res => {
         if (res.data && !res.errors) {
           return navigator.openMyPageScreen();
         }
@@ -148,12 +150,12 @@ const MyVisaEnrollScreen: React.FC = () => {
           <View className="p-4 bg-gray-200 border border-gray-300 rounded-xl">
             <Text
               className={`text-base font-medium ${
-                watchedVisaStatus ? "" : "text-gray-400"
+                watchedVisaStatus ? '' : 'text-gray-400'
               }`}
             >
               {watchedVisaStatus
                 ? VisaStatus[watchedVisaStatus]
-                : "체류자격 입력하기"}
+                : '체류자격 입력하기'}
             </Text>
           </View>
         </TouchableOpacity>
@@ -170,10 +172,10 @@ const MyVisaEnrollScreen: React.FC = () => {
               <TextInput
                 {...field}
                 className={`p-4 font-medium bg-gray-200 border border-gray-300 rounded-xl ${
-                  error ? "border-red-500" : "focus:border-primary"
+                  error ? 'border-red-500' : 'focus:border-primary'
                 }`}
                 placeholderTextColor={gray[400]}
-                onChangeText={(value) =>
+                onChangeText={value =>
                   field.onChange(convertToFormatDate(value))
                 }
                 placeholder="YYYY / MM / DD"
@@ -200,10 +202,10 @@ const MyVisaEnrollScreen: React.FC = () => {
               <TextInput
                 {...field}
                 className={`p-4 font-medium bg-gray-200 border border-gray-300 rounded-xl ${
-                  error ? "border-red-500" : "focus:border-primary"
+                  error ? 'border-red-500' : 'focus:border-primary'
                 }`}
                 placeholderTextColor={gray[400]}
-                onChangeText={(value) =>
+                onChangeText={value =>
                   field.onChange(convertToFormatDate(value))
                 }
                 placeholder="YYYY / MM / DD"
@@ -221,7 +223,7 @@ const MyVisaEnrollScreen: React.FC = () => {
       <BottomSheet
         closeBtn
         ref={bottomSheetRef}
-        snapPoints={["80%"]}
+        snapPoints={['80%']}
         headerTitle=""
         onClose={handleBottomSheetClose}
       >
@@ -229,14 +231,14 @@ const MyVisaEnrollScreen: React.FC = () => {
           className="p-4 py-6"
           data={
             Object.keys(VisaStatus).filter(
-              (item) => item !== VisaCode.NA
+              item => item !== VisaCode.NA
             ) as unknown as Array<keyof typeof VisaStatus>
           }
           renderItem={({ item }) => (
             <TouchableOpacity
               className="my-3"
               onPress={() => {
-                setValue("visaStatus", item, { shouldDirty: true });
+                setValue('visaStatus', item, { shouldDirty: true });
                 bottomSheetRef.current?.close();
               }}
             >

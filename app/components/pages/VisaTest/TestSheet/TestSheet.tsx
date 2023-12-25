@@ -1,7 +1,9 @@
-import React from "react";
-import { ScrollView, View, Text } from "react-native";
-import Stack from "app/components/blocks/Stack/Stack";
-import _sum from "lodash/sum";
+import React from 'react';
+import { ScrollView, Text, View } from 'react-native';
+
+import _sum from 'lodash/sum';
+
+import Stack from 'app/components/blocks/Stack/Stack';
 
 interface TestSheetProps {
   title?: string;

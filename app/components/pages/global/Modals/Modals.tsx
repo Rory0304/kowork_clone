@@ -1,7 +1,8 @@
-import React from "react";
-import useModals from "app/hooks/useModals";
+import React from 'react';
 
-import ConfirmModal from "./ConfirmModal";
+import useModals from 'app/hooks/useModals';
+
+import ConfirmModal from './ConfirmModal';
 
 export const MODAL_TYPES = {
   confirm: ConfirmModal,

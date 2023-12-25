@@ -1,5 +1,5 @@
-import React from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 interface CheckBoxProps {
   label: string;
@@ -18,12 +18,12 @@ const CheckBox: React.FC<CheckBoxProps> = ({
     <TouchableOpacity onPress={onPress} className={className}>
       <View
         className={`border rounded-lg py-2 px-1 ${
-          active ? "border-primary" : "border-neutral-400"
+          active ? 'border-primary' : 'border-neutral-400'
         }`}
       >
         <Text
           className={`text-md font-bold text-center ${
-            active ? "text-primary" : "text-neutral-400"
+            active ? 'text-primary' : 'text-neutral-400'
           }`}
         >
           {label}

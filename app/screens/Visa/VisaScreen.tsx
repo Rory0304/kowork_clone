@@ -1,14 +1,16 @@
-import React from "react";
-import { ScrollView } from "react-native";
+import React from 'react';
+import { ScrollView } from 'react-native';
+
+import VStack from 'app/components/blocks/Stack/VStack';
+import { contentLayoutStyle } from 'app/constants/styles/Global';
+
 import {
   VisaAdBanner,
   VisaDetailBanner,
-  VisaRecommendSection,
   VisaPlanSection,
+  VisaRecommendSection,
   VisaTestSection,
-} from "../../components/pages/visa";
-import VStack from "app/components/blocks/Stack/VStack";
-import { contentLayoutStyle } from "app/constants/styles/Global";
+} from '../../components/pages/visa';
 
 const VisaScreen: React.FC = () => {
   return (

@@ -1,32 +1,34 @@
-import React from "react";
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Portal, Snackbar } from 'react-native-paper';
+
+import { useNavigation } from '@react-navigation/native';
+import { AuthTokenResponse } from '@supabase/supabase-js';
+import * as Linking from 'expo-linking';
+
+import { getProfileByUserId } from 'app/api/profile';
 import {
-  FormInputBox,
-  TextInput,
   Button,
+  FormInputBox,
   OverlaySpinner,
-} from "app/components/blocks";
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import { supabaseClient } from "app/utils/supabase";
-import { useForm, Controller } from "react-hook-form";
-import { getProfileByUserId } from "app/api/profile";
-import { Snackbar, Portal } from "react-native-paper";
-import { authSchemaResolver } from "app/constants/validation/User";
-import { AuthTokenResponse } from "@supabase/supabase-js";
-import { useAuth } from "app/contexts/AuthProvider";
-import * as Linking from "expo-linking";
+  TextInput,
+} from 'app/components/blocks';
+import { authSchemaResolver } from 'app/constants/validation/User';
+import { useAuth } from 'app/contexts/AuthProvider';
+import navigate from 'app/utils/navigationHelper';
+import { supabaseClient } from 'app/utils/supabase';
 
 enum SupabaseAuthErrorMessageType {
-  InvalidLoginCredentials = "Invalid login credentials",
-  EmailNotConfirmed = "Email not confirmed",
+  InvalidLoginCredentials = 'Invalid login credentials',
+  EmailNotConfirmed = 'Email not confirmed',
 }
 
 const EmailSignInScreen: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
   const [snackBarInfo, setSnackbarInfo] = React.useState<{
     message: string;
-    variant: "error" | "success";
+    variant: 'error' | 'success';
   } | null>(null);
 
   const {
@@ -35,16 +37,16 @@ const EmailSignInScreen: React.FC = () => {
     formState: { isValid },
   } = useForm<{ email: string; password: string }>({
     resolver: authSchemaResolver,
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   const navigation = useNavigation();
   const navigator = navigate(navigation);
 
-  const watchedEmail = watch("email");
-  const watchedPassword = watch("password");
+  const watchedEmail = watch('email');
+  const watchedPassword = watch('password');
 
-  const prefix = Linking.createURL("/");
+  const prefix = Linking.createURL('/');
 
   const { signUp } = useAuth();
 
@@ -60,13 +62,13 @@ const EmailSignInScreen: React.FC = () => {
 
   const handleSignUp = async (email: string, password: string) => {
     try {
-      if (typeof signUp === "function") {
-        await signUp(email, password, prefix).then((res) => {
+      if (typeof signUp === 'function') {
+        await signUp(email, password, prefix).then(res => {
           if (res.data) {
             return navigator.openEmailCheckScreen({ email });
           }
           if (res.error) {
-            throw new Error("fail to singup");
+            throw new Error('fail to singup');
           }
         });
       }
@@ -112,11 +114,11 @@ const EmailSignInScreen: React.FC = () => {
           email,
           password,
         })
-        .then(async (res) => resolveAuthTokenResponse(email, password, res));
+        .then(async res => resolveAuthTokenResponse(email, password, res));
     } catch (err) {
       setSnackbarInfo({
-        message: "해당되는 계정이 없어요",
-        variant: "error",
+        message: '해당되는 계정이 없어요',
+        variant: 'error',
       });
     } finally {
       setLoading(false);
@@ -135,7 +137,7 @@ const EmailSignInScreen: React.FC = () => {
               <>
                 <TextInput
                   {...field}
-                  onChange={(e) => field.onChange(e.nativeEvent.text)}
+                  onChange={e => field.onChange(e.nativeEvent.text)}
                   placeholder="이메일을 입력해주세요"
                   error={Boolean(error?.message)}
                 />
@@ -159,7 +161,7 @@ const EmailSignInScreen: React.FC = () => {
               <>
                 <TextInput
                   {...field}
-                  onChange={(e) => field.onChange(e.nativeEvent.text)}
+                  onChange={e => field.onChange(e.nativeEvent.text)}
                   secureTextEntry={true}
                   placeholder="비밀번호를 입력해주세요"
                   error={Boolean(error?.message)}

@@ -1,10 +1,11 @@
-import React from "react";
-import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
+import React from 'react';
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
-import { Stack } from "app/components/blocks";
-import LogoIcon from "assets/images/logo.svg";
+import { useNavigation } from '@react-navigation/native';
+import LogoIcon from 'assets/images/logo.svg';
+
+import { Stack } from 'app/components/blocks';
+import navigate from 'app/utils/navigationHelper';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -13,12 +14,12 @@ const HomeScreen: React.FC = () => {
   return (
     <View className="relative flex justify-between flex-1 border-red-100 brder">
       <ImageBackground
-        source={require("../../../assets/images/home-background.jpg")}
+        source={require('../../../assets/images/home-background.jpg')}
         resizeMode="cover"
         style={{
-          justifyContent: "center",
-          width: "100%",
-          height: "100%",
+          justifyContent: 'center',
+          width: '100%',
+          height: '100%',
         }}
       >
         <Stack direction="column" styles="justify-center px-4 h-full">
@@ -33,7 +34,7 @@ const HomeScreen: React.FC = () => {
               <LogoIcon width={175} height={25} color="#fff" />
             </View>
             <Text className="text-2xl text-center text-white">
-              {"Korean-based Recruitment \n& Visa Consulting"}
+              {'Korean-based Recruitment \n& Visa Consulting'}
             </Text>
           </Stack>
           <Stack direction="column" styles="basis-1/4 ">

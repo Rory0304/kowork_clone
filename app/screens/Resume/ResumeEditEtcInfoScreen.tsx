@@ -1,34 +1,36 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
+import React from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { ScrollView, View } from 'react-native';
+
+import { useMutation } from '@apollo/client';
+import { useNavigation } from '@react-navigation/native';
+import { v4 as uuidV4 } from 'uuid';
+
+import { Button, OverlaySpinner, Stack } from 'app/components/blocks';
 import {
   ProgressStep,
   ResumeFormWrapperTitle,
-} from "app/components/pages/resume";
-import { Button, Stack, OverlaySpinner } from "app/components/blocks";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import { useFormContext, useWatch } from "react-hook-form";
-import { FormDataType } from "app/types/Resume";
+} from 'app/components/pages/resume';
 import {
   AttachmentFileFormSection,
-  ProfileImageFormSection,
   PortfolioLinkFormSection,
-} from "app/components/pages/resume";
-import { useMutation } from "@apollo/client";
+  ProfileImageFormSection,
+} from 'app/components/pages/resume';
+import { useAuth } from 'app/contexts/AuthProvider';
+import { useSupabaseClient } from 'app/contexts/SupabaseClientProvider';
 import {
   UpdateResumeByIdDocument,
   UpdateResumeByIdMutation,
   UpdateResumeByIdMutationVariables,
-} from "app/graphql/generated";
-import { useSupabaseClient } from "app/contexts/SupabaseClientProvider";
-import { uploadImage } from "app/utils/image";
-import { uploadDocument } from "app/utils/document";
-import { APIStatus } from "app/types/ApiStatus";
-import useSnackbars from "app/hooks/useSnackbars";
-import { getErrorMessage } from "app/utils/error";
-import { v4 as uuidV4 } from "uuid";
-import { SupabaseStorage } from "app/types/Supabase";
-import { useAuth } from "app/contexts/AuthProvider";
+} from 'app/graphql/generated';
+import useSnackbars from 'app/hooks/useSnackbars';
+import { APIStatus } from 'app/types/ApiStatus';
+import { FormDataType } from 'app/types/Resume';
+import { SupabaseStorage } from 'app/types/Supabase';
+import { uploadDocument } from 'app/utils/document';
+import { getErrorMessage } from 'app/utils/error';
+import { uploadImage } from 'app/utils/image';
+import navigate from 'app/utils/navigationHelper';
 
 const ResumeEditEtcInfoScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -38,7 +40,7 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
   const { enqueueSnackbar } = useSnackbars();
   const { supbaseClient } = useSupabaseClient();
 
-  const [apiStatus, setApiStatus] = React.useState<APIStatus>("idle");
+  const [apiStatus, setApiStatus] = React.useState<APIStatus>('idle');
 
   const {
     control,
@@ -46,7 +48,7 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
     formState: { isValid },
   } = useFormContext<FormDataType>();
 
-  const profileName = useWatch({ control, name: "name" });
+  const profileName = useWatch({ control, name: 'name' });
 
   const [updateResume] = useMutation<UpdateResumeByIdMutation>(
     UpdateResumeByIdDocument
@@ -61,7 +63,7 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
   }) => {
     if (userId && supbaseClient) {
       try {
-        setApiStatus("pending");
+        setApiStatus('pending');
 
         const attatchmentFilePath = resumeData.etc.attatchmentFile?.file
           ? await uploadDocument(supbaseClient)({
@@ -101,28 +103,28 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
 
         await updateResume({
           variables: configuredResumeData,
-        }).then((res) => {
+        }).then(res => {
           if (res.data) {
-            setApiStatus("resolved");
+            setApiStatus('resolved');
             enqueueSnackbar({
-              message: "성공적으로 이력서를 저장했습니다.",
-              variant: "success",
+              message: '성공적으로 이력서를 저장했습니다.',
+              variant: 'success',
               duration: 500,
             });
             navigator.openMyPageScreen();
           } else {
-            throw new Error("이력서 저장에 실패했습니다. 다시 시도해주세요");
+            throw new Error('이력서 저장에 실패했습니다. 다시 시도해주세요');
           }
         });
       } catch (error) {
-        setApiStatus("rejected");
+        setApiStatus('rejected');
         enqueueSnackbar({
           message: getErrorMessage(error),
-          variant: "error",
+          variant: 'error',
           duration: 500,
         });
       } finally {
-        setApiStatus("idle");
+        setApiStatus('idle');
       }
     }
   };
@@ -152,7 +154,7 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
           }
         />
       </Stack>
-      {apiStatus === "pending" ? <OverlaySpinner /> : null}
+      {apiStatus === 'pending' ? <OverlaySpinner /> : null}
     </ScrollView>
   );
 };

@@ -1,9 +1,9 @@
-import { Profile, ResidenceType, GenderType } from "../graphql/generated";
+import { GenderType, Profile, ResidenceType } from '../graphql/generated';
 
 export interface ProfileType
   extends Pick<
     Profile,
-    "country" | "gender" | "name" | "residence" | "birthDate" | "userType"
+    'country' | 'gender' | 'name' | 'residence' | 'birthDate' | 'userType'
   > {}
 
 export interface BasicProfileInfoFormType extends ProfileType {

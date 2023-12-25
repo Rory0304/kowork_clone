@@ -1,12 +1,16 @@
-import { gql } from "@apollo/client";
-import { FRAGMENT_JOB_POST_LIST_ITEM, FRAGMENT_JOB_POST_ITEM } from "../fragment/jobPost";
+import { gql } from '@apollo/client';
+
+import {
+  FRAGMENT_JOB_POST_ITEM,
+  FRAGMENT_JOB_POST_LIST_ITEM,
+} from '../fragment/jobPost';
 
 export const GET_JOB_POST_BY_ID = gql`
   query GetJobPost($uuid: UUID) {
     jobPostCollection(filter: { uuid: { eq: $uuid } }) {
       edges {
         node {
-         ...JobPostItemFields
+          ...JobPostItemFields
         }
       }
     }
@@ -45,7 +49,6 @@ export const GET_JOB_POST_BY_FILTER = gql`
   ${FRAGMENT_JOB_POST_LIST_ITEM}
 `;
 
-
 export const GET_HIGHLIGHTED_JOB_POST = gql`
   query GetHighlightedJobPost($first: Int, $after: Cursor) {
     jobPostCollection(
@@ -67,5 +70,3 @@ export const GET_HIGHLIGHTED_JOB_POST = gql`
 
   ${FRAGMENT_JOB_POST_LIST_ITEM}
 `;
-
-

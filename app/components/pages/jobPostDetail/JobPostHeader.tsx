@@ -1,24 +1,26 @@
-import React from "react";
-import { View, Text } from "react-native";
-import type { JobPostType } from "app/types/JobPost";
-import Stack from "app/components/blocks/Stack/Stack";
-import ClockIcon from "react-native-heroicons/solid/ClockIcon";
-import BuildingOfficeIcon from "react-native-heroicons/solid/BuildingOfficeIcon";
-import CreditCardIcon from "react-native-heroicons/solid/CreditCardIcon";
-import MapPinIcon from "react-native-heroicons/solid/MapPinIcon";
-import { customColors } from "app/constants/styles/Colors";
+import React from 'react';
+import { Text, View } from 'react-native';
+import BuildingOfficeIcon from 'react-native-heroicons/solid/BuildingOfficeIcon';
+import ClockIcon from 'react-native-heroicons/solid/ClockIcon';
+import CreditCardIcon from 'react-native-heroicons/solid/CreditCardIcon';
+import MapPinIcon from 'react-native-heroicons/solid/MapPinIcon';
+
+import Stack from 'app/components/blocks/Stack/Stack';
+import { customColors } from 'app/constants/styles/Colors';
+import type { JobPostType } from 'app/types/JobPost';
+
 interface JobPostHeaderInfoProps
   extends Pick<
     JobPostType,
-    | "id"
-    | "title"
-    | "endDate"
-    | "siDo"
-    | "siGunGu"
-    | "salary"
-    | "jobType"
-    | "employmentArrangement"
-    | "companyName"
+    | 'id'
+    | 'title'
+    | 'endDate'
+    | 'siDo'
+    | 'siGunGu'
+    | 'salary'
+    | 'jobType'
+    | 'employmentArrangement'
+    | 'companyName'
   > {}
 
 const JobPostHeaderInfo: React.FC<JobPostHeaderInfoProps> = ({
@@ -33,12 +35,12 @@ const JobPostHeaderInfo: React.FC<JobPostHeaderInfoProps> = ({
 }) => {
   const basicInfoItems = [
     {
-      key: "jobType",
+      key: 'jobType',
       label: jobType,
       icon: <ClockIcon width={20} height={20} color={customColors.secondary} />,
     },
     {
-      key: "employmentArrangement",
+      key: 'employmentArrangement',
       label: employmentArrangement,
       icon: (
         <BuildingOfficeIcon
@@ -49,15 +51,15 @@ const JobPostHeaderInfo: React.FC<JobPostHeaderInfoProps> = ({
       ),
     },
     {
-      key: "area",
+      key: 'area',
       label: `${siDo} ${siGunGu}`,
       icon: (
         <MapPinIcon width={20} height={20} color={customColors.secondary} />
       ),
     },
     {
-      key: "salary",
-      label: salary ?? "0만원",
+      key: 'salary',
+      label: salary ?? '0만원',
       icon: (
         <CreditCardIcon width={20} height={20} color={customColors.secondary} />
       ),
@@ -76,7 +78,7 @@ const JobPostHeaderInfo: React.FC<JobPostHeaderInfoProps> = ({
         </Text>
       </Stack>
       <Stack styles="rounded-md bg-gray-50 px-4 py-2 justify-between">
-        {basicInfoItems.map((item) => (
+        {basicInfoItems.map(item => (
           <Stack
             key={item.key}
             direction="column"

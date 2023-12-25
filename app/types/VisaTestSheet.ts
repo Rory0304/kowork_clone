@@ -1,5 +1,5 @@
-export type ItemLayout = "vertical" | "grid" | "horiztonal";
-export type OptionVariant = "default" | "checkbox";
+export type ItemLayout = 'vertical' | 'grid' | 'horiztonal';
+export type OptionVariant = 'default' | 'checkbox';
 
 export interface TestSheetType {
   standardScore: number;

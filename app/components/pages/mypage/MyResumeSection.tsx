@@ -1,16 +1,18 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import Stack from "app/components/blocks/Stack/Stack";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import ChevronRightIcon from 'react-native-heroicons/solid/ChevronRightIcon';
+import PencilIcon from 'react-native-heroicons/solid/PencilIcon';
+
+import { useQuery } from '@apollo/client';
+import { useNavigation } from '@react-navigation/native';
+
+import Stack from 'app/components/blocks/Stack/Stack';
+import { useAuth } from 'app/contexts/AuthProvider';
 import {
   GetResumeByIdDocument,
   GetResumeByIdQuery,
-} from "app/graphql/generated";
-import { useAuth } from "app/contexts/AuthProvider";
-import ChevronRightIcon from "react-native-heroicons/solid/ChevronRightIcon";
-import PencilIcon from "react-native-heroicons/solid/PencilIcon";
-import { useQuery } from "@apollo/client";
+} from 'app/graphql/generated';
+import navigate from 'app/utils/navigationHelper';
 
 const MAX_RESUME_STEP = 3;
 
@@ -53,33 +55,33 @@ const MyResumeSection: React.FC = () => {
       <Stack styles="items-center my-4 flex-row w-full">
         <View
           className={`h-3 mr-1 ${
-            currentStep >= 1 ? "bg-blue-300 border-blue-300" : "bg-gray-300"
+            currentStep >= 1 ? 'bg-blue-300 border-blue-300' : 'bg-gray-300'
           } border-l rounded-l-lg shrink basis-1/4`}
         />
         <View
           className={`h-3 mr-1 ${
-            currentStep >= 2 ? "bg-blue-500" : "bg-gray-300"
+            currentStep >= 2 ? 'bg-blue-500' : 'bg-gray-300'
           } shrink basis-1/4`}
         />
         <View
           className={`h-3 mr-1 ${
-            currentStep >= 3 ? "bg-blue-700" : "bg-gray-300"
+            currentStep >= 3 ? 'bg-blue-700' : 'bg-gray-300'
           } shrink basis-1/4`}
         />
         <View
           className={`h-3  ${
             currentStep >= 3
-              ? "bg-blue-800 border-blue-800"
-              : "bg-gray-300 border-gray-300"
+              ? 'bg-blue-800 border-blue-800'
+              : 'bg-gray-300 border-gray-300'
           } border-l rounded-r-lg shrink rounded-lborder-r basis-1/4`}
         />
       </Stack>
       <Text className="mb-2 text-xs text-neutral-400">
         {currentStep === MAX_RESUME_STEP
-          ? "완성! 바뀐 정보는 지속적으로 업데이트 해주세요."
+          ? '완성! 바뀐 정보는 지속적으로 업데이트 해주세요.'
           : currentStep === MAX_RESUME_STEP - 1
-          ? "마지막 4단계를 완료해주세요"
-          : "3분 안에 빠르게 이력서를 완성해보세요."}
+          ? '마지막 4단계를 완료해주세요'
+          : '3분 안에 빠르게 이력서를 완성해보세요.'}
       </Text>
     </View>
   );

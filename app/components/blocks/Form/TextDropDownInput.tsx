@@ -1,10 +1,11 @@
-import React from "react";
-import { TextInput } from "react-native";
-import { gray } from "tailwindcss/colors";
-import { Stack } from "app/components/blocks";
-import ChevronDownIcon from "react-native-heroicons/solid/ChevronDownIcon";
+import React from 'react';
+import { TextInput } from 'react-native';
+import type { TextInputProps } from 'react-native';
+import ChevronDownIcon from 'react-native-heroicons/solid/ChevronDownIcon';
 
-import type { TextInputProps } from "react-native";
+import { gray } from 'tailwindcss/colors';
+
+import { Stack } from 'app/components/blocks';
 
 interface TextDropDownInputProps extends TextInputProps {
   error?: boolean;
@@ -21,7 +22,7 @@ const TextDropDownInput: React.FC<TextDropDownInputProps> = ({
         focusable
         editable={false}
         className={`font-medium w-full focus:border-primary ${
-          error ? "border-red-500" : " leading-none	"
+          error ? 'border-red-500' : ' leading-none	'
         }`}
         placeholderTextColor={gray[400]}
         style={{

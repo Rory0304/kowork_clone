@@ -1,29 +1,48 @@
-import { FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy } from '@apollo/client/cache';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import {
+  FieldPolicy,
+  FieldReadFunction,
+  TypePolicies,
+  TypePolicy,
+} from '@apollo/client/cache';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  BigFloat: { input: any; output: any; }
-  BigInt: { input: any; output: any; }
-  Cursor: { input: any; output: any; }
-  Date: { input: any; output: any; }
-  Datetime: { input: any; output: any; }
-  JSON: { input: any; output: any; }
-  Opaque: { input: any; output: any; }
-  Time: { input: any; output: any; }
-  UUID: { input: any; output: any; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  BigFloat: { input: any; output: any };
+  BigInt: { input: any; output: any };
+  Cursor: { input: any; output: any };
+  Date: { input: any; output: any };
+  Datetime: { input: any; output: any };
+  JSON: { input: any; output: any };
+  Opaque: { input: any; output: any };
+  Time: { input: any; output: any };
+  UUID: { input: any; output: any };
 };
 
 /** Boolean expression comparing fields on type "BigFloat" */
@@ -69,7 +88,6 @@ export type Company = Node & {
   uuid: Scalars['UUID']['output'];
   website?: Maybe<Scalars['String']['output']>;
 };
-
 
 export type CompanyJobPostCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -189,7 +207,7 @@ export enum DegreeType {
   Bachelor = 'Bachelor',
   Doctorate = 'Doctorate',
   Master = 'Master',
-  ProBachelor = 'ProBachelor'
+  ProBachelor = 'ProBachelor',
 }
 
 /** Boolean expression comparing fields on type "DegreeType" */
@@ -202,7 +220,7 @@ export type DegreeTypeFilter = {
 
 export enum EmploymentArrangement {
   Office = 'Office',
-  Offline = 'Offline'
+  Offline = 'Offline',
 }
 
 /** Boolean expression comparing fields on type "EmploymentArrangement" */
@@ -215,7 +233,7 @@ export type EmploymentArrangementFilter = {
 
 export enum FilterIs {
   NotNull = 'NOT_NULL',
-  Null = 'NULL'
+  Null = 'NULL',
 }
 
 /** Boolean expression comparing fields on type "Float" */
@@ -232,7 +250,7 @@ export type FloatFilter = {
 
 export enum GenderType {
   Female = 'Female',
-  Male = 'Male'
+  Male = 'Male',
 }
 
 /** Boolean expression comparing fields on type "GenderType" */
@@ -265,7 +283,7 @@ export enum JobCategory {
   Language = 'Language',
   Manufacture = 'Manufacture',
   Office = 'Office',
-  PartTime = 'PartTime'
+  PartTime = 'PartTime',
 }
 
 /** Boolean expression comparing fields on type "JobCategory" */
@@ -440,7 +458,7 @@ export type JobPostUpdateResponse = {
 
 export enum JobType {
   FullTime = 'FullTime',
-  Temporary = 'Temporary'
+  Temporary = 'Temporary',
 }
 
 /** Boolean expression comparing fields on type "JobType" */
@@ -455,7 +473,7 @@ export enum LanguageLevel {
   Basic = 'Basic',
   Fluent = 'Fluent',
   Intermediate = 'Intermediate',
-  Native = 'Native'
+  Native = 'Native',
 }
 
 /** Boolean expression comparing fields on type "LanguageLevel" */
@@ -507,13 +525,11 @@ export type Mutation = {
   updateVisaHistoryCollection: VisaHistoryUpdateResponse;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationDeleteFromCompanyCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<CompanyFilter>;
 };
-
 
 /** The root type for creating and mutating data */
 export type MutationDeleteFromJobPostCollectionArgs = {
@@ -521,13 +537,11 @@ export type MutationDeleteFromJobPostCollectionArgs = {
   filter?: InputMaybe<JobPostFilter>;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationDeleteFromNoticeCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<NoticeFilter>;
 };
-
 
 /** The root type for creating and mutating data */
 export type MutationDeleteFromProfileCollectionArgs = {
@@ -535,13 +549,11 @@ export type MutationDeleteFromProfileCollectionArgs = {
   filter?: InputMaybe<ProfileFilter>;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationDeleteFromResumeCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<ResumeFilter>;
 };
-
 
 /** The root type for creating and mutating data */
 export type MutationDeleteFromVisaHistoryCollectionArgs = {
@@ -549,42 +561,35 @@ export type MutationDeleteFromVisaHistoryCollectionArgs = {
   filter?: InputMaybe<VisaHistoryFilter>;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationInsertIntoCompanyCollectionArgs = {
   objects: Array<CompanyInsertInput>;
 };
-
 
 /** The root type for creating and mutating data */
 export type MutationInsertIntoJobPostCollectionArgs = {
   objects: Array<JobPostInsertInput>;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationInsertIntoNoticeCollectionArgs = {
   objects: Array<NoticeInsertInput>;
 };
-
 
 /** The root type for creating and mutating data */
 export type MutationInsertIntoProfileCollectionArgs = {
   objects: Array<ProfileInsertInput>;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationInsertIntoResumeCollectionArgs = {
   objects: Array<ResumeInsertInput>;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationInsertIntoVisaHistoryCollectionArgs = {
   objects: Array<VisaHistoryInsertInput>;
 };
-
 
 /** The root type for creating and mutating data */
 export type MutationUpdateCompanyCollectionArgs = {
@@ -593,14 +598,12 @@ export type MutationUpdateCompanyCollectionArgs = {
   set: CompanyUpdateInput;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationUpdateJobPostCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<JobPostFilter>;
   set: JobPostUpdateInput;
 };
-
 
 /** The root type for creating and mutating data */
 export type MutationUpdateNoticeCollectionArgs = {
@@ -609,7 +612,6 @@ export type MutationUpdateNoticeCollectionArgs = {
   set: NoticeUpdateInput;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationUpdateProfileCollectionArgs = {
   atMost?: Scalars['Int']['input'];
@@ -617,14 +619,12 @@ export type MutationUpdateProfileCollectionArgs = {
   set: ProfileUpdateInput;
 };
 
-
 /** The root type for creating and mutating data */
 export type MutationUpdateResumeCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<ResumeFilter>;
   set: ResumeUpdateInput;
 };
-
 
 /** The root type for creating and mutating data */
 export type MutationUpdateVisaHistoryCollectionArgs = {
@@ -727,7 +727,7 @@ export enum OrderByDirection {
   /** Descending order, nulls first */
   DescNullsFirst = 'DescNullsFirst',
   /** Descending order, nulls last */
-  DescNullsLast = 'DescNullsLast'
+  DescNullsLast = 'DescNullsLast',
 }
 
 export type PageInfo = {
@@ -861,7 +861,6 @@ export type Query = {
   visaHistoryCollection?: Maybe<VisaHistoryConnection>;
 };
 
-
 /** The root type for querying data */
 export type QueryCompanyCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -871,7 +870,6 @@ export type QueryCompanyCollectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<CompanyOrderBy>>;
 };
-
 
 /** The root type for querying data */
 export type QueryJobPostCollectionArgs = {
@@ -883,12 +881,10 @@ export type QueryJobPostCollectionArgs = {
   orderBy?: InputMaybe<Array<JobPostOrderBy>>;
 };
 
-
 /** The root type for querying data */
 export type QueryNodeArgs = {
   nodeId: Scalars['ID']['input'];
 };
-
 
 /** The root type for querying data */
 export type QueryNoticeCollectionArgs = {
@@ -900,7 +896,6 @@ export type QueryNoticeCollectionArgs = {
   orderBy?: InputMaybe<Array<NoticeOrderBy>>;
 };
 
-
 /** The root type for querying data */
 export type QueryProfileCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -911,7 +906,6 @@ export type QueryProfileCollectionArgs = {
   orderBy?: InputMaybe<Array<ProfileOrderBy>>;
 };
 
-
 /** The root type for querying data */
 export type QueryResumeCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -921,7 +915,6 @@ export type QueryResumeCollectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<ResumeOrderBy>>;
 };
-
 
 /** The root type for querying data */
 export type QueryVisaHistoryCollectionArgs = {
@@ -935,7 +928,7 @@ export type QueryVisaHistoryCollectionArgs = {
 
 export enum ResidenceType {
   Abroad = 'Abroad',
-  Domestic = 'Domestic'
+  Domestic = 'Domestic',
 }
 
 /** Boolean expression comparing fields on type "ResidenceType" */
@@ -1208,771 +1201,1467 @@ export type VisaHistoryUpdateResponse = {
   records: Array<VisaHistory>;
 };
 
-export type CompanyKeySpecifier = ('email' | 'id' | 'industry' | 'jobPostCollection' | 'location' | 'name' | 'nodeId' | 'uuid' | 'website' | CompanyKeySpecifier)[];
+export type CompanyKeySpecifier = (
+  | 'email'
+  | 'id'
+  | 'industry'
+  | 'jobPostCollection'
+  | 'location'
+  | 'name'
+  | 'nodeId'
+  | 'uuid'
+  | 'website'
+  | CompanyKeySpecifier
+)[];
 export type CompanyFieldPolicy = {
-	email?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	industry?: FieldPolicy<any> | FieldReadFunction<any>,
-	jobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	location?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
-	uuid?: FieldPolicy<any> | FieldReadFunction<any>,
-	website?: FieldPolicy<any> | FieldReadFunction<any>
+  email?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  industry?: FieldPolicy<any> | FieldReadFunction<any>;
+  jobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  location?: FieldPolicy<any> | FieldReadFunction<any>;
+  name?: FieldPolicy<any> | FieldReadFunction<any>;
+  nodeId?: FieldPolicy<any> | FieldReadFunction<any>;
+  uuid?: FieldPolicy<any> | FieldReadFunction<any>;
+  website?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type CompanyConnectionKeySpecifier = ('edges' | 'pageInfo' | CompanyConnectionKeySpecifier)[];
+export type CompanyConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | CompanyConnectionKeySpecifier
+)[];
 export type CompanyConnectionFieldPolicy = {
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+  edges?: FieldPolicy<any> | FieldReadFunction<any>;
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type CompanyDeleteResponseKeySpecifier = ('affectedCount' | 'records' | CompanyDeleteResponseKeySpecifier)[];
+export type CompanyDeleteResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | CompanyDeleteResponseKeySpecifier
+)[];
 export type CompanyDeleteResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type CompanyEdgeKeySpecifier = ('cursor' | 'node' | CompanyEdgeKeySpecifier)[];
+export type CompanyEdgeKeySpecifier = (
+  | 'cursor'
+  | 'node'
+  | CompanyEdgeKeySpecifier
+)[];
 export type CompanyEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>;
+  node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type CompanyInsertResponseKeySpecifier = ('affectedCount' | 'records' | CompanyInsertResponseKeySpecifier)[];
+export type CompanyInsertResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | CompanyInsertResponseKeySpecifier
+)[];
 export type CompanyInsertResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type CompanyUpdateResponseKeySpecifier = ('affectedCount' | 'records' | CompanyUpdateResponseKeySpecifier)[];
+export type CompanyUpdateResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | CompanyUpdateResponseKeySpecifier
+)[];
 export type CompanyUpdateResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type JobPostKeySpecifier = ('area' | 'benefits' | 'company' | 'companyId' | 'companyName' | 'created_at' | 'employmentArrangement' | 'endDate' | 'id' | 'images' | 'jobCategory' | 'jobDescription' | 'jobType' | 'nodeId' | 'preferredVisaList' | 'salary' | 'siDo' | 'siGunGu' | 'title' | 'uuid' | 'workLocation' | 'workingDays' | 'workingHoursEnd' | 'workingHoursStart' | JobPostKeySpecifier)[];
+export type JobPostKeySpecifier = (
+  | 'area'
+  | 'benefits'
+  | 'company'
+  | 'companyId'
+  | 'companyName'
+  | 'created_at'
+  | 'employmentArrangement'
+  | 'endDate'
+  | 'id'
+  | 'images'
+  | 'jobCategory'
+  | 'jobDescription'
+  | 'jobType'
+  | 'nodeId'
+  | 'preferredVisaList'
+  | 'salary'
+  | 'siDo'
+  | 'siGunGu'
+  | 'title'
+  | 'uuid'
+  | 'workLocation'
+  | 'workingDays'
+  | 'workingHoursEnd'
+  | 'workingHoursStart'
+  | JobPostKeySpecifier
+)[];
 export type JobPostFieldPolicy = {
-	area?: FieldPolicy<any> | FieldReadFunction<any>,
-	benefits?: FieldPolicy<any> | FieldReadFunction<any>,
-	company?: FieldPolicy<any> | FieldReadFunction<any>,
-	companyId?: FieldPolicy<any> | FieldReadFunction<any>,
-	companyName?: FieldPolicy<any> | FieldReadFunction<any>,
-	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
-	employmentArrangement?: FieldPolicy<any> | FieldReadFunction<any>,
-	endDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	images?: FieldPolicy<any> | FieldReadFunction<any>,
-	jobCategory?: FieldPolicy<any> | FieldReadFunction<any>,
-	jobDescription?: FieldPolicy<any> | FieldReadFunction<any>,
-	jobType?: FieldPolicy<any> | FieldReadFunction<any>,
-	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
-	preferredVisaList?: FieldPolicy<any> | FieldReadFunction<any>,
-	salary?: FieldPolicy<any> | FieldReadFunction<any>,
-	siDo?: FieldPolicy<any> | FieldReadFunction<any>,
-	siGunGu?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>,
-	uuid?: FieldPolicy<any> | FieldReadFunction<any>,
-	workLocation?: FieldPolicy<any> | FieldReadFunction<any>,
-	workingDays?: FieldPolicy<any> | FieldReadFunction<any>,
-	workingHoursEnd?: FieldPolicy<any> | FieldReadFunction<any>,
-	workingHoursStart?: FieldPolicy<any> | FieldReadFunction<any>
+  area?: FieldPolicy<any> | FieldReadFunction<any>;
+  benefits?: FieldPolicy<any> | FieldReadFunction<any>;
+  company?: FieldPolicy<any> | FieldReadFunction<any>;
+  companyId?: FieldPolicy<any> | FieldReadFunction<any>;
+  companyName?: FieldPolicy<any> | FieldReadFunction<any>;
+  created_at?: FieldPolicy<any> | FieldReadFunction<any>;
+  employmentArrangement?: FieldPolicy<any> | FieldReadFunction<any>;
+  endDate?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  images?: FieldPolicy<any> | FieldReadFunction<any>;
+  jobCategory?: FieldPolicy<any> | FieldReadFunction<any>;
+  jobDescription?: FieldPolicy<any> | FieldReadFunction<any>;
+  jobType?: FieldPolicy<any> | FieldReadFunction<any>;
+  nodeId?: FieldPolicy<any> | FieldReadFunction<any>;
+  preferredVisaList?: FieldPolicy<any> | FieldReadFunction<any>;
+  salary?: FieldPolicy<any> | FieldReadFunction<any>;
+  siDo?: FieldPolicy<any> | FieldReadFunction<any>;
+  siGunGu?: FieldPolicy<any> | FieldReadFunction<any>;
+  title?: FieldPolicy<any> | FieldReadFunction<any>;
+  uuid?: FieldPolicy<any> | FieldReadFunction<any>;
+  workLocation?: FieldPolicy<any> | FieldReadFunction<any>;
+  workingDays?: FieldPolicy<any> | FieldReadFunction<any>;
+  workingHoursEnd?: FieldPolicy<any> | FieldReadFunction<any>;
+  workingHoursStart?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type JobPostConnectionKeySpecifier = ('edges' | 'pageInfo' | JobPostConnectionKeySpecifier)[];
+export type JobPostConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | JobPostConnectionKeySpecifier
+)[];
 export type JobPostConnectionFieldPolicy = {
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+  edges?: FieldPolicy<any> | FieldReadFunction<any>;
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type JobPostDeleteResponseKeySpecifier = ('affectedCount' | 'records' | JobPostDeleteResponseKeySpecifier)[];
+export type JobPostDeleteResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | JobPostDeleteResponseKeySpecifier
+)[];
 export type JobPostDeleteResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type JobPostEdgeKeySpecifier = ('cursor' | 'node' | JobPostEdgeKeySpecifier)[];
+export type JobPostEdgeKeySpecifier = (
+  | 'cursor'
+  | 'node'
+  | JobPostEdgeKeySpecifier
+)[];
 export type JobPostEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>;
+  node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type JobPostInsertResponseKeySpecifier = ('affectedCount' | 'records' | JobPostInsertResponseKeySpecifier)[];
+export type JobPostInsertResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | JobPostInsertResponseKeySpecifier
+)[];
 export type JobPostInsertResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type JobPostUpdateResponseKeySpecifier = ('affectedCount' | 'records' | JobPostUpdateResponseKeySpecifier)[];
+export type JobPostUpdateResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | JobPostUpdateResponseKeySpecifier
+)[];
 export type JobPostUpdateResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type MutationKeySpecifier = ('deleteFromCompanyCollection' | 'deleteFromJobPostCollection' | 'deleteFromNoticeCollection' | 'deleteFromProfileCollection' | 'deleteFromResumeCollection' | 'deleteFromVisaHistoryCollection' | 'insertIntoCompanyCollection' | 'insertIntoJobPostCollection' | 'insertIntoNoticeCollection' | 'insertIntoProfileCollection' | 'insertIntoResumeCollection' | 'insertIntoVisaHistoryCollection' | 'updateCompanyCollection' | 'updateJobPostCollection' | 'updateNoticeCollection' | 'updateProfileCollection' | 'updateResumeCollection' | 'updateVisaHistoryCollection' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = (
+  | 'deleteFromCompanyCollection'
+  | 'deleteFromJobPostCollection'
+  | 'deleteFromNoticeCollection'
+  | 'deleteFromProfileCollection'
+  | 'deleteFromResumeCollection'
+  | 'deleteFromVisaHistoryCollection'
+  | 'insertIntoCompanyCollection'
+  | 'insertIntoJobPostCollection'
+  | 'insertIntoNoticeCollection'
+  | 'insertIntoProfileCollection'
+  | 'insertIntoResumeCollection'
+  | 'insertIntoVisaHistoryCollection'
+  | 'updateCompanyCollection'
+  | 'updateJobPostCollection'
+  | 'updateNoticeCollection'
+  | 'updateProfileCollection'
+  | 'updateResumeCollection'
+  | 'updateVisaHistoryCollection'
+  | MutationKeySpecifier
+)[];
 export type MutationFieldPolicy = {
-	deleteFromCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteFromJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteFromNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteFromProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteFromResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteFromVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertIntoCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertIntoJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertIntoNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertIntoProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertIntoResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertIntoVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>
+  deleteFromCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  deleteFromJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  deleteFromNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  deleteFromProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  deleteFromResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  deleteFromVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  insertIntoCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  insertIntoJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  insertIntoNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  insertIntoProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  insertIntoResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  insertIntoVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  updateCompanyCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  updateJobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  updateNoticeCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  updateProfileCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  updateResumeCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  updateVisaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type NodeKeySpecifier = ('nodeId' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
-	nodeId?: FieldPolicy<any> | FieldReadFunction<any>
+  nodeId?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type NoticeKeySpecifier = ('created_at' | 'id' | 'nodeId' | 'title' | NoticeKeySpecifier)[];
+export type NoticeKeySpecifier = (
+  | 'created_at'
+  | 'id'
+  | 'nodeId'
+  | 'title'
+  | NoticeKeySpecifier
+)[];
 export type NoticeFieldPolicy = {
-	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>
+  created_at?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  nodeId?: FieldPolicy<any> | FieldReadFunction<any>;
+  title?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type NoticeConnectionKeySpecifier = ('edges' | 'pageInfo' | NoticeConnectionKeySpecifier)[];
+export type NoticeConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | NoticeConnectionKeySpecifier
+)[];
 export type NoticeConnectionFieldPolicy = {
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+  edges?: FieldPolicy<any> | FieldReadFunction<any>;
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type NoticeDeleteResponseKeySpecifier = ('affectedCount' | 'records' | NoticeDeleteResponseKeySpecifier)[];
+export type NoticeDeleteResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | NoticeDeleteResponseKeySpecifier
+)[];
 export type NoticeDeleteResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type NoticeEdgeKeySpecifier = ('cursor' | 'node' | NoticeEdgeKeySpecifier)[];
+export type NoticeEdgeKeySpecifier = (
+  | 'cursor'
+  | 'node'
+  | NoticeEdgeKeySpecifier
+)[];
 export type NoticeEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>;
+  node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type NoticeInsertResponseKeySpecifier = ('affectedCount' | 'records' | NoticeInsertResponseKeySpecifier)[];
+export type NoticeInsertResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | NoticeInsertResponseKeySpecifier
+)[];
 export type NoticeInsertResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type NoticeUpdateResponseKeySpecifier = ('affectedCount' | 'records' | NoticeUpdateResponseKeySpecifier)[];
+export type NoticeUpdateResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | NoticeUpdateResponseKeySpecifier
+)[];
 export type NoticeUpdateResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type PageInfoKeySpecifier = ('endCursor' | 'hasNextPage' | 'hasPreviousPage' | 'startCursor' | PageInfoKeySpecifier)[];
+export type PageInfoKeySpecifier = (
+  | 'endCursor'
+  | 'hasNextPage'
+  | 'hasPreviousPage'
+  | 'startCursor'
+  | PageInfoKeySpecifier
+)[];
 export type PageInfoFieldPolicy = {
-	endCursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>,
-	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
-	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
+  endCursor?: FieldPolicy<any> | FieldReadFunction<any>;
+  hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>;
+  hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>;
+  startCursor?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ProfileKeySpecifier = ('birthDate' | 'country' | 'created_at' | 'gender' | 'id' | 'name' | 'nodeId' | 'residence' | 'userId' | 'userType' | ProfileKeySpecifier)[];
+export type ProfileKeySpecifier = (
+  | 'birthDate'
+  | 'country'
+  | 'created_at'
+  | 'gender'
+  | 'id'
+  | 'name'
+  | 'nodeId'
+  | 'residence'
+  | 'userId'
+  | 'userType'
+  | ProfileKeySpecifier
+)[];
 export type ProfileFieldPolicy = {
-	birthDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	country?: FieldPolicy<any> | FieldReadFunction<any>,
-	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
-	gender?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
-	residence?: FieldPolicy<any> | FieldReadFunction<any>,
-	userId?: FieldPolicy<any> | FieldReadFunction<any>,
-	userType?: FieldPolicy<any> | FieldReadFunction<any>
+  birthDate?: FieldPolicy<any> | FieldReadFunction<any>;
+  country?: FieldPolicy<any> | FieldReadFunction<any>;
+  created_at?: FieldPolicy<any> | FieldReadFunction<any>;
+  gender?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  name?: FieldPolicy<any> | FieldReadFunction<any>;
+  nodeId?: FieldPolicy<any> | FieldReadFunction<any>;
+  residence?: FieldPolicy<any> | FieldReadFunction<any>;
+  userId?: FieldPolicy<any> | FieldReadFunction<any>;
+  userType?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ProfileConnectionKeySpecifier = ('edges' | 'pageInfo' | ProfileConnectionKeySpecifier)[];
+export type ProfileConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | ProfileConnectionKeySpecifier
+)[];
 export type ProfileConnectionFieldPolicy = {
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+  edges?: FieldPolicy<any> | FieldReadFunction<any>;
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ProfileDeleteResponseKeySpecifier = ('affectedCount' | 'records' | ProfileDeleteResponseKeySpecifier)[];
+export type ProfileDeleteResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | ProfileDeleteResponseKeySpecifier
+)[];
 export type ProfileDeleteResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ProfileEdgeKeySpecifier = ('cursor' | 'node' | ProfileEdgeKeySpecifier)[];
+export type ProfileEdgeKeySpecifier = (
+  | 'cursor'
+  | 'node'
+  | ProfileEdgeKeySpecifier
+)[];
 export type ProfileEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>;
+  node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ProfileInsertResponseKeySpecifier = ('affectedCount' | 'records' | ProfileInsertResponseKeySpecifier)[];
+export type ProfileInsertResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | ProfileInsertResponseKeySpecifier
+)[];
 export type ProfileInsertResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ProfileUpdateResponseKeySpecifier = ('affectedCount' | 'records' | ProfileUpdateResponseKeySpecifier)[];
+export type ProfileUpdateResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | ProfileUpdateResponseKeySpecifier
+)[];
 export type ProfileUpdateResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type QueryKeySpecifier = ('companyCollection' | 'jobPostCollection' | 'node' | 'noticeCollection' | 'profileCollection' | 'resumeCollection' | 'visaHistoryCollection' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = (
+  | 'companyCollection'
+  | 'jobPostCollection'
+  | 'node'
+  | 'noticeCollection'
+  | 'profileCollection'
+  | 'resumeCollection'
+  | 'visaHistoryCollection'
+  | QueryKeySpecifier
+)[];
 export type QueryFieldPolicy = {
-	companyCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	jobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>,
-	noticeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	profileCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	resumeCollection?: FieldPolicy<any> | FieldReadFunction<any>,
-	visaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>
+  companyCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  jobPostCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  node?: FieldPolicy<any> | FieldReadFunction<any>;
+  noticeCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  profileCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  resumeCollection?: FieldPolicy<any> | FieldReadFunction<any>;
+  visaHistoryCollection?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ResumeKeySpecifier = ('address' | 'birthDate' | 'career' | 'country' | 'created_at' | 'detailAddress' | 'education' | 'email' | 'etc' | 'gender' | 'id' | 'language' | 'name' | 'nodeId' | 'phoneNumber' | 'residence' | 'userId' | 'uuid' | ResumeKeySpecifier)[];
+export type ResumeKeySpecifier = (
+  | 'address'
+  | 'birthDate'
+  | 'career'
+  | 'country'
+  | 'created_at'
+  | 'detailAddress'
+  | 'education'
+  | 'email'
+  | 'etc'
+  | 'gender'
+  | 'id'
+  | 'language'
+  | 'name'
+  | 'nodeId'
+  | 'phoneNumber'
+  | 'residence'
+  | 'userId'
+  | 'uuid'
+  | ResumeKeySpecifier
+)[];
 export type ResumeFieldPolicy = {
-	address?: FieldPolicy<any> | FieldReadFunction<any>,
-	birthDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	career?: FieldPolicy<any> | FieldReadFunction<any>,
-	country?: FieldPolicy<any> | FieldReadFunction<any>,
-	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
-	detailAddress?: FieldPolicy<any> | FieldReadFunction<any>,
-	education?: FieldPolicy<any> | FieldReadFunction<any>,
-	email?: FieldPolicy<any> | FieldReadFunction<any>,
-	etc?: FieldPolicy<any> | FieldReadFunction<any>,
-	gender?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	language?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
-	phoneNumber?: FieldPolicy<any> | FieldReadFunction<any>,
-	residence?: FieldPolicy<any> | FieldReadFunction<any>,
-	userId?: FieldPolicy<any> | FieldReadFunction<any>,
-	uuid?: FieldPolicy<any> | FieldReadFunction<any>
+  address?: FieldPolicy<any> | FieldReadFunction<any>;
+  birthDate?: FieldPolicy<any> | FieldReadFunction<any>;
+  career?: FieldPolicy<any> | FieldReadFunction<any>;
+  country?: FieldPolicy<any> | FieldReadFunction<any>;
+  created_at?: FieldPolicy<any> | FieldReadFunction<any>;
+  detailAddress?: FieldPolicy<any> | FieldReadFunction<any>;
+  education?: FieldPolicy<any> | FieldReadFunction<any>;
+  email?: FieldPolicy<any> | FieldReadFunction<any>;
+  etc?: FieldPolicy<any> | FieldReadFunction<any>;
+  gender?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  language?: FieldPolicy<any> | FieldReadFunction<any>;
+  name?: FieldPolicy<any> | FieldReadFunction<any>;
+  nodeId?: FieldPolicy<any> | FieldReadFunction<any>;
+  phoneNumber?: FieldPolicy<any> | FieldReadFunction<any>;
+  residence?: FieldPolicy<any> | FieldReadFunction<any>;
+  userId?: FieldPolicy<any> | FieldReadFunction<any>;
+  uuid?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ResumeConnectionKeySpecifier = ('edges' | 'pageInfo' | ResumeConnectionKeySpecifier)[];
+export type ResumeConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | ResumeConnectionKeySpecifier
+)[];
 export type ResumeConnectionFieldPolicy = {
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+  edges?: FieldPolicy<any> | FieldReadFunction<any>;
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ResumeDeleteResponseKeySpecifier = ('affectedCount' | 'records' | ResumeDeleteResponseKeySpecifier)[];
+export type ResumeDeleteResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | ResumeDeleteResponseKeySpecifier
+)[];
 export type ResumeDeleteResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ResumeEdgeKeySpecifier = ('cursor' | 'node' | ResumeEdgeKeySpecifier)[];
+export type ResumeEdgeKeySpecifier = (
+  | 'cursor'
+  | 'node'
+  | ResumeEdgeKeySpecifier
+)[];
 export type ResumeEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>;
+  node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ResumeInsertResponseKeySpecifier = ('affectedCount' | 'records' | ResumeInsertResponseKeySpecifier)[];
+export type ResumeInsertResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | ResumeInsertResponseKeySpecifier
+)[];
 export type ResumeInsertResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ResumeUpdateResponseKeySpecifier = ('affectedCount' | 'records' | ResumeUpdateResponseKeySpecifier)[];
+export type ResumeUpdateResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | ResumeUpdateResponseKeySpecifier
+)[];
 export type ResumeUpdateResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type VisaHistoryKeySpecifier = ('created_at' | 'id' | 'nodeId' | 'userId' | 'visaFinalEntryDate' | 'visaIssueDate' | 'visaStatus' | VisaHistoryKeySpecifier)[];
+export type VisaHistoryKeySpecifier = (
+  | 'created_at'
+  | 'id'
+  | 'nodeId'
+  | 'userId'
+  | 'visaFinalEntryDate'
+  | 'visaIssueDate'
+  | 'visaStatus'
+  | VisaHistoryKeySpecifier
+)[];
 export type VisaHistoryFieldPolicy = {
-	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	nodeId?: FieldPolicy<any> | FieldReadFunction<any>,
-	userId?: FieldPolicy<any> | FieldReadFunction<any>,
-	visaFinalEntryDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	visaIssueDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	visaStatus?: FieldPolicy<any> | FieldReadFunction<any>
+  created_at?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  nodeId?: FieldPolicy<any> | FieldReadFunction<any>;
+  userId?: FieldPolicy<any> | FieldReadFunction<any>;
+  visaFinalEntryDate?: FieldPolicy<any> | FieldReadFunction<any>;
+  visaIssueDate?: FieldPolicy<any> | FieldReadFunction<any>;
+  visaStatus?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type VisaHistoryConnectionKeySpecifier = ('edges' | 'pageInfo' | VisaHistoryConnectionKeySpecifier)[];
+export type VisaHistoryConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | VisaHistoryConnectionKeySpecifier
+)[];
 export type VisaHistoryConnectionFieldPolicy = {
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+  edges?: FieldPolicy<any> | FieldReadFunction<any>;
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type VisaHistoryDeleteResponseKeySpecifier = ('affectedCount' | 'records' | VisaHistoryDeleteResponseKeySpecifier)[];
+export type VisaHistoryDeleteResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | VisaHistoryDeleteResponseKeySpecifier
+)[];
 export type VisaHistoryDeleteResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type VisaHistoryEdgeKeySpecifier = ('cursor' | 'node' | VisaHistoryEdgeKeySpecifier)[];
+export type VisaHistoryEdgeKeySpecifier = (
+  | 'cursor'
+  | 'node'
+  | VisaHistoryEdgeKeySpecifier
+)[];
 export type VisaHistoryEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>;
+  node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type VisaHistoryInsertResponseKeySpecifier = ('affectedCount' | 'records' | VisaHistoryInsertResponseKeySpecifier)[];
+export type VisaHistoryInsertResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | VisaHistoryInsertResponseKeySpecifier
+)[];
 export type VisaHistoryInsertResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type VisaHistoryUpdateResponseKeySpecifier = ('affectedCount' | 'records' | VisaHistoryUpdateResponseKeySpecifier)[];
+export type VisaHistoryUpdateResponseKeySpecifier = (
+  | 'affectedCount'
+  | 'records'
+  | VisaHistoryUpdateResponseKeySpecifier
+)[];
 export type VisaHistoryUpdateResponseFieldPolicy = {
-	affectedCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	records?: FieldPolicy<any> | FieldReadFunction<any>
+  affectedCount?: FieldPolicy<any> | FieldReadFunction<any>;
+  records?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type StrictTypedTypePolicies = {
-	Company?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | CompanyKeySpecifier | (() => undefined | CompanyKeySpecifier),
-		fields?: CompanyFieldPolicy,
-	},
-	CompanyConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | CompanyConnectionKeySpecifier | (() => undefined | CompanyConnectionKeySpecifier),
-		fields?: CompanyConnectionFieldPolicy,
-	},
-	CompanyDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | CompanyDeleteResponseKeySpecifier | (() => undefined | CompanyDeleteResponseKeySpecifier),
-		fields?: CompanyDeleteResponseFieldPolicy,
-	},
-	CompanyEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | CompanyEdgeKeySpecifier | (() => undefined | CompanyEdgeKeySpecifier),
-		fields?: CompanyEdgeFieldPolicy,
-	},
-	CompanyInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | CompanyInsertResponseKeySpecifier | (() => undefined | CompanyInsertResponseKeySpecifier),
-		fields?: CompanyInsertResponseFieldPolicy,
-	},
-	CompanyUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | CompanyUpdateResponseKeySpecifier | (() => undefined | CompanyUpdateResponseKeySpecifier),
-		fields?: CompanyUpdateResponseFieldPolicy,
-	},
-	JobPost?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | JobPostKeySpecifier | (() => undefined | JobPostKeySpecifier),
-		fields?: JobPostFieldPolicy,
-	},
-	JobPostConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | JobPostConnectionKeySpecifier | (() => undefined | JobPostConnectionKeySpecifier),
-		fields?: JobPostConnectionFieldPolicy,
-	},
-	JobPostDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | JobPostDeleteResponseKeySpecifier | (() => undefined | JobPostDeleteResponseKeySpecifier),
-		fields?: JobPostDeleteResponseFieldPolicy,
-	},
-	JobPostEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | JobPostEdgeKeySpecifier | (() => undefined | JobPostEdgeKeySpecifier),
-		fields?: JobPostEdgeFieldPolicy,
-	},
-	JobPostInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | JobPostInsertResponseKeySpecifier | (() => undefined | JobPostInsertResponseKeySpecifier),
-		fields?: JobPostInsertResponseFieldPolicy,
-	},
-	JobPostUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | JobPostUpdateResponseKeySpecifier | (() => undefined | JobPostUpdateResponseKeySpecifier),
-		fields?: JobPostUpdateResponseFieldPolicy,
-	},
-	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
-		fields?: MutationFieldPolicy,
-	},
-	Node?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NodeKeySpecifier | (() => undefined | NodeKeySpecifier),
-		fields?: NodeFieldPolicy,
-	},
-	Notice?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NoticeKeySpecifier | (() => undefined | NoticeKeySpecifier),
-		fields?: NoticeFieldPolicy,
-	},
-	NoticeConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NoticeConnectionKeySpecifier | (() => undefined | NoticeConnectionKeySpecifier),
-		fields?: NoticeConnectionFieldPolicy,
-	},
-	NoticeDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NoticeDeleteResponseKeySpecifier | (() => undefined | NoticeDeleteResponseKeySpecifier),
-		fields?: NoticeDeleteResponseFieldPolicy,
-	},
-	NoticeEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NoticeEdgeKeySpecifier | (() => undefined | NoticeEdgeKeySpecifier),
-		fields?: NoticeEdgeFieldPolicy,
-	},
-	NoticeInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NoticeInsertResponseKeySpecifier | (() => undefined | NoticeInsertResponseKeySpecifier),
-		fields?: NoticeInsertResponseFieldPolicy,
-	},
-	NoticeUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NoticeUpdateResponseKeySpecifier | (() => undefined | NoticeUpdateResponseKeySpecifier),
-		fields?: NoticeUpdateResponseFieldPolicy,
-	},
-	PageInfo?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier),
-		fields?: PageInfoFieldPolicy,
-	},
-	Profile?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ProfileKeySpecifier | (() => undefined | ProfileKeySpecifier),
-		fields?: ProfileFieldPolicy,
-	},
-	ProfileConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ProfileConnectionKeySpecifier | (() => undefined | ProfileConnectionKeySpecifier),
-		fields?: ProfileConnectionFieldPolicy,
-	},
-	ProfileDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ProfileDeleteResponseKeySpecifier | (() => undefined | ProfileDeleteResponseKeySpecifier),
-		fields?: ProfileDeleteResponseFieldPolicy,
-	},
-	ProfileEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ProfileEdgeKeySpecifier | (() => undefined | ProfileEdgeKeySpecifier),
-		fields?: ProfileEdgeFieldPolicy,
-	},
-	ProfileInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ProfileInsertResponseKeySpecifier | (() => undefined | ProfileInsertResponseKeySpecifier),
-		fields?: ProfileInsertResponseFieldPolicy,
-	},
-	ProfileUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ProfileUpdateResponseKeySpecifier | (() => undefined | ProfileUpdateResponseKeySpecifier),
-		fields?: ProfileUpdateResponseFieldPolicy,
-	},
-	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
-		fields?: QueryFieldPolicy,
-	},
-	Resume?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ResumeKeySpecifier | (() => undefined | ResumeKeySpecifier),
-		fields?: ResumeFieldPolicy,
-	},
-	ResumeConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ResumeConnectionKeySpecifier | (() => undefined | ResumeConnectionKeySpecifier),
-		fields?: ResumeConnectionFieldPolicy,
-	},
-	ResumeDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ResumeDeleteResponseKeySpecifier | (() => undefined | ResumeDeleteResponseKeySpecifier),
-		fields?: ResumeDeleteResponseFieldPolicy,
-	},
-	ResumeEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ResumeEdgeKeySpecifier | (() => undefined | ResumeEdgeKeySpecifier),
-		fields?: ResumeEdgeFieldPolicy,
-	},
-	ResumeInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ResumeInsertResponseKeySpecifier | (() => undefined | ResumeInsertResponseKeySpecifier),
-		fields?: ResumeInsertResponseFieldPolicy,
-	},
-	ResumeUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ResumeUpdateResponseKeySpecifier | (() => undefined | ResumeUpdateResponseKeySpecifier),
-		fields?: ResumeUpdateResponseFieldPolicy,
-	},
-	VisaHistory?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | VisaHistoryKeySpecifier | (() => undefined | VisaHistoryKeySpecifier),
-		fields?: VisaHistoryFieldPolicy,
-	},
-	VisaHistoryConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | VisaHistoryConnectionKeySpecifier | (() => undefined | VisaHistoryConnectionKeySpecifier),
-		fields?: VisaHistoryConnectionFieldPolicy,
-	},
-	VisaHistoryDeleteResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | VisaHistoryDeleteResponseKeySpecifier | (() => undefined | VisaHistoryDeleteResponseKeySpecifier),
-		fields?: VisaHistoryDeleteResponseFieldPolicy,
-	},
-	VisaHistoryEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | VisaHistoryEdgeKeySpecifier | (() => undefined | VisaHistoryEdgeKeySpecifier),
-		fields?: VisaHistoryEdgeFieldPolicy,
-	},
-	VisaHistoryInsertResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | VisaHistoryInsertResponseKeySpecifier | (() => undefined | VisaHistoryInsertResponseKeySpecifier),
-		fields?: VisaHistoryInsertResponseFieldPolicy,
-	},
-	VisaHistoryUpdateResponse?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | VisaHistoryUpdateResponseKeySpecifier | (() => undefined | VisaHistoryUpdateResponseKeySpecifier),
-		fields?: VisaHistoryUpdateResponseFieldPolicy,
-	}
+  Company?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | CompanyKeySpecifier
+      | (() => undefined | CompanyKeySpecifier);
+    fields?: CompanyFieldPolicy;
+  };
+  CompanyConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | CompanyConnectionKeySpecifier
+      | (() => undefined | CompanyConnectionKeySpecifier);
+    fields?: CompanyConnectionFieldPolicy;
+  };
+  CompanyDeleteResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | CompanyDeleteResponseKeySpecifier
+      | (() => undefined | CompanyDeleteResponseKeySpecifier);
+    fields?: CompanyDeleteResponseFieldPolicy;
+  };
+  CompanyEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | CompanyEdgeKeySpecifier
+      | (() => undefined | CompanyEdgeKeySpecifier);
+    fields?: CompanyEdgeFieldPolicy;
+  };
+  CompanyInsertResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | CompanyInsertResponseKeySpecifier
+      | (() => undefined | CompanyInsertResponseKeySpecifier);
+    fields?: CompanyInsertResponseFieldPolicy;
+  };
+  CompanyUpdateResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | CompanyUpdateResponseKeySpecifier
+      | (() => undefined | CompanyUpdateResponseKeySpecifier);
+    fields?: CompanyUpdateResponseFieldPolicy;
+  };
+  JobPost?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | JobPostKeySpecifier
+      | (() => undefined | JobPostKeySpecifier);
+    fields?: JobPostFieldPolicy;
+  };
+  JobPostConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | JobPostConnectionKeySpecifier
+      | (() => undefined | JobPostConnectionKeySpecifier);
+    fields?: JobPostConnectionFieldPolicy;
+  };
+  JobPostDeleteResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | JobPostDeleteResponseKeySpecifier
+      | (() => undefined | JobPostDeleteResponseKeySpecifier);
+    fields?: JobPostDeleteResponseFieldPolicy;
+  };
+  JobPostEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | JobPostEdgeKeySpecifier
+      | (() => undefined | JobPostEdgeKeySpecifier);
+    fields?: JobPostEdgeFieldPolicy;
+  };
+  JobPostInsertResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | JobPostInsertResponseKeySpecifier
+      | (() => undefined | JobPostInsertResponseKeySpecifier);
+    fields?: JobPostInsertResponseFieldPolicy;
+  };
+  JobPostUpdateResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | JobPostUpdateResponseKeySpecifier
+      | (() => undefined | JobPostUpdateResponseKeySpecifier);
+    fields?: JobPostUpdateResponseFieldPolicy;
+  };
+  Mutation?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | MutationKeySpecifier
+      | (() => undefined | MutationKeySpecifier);
+    fields?: MutationFieldPolicy;
+  };
+  Node?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?: false | NodeKeySpecifier | (() => undefined | NodeKeySpecifier);
+    fields?: NodeFieldPolicy;
+  };
+  Notice?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | NoticeKeySpecifier
+      | (() => undefined | NoticeKeySpecifier);
+    fields?: NoticeFieldPolicy;
+  };
+  NoticeConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | NoticeConnectionKeySpecifier
+      | (() => undefined | NoticeConnectionKeySpecifier);
+    fields?: NoticeConnectionFieldPolicy;
+  };
+  NoticeDeleteResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | NoticeDeleteResponseKeySpecifier
+      | (() => undefined | NoticeDeleteResponseKeySpecifier);
+    fields?: NoticeDeleteResponseFieldPolicy;
+  };
+  NoticeEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | NoticeEdgeKeySpecifier
+      | (() => undefined | NoticeEdgeKeySpecifier);
+    fields?: NoticeEdgeFieldPolicy;
+  };
+  NoticeInsertResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | NoticeInsertResponseKeySpecifier
+      | (() => undefined | NoticeInsertResponseKeySpecifier);
+    fields?: NoticeInsertResponseFieldPolicy;
+  };
+  NoticeUpdateResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | NoticeUpdateResponseKeySpecifier
+      | (() => undefined | NoticeUpdateResponseKeySpecifier);
+    fields?: NoticeUpdateResponseFieldPolicy;
+  };
+  PageInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | PageInfoKeySpecifier
+      | (() => undefined | PageInfoKeySpecifier);
+    fields?: PageInfoFieldPolicy;
+  };
+  Profile?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ProfileKeySpecifier
+      | (() => undefined | ProfileKeySpecifier);
+    fields?: ProfileFieldPolicy;
+  };
+  ProfileConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ProfileConnectionKeySpecifier
+      | (() => undefined | ProfileConnectionKeySpecifier);
+    fields?: ProfileConnectionFieldPolicy;
+  };
+  ProfileDeleteResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ProfileDeleteResponseKeySpecifier
+      | (() => undefined | ProfileDeleteResponseKeySpecifier);
+    fields?: ProfileDeleteResponseFieldPolicy;
+  };
+  ProfileEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ProfileEdgeKeySpecifier
+      | (() => undefined | ProfileEdgeKeySpecifier);
+    fields?: ProfileEdgeFieldPolicy;
+  };
+  ProfileInsertResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ProfileInsertResponseKeySpecifier
+      | (() => undefined | ProfileInsertResponseKeySpecifier);
+    fields?: ProfileInsertResponseFieldPolicy;
+  };
+  ProfileUpdateResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ProfileUpdateResponseKeySpecifier
+      | (() => undefined | ProfileUpdateResponseKeySpecifier);
+    fields?: ProfileUpdateResponseFieldPolicy;
+  };
+  Query?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | QueryKeySpecifier
+      | (() => undefined | QueryKeySpecifier);
+    fields?: QueryFieldPolicy;
+  };
+  Resume?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ResumeKeySpecifier
+      | (() => undefined | ResumeKeySpecifier);
+    fields?: ResumeFieldPolicy;
+  };
+  ResumeConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ResumeConnectionKeySpecifier
+      | (() => undefined | ResumeConnectionKeySpecifier);
+    fields?: ResumeConnectionFieldPolicy;
+  };
+  ResumeDeleteResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ResumeDeleteResponseKeySpecifier
+      | (() => undefined | ResumeDeleteResponseKeySpecifier);
+    fields?: ResumeDeleteResponseFieldPolicy;
+  };
+  ResumeEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ResumeEdgeKeySpecifier
+      | (() => undefined | ResumeEdgeKeySpecifier);
+    fields?: ResumeEdgeFieldPolicy;
+  };
+  ResumeInsertResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ResumeInsertResponseKeySpecifier
+      | (() => undefined | ResumeInsertResponseKeySpecifier);
+    fields?: ResumeInsertResponseFieldPolicy;
+  };
+  ResumeUpdateResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ResumeUpdateResponseKeySpecifier
+      | (() => undefined | ResumeUpdateResponseKeySpecifier);
+    fields?: ResumeUpdateResponseFieldPolicy;
+  };
+  VisaHistory?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | VisaHistoryKeySpecifier
+      | (() => undefined | VisaHistoryKeySpecifier);
+    fields?: VisaHistoryFieldPolicy;
+  };
+  VisaHistoryConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | VisaHistoryConnectionKeySpecifier
+      | (() => undefined | VisaHistoryConnectionKeySpecifier);
+    fields?: VisaHistoryConnectionFieldPolicy;
+  };
+  VisaHistoryDeleteResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | VisaHistoryDeleteResponseKeySpecifier
+      | (() => undefined | VisaHistoryDeleteResponseKeySpecifier);
+    fields?: VisaHistoryDeleteResponseFieldPolicy;
+  };
+  VisaHistoryEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | VisaHistoryEdgeKeySpecifier
+      | (() => undefined | VisaHistoryEdgeKeySpecifier);
+    fields?: VisaHistoryEdgeFieldPolicy;
+  };
+  VisaHistoryInsertResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | VisaHistoryInsertResponseKeySpecifier
+      | (() => undefined | VisaHistoryInsertResponseKeySpecifier);
+    fields?: VisaHistoryInsertResponseFieldPolicy;
+  };
+  VisaHistoryUpdateResponse?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | VisaHistoryUpdateResponseKeySpecifier
+      | (() => undefined | VisaHistoryUpdateResponseKeySpecifier);
+    fields?: VisaHistoryUpdateResponseFieldPolicy;
+  };
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;
 export const ComapnyFieldsFragmentDoc = gql`
-    fragment ComapnyFields on Company {
-  uuid
-  name
-  email
-  website
-  industry
-  location
-}
-    `;
+  fragment ComapnyFields on Company {
+    uuid
+    name
+    email
+    website
+    industry
+    location
+  }
+`;
 export const JobPostListItemFieldsFragmentDoc = gql`
-    fragment JobPostListItemFields on JobPost {
-  id
-  title
-  companyName
-  jobCategory
-  jobType
-  endDate
-  siDo
-  siGunGu
-}
-    `;
+  fragment JobPostListItemFields on JobPost {
+    id
+    title
+    companyName
+    jobCategory
+    jobType
+    endDate
+    siDo
+    siGunGu
+  }
+`;
 export const JobPostItemFieldsFragmentDoc = gql`
-    fragment JobPostItemFields on JobPost {
-  id
-  title
-  companyName
-  companyId
-  area
-  images
-  salary
-  benefits
-  jobDescription
-  workingDays
-  workLocation
-  workingHoursEnd
-  workingHoursStart
-  jobType
-  employmentArrangement
-  preferredVisaList
-  endDate
-  siDo
-  siGunGu
-}
-    `;
+  fragment JobPostItemFields on JobPost {
+    id
+    title
+    companyName
+    companyId
+    area
+    images
+    salary
+    benefits
+    jobDescription
+    workingDays
+    workLocation
+    workingHoursEnd
+    workingHoursStart
+    jobType
+    employmentArrangement
+    preferredVisaList
+    endDate
+    siDo
+    siGunGu
+  }
+`;
 export const ProfileFieldsFragmentDoc = gql`
-    fragment ProfileFields on Profile {
-  name
-  gender
-  country
-  birthDate
-  residence
-  userType
-}
-    `;
+  fragment ProfileFields on Profile {
+    name
+    gender
+    country
+    birthDate
+    residence
+    userType
+  }
+`;
 export const ResumeFieldsFragmentDoc = gql`
-    fragment ResumeFields on Resume {
-  uuid
-  name
-  gender
-  country
-  birthDate
-  residence
-  address
-  detailAddress
-  email
-  phoneNumber
-  career
-  education
-  language
-  etc
-}
-    `;
+  fragment ResumeFields on Resume {
+    uuid
+    name
+    gender
+    country
+    birthDate
+    residence
+    address
+    detailAddress
+    email
+    phoneNumber
+    career
+    education
+    language
+    etc
+  }
+`;
 export const VisaHistoryFieldsFragmentDoc = gql`
-    fragment VisaHistoryFields on VisaHistory {
-  id
-  visaStatus
-  visaIssueDate
-  visaFinalEntryDate
-}
-    `;
+  fragment VisaHistoryFields on VisaHistory {
+    id
+    visaStatus
+    visaIssueDate
+    visaFinalEntryDate
+  }
+`;
 export const GetCompanyDocument = gql`
-    query GetCompany($uuid: UUID) {
-  companyCollection(filter: {uuid: {eq: $uuid}}) {
-    edges {
-      node {
-        ...ComapnyFields
+  query GetCompany($uuid: UUID) {
+    companyCollection(filter: { uuid: { eq: $uuid } }) {
+      edges {
+        node {
+          ...ComapnyFields
+        }
       }
     }
   }
-}
-    ${ComapnyFieldsFragmentDoc}`;
+  ${ComapnyFieldsFragmentDoc}
+`;
 export const GetJobPostDocument = gql`
-    query GetJobPost($uuid: UUID) {
-  jobPostCollection(filter: {uuid: {eq: $uuid}}) {
-    edges {
-      node {
-        ...JobPostItemFields
+  query GetJobPost($uuid: UUID) {
+    jobPostCollection(filter: { uuid: { eq: $uuid } }) {
+      edges {
+        node {
+          ...JobPostItemFields
+        }
       }
     }
   }
-}
-    ${JobPostItemFieldsFragmentDoc}`;
+  ${JobPostItemFieldsFragmentDoc}
+`;
 export const GetJobPostByFilterDocument = gql`
-    query GetJobPostByFilter($jobCategory: [JobCategory!], $siDo: [String!], $first: Int, $after: Cursor) {
-  jobPostCollection(
-    first: $first
-    after: $after
-    filter: {and: [{jobCategory: {in: $jobCategory}}, {siDo: {in: $siDo}}]}
-    orderBy: [{created_at: DescNullsLast}]
+  query GetJobPostByFilter(
+    $jobCategory: [JobCategory!]
+    $siDo: [String!]
+    $first: Int
+    $after: Cursor
   ) {
-    edges {
-      node {
-        ...JobPostListItemFields
+    jobPostCollection(
+      first: $first
+      after: $after
+      filter: {
+        and: [{ jobCategory: { in: $jobCategory } }, { siDo: { in: $siDo } }]
+      }
+      orderBy: [{ created_at: DescNullsLast }]
+    ) {
+      edges {
+        node {
+          ...JobPostListItemFields
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
-    pageInfo {
-      endCursor
-      hasNextPage
-    }
   }
-}
-    ${JobPostListItemFieldsFragmentDoc}`;
+  ${JobPostListItemFieldsFragmentDoc}
+`;
 export const GetHighlightedJobPostDocument = gql`
-    query GetHighlightedJobPost($first: Int, $after: Cursor) {
-  jobPostCollection(
-    first: $first
-    after: $after
-    orderBy: [{endDate: DescNullsLast}]
-  ) {
-    edges {
-      node {
-        ...JobPostListItemFields
+  query GetHighlightedJobPost($first: Int, $after: Cursor) {
+    jobPostCollection(
+      first: $first
+      after: $after
+      orderBy: [{ endDate: DescNullsLast }]
+    ) {
+      edges {
+        node {
+          ...JobPostListItemFields
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
-    pageInfo {
-      endCursor
-      hasNextPage
-    }
   }
-}
-    ${JobPostListItemFieldsFragmentDoc}`;
+  ${JobPostListItemFieldsFragmentDoc}
+`;
 export const GetNoticesDocument = gql`
-    query GetNotices($first: Int, $after: Cursor) {
-  noticeCollection(first: $first, after: $after) {
-    edges {
-      node {
-        id
-        title
+  query GetNotices($first: Int, $after: Cursor) {
+    noticeCollection(first: $first, after: $after) {
+      edges {
+        node {
+          id
+          title
+        }
+        cursor
       }
-      cursor
-    }
-    pageInfo {
-      endCursor
-      hasNextPage
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
-}
-    `;
+`;
 export const GetProfileDocument = gql`
-    query GetProfile($userId: UUID) {
-  profileCollection(filter: {userId: {eq: $userId}}) {
-    edges {
-      node {
-        ...ProfileFields
+  query GetProfile($userId: UUID) {
+    profileCollection(filter: { userId: { eq: $userId } }) {
+      edges {
+        node {
+          ...ProfileFields
+        }
       }
     }
   }
-}
-    ${ProfileFieldsFragmentDoc}`;
+  ${ProfileFieldsFragmentDoc}
+`;
 export const GetResumeByIdDocument = gql`
-    query GetResumeById($userId: UUID) {
-  resumeCollection(filter: {userId: {eq: $userId}}) {
-    edges {
-      node {
-        ...ResumeFields
+  query GetResumeById($userId: UUID) {
+    resumeCollection(filter: { userId: { eq: $userId } }) {
+      edges {
+        node {
+          ...ResumeFields
+        }
       }
     }
   }
-}
-    ${ResumeFieldsFragmentDoc}`;
+  ${ResumeFieldsFragmentDoc}
+`;
 export const InsertResumeByIdDocument = gql`
-    mutation InsertResumeById($uuid: UUID, $userId: UUID, $name: String, $gender: GenderType, $country: String, $birthDate: Date, $residence: ResidenceType, $address: String, $detailAddress: String, $email: String, $phoneNumber: String, $career: [JSON], $education: [JSON], $language: JSON, $etc: JSON) {
-  insertIntoResumeCollection(
-    objects: {uuid: $uuid, userId: $userId, name: $name, gender: $gender, country: $country, birthDate: $birthDate, residence: $residence, address: $address, detailAddress: $detailAddress, email: $email, phoneNumber: $phoneNumber, career: $career, education: $education, language: $language, etc: $etc}
+  mutation InsertResumeById(
+    $uuid: UUID
+    $userId: UUID
+    $name: String
+    $gender: GenderType
+    $country: String
+    $birthDate: Date
+    $residence: ResidenceType
+    $address: String
+    $detailAddress: String
+    $email: String
+    $phoneNumber: String
+    $career: [JSON]
+    $education: [JSON]
+    $language: JSON
+    $etc: JSON
   ) {
-    records {
-      id
-    }
-  }
-}
-    `;
-export type InsertResumeByIdMutationFn = Apollo.MutationFunction<InsertResumeByIdMutation, InsertResumeByIdMutationVariables>;
-export type InsertResumeByIdMutationOptions = Apollo.BaseMutationOptions<InsertResumeByIdMutation, InsertResumeByIdMutationVariables>;
-export const UpdateResumeByIdDocument = gql`
-    mutation UpdateResumeById($uuid: UUID, $name: String, $gender: GenderType, $country: String, $birthDate: Date, $residence: ResidenceType, $address: String, $detailAddress: String, $email: String, $phoneNumber: String, $career: [JSON], $education: [JSON], $language: JSON, $etc: JSON) {
-  updateResumeCollection(
-    filter: {uuid: {eq: $uuid}}
-    set: {name: $name, gender: $gender, country: $country, birthDate: $birthDate, residence: $residence, address: $address, detailAddress: $detailAddress, email: $email, phoneNumber: $phoneNumber, career: $career, education: $education, language: $language, etc: $etc}
-  ) {
-    records {
-      id
-    }
-  }
-}
-    `;
-export type UpdateResumeByIdMutationFn = Apollo.MutationFunction<UpdateResumeByIdMutation, UpdateResumeByIdMutationVariables>;
-export type UpdateResumeByIdMutationOptions = Apollo.BaseMutationOptions<UpdateResumeByIdMutation, UpdateResumeByIdMutationVariables>;
-export const GetVisaHistoryDocument = gql`
-    query GetVisaHistory($userId: UUID) {
-  visaHistoryCollection(filter: {userId: {eq: $userId}}) {
-    edges {
-      node {
-        ...VisaHistoryFields
+    insertIntoResumeCollection(
+      objects: {
+        uuid: $uuid
+        userId: $userId
+        name: $name
+        gender: $gender
+        country: $country
+        birthDate: $birthDate
+        residence: $residence
+        address: $address
+        detailAddress: $detailAddress
+        email: $email
+        phoneNumber: $phoneNumber
+        career: $career
+        education: $education
+        language: $language
+        etc: $etc
+      }
+    ) {
+      records {
+        id
       }
     }
   }
-}
-    ${VisaHistoryFieldsFragmentDoc}`;
+`;
+export type InsertResumeByIdMutationFn = Apollo.MutationFunction<
+  InsertResumeByIdMutation,
+  InsertResumeByIdMutationVariables
+>;
+export type InsertResumeByIdMutationOptions = Apollo.BaseMutationOptions<
+  InsertResumeByIdMutation,
+  InsertResumeByIdMutationVariables
+>;
+export const UpdateResumeByIdDocument = gql`
+  mutation UpdateResumeById(
+    $uuid: UUID
+    $name: String
+    $gender: GenderType
+    $country: String
+    $birthDate: Date
+    $residence: ResidenceType
+    $address: String
+    $detailAddress: String
+    $email: String
+    $phoneNumber: String
+    $career: [JSON]
+    $education: [JSON]
+    $language: JSON
+    $etc: JSON
+  ) {
+    updateResumeCollection(
+      filter: { uuid: { eq: $uuid } }
+      set: {
+        name: $name
+        gender: $gender
+        country: $country
+        birthDate: $birthDate
+        residence: $residence
+        address: $address
+        detailAddress: $detailAddress
+        email: $email
+        phoneNumber: $phoneNumber
+        career: $career
+        education: $education
+        language: $language
+        etc: $etc
+      }
+    ) {
+      records {
+        id
+      }
+    }
+  }
+`;
+export type UpdateResumeByIdMutationFn = Apollo.MutationFunction<
+  UpdateResumeByIdMutation,
+  UpdateResumeByIdMutationVariables
+>;
+export type UpdateResumeByIdMutationOptions = Apollo.BaseMutationOptions<
+  UpdateResumeByIdMutation,
+  UpdateResumeByIdMutationVariables
+>;
+export const GetVisaHistoryDocument = gql`
+  query GetVisaHistory($userId: UUID) {
+    visaHistoryCollection(filter: { userId: { eq: $userId } }) {
+      edges {
+        node {
+          ...VisaHistoryFields
+        }
+      }
+    }
+  }
+  ${VisaHistoryFieldsFragmentDoc}
+`;
 export const InsertVisaEnrolLHistoryDocument = gql`
-    mutation insertVisaEnrolLHistory($userId: UUID, $visaStatus: String, $visaIssueDate: Date, $visaFinalEntryDate: Date) {
-  insertIntoVisaHistoryCollection(
-    objects: {userId: $userId, visaStatus: $visaStatus, visaIssueDate: $visaIssueDate, visaFinalEntryDate: $visaFinalEntryDate}
+  mutation insertVisaEnrolLHistory(
+    $userId: UUID
+    $visaStatus: String
+    $visaIssueDate: Date
+    $visaFinalEntryDate: Date
   ) {
-    records {
-      id
+    insertIntoVisaHistoryCollection(
+      objects: {
+        userId: $userId
+        visaStatus: $visaStatus
+        visaIssueDate: $visaIssueDate
+        visaFinalEntryDate: $visaFinalEntryDate
+      }
+    ) {
+      records {
+        id
+      }
     }
   }
-}
-    `;
-export type InsertVisaEnrolLHistoryMutationFn = Apollo.MutationFunction<InsertVisaEnrolLHistoryMutation, InsertVisaEnrolLHistoryMutationVariables>;
-export type InsertVisaEnrolLHistoryMutationOptions = Apollo.BaseMutationOptions<InsertVisaEnrolLHistoryMutation, InsertVisaEnrolLHistoryMutationVariables>;
+`;
+export type InsertVisaEnrolLHistoryMutationFn = Apollo.MutationFunction<
+  InsertVisaEnrolLHistoryMutation,
+  InsertVisaEnrolLHistoryMutationVariables
+>;
+export type InsertVisaEnrolLHistoryMutationOptions = Apollo.BaseMutationOptions<
+  InsertVisaEnrolLHistoryMutation,
+  InsertVisaEnrolLHistoryMutationVariables
+>;
 export const UpdateVisaEnrolLHistoryDocument = gql`
-    mutation updateVisaEnrolLHistory($userId: UUID, $visaStatus: String, $visaIssueDate: Date, $visaFinalEntryDate: Date) {
-  updateVisaHistoryCollection(
-    set: {visaStatus: $visaStatus, visaIssueDate: $visaIssueDate, visaFinalEntryDate: $visaFinalEntryDate}
-    filter: {userId: {eq: $userId}}
+  mutation updateVisaEnrolLHistory(
+    $userId: UUID
+    $visaStatus: String
+    $visaIssueDate: Date
+    $visaFinalEntryDate: Date
   ) {
-    records {
-      id
+    updateVisaHistoryCollection(
+      set: {
+        visaStatus: $visaStatus
+        visaIssueDate: $visaIssueDate
+        visaFinalEntryDate: $visaFinalEntryDate
+      }
+      filter: { userId: { eq: $userId } }
+    ) {
+      records {
+        id
+      }
     }
   }
-}
-    `;
-export type UpdateVisaEnrolLHistoryMutationFn = Apollo.MutationFunction<UpdateVisaEnrolLHistoryMutation, UpdateVisaEnrolLHistoryMutationVariables>;
-export type UpdateVisaEnrolLHistoryMutationOptions = Apollo.BaseMutationOptions<UpdateVisaEnrolLHistoryMutation, UpdateVisaEnrolLHistoryMutationVariables>;
+`;
+export type UpdateVisaEnrolLHistoryMutationFn = Apollo.MutationFunction<
+  UpdateVisaEnrolLHistoryMutation,
+  UpdateVisaEnrolLHistoryMutationVariables
+>;
+export type UpdateVisaEnrolLHistoryMutationOptions = Apollo.BaseMutationOptions<
+  UpdateVisaEnrolLHistoryMutation,
+  UpdateVisaEnrolLHistoryMutationVariables
+>;
 export const DeleteVisaHistoryDocument = gql`
-    mutation DeleteVisaHistory($id: [BigInt!]) {
-  deleteFromVisaHistoryCollection(filter: {id: {in: $id}}, atMost: 10) {
-    affectedCount
+  mutation DeleteVisaHistory($id: [BigInt!]) {
+    deleteFromVisaHistoryCollection(filter: { id: { in: $id } }, atMost: 10) {
+      affectedCount
+    }
   }
-}
-    `;
-export type DeleteVisaHistoryMutationFn = Apollo.MutationFunction<DeleteVisaHistoryMutation, DeleteVisaHistoryMutationVariables>;
-export type DeleteVisaHistoryMutationOptions = Apollo.BaseMutationOptions<DeleteVisaHistoryMutation, DeleteVisaHistoryMutationVariables>;
-export type ComapnyFieldsFragment = { __typename?: 'Company', uuid: any, name: string, email?: string | null, website?: string | null, industry?: string | null, location?: string | null };
+`;
+export type DeleteVisaHistoryMutationFn = Apollo.MutationFunction<
+  DeleteVisaHistoryMutation,
+  DeleteVisaHistoryMutationVariables
+>;
+export type DeleteVisaHistoryMutationOptions = Apollo.BaseMutationOptions<
+  DeleteVisaHistoryMutation,
+  DeleteVisaHistoryMutationVariables
+>;
+export type ComapnyFieldsFragment = {
+  __typename?: 'Company';
+  uuid: any;
+  name: string;
+  email?: string | null;
+  website?: string | null;
+  industry?: string | null;
+  location?: string | null;
+};
 
-export type JobPostListItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string };
+export type JobPostListItemFieldsFragment = {
+  __typename?: 'JobPost';
+  id: any;
+  title: string;
+  companyName: string;
+  jobCategory: JobCategory;
+  jobType: JobType;
+  endDate?: any | null;
+  siDo: string;
+  siGunGu: string;
+};
 
-export type JobPostItemFieldsFragment = { __typename?: 'JobPost', id: any, title: string, companyName: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null, siDo: string, siGunGu: string };
+export type JobPostItemFieldsFragment = {
+  __typename?: 'JobPost';
+  id: any;
+  title: string;
+  companyName: string;
+  companyId: any;
+  area: string;
+  images?: any | null;
+  salary?: any | null;
+  benefits: string;
+  jobDescription: any;
+  workingDays: any;
+  workLocation: string;
+  workingHoursEnd: any;
+  workingHoursStart: any;
+  jobType: JobType;
+  employmentArrangement: EmploymentArrangement;
+  preferredVisaList: any;
+  endDate?: any | null;
+  siDo: string;
+  siGunGu: string;
+};
 
-export type ProfileFieldsFragment = { __typename?: 'Profile', name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, userType: string };
+export type ProfileFieldsFragment = {
+  __typename?: 'Profile';
+  name: string;
+  gender: GenderType;
+  country: string;
+  birthDate: any;
+  residence: ResidenceType;
+  userType: string;
+};
 
-export type ResumeFieldsFragment = { __typename?: 'Resume', uuid: any, name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, address: string, detailAddress: string, email: string, phoneNumber: string, career: Array<any | null>, education: Array<any | null>, language: any, etc: any };
+export type ResumeFieldsFragment = {
+  __typename?: 'Resume';
+  uuid: any;
+  name: string;
+  gender: GenderType;
+  country: string;
+  birthDate: any;
+  residence: ResidenceType;
+  address: string;
+  detailAddress: string;
+  email: string;
+  phoneNumber: string;
+  career: Array<any | null>;
+  education: Array<any | null>;
+  language: any;
+  etc: any;
+};
 
-export type VisaHistoryFieldsFragment = { __typename?: 'VisaHistory', id: any, visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null };
+export type VisaHistoryFieldsFragment = {
+  __typename?: 'VisaHistory';
+  id: any;
+  visaStatus: string;
+  visaIssueDate?: any | null;
+  visaFinalEntryDate?: any | null;
+};
 
 export type GetCompanyQueryVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
-
-export type GetCompanyQuery = { __typename?: 'Query', companyCollection?: { __typename?: 'CompanyConnection', edges: Array<{ __typename?: 'CompanyEdge', node: { __typename?: 'Company', uuid: any, name: string, email?: string | null, website?: string | null, industry?: string | null, location?: string | null } }> } | null };
+export type GetCompanyQuery = {
+  __typename?: 'Query';
+  companyCollection?: {
+    __typename?: 'CompanyConnection';
+    edges: Array<{
+      __typename?: 'CompanyEdge';
+      node: {
+        __typename?: 'Company';
+        uuid: any;
+        name: string;
+        email?: string | null;
+        website?: string | null;
+        industry?: string | null;
+        location?: string | null;
+      };
+    }>;
+  } | null;
+};
 
 export type GetJobPostQueryVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
-
-export type GetJobPostQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyName: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null, siDo: string, siGunGu: string } }> } | null };
+export type GetJobPostQuery = {
+  __typename?: 'Query';
+  jobPostCollection?: {
+    __typename?: 'JobPostConnection';
+    edges: Array<{
+      __typename?: 'JobPostEdge';
+      node: {
+        __typename?: 'JobPost';
+        id: any;
+        title: string;
+        companyName: string;
+        companyId: any;
+        area: string;
+        images?: any | null;
+        salary?: any | null;
+        benefits: string;
+        jobDescription: any;
+        workingDays: any;
+        workLocation: string;
+        workingHoursEnd: any;
+        workingHoursStart: any;
+        jobType: JobType;
+        employmentArrangement: EmploymentArrangement;
+        preferredVisaList: any;
+        endDate?: any | null;
+        siDo: string;
+        siGunGu: string;
+      };
+    }>;
+  } | null;
+};
 
 export type GetJobPostByFilterQueryVariables = Exact<{
   jobCategory?: InputMaybe<Array<JobCategory> | JobCategory>;
-  siDo?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  siDo?: InputMaybe<
+    Array<Scalars['String']['input']> | Scalars['String']['input']
+  >;
   first?: InputMaybe<Scalars['Int']['input']>;
   after?: InputMaybe<Scalars['Cursor']['input']>;
 }>;
 
-
-export type GetJobPostByFilterQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+export type GetJobPostByFilterQuery = {
+  __typename?: 'Query';
+  jobPostCollection?: {
+    __typename?: 'JobPostConnection';
+    edges: Array<{
+      __typename?: 'JobPostEdge';
+      node: {
+        __typename?: 'JobPost';
+        id: any;
+        title: string;
+        companyName: string;
+        jobCategory: JobCategory;
+        jobType: JobType;
+        endDate?: any | null;
+        siDo: string;
+        siGunGu: string;
+      };
+    }>;
+    pageInfo: {
+      __typename?: 'PageInfo';
+      endCursor?: string | null;
+      hasNextPage: boolean;
+    };
+  } | null;
+};
 
 export type GetHighlightedJobPostQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
   after?: InputMaybe<Scalars['Cursor']['input']>;
 }>;
 
-
-export type GetHighlightedJobPostQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+export type GetHighlightedJobPostQuery = {
+  __typename?: 'Query';
+  jobPostCollection?: {
+    __typename?: 'JobPostConnection';
+    edges: Array<{
+      __typename?: 'JobPostEdge';
+      node: {
+        __typename?: 'JobPost';
+        id: any;
+        title: string;
+        companyName: string;
+        jobCategory: JobCategory;
+        jobType: JobType;
+        endDate?: any | null;
+        siDo: string;
+        siGunGu: string;
+      };
+    }>;
+    pageInfo: {
+      __typename?: 'PageInfo';
+      endCursor?: string | null;
+      hasNextPage: boolean;
+    };
+  } | null;
+};
 
 export type GetNoticesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
   after?: InputMaybe<Scalars['Cursor']['input']>;
 }>;
 
-
-export type GetNoticesQuery = { __typename?: 'Query', noticeCollection?: { __typename?: 'NoticeConnection', edges: Array<{ __typename?: 'NoticeEdge', cursor: string, node: { __typename?: 'Notice', id: any, title: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+export type GetNoticesQuery = {
+  __typename?: 'Query';
+  noticeCollection?: {
+    __typename?: 'NoticeConnection';
+    edges: Array<{
+      __typename?: 'NoticeEdge';
+      cursor: string;
+      node: { __typename?: 'Notice'; id: any; title: string };
+    }>;
+    pageInfo: {
+      __typename?: 'PageInfo';
+      endCursor?: string | null;
+      hasNextPage: boolean;
+    };
+  } | null;
+};
 
 export type GetProfileQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
-
-export type GetProfileQuery = { __typename?: 'Query', profileCollection?: { __typename?: 'ProfileConnection', edges: Array<{ __typename?: 'ProfileEdge', node: { __typename?: 'Profile', name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, userType: string } }> } | null };
+export type GetProfileQuery = {
+  __typename?: 'Query';
+  profileCollection?: {
+    __typename?: 'ProfileConnection';
+    edges: Array<{
+      __typename?: 'ProfileEdge';
+      node: {
+        __typename?: 'Profile';
+        name: string;
+        gender: GenderType;
+        country: string;
+        birthDate: any;
+        residence: ResidenceType;
+        userType: string;
+      };
+    }>;
+  } | null;
+};
 
 export type GetResumeByIdQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
-
-export type GetResumeByIdQuery = { __typename?: 'Query', resumeCollection?: { __typename?: 'ResumeConnection', edges: Array<{ __typename?: 'ResumeEdge', node: { __typename?: 'Resume', uuid: any, name: string, gender: GenderType, country: string, birthDate: any, residence: ResidenceType, address: string, detailAddress: string, email: string, phoneNumber: string, career: Array<any | null>, education: Array<any | null>, language: any, etc: any } }> } | null };
+export type GetResumeByIdQuery = {
+  __typename?: 'Query';
+  resumeCollection?: {
+    __typename?: 'ResumeConnection';
+    edges: Array<{
+      __typename?: 'ResumeEdge';
+      node: {
+        __typename?: 'Resume';
+        uuid: any;
+        name: string;
+        gender: GenderType;
+        country: string;
+        birthDate: any;
+        residence: ResidenceType;
+        address: string;
+        detailAddress: string;
+        email: string;
+        phoneNumber: string;
+        career: Array<any | null>;
+        education: Array<any | null>;
+        language: any;
+        etc: any;
+      };
+    }>;
+  } | null;
+};
 
 export type InsertResumeByIdMutationVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
@@ -1986,14 +2675,25 @@ export type InsertResumeByIdMutationVariables = Exact<{
   detailAddress?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
-  career?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>> | InputMaybe<Scalars['JSON']['input']>>;
-  education?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>> | InputMaybe<Scalars['JSON']['input']>>;
+  career?: InputMaybe<
+    | Array<InputMaybe<Scalars['JSON']['input']>>
+    | InputMaybe<Scalars['JSON']['input']>
+  >;
+  education?: InputMaybe<
+    | Array<InputMaybe<Scalars['JSON']['input']>>
+    | InputMaybe<Scalars['JSON']['input']>
+  >;
   language?: InputMaybe<Scalars['JSON']['input']>;
   etc?: InputMaybe<Scalars['JSON']['input']>;
 }>;
 
-
-export type InsertResumeByIdMutation = { __typename?: 'Mutation', insertIntoResumeCollection?: { __typename?: 'ResumeInsertResponse', records: Array<{ __typename?: 'Resume', id: any }> } | null };
+export type InsertResumeByIdMutation = {
+  __typename?: 'Mutation';
+  insertIntoResumeCollection?: {
+    __typename?: 'ResumeInsertResponse';
+    records: Array<{ __typename?: 'Resume'; id: any }>;
+  } | null;
+};
 
 export type UpdateResumeByIdMutationVariables = Exact<{
   uuid?: InputMaybe<Scalars['UUID']['input']>;
@@ -2006,21 +2706,46 @@ export type UpdateResumeByIdMutationVariables = Exact<{
   detailAddress?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
-  career?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>> | InputMaybe<Scalars['JSON']['input']>>;
-  education?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>> | InputMaybe<Scalars['JSON']['input']>>;
+  career?: InputMaybe<
+    | Array<InputMaybe<Scalars['JSON']['input']>>
+    | InputMaybe<Scalars['JSON']['input']>
+  >;
+  education?: InputMaybe<
+    | Array<InputMaybe<Scalars['JSON']['input']>>
+    | InputMaybe<Scalars['JSON']['input']>
+  >;
   language?: InputMaybe<Scalars['JSON']['input']>;
   etc?: InputMaybe<Scalars['JSON']['input']>;
 }>;
 
-
-export type UpdateResumeByIdMutation = { __typename?: 'Mutation', updateResumeCollection: { __typename?: 'ResumeUpdateResponse', records: Array<{ __typename?: 'Resume', id: any }> } };
+export type UpdateResumeByIdMutation = {
+  __typename?: 'Mutation';
+  updateResumeCollection: {
+    __typename?: 'ResumeUpdateResponse';
+    records: Array<{ __typename?: 'Resume'; id: any }>;
+  };
+};
 
 export type GetVisaHistoryQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
-
-export type GetVisaHistoryQuery = { __typename?: 'Query', visaHistoryCollection?: { __typename?: 'VisaHistoryConnection', edges: Array<{ __typename?: 'VisaHistoryEdge', node: { __typename?: 'VisaHistory', id: any, visaStatus: string, visaIssueDate?: any | null, visaFinalEntryDate?: any | null } }> } | null };
+export type GetVisaHistoryQuery = {
+  __typename?: 'Query';
+  visaHistoryCollection?: {
+    __typename?: 'VisaHistoryConnection';
+    edges: Array<{
+      __typename?: 'VisaHistoryEdge';
+      node: {
+        __typename?: 'VisaHistory';
+        id: any;
+        visaStatus: string;
+        visaIssueDate?: any | null;
+        visaFinalEntryDate?: any | null;
+      };
+    }>;
+  } | null;
+};
 
 export type InsertVisaEnrolLHistoryMutationVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
@@ -2029,8 +2754,13 @@ export type InsertVisaEnrolLHistoryMutationVariables = Exact<{
   visaFinalEntryDate?: InputMaybe<Scalars['Date']['input']>;
 }>;
 
-
-export type InsertVisaEnrolLHistoryMutation = { __typename?: 'Mutation', insertIntoVisaHistoryCollection?: { __typename?: 'VisaHistoryInsertResponse', records: Array<{ __typename?: 'VisaHistory', id: any }> } | null };
+export type InsertVisaEnrolLHistoryMutation = {
+  __typename?: 'Mutation';
+  insertIntoVisaHistoryCollection?: {
+    __typename?: 'VisaHistoryInsertResponse';
+    records: Array<{ __typename?: 'VisaHistory'; id: any }>;
+  } | null;
+};
 
 export type UpdateVisaEnrolLHistoryMutationVariables = Exact<{
   userId?: InputMaybe<Scalars['UUID']['input']>;
@@ -2039,12 +2769,24 @@ export type UpdateVisaEnrolLHistoryMutationVariables = Exact<{
   visaFinalEntryDate?: InputMaybe<Scalars['Date']['input']>;
 }>;
 
-
-export type UpdateVisaEnrolLHistoryMutation = { __typename?: 'Mutation', updateVisaHistoryCollection: { __typename?: 'VisaHistoryUpdateResponse', records: Array<{ __typename?: 'VisaHistory', id: any }> } };
+export type UpdateVisaEnrolLHistoryMutation = {
+  __typename?: 'Mutation';
+  updateVisaHistoryCollection: {
+    __typename?: 'VisaHistoryUpdateResponse';
+    records: Array<{ __typename?: 'VisaHistory'; id: any }>;
+  };
+};
 
 export type DeleteVisaHistoryMutationVariables = Exact<{
-  id?: InputMaybe<Array<Scalars['BigInt']['input']> | Scalars['BigInt']['input']>;
+  id?: InputMaybe<
+    Array<Scalars['BigInt']['input']> | Scalars['BigInt']['input']
+  >;
 }>;
 
-
-export type DeleteVisaHistoryMutation = { __typename?: 'Mutation', deleteFromVisaHistoryCollection: { __typename?: 'VisaHistoryDeleteResponse', affectedCount: number } };
+export type DeleteVisaHistoryMutation = {
+  __typename?: 'Mutation';
+  deleteFromVisaHistoryCollection: {
+    __typename?: 'VisaHistoryDeleteResponse';
+    affectedCount: number;
+  };
+};

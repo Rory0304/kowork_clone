@@ -1,6 +1,6 @@
-import React from "react";
-import { View } from "react-native";
-import { Modal, Portal, Text } from "react-native-paper";
+import React from 'react';
+import { View } from 'react-native';
+import { Modal, Portal, Text } from 'react-native-paper';
 
 interface ConfirmModalProps {
   title: string;
@@ -23,10 +23,10 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
         visible={open}
         onDismiss={closeModal}
         contentContainerStyle={{
-          backgroundColor: "white",
+          backgroundColor: 'white',
           padding: 16,
           borderRadius: 16,
-          margin: "auto",
+          margin: 'auto',
         }}
       >
         <View>

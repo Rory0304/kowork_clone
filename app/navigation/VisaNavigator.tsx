@@ -1,8 +1,10 @@
-import React from "react";
-import VisaScreen from "../screens/Visa/VisaScreen";
+import React from 'react';
 
-import { createStackNavigator } from "@react-navigation/stack";
-import { NAV_SCREENS } from "app/constants/Routes";
+import { createStackNavigator } from '@react-navigation/stack';
+
+import { NAV_SCREENS } from 'app/constants/Routes';
+
+import VisaScreen from '../screens/Visa/VisaScreen';
 
 const Stack = createStackNavigator();
 

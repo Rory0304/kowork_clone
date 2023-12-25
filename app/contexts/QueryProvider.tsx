@@ -1,13 +1,15 @@
-import React from "react";
+import React from 'react';
+
 import {
   ApolloClient,
-  InMemoryCache,
-  HttpLink,
   ApolloProvider,
-} from "@apollo/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useAuth } from "./AuthProvider";
-import fetch from "cross-fetch";
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import fetch from 'cross-fetch';
+
+import { useAuth } from './AuthProvider';
 
 interface QueryProviderProps {
   children: React.ReactNode;
@@ -34,7 +36,7 @@ const QueryProvider: React.FC<QueryProviderProps> = ({ children }) => {
       apikey: process.env.SUPABASE_API_KEY!,
     };
     if (accessToken) {
-      headers["Authorization"] = `Bearer ${accessToken}`;
+      headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
     return headers;

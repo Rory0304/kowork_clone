@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 const modalsAtom = atom<
   Array<{
@@ -6,7 +6,7 @@ const modalsAtom = atom<
     props: React.ComponentProps<React.FunctionComponent<any>>;
   }>
 >({
-  key: "modalsAtom",
+  key: 'modalsAtom',
   default: [],
 });
 

@@ -1,21 +1,22 @@
-import React from "react";
+import React from 'react';
 import {
-  View,
-  Text,
   FlatList,
   Image,
   ImageBackground,
-  TouchableOpacity,
   ImageSourcePropType,
-} from "react-native";
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import ArrowRightCircleIcon from 'react-native-heroicons/solid/ArrowRightCircleIcon';
 
-import Stack from "app/components/blocks/Stack/Stack";
-import TitleAndDescriptionSection from "app/components/pages/global/Section/TitleAndDescriptionSection";
-import ArrowRightCircleIcon from "react-native-heroicons/solid/ArrowRightCircleIcon";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
+import { useNavigation } from '@react-navigation/native';
 
-type VisaType = "D-10-1" | "F-2-7";
+import Stack from 'app/components/blocks/Stack/Stack';
+import TitleAndDescriptionSection from 'app/components/pages/global/Section/TitleAndDescriptionSection';
+import navigate from 'app/utils/navigationHelper';
+
+type VisaType = 'D-10-1' | 'F-2-7';
 
 interface VisaTestProps {
   type: VisaType;
@@ -27,16 +28,16 @@ interface VisaTestProps {
 
 const VISA_TEST: VisaTestProps[] = [
   {
-    type: "D-10-1",
-    name: "구직비자",
-    imgSrc: require("../../../../assets/images/dart.png"),
+    type: 'D-10-1',
+    name: '구직비자',
+    imgSrc: require('../../../../assets/images/dart.png'),
     height: 80,
     bottom: -5,
   },
   {
-    type: "F-2-7",
-    name: "거주비자",
-    imgSrc: require("../../../../assets/images/trophy.png"),
+    type: 'F-2-7',
+    name: '거주비자',
+    imgSrc: require('../../../../assets/images/trophy.png'),
     height: 100,
     bottom: -25,
   },
@@ -47,11 +48,11 @@ const Item = ({ name, type, imgSrc, height, bottom }: VisaTestProps) => {
   const navigator = navigate(navigation);
 
   const handleVisaTestPageOpen = (type: VisaType) => {
-    if (type === "D-10-1") {
+    if (type === 'D-10-1') {
       return navigator.openVisaTestD101Screen();
     }
 
-    if (type === "F-2-7") {
+    if (type === 'F-2-7') {
       return navigator.openVisaTestF27Screen();
     }
   };
@@ -69,17 +70,17 @@ const Item = ({ name, type, imgSrc, height, bottom }: VisaTestProps) => {
             source={imgSrc}
             resizeMode="contain"
             style={{
-              position: "absolute",
+              position: 'absolute',
               bottom: bottom,
-              width: "100%",
+              width: '100%',
               height: height,
-              margin: "auto",
+              margin: 'auto',
             }}
           />
           <ArrowRightCircleIcon
             color="black"
             style={{
-              position: "absolute",
+              position: 'absolute',
               right: 0,
               bottom: 0,
             }}
@@ -101,7 +102,7 @@ const VisaTestSection: React.FC<VisaTestSectionProps> = ({ description }) => {
       description={description}
     >
       <Stack columnGap={16} styles="overflow-hidden">
-        {VISA_TEST.map((item) => (
+        {VISA_TEST.map(item => (
           <Item key={item.type} {...item} />
         ))}
       </Stack>

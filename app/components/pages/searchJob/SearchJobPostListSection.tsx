@@ -1,13 +1,16 @@
-import React from "react";
-import { View, FlatList } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
-import SearchJobPostListItem from "./SearchJobPostListItem";
-import Swiper from "react-native-swiper";
-import _chunk from "lodash/chunk";
-import { gray } from "tailwindcss/colors";
-import { useQuery } from "@tanstack/react-query";
-import { getHighlightedJobPost } from "app/api/jobPostList";
+import React from 'react';
+import { FlatList, View } from 'react-native';
+import Swiper from 'react-native-swiper';
+
+import { useNavigation } from '@react-navigation/native';
+import { useQuery } from '@tanstack/react-query';
+import _chunk from 'lodash/chunk';
+import { gray } from 'tailwindcss/colors';
+
+import { getHighlightedJobPost } from 'app/api/jobPostList';
+import navigate from 'app/utils/navigationHelper';
+
+import SearchJobPostListItem from './SearchJobPostListItem';
 
 const COUNT_PER_SLIDE = 4;
 
@@ -19,7 +22,7 @@ const JobPostListSection: React.FC = () => {
   };
 
   const { data, isError, error } = useQuery({
-    queryKey: ["getHighlightedJobPost"],
+    queryKey: ['getHighlightedJobPost'],
     queryFn: async () =>
       await getHighlightedJobPost({
         first: 8,
@@ -37,7 +40,7 @@ const JobPostListSection: React.FC = () => {
         dot={
           <View
             style={{
-              backgroundColor: "rgba(0,0,0,.2)",
+              backgroundColor: 'rgba(0,0,0,.2)',
               width: 5,
               height: 5,
               borderRadius: 4,
@@ -52,7 +55,7 @@ const JobPostListSection: React.FC = () => {
           height,
         }}
         paginationStyle={{
-          position: "relative",
+          position: 'relative',
           bottom: 0,
           borderTopWidth: 1,
           borderTopColor: gray[200],
@@ -60,9 +63,9 @@ const JobPostListSection: React.FC = () => {
           paddingBottom: 20,
         }}
       >
-        {chunkedJobPostList.map((list) => (
+        {chunkedJobPostList.map(list => (
           <View
-            onLayout={(event) => {
+            onLayout={event => {
               handleSetHeight(event.nativeEvent.layout.height);
             }}
           >
@@ -72,7 +75,7 @@ const JobPostListSection: React.FC = () => {
               renderItem={({ item }) => (
                 <SearchJobPostListItem {...item.node} isBookMarked={false} />
               )}
-              keyExtractor={(item) => `${item.node.id}`}
+              keyExtractor={item => `${item.node.id}`}
             />
           </View>
         ))}

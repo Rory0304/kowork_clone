@@ -1,20 +1,22 @@
-import React from "react";
-import { useRoute, RouteProp } from "@react-navigation/native";
-import { ScrollView } from "react-native";
+import React from 'react';
+import { ScrollView } from 'react-native';
+
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useQuery } from '@tanstack/react-query';
+
+import { getCompanyById } from 'app/api/company';
+import { getJobPostById } from 'app/api/jobPostList';
+import VStack from 'app/components/blocks/Stack/VStack';
 import {
   JobPostBasicInfo,
   JobPostCompanyInfo,
   JobPostDetailInfo,
   JobPostHeader,
-} from "app/components/pages/jobPostDetail";
-import VStack from "app/components/blocks/Stack/VStack";
-import { useQuery } from "@tanstack/react-query";
-import { getJobPostById } from "app/api/jobPostList";
-import { getCompanyById } from "app/api/company";
+} from 'app/components/pages/jobPostDetail';
 import type {
   JobPostDescriptionInfoType,
   preferredVisaListType,
-} from "app/types/JobPost";
+} from 'app/types/JobPost';
 
 type JobPostDetailScreenParamList = {
   params: {
@@ -25,10 +27,10 @@ type JobPostDetailScreenParamList = {
 const JobPostDetailScreen: React.FC = () => {
   const {
     params: { uuid },
-  } = useRoute<RouteProp<JobPostDetailScreenParamList, "params">>();
+  } = useRoute<RouteProp<JobPostDetailScreenParamList, 'params'>>();
 
   const { data: JobPostData } = useQuery({
-    queryKey: ["getJobPostById", uuid],
+    queryKey: ['getJobPostById', uuid],
     queryFn: () =>
       getJobPostById({
         uuid,
@@ -38,7 +40,7 @@ const JobPostDetailScreen: React.FC = () => {
   const companyId = JobPostData?.jobPost?.companyId;
 
   const { data: companyData } = useQuery({
-    queryKey: ["getCompanyById", companyId],
+    queryKey: ['getCompanyById', companyId],
     queryFn: () =>
       getCompanyById({
         uuid: companyId,

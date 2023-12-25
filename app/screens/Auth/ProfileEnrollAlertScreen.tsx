@@ -1,9 +1,10 @@
-import React from "react";
-import { View, Text } from "react-native";
-import Button from "app/components/blocks/Button/Button";
+import React from 'react';
+import { Text, View } from 'react-native';
 
-import { useNavigation } from "@react-navigation/native";
-import navigate from "app/utils/navigationHelper";
+import { useNavigation } from '@react-navigation/native';
+
+import Button from 'app/components/blocks/Button/Button';
+import navigate from 'app/utils/navigationHelper';
 
 const ProfileEnrollAlertScreen: React.FC = () => {
   const navigation = useNavigation();

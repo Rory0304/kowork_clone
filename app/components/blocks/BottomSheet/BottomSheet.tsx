@@ -1,9 +1,10 @@
-import React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
-import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
-import { gray } from "tailwindcss/colors";
-import XMarkIcon from "react-native-heroicons/solid/XMarkIcon";
+import React from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import XMarkIcon from 'react-native-heroicons/solid/XMarkIcon';
+
+import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import { gray } from 'tailwindcss/colors';
 
 interface BottomSheetProps {
   snapPoints: string[];
@@ -22,7 +23,7 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
         {!!headerTitle ? (
           <Text className="text-base font-bold">{headerTitle}</Text>
         ) : null}
-        {closeBtn && typeof onClose === "function" ? (
+        {closeBtn && typeof onClose === 'function' ? (
           <TouchableOpacity onPress={() => onClose()}>
             <XMarkIcon width={24} height={24} color="gray" />
           </TouchableOpacity>
@@ -38,7 +39,7 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
           {...props}
           disappearsOnIndex={1}
           appearsOnIndex={2}
-          pressBehavior={"close"}
+          pressBehavior={'close'}
         />
       ),
       []
@@ -50,7 +51,7 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
         index={0}
         snapPoints={bottomSheetSnapPoints}
         backdropComponent={renderBackdrop}
-        handleIndicatorStyle={{ backgroundColor: gray[200], width: "25%" }}
+        handleIndicatorStyle={{ backgroundColor: gray[200], width: '25%' }}
       >
         {BottomSheetHeader}
         {children}
@@ -59,6 +60,6 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
   }
 );
 
-BottomSheet.displayName = "BottomSheet";
+BottomSheet.displayName = 'BottomSheet';
 
 export default BottomSheet;

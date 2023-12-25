@@ -1,1 +1,1 @@
-export { default as TitleAndDescriptionSection } from "./TitleAndDescriptionSection";
+export { default as TitleAndDescriptionSection } from './TitleAndDescriptionSection';

@@ -1,8 +1,8 @@
-import React from "react";
-import { View } from "react-native";
+import React from 'react';
+import { View } from 'react-native';
 
 interface StackProps {
-  direction?: "row" | "column";
+  direction?: 'row' | 'column';
   columnGap?: number;
   rowGap?: number;
   children?: React.ReactNode;
@@ -10,7 +10,7 @@ interface StackProps {
 }
 
 const Stack: React.FC<StackProps> = ({
-  direction = "row",
+  direction = 'row',
   columnGap,
   rowGap,
   children,
@@ -19,7 +19,7 @@ const Stack: React.FC<StackProps> = ({
   return (
     <View
       className={`flex ${
-        direction === "row" ? "flex-row" : "flex-col"
+        direction === 'row' ? 'flex-row' : 'flex-col'
       } ${styles}`}
       style={{ columnGap, rowGap }} // Ref:https://www.nativewind.dev/tailwind/flexbox/gap
     >
