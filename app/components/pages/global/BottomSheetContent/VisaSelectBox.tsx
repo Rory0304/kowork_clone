@@ -11,9 +11,7 @@ const VisaSelectBox: React.FC<VisaSelectBoxProps> = ({ onPress }) => {
   return (
     <FlatList
       className="p-4 py-6"
-      data={
-        Object.keys(VisaStatus) as unknown as Array<keyof typeof VisaStatus>
-      }
+      data={Object.keys(VisaStatus) as Array<keyof typeof VisaStatus>}
       renderItem={({ item }) => (
         <TouchableOpacity
           className="my-3"
