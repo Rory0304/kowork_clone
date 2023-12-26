@@ -61,6 +61,15 @@ const openVisaTestF27Screen =
     });
   };
 
+const openVisaInfoScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate('ModalNavigator', {
+      screen: NAV_SCREENS.VisaInfoScreen,
+      params: props,
+    });
+  };
+
 const openMyApplyListScreen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
@@ -239,6 +248,7 @@ const navigate = (
   openProfileEnrollVisaInfoScreen: openProfileEnrollVisaInfoScreen(navigation),
   openMyPageScreen: openMyPageScreen(navigation),
   openResumeEditEtcInfoScreen: openResumeEditEtcInfoScreen(navigation),
+  openVisaInfoScreen: openVisaInfoScreen(navigation),
 });
 
 export default navigate;

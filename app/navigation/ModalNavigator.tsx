@@ -9,6 +9,7 @@ import MyNotificationScreen from 'app/screens/MyPage/MyNotificationScreen';
 import MyVisaEnrollScreen from 'app/screens/MyPage/MyVisaEnrollScreen';
 import MyVisaHistory from 'app/screens/MyPage/MyVisaHistory';
 import NoticeItemScreen from 'app/screens/NoticeItem/NoticeItemScreen';
+import VisaInfoScreen from 'app/screens/Visa/VisaInfoScreen';
 import VisaTestD101Screen from 'app/screens/Visa/VisaTestD101Screen';
 import VisaTestF27Screen from 'app/screens/Visa/VisaTestF27Screen';
 
@@ -66,6 +67,14 @@ const ModalNavigator: React.FC = () => {
         component={MyVisaHistory}
         options={{
           headerTitle: '비자 히스토리',
+          headerLeft: () => <HeaderBackIcon onPress={onPressBackHandle} />,
+        }}
+      />
+      <Stack.Screen
+        name={NAV_SCREENS.VisaInfoScreen}
+        component={VisaInfoScreen}
+        options={{
+          headerTitle: '모든 비자 정보',
           headerLeft: () => <HeaderBackIcon onPress={onPressBackHandle} />,
         }}
       />

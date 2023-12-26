@@ -23,6 +23,7 @@ export enum NAV_SCREENS {
   VisaScreen = 'VisaScreen',
   VisaTestD101 = 'VisaTestD101Screen',
   VisaTestF27 = 'VisaTestF27Screen',
+  VisaInfoScreen = 'VisaInfoScreen',
 
   // MyPage
   MyPageScreen = 'MyPageScren',
