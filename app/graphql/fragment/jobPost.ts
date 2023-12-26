@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const FRAGMENT_JOB_POST_LIST_ITEM = gql`
   fragment JobPostListItemFields on JobPost {
     id
+    uuid
     title
     companyName
     jobCategory
