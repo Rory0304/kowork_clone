@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import XMarkIcon from 'react-native-heroicons/solid/XMarkIcon';
 
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -9,25 +9,41 @@ import { gray } from 'tailwindcss/colors';
 interface BottomSheetProps {
   snapPoints: string[];
   headerTitle?: string;
+  HeaderComponent?: React.ReactNode;
   closeBtn?: boolean;
   onClose?: () => void;
   children: React.ReactNode;
 }
 
+export const BottomSheetCloseBtn = ({ onClose }: { onClose: () => void }) => {
+  return (
+    <TouchableOpacity onPress={onClose}>
+      <XMarkIcon width={24} height={24} color="gray" />
+    </TouchableOpacity>
+  );
+};
+
 const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
-  ({ snapPoints, headerTitle, closeBtn, onClose, children }, ref) => {
+  (
+    { snapPoints, headerTitle, HeaderComponent, closeBtn, onClose, children },
+    ref
+  ) => {
     const bottomSheetSnapPoints = React.useMemo(() => snapPoints, [snapPoints]);
 
     const BottomSheetHeader = (
       <View className="flex flex-row items-center justify-between px-4 py-2 bg-white border-b border-neutral-100">
-        {!!headerTitle ? (
-          <Text className="text-base font-bold">{headerTitle}</Text>
-        ) : null}
-        {closeBtn && typeof onClose === 'function' ? (
-          <TouchableOpacity onPress={() => onClose()}>
-            <XMarkIcon width={24} height={24} color="gray" />
-          </TouchableOpacity>
-        ) : null}
+        {HeaderComponent ? (
+          HeaderComponent
+        ) : (
+          <>
+            {!!headerTitle ? (
+              <Text className="text-base font-bold">{headerTitle}</Text>
+            ) : null}
+            {closeBtn && typeof onClose === 'function' ? (
+              <BottomSheetCloseBtn onClose={onClose} />
+            ) : null}
+          </>
+        )}
       </View>
     );
 
