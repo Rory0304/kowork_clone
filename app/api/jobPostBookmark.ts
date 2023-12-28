@@ -3,14 +3,14 @@ import { SupabaseClient } from '@supabase/supabase-js';
 //
 // Get Job Post Fav by Ids
 //
-interface getJobPostFavByIdsProps {
+interface GetJobPostBookmarkByIdsProps {
   jobPostIds: string[];
   userId: string;
 }
 
 export const getJobPostBookmarkByIds =
   (supabaseClient: SupabaseClient) =>
-  async ({ jobPostIds, userId }: getJobPostFavByIdsProps) => {
+  async ({ jobPostIds, userId }: GetJobPostBookmarkByIdsProps) => {
     const { data, error } = await supabaseClient
       .from('JobPostBookmark')
       .select('*')
