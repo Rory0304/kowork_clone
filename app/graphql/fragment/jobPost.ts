@@ -17,6 +17,7 @@ export const FRAGMENT_JOB_POST_LIST_ITEM = gql`
 export const FRAGMENT_JOB_POST_ITEM = gql`
   fragment JobPostItemFields on JobPost {
     id
+    uuid
     title
     companyName
     companyId
