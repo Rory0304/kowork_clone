@@ -30,6 +30,7 @@ export enum NAV_SCREENS {
   MyApplyListScreen = 'MyApplyListScreen',
   MyVisaHistoryScreen = 'MyVisaHistoryScreen',
   MyVisaEnrollScreen = 'MyVisaEnrollScreen',
+  MyBookMarkScreen = 'MyBookMarkScreen',
 
   // Resume
   MyResumeScreen = 'MyResumeScreen',
