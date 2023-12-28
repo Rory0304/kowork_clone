@@ -1,8 +1,10 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import EmptyStarIcon from 'react-native-heroicons/outline/StarIcon';
 import CheckCircleIcon from 'react-native-heroicons/solid/CheckCircleIcon';
 import DocumentTextIcon from 'react-native-heroicons/solid/DocumentTextIcon';
-import StarIcon from 'react-native-heroicons/solid/StarIcon';
+import FilledStarIcon from 'react-native-heroicons/solid/StarIcon';
 import UserCircleIcon from 'react-native-heroicons/solid/UserCircleIcon';
 
 import { Stack } from 'app/components/blocks';
@@ -11,7 +13,9 @@ import { customColors } from 'app/constants/styles/Colors';
 
 interface VisaInfoBoxHeaderProps {
   title: string;
+  isBookmarked: Boolean;
   onClose: () => void;
+  toggleBookmark: () => void;
 }
 
 interface VisaInfoBoxContentProps {
@@ -22,13 +26,21 @@ interface VisaInfoBoxContentProps {
 
 export const VisaInfoBoxHeader: React.FC<VisaInfoBoxHeaderProps> = ({
   title,
+  isBookmarked,
   onClose,
+  toggleBookmark,
 }) => {
   return (
     <React.Fragment>
       <BottomSheetCloseBtn onClose={onClose} />
       <Text className="text-base font-bold">{title}</Text>
-      <StarIcon fill={customColors.primary} />
+      <TouchableOpacity onPress={toggleBookmark}>
+        {isBookmarked ? (
+          <FilledStarIcon fill={customColors.primary} />
+        ) : (
+          <EmptyStarIcon color={customColors.primary} />
+        )}
+      </TouchableOpacity>
     </React.Fragment>
   );
 };

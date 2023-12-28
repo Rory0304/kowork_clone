@@ -9,8 +9,8 @@ interface SupabaseClientProviderProps {
 }
 
 const SupabaseClientContext = React.createContext<{
-  supbaseClient: SupabaseClient | null;
-}>({ supbaseClient: null });
+  supabaseClient: SupabaseClient | null;
+}>({ supabaseClient: null });
 
 const SupabaseClientProvider: React.FC<SupabaseClientProviderProps> = ({
   children,
@@ -25,7 +25,7 @@ const SupabaseClientProvider: React.FC<SupabaseClientProviderProps> = ({
   );
 
   return (
-    <SupabaseClientContext.Provider value={{ supbaseClient: supabaseClient }}>
+    <SupabaseClientContext.Provider value={{ supabaseClient: supabaseClient }}>
       {children}
     </SupabaseClientContext.Provider>
   );

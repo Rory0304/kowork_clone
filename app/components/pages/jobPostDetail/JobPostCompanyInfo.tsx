@@ -12,7 +12,7 @@ interface JobPostCompanyInfo
     'email' | 'name' | 'location' | 'industry' | 'website'
   > {}
 
-const JobPostCompanyInfo: React.FC<JobPostCompanyInfo> = ({
+const JobPostCompanyInfo: React.FC<Partial<JobPostCompanyInfo>> = ({
   email,
   name,
   website,

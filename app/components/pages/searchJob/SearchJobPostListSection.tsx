@@ -2,12 +2,19 @@ import React from 'react';
 import { FlatList, View } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-import { useNavigation } from '@react-navigation/native';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@apollo/client';
 import _chunk from 'lodash/chunk';
 import { gray } from 'tailwindcss/colors';
 
-import { getHighlightedJobPost } from 'app/api/jobPostList';
+import { OverlaySpinner } from 'app/components/blocks';
+import { useAuth } from 'app/contexts/AuthProvider';
+import {
+  GetHighlightedJobPostDocument,
+  GetHighlightedJobPostQuery,
+  GetJobPostBookmarkByIdsDocument,
+  GetJobPostBookmarkByIdsQuery,
+  GetJobPostBookmarkByIdsQueryVariables,
+} from 'app/graphql/generated';
 import navigate from 'app/utils/navigationHelper';
 
 import SearchJobPostListItem from './SearchJobPostListItem';
@@ -15,25 +22,43 @@ import SearchJobPostListItem from './SearchJobPostListItem';
 const COUNT_PER_SLIDE = 4;
 
 const JobPostListSection: React.FC = () => {
+  const { userInfo } = useAuth();
   const [height, setHeight] = React.useState(500);
 
   const handleSetHeight = (value: number) => {
     setHeight(value);
   };
 
-  const { data, isError, error } = useQuery({
-    queryKey: ['getHighlightedJobPost'],
-    queryFn: async () =>
-      await getHighlightedJobPost({
+  const { data: jobPostListData, loading: highlightedPostListLoading } =
+    useQuery<GetHighlightedJobPostQuery>(GetHighlightedJobPostDocument, {
+      variables: {
         first: 8,
-      }),
+      },
+    });
+
+  const highlightedPostList = jobPostListData?.jobPostCollection?.edges;
+  const chunkedJobPostList = _chunk(highlightedPostList, COUNT_PER_SLIDE);
+
+  const { data: jobPostBookmarks, loading: jobPostBookmarksLoading } = useQuery<
+    GetJobPostBookmarkByIdsQuery,
+    GetJobPostBookmarkByIdsQueryVariables
+  >(GetJobPostBookmarkByIdsDocument, {
+    variables: {
+      jobPostIds: highlightedPostList?.map(res => res.node.uuid),
+      userId: userInfo?.id,
+    },
   });
 
-  const jobPostList = data?.jobPostList;
-  const chunkedJobPostList = _chunk(jobPostList, COUNT_PER_SLIDE);
+  const jobPostBookmarkIds =
+    jobPostBookmarks?.jobPostBookmarkCollection?.edges?.map(
+      res => res.node.job_post_id
+    );
 
   return (
-    <View className="mb-4 bg-white">
+    <View className="mb-4 bg-white relative">
+      {highlightedPostListLoading && jobPostBookmarksLoading ? (
+        <OverlaySpinner />
+      ) : null}
       <Swiper
         loop={false}
         showsButtons={false}
@@ -73,7 +98,12 @@ const JobPostListSection: React.FC = () => {
               scrollEnabled={false}
               data={list}
               renderItem={({ item }) => (
-                <SearchJobPostListItem {...item.node} isBookMarked={false} />
+                <SearchJobPostListItem
+                  {...item.node}
+                  isBookMarked={Boolean(
+                    jobPostBookmarkIds?.includes(item.node.uuid)
+                  )}
+                />
               )}
               keyExtractor={item => `${item.node.id}`}
             />

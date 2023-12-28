@@ -37,7 +37,7 @@ const openJobSearchScreen =
 const openJobPostDetailScreen: OpenJobPostDetailScreenProps =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
-    navigation.navigate('SearchJobNavigator', {
+    navigation.navigate('ModalNavigator', {
       screen: NAV_SCREENS.JobPostDetailScreen,
       params: props,
     });
@@ -221,6 +221,15 @@ const openMyPageScreen =
     });
   };
 
+const openMyBookmarkScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate('MyBookmarkNavigator', {
+      screen: NAV_SCREENS.MyBookMarkScreen,
+      params: props,
+    });
+  };
+
 const navigate = (
   navigation: NavigationProp<ReactNavigation.RootParamList>
 ) => ({
@@ -249,6 +258,7 @@ const navigate = (
   openMyPageScreen: openMyPageScreen(navigation),
   openResumeEditEtcInfoScreen: openResumeEditEtcInfoScreen(navigation),
   openVisaInfoScreen: openVisaInfoScreen(navigation),
+  openMyBookmarkScreen: openMyBookmarkScreen(navigation),
 });
 
 export default navigate;

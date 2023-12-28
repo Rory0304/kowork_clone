@@ -5,9 +5,9 @@ import {
   FRAGMENT_JOB_POST_LIST_ITEM,
 } from '../fragment/jobPost';
 
-export const GET_JOB_POST_BY_ID = gql`
-  query GetJobPost($uuid: UUID) {
-    jobPostCollection(filter: { uuid: { eq: $uuid } }) {
+export const GET_JOB_POSTS_BY_ID = gql`
+  query GetJobPostsById($uuids: [UUID!]) {
+    jobPostCollection(filter: { uuid: { in: $uuids } }) {
       edges {
         node {
           ...JobPostItemFields

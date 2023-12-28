@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HeaderBackIcon from 'app/components/blocks/Icon/HeaderBackIcon';
+import JobPostDetailScreen from 'app/screens/JobPostDetail/JobPostDetailScreen';
 import MyApplyListScreen from 'app/screens/MyPage/MyApplyListScreen';
 import MyNotificationScreen from 'app/screens/MyPage/MyNotificationScreen';
 import MyVisaEnrollScreen from 'app/screens/MyPage/MyVisaEnrollScreen';
@@ -15,7 +16,7 @@ import VisaTestF27Screen from 'app/screens/Visa/VisaTestF27Screen';
 
 import { NAV_SCREENS } from '../constants/Routes';
 
-const Stack = createNativeStackNavigator();
+const NativeStack = createNativeStackNavigator();
 
 const ModalNavigator: React.FC = () => {
   const navigation = useNavigation();
@@ -23,30 +24,30 @@ const ModalNavigator: React.FC = () => {
   const onPressBackHandle = () => navigation.goBack();
 
   return (
-    <Stack.Navigator screenOptions={{ presentation: 'fullScreenModal' }}>
-      <Stack.Screen
+    <NativeStack.Navigator screenOptions={{ presentation: 'fullScreenModal' }}>
+      <NativeStack.Screen
         name={NAV_SCREENS.NoticeItemScreen}
         component={NoticeItemScreen}
       />
-      <Stack.Screen
+      <NativeStack.Screen
         name={NAV_SCREENS.MyNotificationScreen}
         component={MyNotificationScreen}
       />
-      <Stack.Screen
+      <NativeStack.Screen
         name={NAV_SCREENS.VisaTestD101}
         component={VisaTestD101Screen}
         options={{
           headerTitle: 'D-10-1 Test',
         }}
       />
-      <Stack.Screen
+      <NativeStack.Screen
         name={NAV_SCREENS.VisaTestF27}
         component={VisaTestF27Screen}
         options={{
           headerTitle: 'F-2-7 Test',
         }}
       />
-      <Stack.Screen
+      <NativeStack.Screen
         name={NAV_SCREENS.MyVisaEnrollScreen}
         component={MyVisaEnrollScreen}
         options={{
@@ -55,14 +56,14 @@ const ModalNavigator: React.FC = () => {
           headerLeft: () => <HeaderBackIcon onPress={onPressBackHandle} />,
         }}
       />
-      <Stack.Screen
+      <NativeStack.Screen
         name={NAV_SCREENS.MyApplyListScreen}
         component={MyApplyListScreen}
         options={{
           headerTitle: '지원내역',
         }}
       />
-      <Stack.Screen
+      <NativeStack.Screen
         name={NAV_SCREENS.MyVisaHistoryScreen}
         component={MyVisaHistory}
         options={{
@@ -70,7 +71,7 @@ const ModalNavigator: React.FC = () => {
           headerLeft: () => <HeaderBackIcon onPress={onPressBackHandle} />,
         }}
       />
-      <Stack.Screen
+      <NativeStack.Screen
         name={NAV_SCREENS.VisaInfoScreen}
         component={VisaInfoScreen}
         options={{
@@ -78,7 +79,14 @@ const ModalNavigator: React.FC = () => {
           headerLeft: () => <HeaderBackIcon onPress={onPressBackHandle} />,
         }}
       />
-    </Stack.Navigator>
+      <NativeStack.Screen
+        name={NAV_SCREENS.JobPostDetailScreen}
+        component={JobPostDetailScreen}
+        options={{
+          headerLeft: () => <HeaderBackIcon onPress={onPressBackHandle} />,
+        }}
+      />
+    </NativeStack.Navigator>
   );
 };
 
