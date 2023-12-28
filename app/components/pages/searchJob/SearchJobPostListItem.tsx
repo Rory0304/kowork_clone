@@ -1,10 +1,10 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import EmptyStarIcon from 'react-native-heroicons/outline/StarIcon';
-import FilledStarIcon from 'react-native-heroicons/solid/StarIcon';
 
 import { useNavigation } from '@react-navigation/native';
 
+import BookMarkButton from 'app/components/pages/global/BookMarkButton/BookMarkButton';
+import { useAuth } from 'app/contexts/AuthProvider';
 import type { JobPostType } from 'app/types/JobPost';
 import navigate from 'app/utils/navigationHelper';
 
@@ -33,11 +33,12 @@ const SearchJobPostListItem: React.FC<JobPostListItemProps> = ({
   jobType,
   isBookMarked,
 }) => {
+  const { userInfo } = useAuth();
   const navigation = useNavigation();
   const navigator = navigate(navigation);
 
   return (
-    <Pressable onPress={() => navigator.openJobPostDetailScreen(uuid)}>
+    <Pressable onPress={() => navigator.openJobPostDetailScreen({ uuid })}>
       <View className="p-4 border-t border-gray-200 bg-gray-50">
         <View className="flex flex-row justify-between">
           <View>
@@ -47,7 +48,13 @@ const SearchJobPostListItem: React.FC<JobPostListItemProps> = ({
               {companyName}
             </Text>
           </View>
-          <View>{isBookMarked ? <FilledStarIcon /> : <EmptyStarIcon />}</View>
+          <View className="v-10">
+            <BookMarkButton
+              userId={userInfo?.id || ''}
+              jobPostId={uuid}
+              bookMarkStatus={isBookMarked}
+            />
+          </View>
         </View>
         <View className="flex flex-row justify-between">
           <Text className="text-neutral-500">
