@@ -221,6 +221,15 @@ const openMyPageScreen =
     });
   };
 
+const openMyBookMarkScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate('MyPageNavigator', {
+      screen: NAV_SCREENS.MyBookMarkScreen,
+      params: props,
+    });
+  };
+
 const navigate = (
   navigation: NavigationProp<ReactNavigation.RootParamList>
 ) => ({
@@ -249,6 +258,7 @@ const navigate = (
   openMyPageScreen: openMyPageScreen(navigation),
   openResumeEditEtcInfoScreen: openResumeEditEtcInfoScreen(navigation),
   openVisaInfoScreen: openVisaInfoScreen(navigation),
+  openMyBookMarkScreen: openMyBookMarkScreen(navigation),
 });
 
 export default navigate;
