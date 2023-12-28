@@ -2,19 +2,20 @@ import React from 'react';
 import { Text } from 'react-native';
 import MagnifyingGlassIcon from 'react-native-heroicons/outline/MagnifyingGlassIcon';
 
+import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import HeaderBackIcon from 'app/components/blocks/Icon/HeaderBackIcon';
 import { NAV_SCREENS } from 'app/constants/Routes';
 
-import JobPostDetailScreen from '../screens/JobPostDetail/JobPostDetailScreen';
 import SearchJobScreen from '../screens/SearchJob/SearchJobScreen';
 
-const Stack = createStackNavigator();
+const NativeStack = createStackNavigator();
 
 const SearchJobNavigator: React.FC = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <NativeStack.Navigator>
+      <NativeStack.Screen
         name={NAV_SCREENS.SearchJobScreen}
         component={SearchJobScreen}
         options={{
@@ -25,15 +26,7 @@ const SearchJobNavigator: React.FC = () => {
           headerRight: () => <MagnifyingGlassIcon color="text-neutral-400" />,
         }}
       />
-      <Stack.Screen
-        name={NAV_SCREENS.JobPostDetailScreen}
-        component={JobPostDetailScreen}
-        options={{
-          headerTitleStyle: { display: 'none' },
-          headerBackTitleVisible: false,
-        }}
-      />
-    </Stack.Navigator>
+    </NativeStack.Navigator>
   );
 };
 

@@ -10,6 +10,7 @@ import { useProfile } from 'app/contexts/ProfileProvider';
 import AuthNavigator from './AuthNavigator';
 import BottomTabNavigator from './BottomTabNavigator';
 import ModalNavigator from './ModalNavigator';
+import MyBookmarkNavigator from './MyBookmarkNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import ResumeEditNavigator from './ResumeEditNavigator';
 
@@ -75,6 +76,10 @@ const AppNavigator: React.FC = () => {
         <AppStack.Screen
           name="ResumeEditNavigator"
           component={ResumeEditNavigator}
+        />
+        <AppStack.Screen
+          name="MyBookmarkNavigator"
+          component={MyBookmarkNavigator}
         />
         <AppStack.Screen name="ModalNavigator" component={ModalNavigator} />
       </AppStack.Navigator>
