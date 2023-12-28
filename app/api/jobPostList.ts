@@ -6,9 +6,9 @@ import {
   GetJobPostByFilterDocument,
   GetJobPostByFilterQuery,
   GetJobPostByFilterQueryVariables,
-  GetJobPostDocument,
-  GetJobPostQuery,
-  GetJobPostQueryVariables,
+  GetJobPostsByIdDocument,
+  GetJobPostsByIdQuery,
+  GetJobPostsByIdQueryVariables,
   JobCategory as JobCategoryType,
 } from '../graphql/generated';
 import { getFetchPolicy } from '../utils/getFetchPolicy';
@@ -24,12 +24,12 @@ interface getJobPostByIdParams {
 
 export const getJobPostById = async ({ uuid }: getJobPostByIdParams) => {
   const { data } = await client.query<
-    GetJobPostQuery,
-    GetJobPostQueryVariables
+    GetJobPostsByIdQuery,
+    GetJobPostsByIdQueryVariables
   >({
-    query: GetJobPostDocument,
+    query: GetJobPostsByIdDocument,
     variables: {
-      uuid: uuid,
+      uuids: [uuid],
     },
     fetchPolicy: getFetchPolicy(),
   });
