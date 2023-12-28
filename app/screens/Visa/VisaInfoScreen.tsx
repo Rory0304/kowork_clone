@@ -10,6 +10,7 @@ import {
   VisaInfoBoxHeader,
 } from 'app/components/pages/global/BottomSheetContent/VisaInfoBox';
 import { VisaCategory, VisaInfo } from 'app/constants/VisaDetail';
+import useVisaBookmark from 'app/hooks/useVisaBookmark';
 
 interface GroupItemByCategory {
   visaCode: keyof typeof VisaInfo;
@@ -30,6 +31,10 @@ const VisaInfoScreen: React.FC = () => {
   >('All');
   const [selectedVisa, setSelectedVisa] =
     React.useState<GroupItemByCategory | null>(null);
+
+  const { toggleBookmark, isBookmarked } = useVisaBookmark({
+    visaCode: selectedVisa?.visaCode || '',
+  });
 
   // Bottom Sheet
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
@@ -54,6 +59,7 @@ const VisaInfoScreen: React.FC = () => {
     [VisaInfo]
   );
 
+  console.log('isBookmarked', isBookmarked);
   return (
     <ScrollView className="bg-white">
       <ScrollView
@@ -124,6 +130,8 @@ const VisaInfoScreen: React.FC = () => {
               selectedVisa?.title
             })`}
             onClose={() => bottomSheetRef?.current?.close()}
+            isBookmarked={isBookmarked}
+            toggleBookmark={() => toggleBookmark(selectedVisa?.visaCode || '')}
           />
         }
       >
