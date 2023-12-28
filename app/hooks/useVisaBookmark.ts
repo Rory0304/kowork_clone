@@ -20,6 +20,7 @@ interface useVisaBookmarkProps {
   updateFailCallback?: () => void;
 }
 
+// [TODO] Refactor logic of setting visa bookmark status (remove visabook mark list)
 const useVisaBookmark = ({
   visaCode,
   updateFailCallback,
@@ -37,8 +38,6 @@ const useVisaBookmark = ({
         userId: userInfo?.id,
       },
     });
-
-  console.log(visaBookmarkList);
 
   const [insertBookMark] = useMutation<
     InsertVisaBookmarkMutation,
