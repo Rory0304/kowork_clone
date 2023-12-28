@@ -10,18 +10,19 @@ import {
 import ArrowPathIcon from 'react-native-heroicons/solid/ArrowPathIcon';
 import MapPinIcon from 'react-native-heroicons/solid/MapPinIcon';
 
-import {
-  BottomSheetBackdrop,
-  BottomSheetModal,
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet';
-import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import { useQuery as ApolloUseQuery } from '@apollo/client';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useQuery } from '@tanstack/react-query';
 
 import { JobCategoryType, getJobPostByFilter } from 'app/api/jobPostList';
-import Chip from 'app/components/blocks/Chip/Chip';
-import Stack from 'app/components/blocks/Stack/Stack';
+import { BottomSheet, Chip, Stack } from 'app/components/blocks';
 import { JobType, JobTypeCategory } from 'app/constants/JobCategory';
+import { useAuth } from 'app/contexts/AuthProvider';
+import {
+  GetJobPostBookmarkByIdsDocument,
+  GetJobPostBookmarkByIdsQuery,
+  GetJobPostBookmarkByIdsQueryVariables,
+} from 'app/graphql/generated';
 
 import SearchJobAreaBox from './SearchJobAreaBox';
 import SearchJobPostListItem from './SearchJobPostListItem';
@@ -38,6 +39,8 @@ interface JobPostListItemProps {
 }
 
 const SearchJobFilterSection: React.FC = () => {
+  const { userInfo } = useAuth();
+
   const [selectedJobType, setSelectedJobType] = React.useState<
     keyof typeof JobType
   >(JobType.All);
@@ -48,7 +51,7 @@ const SearchJobFilterSection: React.FC = () => {
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
   const snapPoints = React.useMemo(() => ['65%'], []);
 
-  const { data, isError, error } = useQuery({
+  const { data } = useQuery({
     queryKey: [selectedArea, selectedJobType],
     queryFn: async () =>
       await getJobPostByFilter({
@@ -61,6 +64,21 @@ const SearchJobFilterSection: React.FC = () => {
 
   const searchedJobPost = data?.jobPost;
   const pageInfo = data?.pageInfo;
+
+  const { data: jobPostBookmarks, refetch } = ApolloUseQuery<
+    GetJobPostBookmarkByIdsQuery,
+    GetJobPostBookmarkByIdsQueryVariables
+  >(GetJobPostBookmarkByIdsDocument, {
+    variables: {
+      jobPostIds: searchedJobPost?.map(res => res.node.uuid),
+      userId: userInfo?.id,
+    },
+  });
+
+  const jobPostBookmarkIds =
+    jobPostBookmarks?.jobPostBookmarkCollection?.edges?.map(
+      res => res.node.job_post_id
+    );
 
   React.useEffect(() => {
     setCursor(pageInfo?.endCursor);
@@ -79,74 +97,53 @@ const SearchJobFilterSection: React.FC = () => {
     bottomSheetRef.current?.close();
   };
 
-  const renderBackdrop = React.useCallback(
-    (
-      props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps
-    ) => (
-      <BottomSheetBackdrop
-        {...props}
-        disappearsOnIndex={1}
-        appearsOnIndex={2}
-        pressBehavior={'close'}
-      />
-    ),
-    []
-  );
-
-  const ResetButton = (
-    <Pressable onPress={handleOptionResetClick}>
-      <ArrowPathIcon />
-    </Pressable>
-  );
-
-  const AreaFilter = (
-    <TouchableOpacity onPress={handleAreaFilterOpen}>
-      <Stack styles="items-center border-b px-1 pb-0.5 justify-between">
-        <Text className="mr-1">
-          {selectedArea.length === 0
-            ? '지역'
-            : selectedArea.length === 1
-            ? selectedArea[0]
-            : `${selectedArea[0]} 외 ${selectedArea.length - 1} 곳`}
-        </Text>
-        <MapPinIcon width={20} height={20} />
-      </Stack>
-    </TouchableOpacity>
-  );
-
-  const JobTypeFilter = (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <Stack columnGap={8} styles="mx-4">
-        {(Object.keys(JobTypeCategory) as Array<keyof typeof JobType>).map(
-          jobTypekey => (
-            <Chip
-              key={jobTypekey}
-              label={JobTypeCategory[jobTypekey]}
-              variant={jobTypekey === 'All' ? 'filled' : 'outlined'}
-              active={jobTypekey === selectedJobType}
-              onPress={() => setSelectedJobType(jobTypekey)}
-            />
-          )
-        )}
-      </Stack>
-    </ScrollView>
-  );
-
   return (
     <View className="py-4 bg-white">
       <View>
         <Stack styles="justify-between mb-6 px-4">
-          {ResetButton}
-          {AreaFilter}
+          <Pressable onPress={handleOptionResetClick}>
+            <ArrowPathIcon />
+          </Pressable>
+          <TouchableOpacity onPress={handleAreaFilterOpen}>
+            <Stack styles="items-center border-b px-1 pb-0.5 justify-between">
+              <Text className="mr-1">
+                {selectedArea.length === 0
+                  ? '지역'
+                  : selectedArea.length === 1
+                  ? selectedArea[0]
+                  : `${selectedArea[0]} 외 ${selectedArea.length - 1} 곳`}
+              </Text>
+              <MapPinIcon width={20} height={20} />
+            </Stack>
+          </TouchableOpacity>
         </Stack>
-        {JobTypeFilter}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <Stack columnGap={8} styles="mx-4">
+            {(Object.keys(JobTypeCategory) as Array<keyof typeof JobType>).map(
+              jobTypekey => (
+                <Chip
+                  key={jobTypekey}
+                  label={JobTypeCategory[jobTypekey]}
+                  variant={jobTypekey === 'All' ? 'filled' : 'outlined'}
+                  active={jobTypekey === selectedJobType}
+                  onPress={() => setSelectedJobType(jobTypekey)}
+                />
+              )
+            )}
+          </Stack>
+        </ScrollView>
       </View>
       <View>
         <FlatList
           scrollEnabled={false}
           data={searchedJobPost}
           renderItem={({ item }) => (
-            <SearchJobPostListItem {...item.node} isBookMarked={false} />
+            <SearchJobPostListItem
+              {...item.node}
+              isBookMarked={Boolean(
+                jobPostBookmarkIds?.includes(item.node.uuid)
+              )}
+            />
           )}
           keyExtractor={item => `${item.node.id}`}
           ListEmptyComponent={
@@ -158,22 +155,19 @@ const SearchJobFilterSection: React.FC = () => {
           }
         />
       </View>
-      <BottomSheetModal
+      <BottomSheet
         ref={bottomSheetRef}
-        index={0}
         snapPoints={snapPoints}
-        backdropComponent={renderBackdrop}
+        onClose={handleBottomSheetClose}
       >
-        <BottomSheetScrollView>
-          <SearchJobAreaBox
-            defaultArea={selectedArea}
-            onSaveBtnClick={areaList => {
-              setSelectedArea(areaList);
-              handleBottomSheetClose();
-            }}
-          />
-        </BottomSheetScrollView>
-      </BottomSheetModal>
+        <SearchJobAreaBox
+          defaultArea={selectedArea}
+          onSaveBtnClick={areaList => {
+            setSelectedArea(areaList);
+            handleBottomSheetClose();
+          }}
+        />
+      </BottomSheet>
     </View>
   );
 };

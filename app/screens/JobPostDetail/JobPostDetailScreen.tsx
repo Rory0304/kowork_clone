@@ -65,7 +65,6 @@ const JobPostDetailScreen: React.FC = () => {
             userId: userInfo?.id || '',
           }),
       ]).then(result => {
-        console.log(result);
         return {
           companyData: result[0].companyData,
           jobPostId: result[1]?.jobPostBookmarks?.[0]?.job_post_id,
@@ -78,9 +77,8 @@ const JobPostDetailScreen: React.FC = () => {
     navigation.setOptions({
       headerRight: () => (
         <BookMarkButton
-          userId={userInfo?.id || ''}
           jobPostId={uuid}
-          bookMarkStatus={Boolean(companyAndFavData?.jobPostId === uuid)}
+          bookmarkStatus={Boolean(companyAndFavData?.jobPostId === uuid)}
         />
       ),
     });
