@@ -10,6 +10,7 @@ import MyNotificationScreen from 'app/screens/MyPage/MyNotificationScreen';
 import MyVisaEnrollScreen from 'app/screens/MyPage/MyVisaEnrollScreen';
 import MyVisaHistory from 'app/screens/MyPage/MyVisaHistory';
 import NoticeItemScreen from 'app/screens/NoticeItem/NoticeItemScreen';
+import SearchJobPostScreen from 'app/screens/SearchJobPost/SearchJobPostScreen';
 import VisaInfoScreen from 'app/screens/Visa/VisaInfoScreen';
 import VisaTestD101Screen from 'app/screens/Visa/VisaTestD101Screen';
 import VisaTestF27Screen from 'app/screens/Visa/VisaTestF27Screen';
@@ -83,6 +84,14 @@ const ModalNavigator: React.FC = () => {
         name={NAV_SCREENS.JobPostDetailScreen}
         component={JobPostDetailScreen}
         options={{
+          headerLeft: () => <HeaderBackIcon onPress={onPressBackHandle} />,
+        }}
+      />
+      <NativeStack.Screen
+        name={NAV_SCREENS.SearchJobPostScreen}
+        component={SearchJobPostScreen}
+        options={{
+          headerTitle: '채용 공고 검색',
           headerLeft: () => <HeaderBackIcon onPress={onPressBackHandle} />,
         }}
       />
