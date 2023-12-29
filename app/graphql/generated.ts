@@ -261,11 +261,22 @@ export type IntFilter = {
 };
 
 export enum JobCategory {
+  Architecture = 'Architecture',
+  Cs = 'Cs',
+  Design = 'Design',
+  Education = 'Education',
   Etc = 'Etc',
+  It = 'It',
   Language = 'Language',
+  Management = 'Management',
   Manufacture = 'Manufacture',
+  Marketing = 'Marketing',
+  Model = 'Model',
   Office = 'Office',
-  PartTime = 'PartTime'
+  PartTime = 'PartTime',
+  Service = 'Service',
+  Trade = 'Trade',
+  Translate = 'Translate'
 }
 
 /** Boolean expression comparing fields on type "JobCategory" */
@@ -2142,6 +2153,20 @@ export const GetJobPostsByIdDocument = gql`
   }
 }
     ${JobPostItemFieldsFragmentDoc}`;
+export const GetJobPostByKeywordDocument = gql`
+    query GetJobPostByKeyword($title: String, $jobCategory: JobCategory) {
+  jobPostCollection(
+    filter: {or: [{title: {like: $title}}, {jobCategory: {eq: $jobCategory}}]}
+    orderBy: [{created_at: DescNullsLast}]
+  ) {
+    edges {
+      node {
+        ...JobPostListItemFields
+      }
+    }
+  }
+}
+    ${JobPostListItemFieldsFragmentDoc}`;
 export const GetJobPostByFilterDocument = gql`
     query GetJobPostByFilter($jobCategory: [JobCategory!], $siDo: [String!], $first: Int, $after: Cursor) {
   jobPostCollection(
@@ -2412,6 +2437,14 @@ export type GetJobPostsByIdQueryVariables = Exact<{
 
 
 export type GetJobPostsByIdQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, uuid: any, title: string, companyName: string, companyId: any, area: string, images?: any | null, salary?: any | null, benefits: string, jobDescription: any, workingDays: any, workLocation: string, workingHoursEnd: any, workingHoursStart: any, jobType: JobType, employmentArrangement: EmploymentArrangement, preferredVisaList: any, endDate?: any | null, siDo: string, siGunGu: string } }> } | null };
+
+export type GetJobPostByKeywordQueryVariables = Exact<{
+  title?: InputMaybe<Scalars['String']['input']>;
+  jobCategory?: InputMaybe<JobCategory>;
+}>;
+
+
+export type GetJobPostByKeywordQuery = { __typename?: 'Query', jobPostCollection?: { __typename?: 'JobPostConnection', edges: Array<{ __typename?: 'JobPostEdge', node: { __typename?: 'JobPost', id: any, uuid: any, title: string, companyName: string, jobCategory: JobCategory, jobType: JobType, endDate?: any | null, siDo: string, siGunGu: string } }> } | null };
 
 export type GetJobPostByFilterQueryVariables = Exact<{
   jobCategory?: InputMaybe<Array<JobCategory> | JobCategory>;

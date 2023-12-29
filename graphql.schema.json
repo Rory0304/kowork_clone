@@ -2059,7 +2059,37 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "Architecture",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Cs",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Design",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Education",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "Etc",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "It",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2071,7 +2101,25 @@
             "deprecationReason": null
           },
           {
+            "name": "Management",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "Manufacture",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Marketing",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Model",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2084,6 +2132,24 @@
           },
           {
             "name": "PartTime",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Service",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Trade",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Translate",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
