@@ -43,6 +43,15 @@ const openJobPostDetailScreen: OpenJobPostDetailScreenProps =
     });
   };
 
+const openSearchJobPostScreen =
+  (navigation: NavigationProp<any, any>) =>
+  (props = {}) => {
+    navigation.navigate('ModalNavigator', {
+      screen: NAV_SCREENS.SearchJobPostScreen,
+      params: props,
+    });
+  };
+
 const openVisaTestD101Screen =
   (navigation: NavigationProp<any, any>) =>
   (props = {}) => {
@@ -238,6 +247,7 @@ const navigate = (
   openJobSearchScreen: openJobSearchScreen(navigation),
   openNoticeItemModal: openNoticeItemModal(navigation),
   openJobPostDetailScreen: openJobPostDetailScreen(navigation),
+  openSearchJobPostScreen: openSearchJobPostScreen(navigation),
   openVisaTestD101Screen: openVisaTestD101Screen(navigation),
   openVisaTestF27Screen: openVisaTestF27Screen(navigation),
   openMyApplyListScreen: openMyApplyListScreen(navigation),
