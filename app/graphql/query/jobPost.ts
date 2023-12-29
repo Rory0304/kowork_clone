@@ -19,6 +19,25 @@ export const GET_JOB_POSTS_BY_ID = gql`
   ${FRAGMENT_JOB_POST_ITEM}
 `;
 
+export const GET_JOB_POST_BY_KEYWORD = gql`
+  query GetJobPostByKeyword($title: String, $jobCategory: JobCategory) {
+    jobPostCollection(
+      filter: {
+        or: [{ title: { like: $title } }, { jobCategory: { eq: $jobCategory } }]
+      }
+      orderBy: [{ created_at: DescNullsLast }]
+    ) {
+      edges {
+        node {
+          ...JobPostListItemFields
+        }
+      }
+    }
+  }
+
+  ${FRAGMENT_JOB_POST_LIST_ITEM}
+`;
+
 export const GET_JOB_POST_BY_FILTER = gql`
   query GetJobPostByFilter(
     $jobCategory: [JobCategory!]
