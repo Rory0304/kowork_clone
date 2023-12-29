@@ -2065,7 +2065,7 @@
             "deprecationReason": null
           },
           {
-            "name": "CS",
+            "name": "Cs",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2089,7 +2089,7 @@
             "deprecationReason": null
           },
           {
-            "name": "IT",
+            "name": "It",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
