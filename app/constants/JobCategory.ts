@@ -1,11 +1,4 @@
-export enum JobType {
-  All = 'All',
-  Manufacture = 'Manufacture',
-  Office = 'Office',
-  PartTime = 'PartTime',
-  Language = 'Language',
-  Etc = 'Etc',
-}
+import { JobCategoryType } from 'app/types/JobPost';
 
 export const AREA_LIST = [
   '서울특별시',
@@ -27,11 +20,21 @@ export const AREA_LIST = [
   '제주도',
 ];
 
-export const JobTypeCategory: Record<JobType, string> = {
-  [JobType.All]: '전체',
-  [JobType.Manufacture]: '생산·제조',
-  [JobType.Office]: '사무직',
-  [JobType.PartTime]: '파트타임',
-  [JobType.Language]: '언어',
-  [JobType.Etc]: '기타',
+export const JobCategoryList: Record<JobCategoryType, string> = {
+  [JobCategoryType.Design]: '디자인',
+  [JobCategoryType.Architecture]: '건설',
+  [JobCategoryType.Manufacture]: '생산·제조',
+  [JobCategoryType.It]: 'IT',
+  [JobCategoryType.Management]: '경영/사무',
+  [JobCategoryType.Marketing]: '마케팅/광고',
+  [JobCategoryType.Education]: '교육',
+  [JobCategoryType.Trade]: '무역/물류',
+  [JobCategoryType.Cs]: '영업/CS',
+  [JobCategoryType.Service]: '서비스',
+  [JobCategoryType.Model]: '모델',
+  [JobCategoryType.Translate]: '번역',
+  [JobCategoryType.Office]: '사무직',
+  [JobCategoryType.PartTime]: '파트타임',
+  [JobCategoryType.Language]: '언어',
+  [JobCategoryType.Etc]: '기타',
 };
