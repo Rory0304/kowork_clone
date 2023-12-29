@@ -9,7 +9,7 @@ import {
 
 const JobPostScreen: React.FC = () => {
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ height: '100%' }}>
       <View className="py-6 bg-white">
         <SearchJobMainBanner />
       </View>
