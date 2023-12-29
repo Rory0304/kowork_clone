@@ -18,6 +18,7 @@ export enum NAV_SCREENS {
   MainScreen = 'MainScreen', // 메인 화면
   SearchJobScreen = 'SearchJobScreen', // 일자리 찾기
   JobPostDetailScreen = 'JobPostDetailScreen', // 일자리 디테일
+  SearchJobPostScreen = 'SearchJobPostScreen', // 채용 공고 검색
 
   // Visa
   VisaScreen = 'VisaScreen',
