@@ -38,7 +38,7 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
 
   const { userInfo } = useAuth();
   const { enqueueSnackbar } = useSnackbars();
-  const { supbaseClient } = useSupabaseClient();
+  const { supabaseClient } = useSupabaseClient();
 
   const [apiStatus, setApiStatus] = React.useState<APIStatus>('idle');
 
@@ -61,12 +61,12 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
     userId?: string;
     resumeData: FormDataType;
   }) => {
-    if (userId && supbaseClient) {
+    if (userId && supabaseClient) {
       try {
         setApiStatus('pending');
 
         const attatchmentFilePath = resumeData.etc.attatchmentFile?.file
-          ? await uploadDocument(supbaseClient)({
+          ? await uploadDocument(supabaseClient)({
               fileName: resumeData.etc.attatchmentFile.name,
               file: resumeData.etc.attatchmentFile.file,
               storageName: SupabaseStorage.resumeFile,
@@ -74,7 +74,7 @@ const ResumeEditEtcInfoScreen: React.FC = () => {
           : null;
 
         const profileImagePath = resumeData.etc.profileImage?.base64
-          ? await uploadImage(supbaseClient)({
+          ? await uploadImage(supabaseClient)({
               fileName: resumeData.etc.profileImage.name,
               base64: resumeData.etc.profileImage.base64,
               fileType: resumeData.etc.profileImage.type,
