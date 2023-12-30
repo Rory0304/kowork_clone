@@ -11,11 +11,11 @@ import { MAX_WIDTH } from 'app/constants/styles/Global';
 
 interface BottomSheetProps {
   snapPoints: string[];
-  onClose: () => void;
   headerTitle?: string;
   HeaderComponent?: React.ReactNode;
   closeBtn?: boolean;
   children: React.ReactNode;
+  onClose?: () => void;
 }
 
 export const BottomSheetCloseBtn = ({ onClose }: { onClose: () => void }) => {
