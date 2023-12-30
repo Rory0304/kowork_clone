@@ -59,7 +59,6 @@ const VisaInfoScreen: React.FC = () => {
     [VisaInfo]
   );
 
-  console.log('isBookmarked', isBookmarked);
   return (
     <ScrollView className="bg-white">
       <ScrollView

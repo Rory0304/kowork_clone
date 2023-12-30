@@ -19,14 +19,12 @@ const MainScreen: React.FC = () => {
       <ImportantNoticeSection />
       <SearchJobMainBanner />
       <JobPostListSection />
-      <View className="px-4">
-        <VStack space={8}>
-          <VisaRecommendSection />
-        </VStack>
-        <VStack space={8}>
-          <VisaTestSection description="쉽고 빠르게 비자 취득 요건을 확인해보세요!" />
-        </VStack>
-      </View>
+      <VStack space={8}>
+        <VisaRecommendSection />
+      </VStack>
+      <VStack space={8}>
+        <VisaTestSection description="쉽고 빠르게 비자 취득 요건을 확인해보세요!" />
+      </VStack>
     </ScrollView>
   );
 };

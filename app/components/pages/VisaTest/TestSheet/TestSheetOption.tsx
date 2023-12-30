@@ -89,13 +89,13 @@ const TestSheetOption: React.FC<TestSheetOptionProps> = ({
   const getLayoutStyles = (layout: ItemLayout) => {
     switch (layout) {
       case 'grid':
-        return 'max-w-[48%] basis-1/2';
+        return 'max-w-[48%] basis-1/2 shrink';
 
       case 'horiztonal':
         return 'max-w-[30.6%] basis-1/3';
 
       case 'vertical':
-        return 'basis-1';
+        return 'flex-1';
 
       default:
         return '';

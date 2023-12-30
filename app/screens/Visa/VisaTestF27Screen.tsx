@@ -56,16 +56,18 @@ const VisaTestF27: React.FC = () => {
         scrollEventThrottle={12}
       >
         <VisaTestNoticeAccordion />
-        <TestSheet {...requiredTest}>
-          {requiredTest.items.map((item, index) => (
-            <QuestionItem
-              key={item.name}
-              index={index + 1}
-              onOptionClickCallback={handleTotoalScoreSet}
-              {...item}
-            />
-          ))}
-        </TestSheet>
+        <View className="mb-24">
+          <TestSheet {...requiredTest}>
+            {requiredTest.items.map((item, index) => (
+              <QuestionItem
+                key={item.name}
+                index={index + 1}
+                onOptionClickCallback={handleTotoalScoreSet}
+                {...item}
+              />
+            ))}
+          </TestSheet>
+        </View>
       </ScrollView>
       <VisaTestScoreFooter
         totalScore={totalScore}

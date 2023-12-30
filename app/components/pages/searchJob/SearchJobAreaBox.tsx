@@ -10,11 +10,13 @@ import { AREA_LIST } from 'app/constants/JobCategory';
 interface SearchJobAreaBoxProps {
   defaultArea: string[];
   onSaveBtnClick: (areaList: string[]) => void;
+  onClose: () => void;
 }
 
 const SearchJobAreaBox: React.FC<SearchJobAreaBoxProps> = ({
   defaultArea,
   onSaveBtnClick,
+  onClose,
 }) => {
   const [selectedArea, setSelectedArea] = React.useState(defaultArea);
 
@@ -25,7 +27,9 @@ const SearchJobAreaBox: React.FC<SearchJobAreaBoxProps> = ({
           'justify-between items-center w-full px-4 border-b border-neutral-100 pb-2 sticky top-0 left-0'
         }
       >
-        <XMarkIcon />
+        <TouchableOpacity onPress={onClose}>
+          <XMarkIcon />
+        </TouchableOpacity>
         <Text className="text-lg font-bold">지역 필터</Text>
         <TouchableOpacity onPress={() => setSelectedArea([])}>
           <ArrowPathIcon />
