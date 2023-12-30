@@ -16,7 +16,13 @@ const VisaNavigator: React.FC = () => {
         headerBackTitleVisible: true,
       }}
     >
-      <Stack.Screen name={NAV_SCREENS.VisaScreen} component={VisaScreen} />
+      <Stack.Screen
+        name={NAV_SCREENS.VisaScreen}
+        component={VisaScreen}
+        options={{
+          headerTitle: '비자 정보',
+        }}
+      />
     </Stack.Navigator>
   );
 };
