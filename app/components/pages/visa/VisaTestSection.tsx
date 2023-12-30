@@ -98,10 +98,11 @@ interface VisaTestSectionProps {
 const VisaTestSection: React.FC<VisaTestSectionProps> = ({ description }) => {
   return (
     <TitleAndDescriptionSection
+      sidePadding
       title="점수제 비자테스트"
       description={description}
     >
-      <Stack columnGap={16} styles="overflow-hidden">
+      <Stack columnGap={16} styles="overflow-hidden px-4">
         {VISA_TEST.map(item => (
           <Item key={item.type} {...item} />
         ))}

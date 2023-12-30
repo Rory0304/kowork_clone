@@ -95,7 +95,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
   };
 
   return (
-    <View className="w-full mb-8">
+    <View className="w-full pb-8">
       <View className="mb-2">
         <Stack styles="justify-between items-center mb-2">
           <Stack styles="items-center">
@@ -114,7 +114,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
       </View>
       <Stack
         direction={layout === 'vertical' ? 'column' : 'row'}
-        styles={layout === 'vertical' ? '' : 'flex-wrap'}
+        styles={layout === 'vertical' ? '' : 'flex-wrap justify-between'}
         rowGap={8}
         columnGap={10}
       >

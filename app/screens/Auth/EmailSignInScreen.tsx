@@ -126,7 +126,7 @@ const EmailSignInScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView className="px-4 pt-4 bg-white">
+    <ScrollView className="px-4 pt-4 bg-white flex-1">
       <FormInputBox
         title="이메일"
         InputComponent={

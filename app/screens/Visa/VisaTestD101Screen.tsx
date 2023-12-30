@@ -58,36 +58,38 @@ const VisaTestD101Screen: React.FC = () => {
         scrollEventThrottle={12}
       >
         <VisaTestNoticeAccordion />
-        <TestSheet {...requiredTest}>
-          {requiredTest.items.map((item, index) => (
-            <QuestionItem
-              key={item.name}
-              index={index + 1}
-              onOptionClickCallback={handleTotoalScoreSet}
-              {...item}
-            />
-          ))}
-        </TestSheet>
-        {optionalTest ? (
-          <TestSheet {...optionalTest}>
-            {optionalTest.items.map((item, index) => {
-              return item.name === 'workExperience' ? (
-                <WorkExperienceQuestionItem
-                  key={item.name}
-                  index={index + 1}
-                  {...item}
-                />
-              ) : (
-                <QuestionItem
-                  key={item.name}
-                  index={index + 1}
-                  onOptionClickCallback={handleTotoalScoreSet}
-                  {...item}
-                />
-              );
-            })}
+        <View className="mb-24">
+          <TestSheet {...requiredTest}>
+            {requiredTest.items.map((item, index) => (
+              <QuestionItem
+                key={item.name}
+                index={index + 1}
+                onOptionClickCallback={handleTotoalScoreSet}
+                {...item}
+              />
+            ))}
           </TestSheet>
-        ) : null}
+          {optionalTest ? (
+            <TestSheet {...optionalTest}>
+              {optionalTest.items.map((item, index) => {
+                return item.name === 'workExperience' ? (
+                  <WorkExperienceQuestionItem
+                    key={item.name}
+                    index={index + 1}
+                    {...item}
+                  />
+                ) : (
+                  <QuestionItem
+                    key={item.name}
+                    index={index + 1}
+                    onOptionClickCallback={handleTotoalScoreSet}
+                    {...item}
+                  />
+                );
+              })}
+            </TestSheet>
+          ) : null}
+        </View>
       </ScrollView>
       <VisaTestScoreFooter
         totalScore={totalScore}
