@@ -47,7 +47,7 @@ const ResumeEditNavigator: React.FC = () => {
   const navigation = useNavigation();
 
   const { userInfo } = useAuth();
-  const { supbaseClient } = useSupabaseClient();
+  const { supabaseClient } = useSupabaseClient();
 
   const method = useForm<FormDataType>({
     defaultValues: DEFAULT_RESUME_FORM_DATA,
@@ -79,7 +79,7 @@ const ResumeEditNavigator: React.FC = () => {
 
         const myResume = resumeData?.resumeCollection?.edges?.[0]?.node;
 
-        if (myResume && supbaseClient) {
+        if (myResume && supabaseClient) {
           const getPrivateUrl = async (props: GetStoragePrivateUrlProps) => {
             if (!!props.pathname) {
               return await getStoragePrivateUrl(supabaseClient)(props);
