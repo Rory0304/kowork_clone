@@ -48,7 +48,7 @@ const SearchJobFilterSection: React.FC = () => {
   // Bottom Sheet
   //
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
-  const snapPoints = React.useMemo(() => ['65%'], []);
+  const snapPoints = React.useMemo(() => ['75%'], []);
 
   const handleAreaFilterOpen = () => {
     bottomSheetRef.current?.present();
@@ -197,6 +197,7 @@ const SearchJobFilterSection: React.FC = () => {
             setSelectedArea(areaList);
             handleBottomSheetClose();
           }}
+          onClose={handleBottomSheetClose}
         />
       </BottomSheet>
     </View>
